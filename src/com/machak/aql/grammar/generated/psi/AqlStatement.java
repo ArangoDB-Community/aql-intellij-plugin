@@ -10,18 +10,15 @@ public interface AqlStatement extends PsiElement {
   AqlComment getComment();
 
   @Nullable
+  AqlKeywordStatements getKeywordStatements();
+
+  @Nullable
   AqlObjectExpression getObjectExpression();
 
   @Nullable
-  PsiElement getFor();
+  AqlPropertyName getPropertyName();
 
   @Nullable
-  PsiElement getIn();
-
-  @Nullable
-  PsiElement getReturn();
-
-  @Nullable
-  PsiElement getId();
+  AqlSequence getSequence();
 
 }

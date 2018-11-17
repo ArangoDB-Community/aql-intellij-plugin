@@ -27,6 +27,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = BlockComment(b, 0);
         } else if (t == COMMENT) {
             r = Comment(b, 0);
+        } else if (t == KEYWORD_STATEMENTS) {
+            r = KeywordStatements(b, 0);
         } else if (t == LINE_COMMENT) {
             r = LineComment(b, 0);
         } else if (t == OBJECT_EXPRESSION) {
@@ -39,6 +41,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = PropertyName(b, 0);
         } else if (t == QUERY_ITEM) {
             r = QueryItem(b, 0);
+        } else if (t == SEQUENCE) {
+            r = Sequence(b, 0);
         } else if (t == STATEMENT) {
             r = Statement(b, 0);
         } else {
@@ -81,6 +85,51 @@ public class AqlParser implements PsiParser, LightPsiParser {
         r = LineComment(b, l + 1);
         if (!r) {
             r = BlockComment(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // ASC
+    //                         | DESC
+    //                         | FILTER
+    //                         | FOR
+    //                         | IN
+    //                         | LET
+    //                         | LIMIT
+    //                         | RETURN
+    //                         | SORT
+    public static boolean KeywordStatements(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "KeywordStatements")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, KEYWORD_STATEMENTS, "<keyword statements>");
+        r = consumeToken(b, ASC);
+        if (!r) {
+            r = consumeToken(b, DESC);
+        }
+        if (!r) {
+            r = consumeToken(b, FILTER);
+        }
+        if (!r) {
+            r = consumeToken(b, FOR);
+        }
+        if (!r) {
+            r = consumeToken(b, IN);
+        }
+        if (!r) {
+            r = consumeToken(b, LET);
+        }
+        if (!r) {
+            r = consumeToken(b, LIMIT);
+        }
+        if (!r) {
+            r = consumeToken(b, RETURN);
+        }
+        if (!r) {
+            r = consumeToken(b, SORT);
         }
         exit_section_(b, l, m, r, false, null);
         return r;
@@ -167,7 +216,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // id
+    // ID
     public static boolean PropertyName(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "PropertyName")) {
             return false;
@@ -210,36 +259,87 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression) | (Comment)
+    // NUMBER_INTEGER ".." NUMBER_INTEGER
+    public static boolean Sequence(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Sequence")) {
+            return false;
+        }
+        if (!nextTokenIs(b, NUMBER_INTEGER)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, NUMBER_INTEGER);
+        r = r && consumeToken(b, "..");
+        r = r && consumeToken(b, NUMBER_INTEGER);
+        exit_section_(b, m, SEQUENCE, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // (KeywordStatements) |(PropertyName) | (Sequence) | (ObjectExpression) | (Comment)
     public static boolean Statement(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement")) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-        r = consumeToken(b, FOR);
+        r = Statement_0(b, l + 1);
         if (!r) {
-            r = consumeToken(b, IN);
+            r = Statement_1(b, l + 1);
         }
         if (!r) {
-            r = consumeToken(b, ID);
+            r = Statement_2(b, l + 1);
         }
         if (!r) {
-            r = consumeToken(b, RETURN);
+            r = Statement_3(b, l + 1);
         }
         if (!r) {
             r = Statement_4(b, l + 1);
-        }
-        if (!r) {
-            r = Statement_5(b, l + 1);
         }
         exit_section_(b, l, m, r, false, null);
         return r;
     }
 
+    // (KeywordStatements)
+    private static boolean Statement_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_0")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = KeywordStatements(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (PropertyName)
+    private static boolean Statement_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_1")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = PropertyName(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (Sequence)
+    private static boolean Statement_2(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_2")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = Sequence(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
     // (ObjectExpression)
-    private static boolean Statement_4(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_4")) {
+    private static boolean Statement_3(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_3")) {
             return false;
         }
         boolean r;
@@ -250,8 +350,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (Comment)
-    private static boolean Statement_5(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_5")) {
+    private static boolean Statement_4(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_4")) {
             return false;
         }
         boolean r;
@@ -281,13 +381,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     /* ********************************************************** */
     // !(
-    //                         FOR
-    //                         | IN
-    //                         | RETURN
-    //                         | ASC
-    //                         | DESC
-    //                         | id
+    //                         KeywordStatements
     //                         | ObjectExpression
+    //                         | Sequence
+    //                         | PropertyName
     //                         | Comment
     //                     )
     static boolean statement_recover(PsiBuilder b, int l) {
@@ -301,37 +398,25 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // FOR
-    //                         | IN
-    //                         | RETURN
-    //                         | ASC
-    //                         | DESC
-    //                         | id
+    // KeywordStatements
     //                         | ObjectExpression
+    //                         | Sequence
+    //                         | PropertyName
     //                         | Comment
     private static boolean statement_recover_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover_0")) {
             return false;
         }
         boolean r;
-        r = consumeToken(b, FOR);
-        if (!r) {
-            r = consumeToken(b, IN);
-        }
-        if (!r) {
-            r = consumeToken(b, RETURN);
-        }
-        if (!r) {
-            r = consumeToken(b, ASC);
-        }
-        if (!r) {
-            r = consumeToken(b, DESC);
-        }
-        if (!r) {
-            r = consumeToken(b, ID);
-        }
+        r = KeywordStatements(b, l + 1);
         if (!r) {
             r = ObjectExpression(b, l + 1);
+        }
+        if (!r) {
+            r = Sequence(b, l + 1);
+        }
+        if (!r) {
+            r = PropertyName(b, l + 1);
         }
         if (!r) {
             r = Comment(b, l + 1);

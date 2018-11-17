@@ -2,11 +2,7 @@
 package com.machak.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
 
-public interface AqlPropertyKeyName extends PsiElement {
-
-  @NotNull
-  AqlPropertyName getPropertyName();
+public interface AqlSequence extends PsiElement {
 
 }

@@ -14,26 +14,26 @@ import java.util.List;
 
 public class AqlObjectExpressionImpl extends ASTWrapperPsiElement implements AqlObjectExpression {
 
-    public AqlObjectExpressionImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlObjectExpressionImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitObjectExpression(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitObjectExpression(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) {
+      accept((AqlVisitor) visitor);
+    } else {
+      super.accept(visitor);
     }
+  }
 
-    @Override
-    @NotNull
-    public List<AqlPropertyLookup> getPropertyLookupList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyLookup.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlPropertyLookup> getPropertyLookupList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyLookup.class);
+  }
 
 }

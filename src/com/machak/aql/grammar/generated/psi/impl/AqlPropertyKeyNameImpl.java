@@ -11,26 +11,26 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlPropertyKeyNameImpl extends ASTWrapperPsiElement implements AqlPropertyKeyName {
 
-    public AqlPropertyKeyNameImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlPropertyKeyNameImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitPropertyKeyName(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitPropertyKeyName(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) {
+      accept((AqlVisitor) visitor);
+    } else {
+      super.accept(visitor);
     }
+  }
 
-    @Override
-    @NotNull
-    public AqlPropertyName getPropertyName() {
-        return findNotNullChildByClass(AqlPropertyName.class);
-    }
+  @Override
+  @NotNull
+  public AqlPropertyName getPropertyName() {
+    return findNotNullChildByClass(AqlPropertyName.class);
+  }
 
 }

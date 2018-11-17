@@ -12,26 +12,26 @@ import org.jetbrains.annotations.Nullable;
 
 public class AqlQueryItemImpl extends ASTWrapperPsiElement implements AqlQueryItem {
 
-    public AqlQueryItemImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlQueryItemImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitQueryItem(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitQueryItem(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) {
+      accept((AqlVisitor) visitor);
+    } else {
+      super.accept(visitor);
     }
+  }
 
-    @Override
-    @Nullable
-    public AqlStatement getStatement() {
-        return findChildByClass(AqlStatement.class);
-    }
+  @Override
+  @Nullable
+  public AqlStatement getStatement() {
+    return findChildByClass(AqlStatement.class);
+  }
 
 }

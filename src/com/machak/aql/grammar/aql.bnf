@@ -5,19 +5,23 @@
     parserClass="com.machak.aql.grammar.generated.AqlParser"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
     elementTypeHolderClass="com.machak.aql.grammar.generated.psi.AqlTypes"
-    elementTypeClass="com.machak.aql.grammar.generated.psi.AqlElementType"
-    tokenTypeClass="com.machak.aql.grammar.generated.psi.AqlTokenType"
+    elementTypeClass="com.machak.aql.grammar.AqlElementType"
+    tokenTypeClass="com.machak.aql.grammar.AqlTokenType"
     psiImplUtilClass="com.machak.aql.grammar.generated.psi.AqlPsiUtil"
     psiPackage="com.machak.aql.grammar.generated.psi"
     psiImplPackage="com.machak.aql.grammar.generated.psi.impl"
     
 tokens = [
     // system:
-    FOR = "regexp:([Ff])([Oo])([Rr])"
     ASC = "regexp:([Aa])([Aa])([Cc])"
     DESC = "regexp:([Dd])([Es])([Ss])([Cc])"
+    FILTER = "regexp:([Ff])([Ii])([Ll])([Tt])([Ee])([Rr])"
+    FOR = "regexp:([Ff])([Oo])([Rr])"
     IN = "regexp:([Ii])([Nn])"
+    LET = "regexp:([Ll])([Ee])([Tt])"
+    LIMIT = "regexp:([Ll])([Ii])([Mm])([Ii])([Tt])"
     RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
+    SORT = "regexp:([Ss])([Oo])([Rr])([Tt])"
     // operators
     OP_EQ="="
     OP_IS="::="
@@ -34,11 +38,13 @@ tokens = [
     RIGHT_BRACKET="]"
     LEFT_PAREN="("
     RIGHT_PAREN=")"
-    space='regexp:\s+'
+    SINGLE_QUOTE="'"
+    DOUBLE_QUOTE="\""
+    NUMBER_INTEGER="regexp:\d+"
+    SPACE='regexp:\s+'
     B_COMMENT="regexp:/\*(.|\n)*\*/"
     L_COMMENT='regexp://.*'
-    id='regexp:\p{Alpha}\w*'
-    propertId='regexp:[a-zA-Z_$0-9]*'
+    ID='regexp:\p{Alpha}\w*'
 
 ]
     
@@ -49,27 +55,28 @@ BlockComment ::=  B_COMMENT
 Comment ::= LineComment | BlockComment
 QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
 private statement_recover::= !(
-                        FOR
-                        | IN
-                        | RETURN
-                        | ASC
-                        | DESC
-                        | id
+                        KeywordStatements
                         | ObjectExpression
+                        | Sequence
+                        | PropertyName
                         | Comment
                     )
 
-Statement ::= (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression) | (Comment)
+KeywordStatements ::=   ASC
+                        | DESC
+                        | FILTER
+                        | FOR
+                        | IN
+                        | LET
+                        | LIMIT
+                        | RETURN
+                        | SORT
+
+Statement ::= (KeywordStatements) |(PropertyName) | (Sequence) | (ObjectExpression) | (Comment)
 ObjectExpression ::= (PropertyLookup)+
-PropertyName ::= id
+PropertyName ::= ID
+Sequence ::= NUMBER_INTEGER ".." NUMBER_INTEGER
 PropertyLookup ::= "." PropertyKeyName
 PropertyKeyName ::= PropertyName
 
 
-/*{
-
-    mixin="com.machak.aql.grammar.AqlNamedElementImpl"
-    implements="com.machak.aql.grammar.AqlNamedElement"
-    *//*methods=[getName setName getNameIdentifier getReferences]*//*
-}
-*/
