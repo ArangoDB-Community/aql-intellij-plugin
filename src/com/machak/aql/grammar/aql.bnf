@@ -43,11 +43,13 @@ T_TRUE = "true"
 T_FALSE = "false"
 T_NOT = "not"
 T_AND = "and"
+T_LOGICAL_AND = "&&"
 T_OR = "or"
-T_NIN = "not
+T_NIN = "not"
 T_REGEX_MATCH = "~="
 T_REGEX_NON_MATCH = "~!"
 T_EQ = "=="
+T_IS = "="
 T_NE = "!="
 T_LT = "<"
 T_GT = ">"
@@ -78,6 +80,7 @@ T_NONE = "none"
     // my
     SINGLE_QUOTE="'"
     DOUBLE_QUOTE="\""
+    DOLLAR="$"
     NUMBER_INTEGER="regexp:\d+"
     SPACE='regexp:\s+'
     B_COMMENT="regexp:/\*(.|\n)*\*/"
@@ -96,12 +99,15 @@ private statement_recover::= !(
                         KeywordStatements
                         | OperatorStatements
                         | ObjectExpression
+                        | SyntaxOperators
                         | Sequence
                         | PropertyName
+                        | ObjectVariable
                         | LimitOffset
                         | Comment
                     )
 
+SyntaxOperators ::=    SINGLE_QUOTE
 KeywordStatements ::=    T_SHORTEST_PATH
                         | T_PHRASE
                         | T_SEARCH
@@ -128,9 +134,11 @@ KeywordStatements ::=    T_SHORTEST_PATH
 
 OperatorStatements ::= T_NULL
                        | T_TRUE
+                       | T_IS
                        | T_FALSE
                        | T_NOT
                        | T_AND
+                       | T_LOGICAL_AND
                        | T_OR
                        | T_NIN
                        | T_REGEX_MATCH
@@ -163,8 +171,9 @@ OperatorStatements ::= T_NULL
                        | T_ANY
                        | T_ALL
                        | T_NONE
-Statement ::= (KeywordStatements) | (OperatorStatements) | (PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
+Statement ::= (KeywordStatements) | (OperatorStatements) | (PropertyName) | (ObjectVariable) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
 ObjectExpression ::= (PropertyLookup)+
+ObjectVariable ::= DOLLAR T_OBJECT_OPEN ObjectExpression  T_OBJECT_CLOSE
 Sequence ::= NUMBER_INTEGER ".." NUMBER_INTEGER
 LimitOffset ::= NUMBER_INTEGER "," NUMBER_INTEGER
 PropertyLookup ::= "." PropertyKeyName
