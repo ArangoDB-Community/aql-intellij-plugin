@@ -16,6 +16,7 @@ public interface AqlTypes {
   IElementType LIMIT_OFFSET = new AqlElementType("LIMIT_OFFSET");
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
+  IElementType OBJECT_VARIABLE = new AqlElementType("OBJECT_VARIABLE");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
   IElementType PROPERTY_KEY_NAME = new AqlElementType("PROPERTY_KEY_NAME");
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
@@ -23,13 +24,18 @@ public interface AqlTypes {
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
+  IElementType STRING_TYPE = new AqlElementType("STRING_TYPE");
+  IElementType SYNTAX_OPERATORS = new AqlElementType("SYNTAX_OPERATORS");
 
   IElementType B_COMMENT = new AqlTokenType("B_COMMENT");
+  IElementType DOLLAR = new AqlTokenType("$");
   IElementType DOUBLE_QUOTE = new AqlTokenType("\"");
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
+  IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
+  IElementType TEXT_SINGLE = new AqlTokenType("TEXT_SINGLE");
   IElementType T_AGGREGATE = new AqlTokenType("T_AGGREGATE");
   IElementType T_ALL = new AqlTokenType("all");
   IElementType T_AND = new AqlTokenType("and");
@@ -55,17 +61,19 @@ public interface AqlTypes {
   IElementType T_INBOUND = new AqlTokenType("inbound");
   IElementType T_INSERT = new AqlTokenType("T_INSERT");
   IElementType T_INTO = new AqlTokenType("T_INTO");
+  IElementType T_IS = new AqlTokenType("=");
   IElementType T_LE = new AqlTokenType("<=");
   IElementType T_LET = new AqlTokenType("T_LET");
   IElementType T_LIKE = new AqlTokenType("like");
   IElementType T_LIMIT = new AqlTokenType("T_LIMIT");
+  IElementType T_LOGICAL_AND = new AqlTokenType("&&");
   IElementType T_LT = new AqlTokenType("<");
   IElementType T_MINUS = new AqlTokenType("-");
   IElementType T_MOD = new AqlTokenType("%");
   IElementType T_NE = new AqlTokenType("!=");
-  IElementType T_NIN = new AqlTokenType("T_NIN");
+  IElementType T_NIN = new AqlTokenType("not");
   IElementType T_NONE = new AqlTokenType("none");
-  IElementType T_NOT = new AqlTokenType("not");
+  IElementType T_NOT = new AqlTokenType("T_NOT");
   IElementType T_NULL = new AqlTokenType("null");
   IElementType T_OBJECT_CLOSE = new AqlTokenType("}");
   IElementType T_OBJECT_OPEN = new AqlTokenType("{");
@@ -106,6 +114,8 @@ public interface AqlTypes {
         return new AqlLineCommentImpl(node);
       } else if (type == OBJECT_EXPRESSION) {
         return new AqlObjectExpressionImpl(node);
+      } else if (type == OBJECT_VARIABLE) {
+        return new AqlObjectVariableImpl(node);
       } else if (type == OPERATOR_STATEMENTS) {
         return new AqlOperatorStatementsImpl(node);
       } else if (type == PROPERTY_KEY_NAME) {
@@ -120,6 +130,10 @@ public interface AqlTypes {
         return new AqlSequenceImpl(node);
       } else if (type == STATEMENT) {
         return new AqlStatementImpl(node);
+      } else if (type == STRING_TYPE) {
+        return new AqlStringTypeImpl(node);
+      } else if (type == SYNTAX_OPERATORS) {
+        return new AqlSyntaxOperatorsImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

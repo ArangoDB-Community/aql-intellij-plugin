@@ -52,6 +52,8 @@ NUMBER_INTEGER=[0-9]+
 SPACE=[ \t\n\x0B\f\r]+
 B_COMMENT="/"\*(.|\n)*\*"/"
 L_COMMENT="//".*
+TEXT_SINGLE='.*'
+TEXT_DOUBLE=\".*\"
 ID=[:letter:][a-zA-Z_0-9]*
 
 %%
@@ -63,10 +65,13 @@ ID=[:letter:][a-zA-Z_0-9]*
   "false"                { return T_FALSE; }
   "not"                  { return T_NOT; }
   "and"                  { return T_AND; }
+  "&&"                   { return T_LOGICAL_AND; }
   "or"                   { return T_OR; }
+  "not"                  { return T_NIN; }
   "~="                   { return T_REGEX_MATCH; }
   "~!"                   { return T_REGEX_NON_MATCH; }
   "=="                   { return T_EQ; }
+  "="                    { return T_IS; }
   "!="                   { return T_NE; }
   "<"                    { return T_LT; }
   ">"                    { return T_GT; }
@@ -96,7 +101,7 @@ ID=[:letter:][a-zA-Z_0-9]*
   "none"                 { return T_NONE; }
   "'"                    { return SINGLE_QUOTE; }
   "\""                   { return DOUBLE_QUOTE; }
-  "T_NIN"                { return T_NIN; }
+  "$"                    { return DOLLAR; }
 
   {T_SEARCH}             { return T_SEARCH; }
   {T_PHRASE}             { return T_PHRASE; }
@@ -125,6 +130,8 @@ ID=[:letter:][a-zA-Z_0-9]*
   {SPACE}                { return SPACE; }
   {B_COMMENT}            { return B_COMMENT; }
   {L_COMMENT}            { return L_COMMENT; }
+  {TEXT_SINGLE}          { return TEXT_SINGLE; }
+  {TEXT_DOUBLE}          { return TEXT_DOUBLE; }
   {ID}                   { return ID; }
 
 }

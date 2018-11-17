@@ -19,6 +19,9 @@ public interface AqlStatement extends PsiElement {
   AqlObjectExpression getObjectExpression();
 
   @Nullable
+  AqlObjectVariable getObjectVariable();
+
+  @Nullable
   AqlOperatorStatements getOperatorStatements();
 
   @Nullable
@@ -26,5 +29,8 @@ public interface AqlStatement extends PsiElement {
 
   @Nullable
   AqlSequence getSequence();
+
+  @Nullable
+  AqlStringType getStringType();
 
 }

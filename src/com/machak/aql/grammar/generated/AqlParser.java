@@ -35,6 +35,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = LineComment(b, 0);
         } else if (t == OBJECT_EXPRESSION) {
             r = ObjectExpression(b, 0);
+        } else if (t == OBJECT_VARIABLE) {
+            r = ObjectVariable(b, 0);
         } else if (t == OPERATOR_STATEMENTS) {
             r = OperatorStatements(b, 0);
         } else if (t == PROPERTY_KEY_NAME) {
@@ -49,6 +51,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = Sequence(b, 0);
         } else if (t == STATEMENT) {
             r = Statement(b, 0);
+        } else if (t == STRING_TYPE) {
+            r = StringType(b, 0);
+        } else if (t == SYNTAX_OPERATORS) {
+            r = SyntaxOperators(b, 0);
         } else {
             r = parse_root_(t, b, 0);
         }
@@ -262,11 +268,31 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // DOLLAR T_OBJECT_OPEN ObjectExpression T_OBJECT_CLOSE
+    public static boolean ObjectVariable(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ObjectVariable")) {
+            return false;
+        }
+        if (!nextTokenIs(b, DOLLAR)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeTokens(b, 0, DOLLAR, T_OBJECT_OPEN);
+        r = r && ObjectExpression(b, l + 1);
+        r = r && consumeToken(b, T_OBJECT_CLOSE);
+        exit_section_(b, m, OBJECT_VARIABLE, r);
+        return r;
+    }
+
+    /* ********************************************************** */
     // T_NULL
     //                        | T_TRUE
+    //                        | T_IS
     //                        | T_FALSE
     //                        | T_NOT
     //                        | T_AND
+    //                        | T_LOGICAL_AND
     //                        | T_OR
     //                        | T_NIN
     //                        | T_REGEX_MATCH
@@ -310,6 +336,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = consumeToken(b, T_TRUE);
         }
         if (!r) {
+            r = consumeToken(b, T_IS);
+        }
+        if (!r) {
             r = consumeToken(b, T_FALSE);
         }
         if (!r) {
@@ -317,6 +346,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = consumeToken(b, T_AND);
+        }
+        if (!r) {
+            r = consumeToken(b, T_LOGICAL_AND);
         }
         if (!r) {
             r = consumeToken(b, T_OR);
@@ -508,7 +540,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // (KeywordStatements) | (OperatorStatements) | (PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
+    // (KeywordStatements)
+    //               | (OperatorStatements)
+    //               | (PropertyName)
+    //               | (ObjectVariable)
+    //               | (Sequence)
+    //               | (StringType)
+    //               | (LimitOffset)
+    //               | (ObjectExpression)
+    //               | (Comment)
     public static boolean Statement(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement")) {
             return false;
@@ -533,6 +573,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = Statement_6(b, l + 1);
+        }
+        if (!r) {
+            r = Statement_7(b, l + 1);
+        }
+        if (!r) {
+            r = Statement_8(b, l + 1);
         }
         exit_section_(b, l, m, r, false, null);
         return r;
@@ -574,9 +620,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // (Sequence)
+    // (ObjectVariable)
     private static boolean Statement_3(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement_3")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = ObjectVariable(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (Sequence)
+    private static boolean Statement_4(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_4")) {
             return false;
         }
         boolean r;
@@ -586,9 +644,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
+    // (StringType)
+    private static boolean Statement_5(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_5")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = StringType(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
     // (LimitOffset)
-    private static boolean Statement_4(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_4")) {
+    private static boolean Statement_6(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_6")) {
             return false;
         }
         boolean r;
@@ -599,8 +669,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (ObjectExpression)
-    private static boolean Statement_5(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_5")) {
+    private static boolean Statement_7(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_7")) {
             return false;
         }
         boolean r;
@@ -611,14 +681,49 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (Comment)
-    private static boolean Statement_6(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_6")) {
+    private static boolean Statement_8(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_8")) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b);
         r = Comment(b, l + 1);
         exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // (TEXT_SINGLE) | (TEXT_DOUBLE)
+    public static boolean StringType(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "StringType")) {
+            return false;
+        }
+        if (!nextTokenIs(b, "<string type>", TEXT_DOUBLE, TEXT_SINGLE)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, STRING_TYPE, "<string type>");
+        r = consumeToken(b, TEXT_SINGLE);
+        if (!r) {
+            r = consumeToken(b, TEXT_DOUBLE);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // SINGLE_QUOTE
+    public static boolean SyntaxOperators(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "SyntaxOperators")) {
+            return false;
+        }
+        if (!nextTokenIs(b, SINGLE_QUOTE)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, SINGLE_QUOTE);
+        exit_section_(b, m, SYNTAX_OPERATORS, r);
         return r;
     }
 
@@ -645,8 +750,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                         KeywordStatements
     //                         | OperatorStatements
     //                         | ObjectExpression
+    //                         | SyntaxOperators
     //                         | Sequence
+    //                         | StringType
     //                         | PropertyName
+    //                         | ObjectVariable
     //                         | LimitOffset
     //                         | Comment
     //                     )
@@ -664,8 +772,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
     // KeywordStatements
     //                         | OperatorStatements
     //                         | ObjectExpression
+    //                         | SyntaxOperators
     //                         | Sequence
+    //                         | StringType
     //                         | PropertyName
+    //                         | ObjectVariable
     //                         | LimitOffset
     //                         | Comment
     private static boolean statement_recover_0(PsiBuilder b, int l) {
@@ -681,10 +792,19 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = ObjectExpression(b, l + 1);
         }
         if (!r) {
+            r = SyntaxOperators(b, l + 1);
+        }
+        if (!r) {
             r = Sequence(b, l + 1);
         }
         if (!r) {
+            r = StringType(b, l + 1);
+        }
+        if (!r) {
             r = PropertyName(b, l + 1);
+        }
+        if (!r) {
+            r = ObjectVariable(b, l + 1);
         }
         if (!r) {
             r = LimitOffset(b, l + 1);

@@ -52,6 +52,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
   @Override
   @Nullable
+  public AqlObjectVariable getObjectVariable() {
+    return findChildByClass(AqlObjectVariable.class);
+  }
+
+  @Override
+  @Nullable
   public AqlOperatorStatements getOperatorStatements() {
     return findChildByClass(AqlOperatorStatements.class);
   }
@@ -66,6 +72,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   @Nullable
   public AqlSequence getSequence() {
     return findChildByClass(AqlSequence.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
   }
 
 }

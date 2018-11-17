@@ -85,6 +85,8 @@ T_NONE = "none"
     SPACE='regexp:\s+'
     B_COMMENT="regexp:/\*(.|\n)*\*/"
     L_COMMENT='regexp://.*'
+    TEXT_SINGLE ="regexp:'.*'"
+    TEXT_DOUBLE ="regexp:\".*\""
     ID='regexp:\p{Alpha}\w*'
 
 ]
@@ -101,6 +103,7 @@ private statement_recover::= !(
                         | ObjectExpression
                         | SyntaxOperators
                         | Sequence
+                        | StringType
                         | PropertyName
                         | ObjectVariable
                         | LimitOffset
@@ -171,9 +174,19 @@ OperatorStatements ::= T_NULL
                        | T_ANY
                        | T_ALL
                        | T_NONE
-Statement ::= (KeywordStatements) | (OperatorStatements) | (PropertyName) | (ObjectVariable) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
+Statement ::= (KeywordStatements)
+              | (OperatorStatements)
+              | (PropertyName)
+              | (ObjectVariable)
+              | (Sequence)
+              | (StringType)
+              | (LimitOffset)
+              | (ObjectExpression)
+              | (Comment)
+
 ObjectExpression ::= (PropertyLookup)+
-ObjectVariable ::= DOLLAR T_OBJECT_OPEN ObjectExpression  T_OBJECT_CLOSE
+ObjectVariable ::= DOLLAR T_OBJECT_OPEN ObjectExpression T_OBJECT_CLOSE
+StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 Sequence ::= NUMBER_INTEGER ".." NUMBER_INTEGER
 LimitOffset ::= NUMBER_INTEGER "," NUMBER_INTEGER
 PropertyLookup ::= "." PropertyKeyName
