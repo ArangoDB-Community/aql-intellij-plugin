@@ -1,10 +1,9 @@
 // This is a generated file. Not intended for manual editing.
-package com.machak.aql.gramamr.generated;
+package com.machak.aql.grammar.generated;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
-import com.machak.aql.gramamr.generated.psi.impl.ExprImpl;
 
 
 public interface GeneratedTypes {

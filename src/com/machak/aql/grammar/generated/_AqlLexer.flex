@@ -1,11 +1,10 @@
-package com.machak.aql.gramamr.generated;
+package com.machak.aql.grammar.generated;
 
-import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
-import static com.machak.aql.gramamr.generated.psi.AqlTypes.*;
+import static com.machak.aql.grammar.generated.psi.AqlTypes.*;
 
 %%
 

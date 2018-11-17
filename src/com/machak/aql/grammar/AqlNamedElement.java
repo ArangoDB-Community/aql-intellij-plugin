@@ -1,4 +1,4 @@
-package com.machak.aql.gramamr;
+package com.machak.aql.grammar;
 
 import com.intellij.psi.PsiNameIdentifierOwner;
 

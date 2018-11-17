@@ -1,4 +1,4 @@
-package com.machak.aql.file;
+package com.machak.aql.lang;
 
 import com.intellij.lang.Language;
 

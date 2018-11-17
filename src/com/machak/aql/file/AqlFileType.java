@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-import static com.machak.aql.file.AqlLanguage.*;
+import static com.machak.aql.lang.AqlLanguage.*;
 
 public class AqlFileType extends LanguageFileType {
     public static final AqlFileType INSTANCE = new AqlFileType();

@@ -1,4 +1,4 @@
-package com.machak.aql.gramamr.generated;
+package com.machak.aql.grammar.generated;
 
 import com.intellij.lang.parser.GeneratedParserUtilBase;
 

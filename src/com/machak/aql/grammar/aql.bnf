@@ -1,15 +1,15 @@
 {
     psiClassPrefix="Aql"
     psiImplClassSuffix="Impl"
-    parserUtilClass="com.machak.aql.gramamr.generated.AqlParserUtil"
-    parserClass="com.machak.aql.gramamr.generated.AqlParser"
+    parserUtilClass="com.machak.aql.grammar.generated.AqlParserUtil"
+    parserClass="com.machak.aql.grammar.generated.AqlParser"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
-    elementTypeHolderClass="com.machak.aql.gramamr.generated.psi.AqlTypes"
-    elementTypeClass="com.machak.aql.gramamr.generated.psi.AqlElementType"
-    tokenTypeClass="com.machak.aql.gramamr.generated.psi.AqlTokenType"
-    psiImplUtilClass="com.machak.aql.gramamr.generated.psi.AqlPsiUtil"
-    psiPackage="com.machak.aql.gramamr.generated.psi"
-    psiImplPackage="com.machak.aql.gramamr.generated.psi.impl"
+    elementTypeHolderClass="com.machak.aql.grammar.generated.psi.AqlTypes"
+    elementTypeClass="com.machak.aql.grammar.generated.psi.AqlElementType"
+    tokenTypeClass="com.machak.aql.grammar.generated.psi.AqlTokenType"
+    psiImplUtilClass="com.machak.aql.grammar.generated.psi.AqlPsiUtil"
+    psiPackage="com.machak.aql.grammar.generated.psi"
+    psiImplPackage="com.machak.aql.grammar.generated.psi.impl"
     
 tokens = [
     // system:
@@ -60,7 +60,7 @@ Statement ::= (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression)
 ObjectExpression ::= (PropertyLookup)+
 PropertyLookup ::= "." PropertyKeyName
 PropertyKeyName ::= id {
-    mixin="com.machak.aql.gramamr.AqlNamedElementImpl"
-    implements="com.machak.aql.gramamr.AqlNamedElement"
+    mixin="com.machak.aql.grammar.AqlNamedElementImpl"
+    implements="com.machak.aql.grammar.AqlNamedElement"
     methods=[getName setName getNameIdentifier getReferences]
 }

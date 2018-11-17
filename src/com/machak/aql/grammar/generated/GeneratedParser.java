@@ -1,5 +1,5 @@
 // This is a generated file. Not intended for manual editing.
-package com.machak.aql.gramamr.generated;
+package com.machak.aql.grammar.generated;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.LightPsiParser;
@@ -10,7 +10,7 @@ import com.intellij.lang.parser.GeneratedParserUtilBase;
 import com.intellij.psi.tree.IElementType;
 
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
-import static com.machak.aql.gramamr.generated.GeneratedTypes.*;
+import static com.machak.aql.grammar.generated.GeneratedTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class GeneratedParser implements PsiParser, LightPsiParser {
