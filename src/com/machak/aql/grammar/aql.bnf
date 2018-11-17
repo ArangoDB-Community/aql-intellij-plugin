@@ -58,9 +58,11 @@ private statement_recover::= !(
 
 Statement ::= (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression)
 ObjectExpression ::= (PropertyLookup)+
+PropertyName ::= id
 PropertyLookup ::= "." PropertyKeyName
-PropertyKeyName ::= id {
+PropertyKeyName ::= PropertyName /*{
     mixin="com.machak.aql.grammar.AqlNamedElementImpl"
     implements="com.machak.aql.grammar.AqlNamedElement"
-    methods=[getName setName getNameIdentifier getReferences]
+    *//*methods=[getName setName getNameIdentifier getReferences]*//*
 }
+*/

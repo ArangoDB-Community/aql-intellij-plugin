@@ -4,6 +4,7 @@ package com.machak.aql.grammar.generated;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
+import com.machak.aql.grammar.generated.psi.impl.AqlObjectExpressionImpl;
 
 
 public interface GeneratedTypes {
@@ -39,7 +40,7 @@ public interface GeneratedTypes {
         public static PsiElement createElement(ASTNode node) {
             IElementType type = node.getElementType();
             if (type == EXPR) {
-                return new ExprImpl(node);
+                return new AqlObjectExpressionImpl(node);
             }
             throw new AssertionError("Unknown element type: " + type);
         }

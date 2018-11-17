@@ -3,7 +3,6 @@ package com.machak.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import com.machak.aql.grammar.AqlNamedElement;
 import org.jetbrains.annotations.NotNull;
 
 public class AqlVisitor extends PsiElementVisitor {
@@ -13,10 +12,14 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitPropertyKeyName(@NotNull AqlPropertyKeyName o) {
-        visitNamedElement(o);
+        visitPsiElement(o);
     }
 
     public void visitPropertyLookup(@NotNull AqlPropertyLookup o) {
+        visitPsiElement(o);
+    }
+
+    public void visitPropertyName(@NotNull AqlPropertyName o) {
         visitPsiElement(o);
     }
 
@@ -25,10 +28,6 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitStatement(@NotNull AqlStatement o) {
-        visitPsiElement(o);
-    }
-
-    public void visitNamedElement(@NotNull AqlNamedElement o) {
         visitPsiElement(o);
     }
 
