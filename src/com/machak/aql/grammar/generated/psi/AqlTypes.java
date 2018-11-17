@@ -18,14 +18,12 @@ public interface AqlTypes {
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
   IElementType OBJECT_VARIABLE = new AqlElementType("OBJECT_VARIABLE");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
-  IElementType PROPERTY_KEY_NAME = new AqlElementType("PROPERTY_KEY_NAME");
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
   IElementType STRING_TYPE = new AqlElementType("STRING_TYPE");
-  IElementType SYNTAX_OPERATORS = new AqlElementType("SYNTAX_OPERATORS");
 
   IElementType B_COMMENT = new AqlTokenType("B_COMMENT");
   IElementType DOLLAR = new AqlTokenType("$");
@@ -33,6 +31,7 @@ public interface AqlTypes {
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
+  IElementType OBJECT_START = new AqlTokenType("${");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
   IElementType TEXT_SINGLE = new AqlTokenType("TEXT_SINGLE");
@@ -118,8 +117,6 @@ public interface AqlTypes {
         return new AqlObjectVariableImpl(node);
       } else if (type == OPERATOR_STATEMENTS) {
         return new AqlOperatorStatementsImpl(node);
-      } else if (type == PROPERTY_KEY_NAME) {
-        return new AqlPropertyKeyNameImpl(node);
       } else if (type == PROPERTY_LOOKUP) {
         return new AqlPropertyLookupImpl(node);
       } else if (type == PROPERTY_NAME) {
@@ -132,8 +129,6 @@ public interface AqlTypes {
         return new AqlStatementImpl(node);
       } else if (type == STRING_TYPE) {
         return new AqlStringTypeImpl(node);
-      } else if (type == SYNTAX_OPERATORS) {
-        return new AqlSyntaxOperatorsImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

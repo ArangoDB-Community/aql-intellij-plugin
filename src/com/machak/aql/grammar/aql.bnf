@@ -81,6 +81,7 @@ T_NONE = "none"
     SINGLE_QUOTE="'"
     DOUBLE_QUOTE="\""
     DOLLAR="$"
+    OBJECT_START="${"
     NUMBER_INTEGER="regexp:\d+"
     SPACE='regexp:\s+'
     B_COMMENT="regexp:/\*(.|\n)*\*/"
@@ -98,10 +99,10 @@ BlockComment ::=  B_COMMENT
 Comment ::= LineComment | BlockComment
 QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
 private statement_recover::= !(
-                        KeywordStatements
+                        Statement
                         | OperatorStatements
                         | ObjectExpression
-                        | SyntaxOperators
+                       /* | SyntaxOperators*/
                         | Sequence
                         | StringType
                         | PropertyName
@@ -110,7 +111,7 @@ private statement_recover::= !(
                         | Comment
                     )
 
-SyntaxOperators ::=    SINGLE_QUOTE
+/*SyntaxOperators ::=    SINGLE_QUOTE*/
 KeywordStatements ::=    T_SHORTEST_PATH
                         | T_PHRASE
                         | T_SEARCH
@@ -184,13 +185,12 @@ Statement ::= (KeywordStatements)
               | (ObjectExpression)
               | (Comment)
 
-ObjectExpression ::= (PropertyLookup)+
-ObjectVariable ::= DOLLAR T_OBJECT_OPEN ObjectExpression T_OBJECT_CLOSE
+ObjectExpression ::=  (PropertyLookup)+
+ObjectVariable ::=  OBJECT_START PropertyName | ObjectExpression T_OBJECT_CLOSE
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 Sequence ::= NUMBER_INTEGER ".." NUMBER_INTEGER
 LimitOffset ::= NUMBER_INTEGER "," NUMBER_INTEGER
-PropertyLookup ::= "." PropertyKeyName
-PropertyKeyName ::= PropertyName
+PropertyLookup ::= "." PropertyName
 PropertyName ::= ID
 
 

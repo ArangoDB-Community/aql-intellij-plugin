@@ -4,8 +4,8 @@ package com.machak.aql.grammar.generated.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import com.machak.aql.grammar.generated.psi.AqlPropertyKeyName;
 import com.machak.aql.grammar.generated.psi.AqlPropertyLookup;
+import com.machak.aql.grammar.generated.psi.AqlPropertyName;
 import com.machak.aql.grammar.generated.psi.AqlVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,8 +29,8 @@ public class AqlPropertyLookupImpl extends ASTWrapperPsiElement implements AqlPr
 
   @Override
   @NotNull
-  public AqlPropertyKeyName getPropertyKeyName() {
-    return findNotNullChildByClass(AqlPropertyKeyName.class);
+  public AqlPropertyName getPropertyName() {
+      return findNotNullChildByClass(AqlPropertyName.class);
   }
 
 }

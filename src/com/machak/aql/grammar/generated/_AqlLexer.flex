@@ -102,6 +102,7 @@ ID=[:letter:][a-zA-Z_0-9]*
   "'"                    { return SINGLE_QUOTE; }
   "\""                   { return DOUBLE_QUOTE; }
   "$"                    { return DOLLAR; }
+  "${"                   { return OBJECT_START; }
 
   {T_SEARCH}             { return T_SEARCH; }
   {T_PHRASE}             { return T_PHRASE; }

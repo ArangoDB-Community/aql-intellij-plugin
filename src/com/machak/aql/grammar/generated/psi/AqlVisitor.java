@@ -39,10 +39,6 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPropertyKeyName(@NotNull AqlPropertyKeyName o) {
-    visitPsiElement(o);
-  }
-
   public void visitPropertyLookup(@NotNull AqlPropertyLookup o) {
     visitPsiElement(o);
   }
@@ -64,10 +60,6 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitStringType(@NotNull AqlStringType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSyntaxOperators(@NotNull AqlSyntaxOperators o) {
     visitPsiElement(o);
   }
 

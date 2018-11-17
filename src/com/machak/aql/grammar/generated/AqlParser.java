@@ -39,8 +39,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = ObjectVariable(b, 0);
         } else if (t == OPERATOR_STATEMENTS) {
             r = OperatorStatements(b, 0);
-        } else if (t == PROPERTY_KEY_NAME) {
-            r = PropertyKeyName(b, 0);
         } else if (t == PROPERTY_LOOKUP) {
             r = PropertyLookup(b, 0);
         } else if (t == PROPERTY_NAME) {
@@ -53,8 +51,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = Statement(b, 0);
         } else if (t == STRING_TYPE) {
             r = StringType(b, 0);
-        } else if (t == SYNTAX_OPERATORS) {
-            r = SyntaxOperators(b, 0);
         } else {
             r = parse_root_(t, b, 0);
         }
@@ -268,20 +264,44 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // DOLLAR T_OBJECT_OPEN ObjectExpression T_OBJECT_CLOSE
+    // OBJECT_START PropertyName | ObjectExpression T_OBJECT_CLOSE
     public static boolean ObjectVariable(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ObjectVariable")) {
             return false;
         }
-        if (!nextTokenIs(b, DOLLAR)) {
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, OBJECT_VARIABLE, "<object variable>");
+        r = ObjectVariable_0(b, l + 1);
+        if (!r) {
+            r = ObjectVariable_1(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // OBJECT_START PropertyName
+    private static boolean ObjectVariable_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ObjectVariable_0")) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b);
-        r = consumeTokens(b, 0, DOLLAR, T_OBJECT_OPEN);
-        r = r && ObjectExpression(b, l + 1);
+        r = consumeToken(b, OBJECT_START);
+        r = r && PropertyName(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // ObjectExpression T_OBJECT_CLOSE
+    private static boolean ObjectVariable_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ObjectVariable_1")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = ObjectExpression(b, l + 1);
         r = r && consumeToken(b, T_OBJECT_CLOSE);
-        exit_section_(b, m, OBJECT_VARIABLE, r);
+        exit_section_(b, m, null, r);
         return r;
     }
 
@@ -451,23 +471,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // PropertyName
-    public static boolean PropertyKeyName(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "PropertyKeyName")) {
-            return false;
-        }
-        if (!nextTokenIs(b, ID)) {
-            return false;
-        }
-        boolean r;
-        Marker m = enter_section_(b);
-        r = PropertyName(b, l + 1);
-        exit_section_(b, m, PROPERTY_KEY_NAME, r);
-        return r;
-    }
-
-    /* ********************************************************** */
-    // "." PropertyKeyName
+    // "." PropertyName
     public static boolean PropertyLookup(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "PropertyLookup")) {
             return false;
@@ -475,7 +479,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, PROPERTY_LOOKUP, "<property lookup>");
         r = consumeToken(b, ".");
-        r = r && PropertyKeyName(b, l + 1);
+        r = r && PropertyName(b, l + 1);
         exit_section_(b, l, m, r, false, null);
         return r;
     }
@@ -712,22 +716,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // SINGLE_QUOTE
-    public static boolean SyntaxOperators(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "SyntaxOperators")) {
-            return false;
-        }
-        if (!nextTokenIs(b, SINGLE_QUOTE)) {
-            return false;
-        }
-        boolean r;
-        Marker m = enter_section_(b);
-        r = consumeToken(b, SINGLE_QUOTE);
-        exit_section_(b, m, SYNTAX_OPERATORS, r);
-        return r;
-    }
-
-    /* ********************************************************** */
     // QueryItem *
     static boolean aql(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "aql")) {
@@ -747,10 +735,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     /* ********************************************************** */
     // !(
-    //                         KeywordStatements
+    //                         Statement
     //                         | OperatorStatements
     //                         | ObjectExpression
-    //                         | SyntaxOperators
+    //                        /* | SyntaxOperators*/
     //                         | Sequence
     //                         | StringType
     //                         | PropertyName
@@ -769,10 +757,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // KeywordStatements
+    // Statement
     //                         | OperatorStatements
     //                         | ObjectExpression
-    //                         | SyntaxOperators
+    //                        /* | SyntaxOperators*/
     //                         | Sequence
     //                         | StringType
     //                         | PropertyName
@@ -784,15 +772,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
             return false;
         }
         boolean r;
-        r = KeywordStatements(b, l + 1);
+        r = Statement(b, l + 1);
         if (!r) {
             r = OperatorStatements(b, l + 1);
         }
         if (!r) {
             r = ObjectExpression(b, l + 1);
-        }
-        if (!r) {
-            r = SyntaxOperators(b, l + 1);
         }
         if (!r) {
             r = Sequence(b, l + 1);

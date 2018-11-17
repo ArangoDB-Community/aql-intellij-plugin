@@ -7,6 +7,6 @@ import org.jetbrains.annotations.NotNull;
 public interface AqlPropertyLookup extends PsiElement {
 
     @NotNull
-    AqlPropertyKeyName getPropertyKeyName();
+    AqlPropertyName getPropertyName();
 
 }
