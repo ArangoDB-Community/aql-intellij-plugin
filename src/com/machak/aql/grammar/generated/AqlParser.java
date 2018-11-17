@@ -508,7 +508,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // (KeywordStatements) |(OperatorStatements)|(PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
+    // (KeywordStatements) | (OperatorStatements) | (PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
     public static boolean Statement(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement")) {
             return false;
@@ -643,6 +643,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     /* ********************************************************** */
     // !(
     //                         KeywordStatements
+    //                         | OperatorStatements
     //                         | ObjectExpression
     //                         | Sequence
     //                         | PropertyName
@@ -661,6 +662,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // KeywordStatements
+    //                         | OperatorStatements
     //                         | ObjectExpression
     //                         | Sequence
     //                         | PropertyName
@@ -672,6 +674,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         boolean r;
         r = KeywordStatements(b, l + 1);
+        if (!r) {
+            r = OperatorStatements(b, l + 1);
+        }
         if (!r) {
             r = ObjectExpression(b, l + 1);
         }
