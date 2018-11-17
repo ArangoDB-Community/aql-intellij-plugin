@@ -23,12 +23,25 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
+    <!--
+      //############################################
+      // Language setup
+      //############################################
+    -->
     <fileTypeFactory implementation="com.machak.aql.file.AqlFileTypeFactory"/>
     <lang.parserDefinition language="aql" implementationClass="com.machak.aql.lang.AqlParserDefinition"/>
     <colorSettingsPage implementation="com.machak.aql.settings.AqlColorSettingsPage"/>
     <lang.syntaxHighlighterFactory language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterFactory"/>
     <annotator language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterAnnotator"/>
     <lang.commenter language="aql" implementationClass="com.machak.aql.syntax.AqlCommenter"/>
+    <completion.contributor language="aql" implementationClass="com.machak.aql.editor.AqlCodeCompletionContributor"/>
+    <!--
+      //############################################
+      // Services
+      //############################################
+    -->
+    <projectService serviceInterface="com.machak.aql.db.AqlDatabaseService" serviceImplementation="com.machak.aql.db.AqlDatabaseServiceImpl"/>
+
   </extensions>
 
   <actions>
