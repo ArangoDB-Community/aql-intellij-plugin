@@ -12,8 +12,14 @@ public interface AqlStatement extends PsiElement {
   @Nullable
   AqlKeywordStatements getKeywordStatements();
 
+    @Nullable
+    AqlLimitOffset getLimitOffset();
+
   @Nullable
   AqlObjectExpression getObjectExpression();
+
+    @Nullable
+    AqlOperatorStatements getOperatorStatements();
 
   @Nullable
   AqlPropertyName getPropertyName();

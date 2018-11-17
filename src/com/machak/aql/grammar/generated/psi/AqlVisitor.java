@@ -19,6 +19,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitLimitOffset(@NotNull AqlLimitOffset o) {
+        visitPsiElement(o);
+    }
+
   public void visitLineComment(@NotNull AqlLineComment o) {
     visitPsiElement(o);
   }
@@ -26,6 +30,10 @@ public class AqlVisitor extends PsiElementVisitor {
   public void visitObjectExpression(@NotNull AqlObjectExpression o) {
     visitPsiElement(o);
   }
+
+    public void visitOperatorStatements(@NotNull AqlOperatorStatements o) {
+        visitPsiElement(o);
+    }
 
   public void visitPropertyKeyName(@NotNull AqlPropertyKeyName o) {
     visitPsiElement(o);

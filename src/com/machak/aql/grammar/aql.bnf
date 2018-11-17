@@ -1,4 +1,5 @@
 {
+// https://github.com/arangodb/arangodb/blob/devel/arangod/Aql/grammar.y
     psiClassPrefix="Aql"
     psiImplClassSuffix="Impl"
     parserUtilClass="com.machak.aql.grammar.generated.AqlParserUtil"
@@ -13,31 +14,66 @@
     
 tokens = [
     // system:
-    ASC = "regexp:([Aa])([Aa])([Cc])"
-    DESC = "regexp:([Dd])([Es])([Ss])([Cc])"
-    FILTER = "regexp:([Ff])([Ii])([Ll])([Tt])([Ee])([Rr])"
-    FOR = "regexp:([Ff])([Oo])([Rr])"
-    IN = "regexp:([Ii])([Nn])"
-    LET = "regexp:([Ll])([Ee])([Tt])"
-    LIMIT = "regexp:([Ll])([Ii])([Mm])([Ii])([Tt])"
-    RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
-    SORT = "regexp:([Ss])([Oo])([Rr])([Tt])"
+T_SHORTEST_PATH = "regexp:([Ss])([Hh])([Oo])([Rr])([Tt])([Ee])([Ss])([Pp])([Aa])([Tt])([Hh])"
+T_REPLACE = "regexp:([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])"
+T_ASC = "regexp:([Aa])([Ss])([Cc])"
+T_AGGREGATE = "regexp:([Aa])([Gg])([Gg])([Rr])([Ee])([Gg])([Aa])([Tt])([Ee])"
+T_FILTER = "regexp:([Ff])([Ii])([Ll])([Tt])([Ee])([Rr])"
+T_DESC = "regexp:([Dd])([Ee])([Ss])([Cc])"
+T_IN = "regexp:([Ii])([Nn])"
+T_INTO = "regexp:([Ii])([Nn])([Tt])([Oo])"
+T_LIMIT = "regexp:([Ll])([Ii])([Mm])([Ii])([Tt])"
+T_UPDATE = "regexp:([Uu])([Pp])([Dd])([Aa])([Tt])([Ee])"
+T_SORT = "regexp:([Ss])([Oo])([Rr])([Tt])"
+T_GRAPH = "regexp:([Gg])([Rr])([Aa])([Pp])([Hh])"
+T_FOR = "regexp:([Ff])([Oo])([Rr])"
+T_LET = "regexp:([Ll])([Ee])([Tt])"
+T_COLLECT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])"
+T_WITH = "regexp:([Ww])([Ii])([Tt])([Hh])"
+T_DISTINCT = "regexp:([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+T_RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
+T_UPSERT = "regexp:([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])"
+T_REMOVE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])"
+T_INSERT = "regexp:([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])"
     // operators
-    OP_EQ="="
-    OP_IS="::="
-    OP_OR="|"
-    OP_OPT="?"
-    OP_ONEMORE="+"
-    OP_ZEROMORE="*"
-    OP_AND="&"
-    OP_NOT="!"
-    SEMICOLON=";"
-    LEFT_BRACE="{"
-    RIGHT_BRACE="}"
-    LEFT_BRACKET="["
-    RIGHT_BRACKET="]"
-    LEFT_PAREN="("
-    RIGHT_PAREN=")"
+T_NULL = "null"
+T_TRUE = "true"
+T_FALSE = "false"
+T_NOT = "not"
+T_AND = "and"
+T_OR = "or"
+T_NIN = "not
+T_REGEX_MATCH = "~="
+T_REGEX_NON_MATCH = "~!"
+T_EQ = "=="
+T_NE = "!="
+T_LT = "<"
+T_GT = ">"
+T_LE = "<="
+T_GE = ">="
+T_LIKE = "like"
+T_PLUS = "+"
+T_MINUS = "-"
+T_TIMES = "*"
+T_DIV = "/"
+T_MOD = "%"
+T_QUESTION = "?"
+T_COLON = ":"
+T_SCOPE = "::"
+T_RANGE = ".."
+T_COMMA = ","
+T_OPEN = "("
+T_CLOSE = ")"
+T_OBJECT_OPEN = "{"
+T_OBJECT_CLOSE = "}"
+T_ARRAY_OPEN = "["
+T_ARRAY_CLOSE = "]"
+T_OUTBOUND = "outbound"
+T_INBOUND = "inbound"
+T_ANY = "any"
+T_ALL = "all"
+T_NONE = "none"
+    // my
     SINGLE_QUOTE="'"
     DOUBLE_QUOTE="\""
     NUMBER_INTEGER="regexp:\d+"
@@ -59,24 +95,75 @@ private statement_recover::= !(
                         | ObjectExpression
                         | Sequence
                         | PropertyName
+                        | LimitOffset
                         | Comment
                     )
 
-KeywordStatements ::=   ASC
-                        | DESC
-                        | FILTER
-                        | FOR
-                        | IN
-                        | LET
-                        | LIMIT
-                        | RETURN
-                        | SORT
+KeywordStatements ::=    T_SHORTEST_PATH
+                        | T_REPLACE
+                        | T_ASC
+                        | T_AGGREGATE
+                        | T_FILTER
+                        | T_DESC
+                        | T_IN
+                        | T_INTO
+                        | T_LIMIT
+                        | T_UPDATE
+                        | T_SORT
+                        | T_GRAPH
+                        | T_FOR
+                        | T_LET
+                        | T_COLLECT
+                        | T_WITH
+                        | T_DISTINCT
+                        | T_RETURN
+                        | T_UPSERT
+                        | T_REMOVE
+                        | T_INSERT
 
-Statement ::= (KeywordStatements) |(PropertyName) | (Sequence) | (ObjectExpression) | (Comment)
+OperatorStatements ::= T_NULL
+                       | T_TRUE
+                       | T_FALSE
+                       | T_NOT
+                       | T_AND
+                       | T_OR
+                       | T_NIN
+                       | T_REGEX_MATCH
+                       | T_REGEX_NON_MATCH
+                       | T_EQ
+                       | T_NE
+                       | T_LT
+                       | T_GT
+                       | T_LE
+                       | T_GE
+                       | T_LIKE
+                       | T_PLUS
+                       | T_MINUS
+                       | T_TIMES
+                       | T_DIV
+                       | T_MOD
+                       | T_QUESTION
+                       | T_COLON
+                       | T_SCOPE
+                       | T_RANGE
+                       | T_COMMA
+                       | T_OPEN
+                       | T_CLOSE
+                       | T_OBJECT_OPEN
+                       | T_OBJECT_CLOSE
+                       | T_ARRAY_OPEN
+                       | T_ARRAY_CLOSE
+                       | T_OUTBOUND
+                       | T_INBOUND
+                       | T_ANY
+                       | T_ALL
+                       | T_NONE
+Statement ::= (KeywordStatements) |(OperatorStatements)|(PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
 ObjectExpression ::= (PropertyLookup)+
-PropertyName ::= ID
 Sequence ::= NUMBER_INTEGER ".." NUMBER_INTEGER
+LimitOffset ::= NUMBER_INTEGER "," NUMBER_INTEGER
 PropertyLookup ::= "." PropertyKeyName
 PropertyKeyName ::= PropertyName
+PropertyName ::= ID
 
 

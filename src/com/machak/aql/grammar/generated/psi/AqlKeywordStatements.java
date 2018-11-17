@@ -7,30 +7,66 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlKeywordStatements extends PsiElement {
 
     @Nullable
-    PsiElement getAsc();
+    PsiElement getTAggregate();
 
     @Nullable
-    PsiElement getDesc();
+    PsiElement getTAsc();
 
     @Nullable
-    PsiElement getFilter();
+    PsiElement getTCollect();
 
     @Nullable
-    PsiElement getFor();
+    PsiElement getTDesc();
 
     @Nullable
-    PsiElement getIn();
+    PsiElement getTDistinct();
 
     @Nullable
-    PsiElement getLet();
+    PsiElement getTFilter();
 
     @Nullable
-    PsiElement getLimit();
+    PsiElement getTFor();
 
     @Nullable
-    PsiElement getReturn();
+    PsiElement getTGraph();
 
     @Nullable
-    PsiElement getSort();
+    PsiElement getTIn();
+
+    @Nullable
+    PsiElement getTInsert();
+
+    @Nullable
+    PsiElement getTInto();
+
+    @Nullable
+    PsiElement getTLet();
+
+    @Nullable
+    PsiElement getTLimit();
+
+    @Nullable
+    PsiElement getTRemove();
+
+    @Nullable
+    PsiElement getTReplace();
+
+    @Nullable
+    PsiElement getTReturn();
+
+    @Nullable
+    PsiElement getTShortestPath();
+
+    @Nullable
+    PsiElement getTSort();
+
+    @Nullable
+    PsiElement getTUpdate();
+
+    @Nullable
+    PsiElement getTUpsert();
+
+    @Nullable
+    PsiElement getTWith();
 
 }

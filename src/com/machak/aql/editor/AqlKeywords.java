@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 public final class AqlKeywords {
 
     public static final Collection<String> KEYWORDS = Sets.newHashSet(
-            "ASC", "DESC",
-            "FILTER", "FOR",
-            "IN",
-            "LET", "LIMIT",
-            "RETURN", "SORT"
+            "SHORTEST_PATH", "REPLACE", "ASC", "AGGREGATE",
+            "FILTER", "DESC", "IN", "INTO", "LIMIT", "UPDATE",
+            "SORT", "GRAPH", "FOR",
+            "LET", "COLLECT", "WITH", "DISTINCT", "RETURN",
+            "UPSERT", "REMOVE", "INSERT"
     );
 
     public static final List<LookupElement> KEYWORD_LOOKUP_ELEMENTS = KEYWORDS.stream()
