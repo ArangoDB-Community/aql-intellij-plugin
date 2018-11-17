@@ -5,7 +5,7 @@ import com.intellij.psi.tree.IElementType;
 
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
-import static generated.GeneratedTypes.*;
+import static com.machak.aql.gramamr.generated.psi.AqlTypes.*;
 
 %%
 
@@ -25,11 +25,16 @@ import static generated.GeneratedTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
+FOR=([Ff])([Oo])([Rr])
+ASC=([Aa])([Aa])([Cc])
+DESC=([Dd])([Es])([Ss])([Cc])
+IN=([Ii])([Nn])
+RETURN=([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])
 SPACE=[ \t\n\x0B\f\r]+
 COMMENT="//".*
 BLOCK_COMMENT="/"\*(.|\n)*\*"/"
-NUMBER=[0-9]+(\.[0-9]*)?
 ID=[:letter:][a-zA-Z_0-9]*
+PROPERTID=[a-zA-Z_$0-9]*
 
 %%
 <YYINITIAL> {
@@ -50,17 +55,17 @@ ID=[:letter:][a-zA-Z_0-9]*
   "]"                  { return RIGHT_BRACKET; }
   "("                  { return LEFT_PAREN; }
   ")"                  { return RIGHT_PAREN; }
-  "<<"                 { return EXTERNAL_START; }
-  ">>"                 { return EXTERNAL_END; }
-  "FOR"                { return FOR; }
-  "IN"                 { return IN; }
-  "RETURN"             { return RETURN; }
 
+  {FOR}                { return FOR; }
+  {ASC}                { return ASC; }
+  {DESC}               { return DESC; }
+  {IN}                 { return IN; }
+  {RETURN}             { return RETURN; }
   {SPACE}              { return SPACE; }
   {COMMENT}            { return COMMENT; }
   {BLOCK_COMMENT}      { return BLOCK_COMMENT; }
-  {NUMBER}             { return NUMBER; }
   {ID}                 { return ID; }
+  {PROPERTID}          { return PROPERTID; }
 
 }
 

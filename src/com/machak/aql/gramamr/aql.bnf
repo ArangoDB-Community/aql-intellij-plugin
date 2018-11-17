@@ -1,34 +1,66 @@
 {
-  parserUtilClass="com.machak.aql.gramamr.generated.AqlParserUtil"
+    psiClassPrefix="Aql"
+    psiImplClassSuffix="Impl"
+    parserUtilClass="com.machak.aql.gramamr.generated.AqlParserUtil"
+    parserClass="com.machak.aql.gramamr.generated.AqlParser"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+    elementTypeHolderClass="com.machak.aql.gramamr.generated.psi.AqlTypes"
+    elementTypeClass="com.machak.aql.gramamr.generated.psi.AqlElementType"
+    tokenTypeClass="com.machak.aql.gramamr.generated.psi.AqlTokenType"
+    psiImplUtilClass="com.machak.aql.gramamr.generated.psi.AqlPsiUtil"
+    psiPackage="com.machak.aql.gramamr.generated.psi"
+    psiImplPackage="com.machak.aql.gramamr.generated.psi.impl"
+    
 tokens = [
-      OP_EQ="="
-      OP_IS="::="
-      OP_OR="|"
-      OP_OPT="?"
-      OP_ONEMORE="+"
-      OP_ZEROMORE="*"
-      OP_AND="&"
-      OP_NOT="!"
-      SEMICOLON=";"
-      LEFT_BRACE="{"
-      RIGHT_BRACE="}"
-      LEFT_BRACKET="["
-      RIGHT_BRACKET="]"
-      LEFT_PAREN="("
-      RIGHT_PAREN=")"
-      EXTERNAL_START="<<"
-      EXTERNAL_END=">>"
-    FOR="FOR"
-    IN="IN"
-    RETURN="RETURN"
+    // system:
+    FOR = "regexp:([Ff])([Oo])([Rr])"
+    ASC = "regexp:([Aa])([Aa])([Cc])"
+    DESC = "regexp:([Dd])([Es])([Ss])([Cc])"
+    IN = "regexp:([Ii])([Nn])"
+    RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
+    // operators
+    OP_EQ="="
+    OP_IS="::="
+    OP_OR="|"
+    OP_OPT="?"
+    OP_ONEMORE="+"
+    OP_ZEROMORE="*"
+    OP_AND="&"
+    OP_NOT="!"
+    SEMICOLON=";"
+    LEFT_BRACE="{"
+    RIGHT_BRACE="}"
+    LEFT_BRACKET="["
+    RIGHT_BRACKET="]"
+    LEFT_PAREN="("
+    RIGHT_PAREN=")"
+        
     space='regexp:\s+'
     comment='regexp://.*'
     block_comment="regexp:/\*(.|\n)*\*/"
-    number='regexp:\d+(\.\d*)?'
     id='regexp:\p{Alpha}\w*'
+    propertId='regexp:[a-zA-Z_$0-9]*'
+
 ]
     
 }
-root ::= element *
-private element ::= expr 
-expr ::= FOR | id | IN | RETURN
+aql ::= QueryItem *
+QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
+private statement_recover::= !(
+                        FOR
+                        | IN
+                        | RETURN
+                        | ASC
+                        | DESC
+                        | id
+                        | ObjectExpression
+                    )
+
+Statement ::= (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression)
+ObjectExpression ::= (PropertyLookup)+
+PropertyLookup ::= "." PropertyKeyName
+PropertyKeyName ::= id {
+    mixin="com.machak.aql.gramamr.AqlNamedElementImpl"
+    implements="com.machak.aql.gramamr.AqlNamedElement"
+    methods=[getName setName getNameIdentifier getReferences]
+}
