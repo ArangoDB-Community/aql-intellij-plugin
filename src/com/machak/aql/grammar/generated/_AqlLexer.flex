@@ -31,41 +31,41 @@ DESC=([Dd])([Es])([Ss])([Cc])
 IN=([Ii])([Nn])
 RETURN=([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])
 SPACE=[ \t\n\x0B\f\r]+
-COMMENT="//".*
-BLOCK_COMMENT="/"\*(.|\n)*\*"/"
+B_COMMENT="/"\*(.|\n)*\*"/"
+L_COMMENT="//".*
 ID=[:letter:][a-zA-Z_0-9]*
 PROPERTID=[a-zA-Z_$0-9]*
 
 %%
 <YYINITIAL> {
-  {WHITE_SPACE}        { return WHITE_SPACE; }
+  {WHITE_SPACE}      { return WHITE_SPACE; }
 
-  "="                  { return OP_EQ; }
-  "::="                { return OP_IS; }
-  "|"                  { return OP_OR; }
-  "?"                  { return OP_OPT; }
-  "+"                  { return OP_ONEMORE; }
-  "*"                  { return OP_ZEROMORE; }
-  "&"                  { return OP_AND; }
-  "!"                  { return OP_NOT; }
-  ";"                  { return SEMICOLON; }
-  "{"                  { return LEFT_BRACE; }
-  "}"                  { return RIGHT_BRACE; }
-  "["                  { return LEFT_BRACKET; }
-  "]"                  { return RIGHT_BRACKET; }
-  "("                  { return LEFT_PAREN; }
-  ")"                  { return RIGHT_PAREN; }
+  "="                { return OP_EQ; }
+  "::="              { return OP_IS; }
+  "|"                { return OP_OR; }
+  "?"                { return OP_OPT; }
+  "+"                { return OP_ONEMORE; }
+  "*"                { return OP_ZEROMORE; }
+  "&"                { return OP_AND; }
+  "!"                { return OP_NOT; }
+  ";"                { return SEMICOLON; }
+  "{"                { return LEFT_BRACE; }
+  "}"                { return RIGHT_BRACE; }
+  "["                { return LEFT_BRACKET; }
+  "]"                { return RIGHT_BRACKET; }
+  "("                { return LEFT_PAREN; }
+  ")"                { return RIGHT_PAREN; }
 
-  {FOR}                { return FOR; }
-  {ASC}                { return ASC; }
-  {DESC}               { return DESC; }
-  {IN}                 { return IN; }
-  {RETURN}             { return RETURN; }
-  {SPACE}              { return SPACE; }
-  {COMMENT}            { return COMMENT; }
-  {BLOCK_COMMENT}      { return BLOCK_COMMENT; }
-  {ID}                 { return ID; }
-  {PROPERTID}          { return PROPERTID; }
+  {FOR}              { return FOR; }
+  {ASC}              { return ASC; }
+  {DESC}             { return DESC; }
+  {IN}               { return IN; }
+  {RETURN}           { return RETURN; }
+  {SPACE}            { return SPACE; }
+  {B_COMMENT}        { return B_COMMENT; }
+  {L_COMMENT}        { return L_COMMENT; }
+  {ID}               { return ID; }
+  {PROPERTID}        { return PROPERTID; }
 
 }
 

@@ -34,10 +34,9 @@ tokens = [
     RIGHT_BRACKET="]"
     LEFT_PAREN="("
     RIGHT_PAREN=")"
-        
     space='regexp:\s+'
-    comment='regexp://.*'
-    block_comment="regexp:/\*(.|\n)*\*/"
+    B_COMMENT="regexp:/\*(.|\n)*\*/"
+    L_COMMENT='regexp://.*'
     id='regexp:\p{Alpha}\w*'
     propertId='regexp:[a-zA-Z_$0-9]*'
 
@@ -45,6 +44,9 @@ tokens = [
     
 }
 aql ::= QueryItem *
+LineComment ::= L_COMMENT
+BlockComment ::=  B_COMMENT
+Comment ::= LineComment | BlockComment
 QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
 private statement_recover::= !(
                         FOR
@@ -54,13 +56,18 @@ private statement_recover::= !(
                         | DESC
                         | id
                         | ObjectExpression
+                        | Comment
                     )
 
-Statement ::= (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression)
+Statement ::= (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression) | (Comment)
 ObjectExpression ::= (PropertyLookup)+
 PropertyName ::= id
 PropertyLookup ::= "." PropertyKeyName
-PropertyKeyName ::= PropertyName /*{
+PropertyKeyName ::= PropertyName
+
+
+/*{
+
     mixin="com.machak.aql.grammar.AqlNamedElementImpl"
     implements="com.machak.aql.grammar.AqlNamedElement"
     *//*methods=[getName setName getNameIdentifier getReferences]*//*

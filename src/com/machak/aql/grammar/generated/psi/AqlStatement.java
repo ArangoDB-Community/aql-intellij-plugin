@@ -6,19 +6,22 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlStatement extends PsiElement {
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlComment getComment();
 
-    @Nullable
-    PsiElement getFor();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    PsiElement getIn();
+  @Nullable
+  PsiElement getFor();
 
-    @Nullable
-    PsiElement getReturn();
+  @Nullable
+  PsiElement getIn();
 
-    @Nullable
-    PsiElement getId();
+  @Nullable
+  PsiElement getReturn();
+
+  @Nullable
+  PsiElement getId();
 
 }

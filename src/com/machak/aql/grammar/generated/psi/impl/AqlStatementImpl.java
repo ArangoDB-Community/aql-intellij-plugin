@@ -5,6 +5,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.machak.aql.grammar.generated.psi.AqlComment;
 import com.machak.aql.grammar.generated.psi.AqlObjectExpression;
 import com.machak.aql.grammar.generated.psi.AqlStatement;
 import com.machak.aql.grammar.generated.psi.AqlVisitor;
@@ -29,6 +30,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
         } else {
             super.accept(visitor);
         }
+    }
+
+    @Override
+    @Nullable
+    public AqlComment getComment() {
+        return findChildByClass(AqlComment.class);
     }
 
     @Override

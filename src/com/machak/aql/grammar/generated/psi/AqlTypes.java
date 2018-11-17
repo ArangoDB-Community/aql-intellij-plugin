@@ -10,6 +10,9 @@ import com.machak.aql.grammar.generated.psi.impl.*;
 
 public interface AqlTypes {
 
+  IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
+  IElementType COMMENT = new AqlElementType("COMMENT");
+  IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
   IElementType PROPERTY_KEY_NAME = new AqlElementType("PROPERTY_KEY_NAME");
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
@@ -18,8 +21,7 @@ public interface AqlTypes {
   IElementType STATEMENT = new AqlElementType("STATEMENT");
 
   IElementType ASC = new AqlTokenType("ASC");
-  IElementType BLOCK_COMMENT = new AqlTokenType("block_comment");
-  IElementType COMMENT = new AqlTokenType("comment");
+  IElementType B_COMMENT = new AqlTokenType("B_COMMENT");
   IElementType DESC = new AqlTokenType("DESC");
   IElementType FOR = new AqlTokenType("FOR");
   IElementType ID = new AqlTokenType("id");
@@ -27,6 +29,7 @@ public interface AqlTypes {
   IElementType LEFT_BRACE = new AqlTokenType("{");
   IElementType LEFT_BRACKET = new AqlTokenType("[");
   IElementType LEFT_PAREN = new AqlTokenType("(");
+  IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType OP_AND = new AqlTokenType("&");
   IElementType OP_EQ = new AqlTokenType("=");
   IElementType OP_IS = new AqlTokenType("::=");
@@ -45,7 +48,13 @@ public interface AqlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == OBJECT_EXPRESSION) {
+      if (type == BLOCK_COMMENT) {
+        return new AqlBlockCommentImpl(node);
+      } else if (type == COMMENT) {
+        return new AqlCommentImpl(node);
+      } else if (type == LINE_COMMENT) {
+        return new AqlLineCommentImpl(node);
+      } else if (type == OBJECT_EXPRESSION) {
         return new AqlObjectExpressionImpl(node);
       } else if (type == PROPERTY_KEY_NAME) {
         return new AqlPropertyKeyNameImpl(node);

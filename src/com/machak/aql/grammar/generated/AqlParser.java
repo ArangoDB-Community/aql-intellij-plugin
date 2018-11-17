@@ -23,7 +23,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
         boolean r;
         b = adapt_builder_(t, b, this, null);
         Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-        if (t == OBJECT_EXPRESSION) {
+        if (t == BLOCK_COMMENT) {
+            r = BlockComment(b, 0);
+        } else if (t == COMMENT) {
+            r = Comment(b, 0);
+        } else if (t == LINE_COMMENT) {
+            r = LineComment(b, 0);
+        } else if (t == OBJECT_EXPRESSION) {
             r = ObjectExpression(b, 0);
         } else if (t == PROPERTY_KEY_NAME) {
             r = PropertyKeyName(b, 0);
@@ -43,6 +49,57 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     protected boolean parse_root_(IElementType t, PsiBuilder b, int l) {
         return aql(b, l + 1);
+    }
+
+    /* ********************************************************** */
+    // B_COMMENT
+    public static boolean BlockComment(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "BlockComment")) {
+            return false;
+        }
+        if (!nextTokenIs(b, B_COMMENT)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, B_COMMENT);
+        exit_section_(b, m, BLOCK_COMMENT, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // LineComment | BlockComment
+    public static boolean Comment(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Comment")) {
+            return false;
+        }
+        if (!nextTokenIs(b, "<comment>", B_COMMENT, L_COMMENT)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, COMMENT, "<comment>");
+        r = LineComment(b, l + 1);
+        if (!r) {
+            r = BlockComment(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // L_COMMENT
+    public static boolean LineComment(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "LineComment")) {
+            return false;
+        }
+        if (!nextTokenIs(b, L_COMMENT)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, L_COMMENT);
+        exit_section_(b, m, LINE_COMMENT, r);
+        return r;
     }
 
     /* ********************************************************** */
@@ -153,7 +210,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression)
+    // (FOR) | (IN) | (id) |(RETURN) | (ObjectExpression) | (Comment)
     public static boolean Statement(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement")) {
             return false;
@@ -173,6 +230,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!r) {
             r = Statement_4(b, l + 1);
         }
+        if (!r) {
+            r = Statement_5(b, l + 1);
+        }
         exit_section_(b, l, m, r, false, null);
         return r;
     }
@@ -185,6 +245,18 @@ public class AqlParser implements PsiParser, LightPsiParser {
         boolean r;
         Marker m = enter_section_(b);
         r = ObjectExpression(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (Comment)
+    private static boolean Statement_5(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_5")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = Comment(b, l + 1);
         exit_section_(b, m, null, r);
         return r;
     }
@@ -216,6 +288,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                         | DESC
     //                         | id
     //                         | ObjectExpression
+    //                         | Comment
     //                     )
     static boolean statement_recover(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover")) {
@@ -235,6 +308,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                         | DESC
     //                         | id
     //                         | ObjectExpression
+    //                         | Comment
     private static boolean statement_recover_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover_0")) {
             return false;
@@ -258,6 +332,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = ObjectExpression(b, l + 1);
+        }
+        if (!r) {
+            r = Comment(b, l + 1);
         }
         return r;
     }

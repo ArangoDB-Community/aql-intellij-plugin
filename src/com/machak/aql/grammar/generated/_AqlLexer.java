@@ -747,7 +747,7 @@ public class _AqlLexer implements FlexLexer {
                     case 45:
                         break;
                     case 20: {
-                        return COMMENT;
+                        return L_COMMENT;
                     }
                     // fall through
                     case 46:
@@ -777,7 +777,7 @@ public class _AqlLexer implements FlexLexer {
                     case 50:
                         break;
                     case 25: {
-                        return BLOCK_COMMENT;
+                        return B_COMMENT;
                     }
                     // fall through
                     case 51:

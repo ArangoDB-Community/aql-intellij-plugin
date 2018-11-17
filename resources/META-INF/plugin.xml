@@ -24,7 +24,11 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <fileTypeFactory implementation="com.machak.aql.file.AqlFileTypeFactory"/>
+    <lang.parserDefinition language="aql" implementationClass="com.machak.aql.lang.AqlParserDefinition"/>
     <colorSettingsPage implementation="com.machak.aql.settings.AqlColorSettingsPage"/>
+    <lang.syntaxHighlighterFactory language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterFactory"/>
+    <annotator language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterAnnotator"/>
+    <lang.commenter language="aql" implementationClass="com.machak.aql.syntax.AqlCommenter"/>
   </extensions>
 
   <actions>
