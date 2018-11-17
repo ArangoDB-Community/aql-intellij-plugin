@@ -23,7 +23,6 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Variable", AqlSyntaxColors.VARIABLE),
             new AttributesDescriptor("Parameter", AqlSyntaxColors.PARAMETER),
             new AttributesDescriptor("Function", AqlSyntaxColors.FUNCTION),
-            new AttributesDescriptor("Semicolon", AqlSyntaxColors.SEMICOLON),
             new AttributesDescriptor("Operation sign", AqlSyntaxColors.OPERATION_SIGN),
             new AttributesDescriptor("Parentheses", AqlSyntaxColors.PARENTHESES),
             new AttributesDescriptor("Square braces", AqlSyntaxColors.SQUARE_BRACES),
@@ -47,7 +46,10 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDemoText() {
-        return "FOR doc IN Key SORT doc.name DOC ASC  RETURN doc";
+        return "FOR doc IN viewScales SEARCH PHRASE(doc.name,'A','text_en')\n" +
+                "FILTER doc.key =='A'\n" +
+                "SORT doc.score DESC\n" +
+                "LIMIT 320,10 RETURN doc\n";
     }
 
     @Nullable
