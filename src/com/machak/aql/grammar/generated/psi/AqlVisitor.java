@@ -15,13 +15,13 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitKeywordStatements(@NotNull AqlKeywordStatements o) {
-        visitPsiElement(o);
-    }
+  public void visitKeywordStatements(@NotNull AqlKeywordStatements o) {
+    visitPsiElement(o);
+  }
 
-    public void visitLimitOffset(@NotNull AqlLimitOffset o) {
-        visitPsiElement(o);
-    }
+  public void visitLimitOffset(@NotNull AqlLimitOffset o) {
+    visitPsiElement(o);
+  }
 
   public void visitLineComment(@NotNull AqlLineComment o) {
     visitPsiElement(o);
@@ -31,9 +31,9 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitOperatorStatements(@NotNull AqlOperatorStatements o) {
-        visitPsiElement(o);
-    }
+  public void visitOperatorStatements(@NotNull AqlOperatorStatements o) {
+    visitPsiElement(o);
+  }
 
   public void visitPropertyKeyName(@NotNull AqlPropertyKeyName o) {
     visitPsiElement(o);
@@ -51,9 +51,9 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitSequence(@NotNull AqlSequence o) {
-        visitPsiElement(o);
-    }
+  public void visitSequence(@NotNull AqlSequence o) {
+    visitPsiElement(o);
+  }
 
   public void visitStatement(@NotNull AqlStatement o) {
     visitPsiElement(o);

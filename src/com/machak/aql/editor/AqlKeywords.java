@@ -14,7 +14,7 @@ public final class AqlKeywords {
             "FILTER", "DESC", "IN", "INTO", "LIMIT", "UPDATE",
             "SORT", "GRAPH", "FOR",
             "LET", "COLLECT", "WITH", "DISTINCT", "RETURN",
-            "UPSERT", "REMOVE", "INSERT"
+            "UPSERT", "REMOVE", "INSERT", "SEARCH", "PHRASE"
     );
 
     public static final List<LookupElement> KEYWORD_LOOKUP_ELEMENTS = KEYWORDS.stream()

@@ -25,6 +25,8 @@ import static com.machak.aql.grammar.generated.psi.AqlTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
+T_SEARCH=([Ss])([Ee])([Aa])([Rr])([Cc])([Hh])
+T_PHRASE=([Pp])([Hh])([Rr])([Aa])([Ss])([Ee])
 T_SHORTEST_PATH=([Ss])([Hh])([Oo])([Rr])([Tt])([Ee])([Ss])([Pp])([Aa])([Tt])([Hh])
 T_REPLACE=([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])
 T_ASC=([Aa])([Ss])([Cc])
@@ -96,6 +98,8 @@ ID=[:letter:][a-zA-Z_0-9]*
   "\""                   { return DOUBLE_QUOTE; }
   "T_NIN"                { return T_NIN; }
 
+  {T_SEARCH}             { return T_SEARCH; }
+  {T_PHRASE}             { return T_PHRASE; }
   {T_SHORTEST_PATH}      { return T_SHORTEST_PATH; }
   {T_REPLACE}            { return T_REPLACE; }
   {T_ASC}                { return T_ASC; }

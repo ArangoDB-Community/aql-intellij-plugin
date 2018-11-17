@@ -96,6 +96,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     /* ********************************************************** */
     // T_SHORTEST_PATH
+    //                         | T_PHRASE
+    //                         | T_SEARCH
     //                         | T_REPLACE
     //                         | T_ASC
     //                         | T_AGGREGATE
@@ -123,6 +125,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, KEYWORD_STATEMENTS, "<keyword statements>");
         r = consumeToken(b, T_SHORTEST_PATH);
+        if (!r) {
+            r = consumeToken(b, T_PHRASE);
+        }
+        if (!r) {
+            r = consumeToken(b, T_SEARCH);
+        }
         if (!r) {
             r = consumeToken(b, T_REPLACE);
         }

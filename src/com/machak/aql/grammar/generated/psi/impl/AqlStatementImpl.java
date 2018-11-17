@@ -19,11 +19,11 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-      if (visitor instanceof AqlVisitor) {
-          accept((AqlVisitor) visitor);
-      } else {
-          super.accept(visitor);
-      }
+    if (visitor instanceof AqlVisitor) {
+      accept((AqlVisitor) visitor);
+    } else {
+      super.accept(visitor);
+    }
   }
 
   @Override
@@ -38,11 +38,11 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
     return findChildByClass(AqlKeywordStatements.class);
   }
 
-    @Override
-    @Nullable
-    public AqlLimitOffset getLimitOffset() {
-        return findChildByClass(AqlLimitOffset.class);
-    }
+  @Override
+  @Nullable
+  public AqlLimitOffset getLimitOffset() {
+    return findChildByClass(AqlLimitOffset.class);
+  }
 
   @Override
   @Nullable
@@ -50,11 +50,11 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
     return findChildByClass(AqlObjectExpression.class);
   }
 
-    @Override
-    @Nullable
-    public AqlOperatorStatements getOperatorStatements() {
-        return findChildByClass(AqlOperatorStatements.class);
-    }
+  @Override
+  @Nullable
+  public AqlOperatorStatements getOperatorStatements() {
+    return findChildByClass(AqlOperatorStatements.class);
+  }
 
   @Override
   @Nullable
