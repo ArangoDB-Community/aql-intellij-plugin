@@ -94,6 +94,7 @@ Comment ::= LineComment | BlockComment
 QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
 private statement_recover::= !(
                         KeywordStatements
+                        | OperatorStatements
                         | ObjectExpression
                         | Sequence
                         | PropertyName
@@ -162,7 +163,7 @@ OperatorStatements ::= T_NULL
                        | T_ANY
                        | T_ALL
                        | T_NONE
-Statement ::= (KeywordStatements) |(OperatorStatements)|(PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
+Statement ::= (KeywordStatements) | (OperatorStatements) | (PropertyName) | (Sequence) |(LimitOffset) | (ObjectExpression) | (Comment)
 ObjectExpression ::= (PropertyLookup)+
 Sequence ::= NUMBER_INTEGER ".." NUMBER_INTEGER
 LimitOffset ::= NUMBER_INTEGER "," NUMBER_INTEGER
