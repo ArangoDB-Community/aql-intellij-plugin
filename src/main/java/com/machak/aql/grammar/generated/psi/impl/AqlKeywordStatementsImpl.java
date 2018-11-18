@@ -92,12 +92,6 @@ public class AqlKeywordStatementsImpl extends ASTWrapperPsiElement implements Aq
 
     @Override
     @Nullable
-    public PsiElement getTIntersection() {
-        return findChildByType(T_INTERSECTION);
-    }
-
-    @Override
-    @Nullable
     public PsiElement getTInto() {
         return findChildByType(T_INTO);
     }

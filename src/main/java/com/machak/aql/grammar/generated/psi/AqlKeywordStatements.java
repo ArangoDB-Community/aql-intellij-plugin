@@ -6,76 +6,73 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlKeywordStatements extends PsiElement {
 
-    @Nullable
-    PsiElement getTAggregate();
+  @Nullable
+  PsiElement getTAggregate();
 
-    @Nullable
-    PsiElement getTAsc();
+  @Nullable
+  PsiElement getTAsc();
 
-    @Nullable
-    PsiElement getTCollect();
+  @Nullable
+  PsiElement getTCollect();
 
-    @Nullable
-    PsiElement getTDesc();
+  @Nullable
+  PsiElement getTDesc();
 
-    @Nullable
-    PsiElement getTDistinct();
+  @Nullable
+  PsiElement getTDistinct();
 
-    @Nullable
-    PsiElement getTFilter();
+  @Nullable
+  PsiElement getTFilter();
 
-    @Nullable
-    PsiElement getTFor();
+  @Nullable
+  PsiElement getTFor();
 
-    @Nullable
-    PsiElement getTGraph();
+  @Nullable
+  PsiElement getTGraph();
 
-    @Nullable
-    PsiElement getTIn();
+  @Nullable
+  PsiElement getTIn();
 
-    @Nullable
-    PsiElement getTInsert();
+  @Nullable
+  PsiElement getTInsert();
 
-    @Nullable
-    PsiElement getTIntersection();
+  @Nullable
+  PsiElement getTInto();
 
-    @Nullable
-    PsiElement getTInto();
+  @Nullable
+  PsiElement getTLet();
 
-    @Nullable
-    PsiElement getTLet();
+  @Nullable
+  PsiElement getTLimit();
 
-    @Nullable
-    PsiElement getTLimit();
+  @Nullable
+  PsiElement getTPhrase();
 
-    @Nullable
-    PsiElement getTPhrase();
+  @Nullable
+  PsiElement getTRemove();
 
-    @Nullable
-    PsiElement getTRemove();
+  @Nullable
+  PsiElement getTReplace();
 
-    @Nullable
-    PsiElement getTReplace();
+  @Nullable
+  PsiElement getTReturn();
 
-    @Nullable
-    PsiElement getTReturn();
+  @Nullable
+  PsiElement getTSearch();
 
-    @Nullable
-    PsiElement getTSearch();
+  @Nullable
+  PsiElement getTShortestPath();
 
-    @Nullable
-    PsiElement getTShortestPath();
+  @Nullable
+  PsiElement getTSort();
 
-    @Nullable
-    PsiElement getTSort();
+  @Nullable
+  PsiElement getTUpdate();
 
-    @Nullable
-    PsiElement getTUpdate();
+  @Nullable
+  PsiElement getTUpsert();
 
-    @Nullable
-    PsiElement getTUpsert();
-
-    @Nullable
-    PsiElement getTWith();
+  @Nullable
+  PsiElement getTWith();
 
 }

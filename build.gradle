@@ -28,8 +28,12 @@ dependencies {
 
     compile 'com.github.graphstream:gs-core:2.0-alpha'
 }
+patchPluginXml{
+    sinceBuild '163'
+    untilBuild '184'
+}
 
 intellij {
-    version '2018.2'
+    version '2017.3'
     pluginName 'aql'
 }

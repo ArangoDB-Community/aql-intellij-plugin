@@ -91,7 +91,6 @@ public interface AqlTypes {
   IElementType T_IN = new AqlTokenType("T_IN");
     IElementType T_INBOUND = new AqlTokenType("T_INBOUND");
   IElementType T_INSERT = new AqlTokenType("T_INSERT");
-    IElementType T_INTERSECTION = new AqlTokenType("T_INTERSECTION");
   IElementType T_INTO = new AqlTokenType("T_INTO");
   IElementType T_IS = new AqlTokenType("=");
     IElementType T_KEY = new AqlTokenType("_key");

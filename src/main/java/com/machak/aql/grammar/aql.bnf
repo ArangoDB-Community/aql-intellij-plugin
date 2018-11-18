@@ -37,7 +37,6 @@ T_RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
 T_UPSERT = "regexp:([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])"
 T_REMOVE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])"
 T_INSERT = "regexp:([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])"
-T_INTERSECTION = "regexp:([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
 F_INTERSECTION = "regexp:([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
 T_OUTBOUND = "regexp:([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])"
 T_INBOUND = "regexp:([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])"
@@ -192,7 +191,7 @@ KeywordStatements ::=    T_SHORTEST_PATH
                         | T_UPSERT
                         | T_REMOVE
                         | T_INSERT
-                        | T_INTERSECTION
+                
 
 OperatorStatements ::= T_NULL
                        | T_TRUE

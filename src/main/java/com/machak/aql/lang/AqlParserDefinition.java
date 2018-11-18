@@ -22,6 +22,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlParserDefinition implements ParserDefinition {
     public static final IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
+
+    //@Override
+    public SpaceRequirements spaceExistenceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
+        return SpaceRequirements.MAY;
+    }
+
+    @Override
+    public SpaceRequirements spaceExistanceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
+        return this.spaceExistenceTypeBetweenTokens(left, right);
+    }
+
     public static final IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
 
     public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);

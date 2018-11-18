@@ -1,7 +1,14 @@
 #  AQL (ArangoDB) language support plugin for Intellij IDEA 18.x IDE
-(might work in other Intellij products, but have not tested it)
+(might work in other Intellij products, I compiled it with 2017 version,  but have not tested it)
 
-![editor](img/editor.png)
+## File editing
+![File Editing](img/editor.png)
+
+
+## Parameter language injection
+ 
+![Query Injection](img/editor2.png)
+
 
 ## Build
 
@@ -10,6 +17,5 @@ gradle
 
 ```
 
-
 ## Licence
-![Apache License](LICENSE.txt)
+[Apache License Version 2.0](LICENSE.txt)

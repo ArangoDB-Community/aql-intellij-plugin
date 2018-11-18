@@ -6,10 +6,10 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlStringType extends PsiElement {
 
-    @Nullable
-    PsiElement getTextDouble();
+  @Nullable
+  PsiElement getTextDouble();
 
-    @Nullable
-    PsiElement getTextSingle();
+  @Nullable
+  PsiElement getTextSingle();
 
 }

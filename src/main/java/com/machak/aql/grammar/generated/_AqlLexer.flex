@@ -48,7 +48,6 @@ T_RETURN=([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])
 T_UPSERT=([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])
 T_REMOVE=([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])
 T_INSERT=([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])
-T_INTERSECTION=([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])
 F_INTERSECTION=([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])
 T_OUTBOUND=([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])
 T_INBOUND=([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])
@@ -160,7 +159,6 @@ ID=[:letter:][a-zA-Z_0-9]*
   {T_UPSERT}              { return T_UPSERT; }
   {T_REMOVE}              { return T_REMOVE; }
   {T_INSERT}              { return T_INSERT; }
-  {T_INTERSECTION}        { return T_INTERSECTION; }
   {F_INTERSECTION}        { return F_INTERSECTION; }
   {T_OUTBOUND}            { return T_OUTBOUND; }
   {T_INBOUND}             { return T_INBOUND; }

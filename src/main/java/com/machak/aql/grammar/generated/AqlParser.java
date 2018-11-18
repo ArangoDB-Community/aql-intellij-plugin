@@ -255,7 +255,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                         | T_UPSERT
     //                         | T_REMOVE
     //                         | T_INSERT
-    //                         | T_INTERSECTION
     public static boolean KeywordStatements(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "KeywordStatements")) {
             return false;
@@ -328,9 +327,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = consumeToken(b, T_INSERT);
-        }
-        if (!r) {
-            r = consumeToken(b, T_INTERSECTION);
         }
         exit_section_(b, l, m, r, false, null);
         return r;

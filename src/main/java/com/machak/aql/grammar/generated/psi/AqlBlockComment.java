@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlBlockComment extends PsiElement {
 
-    @NotNull
-    PsiElement getBComment();
+  @NotNull
+  PsiElement getBComment();
 
 }

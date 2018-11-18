@@ -35,7 +35,6 @@ public final class AqlKeywords {
             "REMOVE",
             "INSERT",
             "INTERSECTION",
-            "F_INTERSECTION",
             "OUTBOUND",
             "INBOUND",
             "ANY",
@@ -80,10 +79,8 @@ public final class AqlKeywords {
             .map(AqlKeywordElement::new)
             .map(AqlKeywordElement::createLookupElement)
             .collect(Collectors.toList());
-    public static final List<LookupElement> FUNCTION_LOOKUP_ELEMENTS = KEYWORDS.stream()
-            .map(name -> {
-                return new AqlKeywordElement(name, Icons.ICON_FUNCTION);
-            })
+    public static final List<LookupElement> FUNCTION_LOOKUP_ELEMENTS = FUNCTIONS.stream()
+            .map(name -> new AqlKeywordElement(name, Icons.ICON_FUNCTION))
             .map(AqlKeywordElement::createLookupElement)
             .collect(Collectors.toList());
     public static final List<LookupElement> ALL = KEYWORD_LOOKUP_ELEMENTS;
