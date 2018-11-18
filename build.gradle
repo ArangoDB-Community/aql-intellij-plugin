@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.intellij' version '0.3.12'
 }
 
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+
 group 'com.machak'
 version '1.0-SNAPSHOT'
 
@@ -24,4 +28,5 @@ dependencies {
 
 intellij {
     version '2018.2'
+    pluginName 'aql'
 }

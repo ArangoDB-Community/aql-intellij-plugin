@@ -5,7 +5,6 @@ import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 @State(name = "ArangoDB.DataSource", storages = {@Storage("ArangoDB_DataSource.xml")})
 public class DataWindowState implements ProjectComponent, PersistentStateComponent<ArangoDbDataSource> {
@@ -17,9 +16,12 @@ public class DataWindowState implements ProjectComponent, PersistentStateCompone
         this.state = state;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public ArangoDbDataSource getState() {
+        if (state == null) {
+            state = new ArangoDbDataSource();
+        }
         return state;
     }
 

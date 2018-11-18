@@ -33,6 +33,11 @@ public class DataWindow {
         });
         saveButton.addActionListener(e -> {
             final ArangoDbDataSource state = dataWindowState.getState();
+            state.setDatabase(textDatabase.getText());
+            state.setUser(textUser.getText());
+            state.setPassword(String.valueOf(passwordField.getPassword()));
+            state.setHost(textHost.getText());
+            //state.setPort(Integer.parseInt(portField.getValue()));
             service.refresh(state);
         });
 

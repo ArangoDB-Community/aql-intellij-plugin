@@ -12,7 +12,7 @@ import static com.machak.aql.lang.AqlLanguage.*;
 public class AqlFileType extends LanguageFileType {
     public static final AqlFileType INSTANCE = new AqlFileType();
 
-    public static final Icon ICON = IconLoader.getIcon("/com/machak/aql/icons/aql-small.png");
+    public static final Icon ICON = IconLoader.getIcon("/icons/aql-small.png");
 
     private AqlFileType() {
         super(AQL_LANGUAGE);
