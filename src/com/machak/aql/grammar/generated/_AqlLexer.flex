@@ -42,17 +42,25 @@ T_GRAPH=([Gg])([Rr])([Aa])([Pp])([Hh])
 T_FOR=([Ff])([Oo])([Rr])
 T_LET=([Ll])([Ee])([Tt])
 T_COLLECT=([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])
+T_COUNT=([Cc])([Oo])([Uu])([Nn])([Tt])
 T_WITH=([Ww])([Ii])([Tt])([Hh])
 T_DISTINCT=([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 T_RETURN=([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])
 T_UPSERT=([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])
 T_REMOVE=([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])
 T_INSERT=([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])
+T_INTERSECTION=([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])
+T_OUTBOUND=([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])
+T_INBOUND=([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])
+T_ANY=([Aa])([Nn])([Yy])
+T_ALL=([Aa])([Ll])([Ll])
+T_NULL=([Nn])([Uu])([Ll])([Ll])
+T_AND=([Aa])([Nn])([Dd])
 NUMBER_INTEGER=[0-9]+
 SPACE=[ \t\n\x0B\f\r]+
 B_COMMENT="/"\*(.|\n)*\*"/"
 L_COMMENT="//".*
-TEXT_SINGLE='.*'
+TEXT_SINGLE='(''|[^']*)'
 TEXT_DOUBLE=\".*\"
 ID=[:letter:][a-zA-Z_0-9]*
 
@@ -60,14 +68,16 @@ ID=[:letter:][a-zA-Z_0-9]*
 <YYINITIAL> {
   {WHITE_SPACE}          { return WHITE_SPACE; }
 
-  "null"                 { return T_NULL; }
+  "_key"                 { return T_KEY; }
+  "_id"                  { return T_ID; }
+  "_from"                { return T_SYS_FROM; }
+  "_to"                  { return T_SYS_TO; }
+  "@"                    { return T_AT; }
   "true"                 { return T_TRUE; }
   "false"                { return T_FALSE; }
   "not"                  { return T_NOT; }
-  "and"                  { return T_AND; }
   "&&"                   { return T_LOGICAL_AND; }
-  "or"                   { return T_OR; }
-  "not"                  { return T_NIN; }
+  "||"                   { return T_OR; }
   "~="                   { return T_REGEX_MATCH; }
   "~!"                   { return T_REGEX_NON_MATCH; }
   "=="                   { return T_EQ; }
@@ -94,15 +104,12 @@ ID=[:letter:][a-zA-Z_0-9]*
   "}"                    { return T_OBJECT_CLOSE; }
   "["                    { return T_ARRAY_OPEN; }
   "]"                    { return T_ARRAY_CLOSE; }
-  "outbound"             { return T_OUTBOUND; }
-  "inbound"              { return T_INBOUND; }
-  "any"                  { return T_ANY; }
-  "all"                  { return T_ALL; }
   "none"                 { return T_NONE; }
   "'"                    { return SINGLE_QUOTE; }
   "\""                   { return DOUBLE_QUOTE; }
   "$"                    { return DOLLAR; }
   "${"                   { return OBJECT_START; }
+  "T_NIN"                { return T_NIN; }
 
   {T_SEARCH}             { return T_SEARCH; }
   {T_PHRASE}             { return T_PHRASE; }
@@ -121,12 +128,20 @@ ID=[:letter:][a-zA-Z_0-9]*
   {T_FOR}                { return T_FOR; }
   {T_LET}                { return T_LET; }
   {T_COLLECT}            { return T_COLLECT; }
+  {T_COUNT}              { return T_COUNT; }
   {T_WITH}               { return T_WITH; }
   {T_DISTINCT}           { return T_DISTINCT; }
   {T_RETURN}             { return T_RETURN; }
   {T_UPSERT}             { return T_UPSERT; }
   {T_REMOVE}             { return T_REMOVE; }
   {T_INSERT}             { return T_INSERT; }
+  {T_INTERSECTION}       { return T_INTERSECTION; }
+  {T_OUTBOUND}           { return T_OUTBOUND; }
+  {T_INBOUND}            { return T_INBOUND; }
+  {T_ANY}                { return T_ANY; }
+  {T_ALL}                { return T_ALL; }
+  {T_NULL}               { return T_NULL; }
+  {T_AND}                { return T_AND; }
   {NUMBER_INTEGER}       { return NUMBER_INTEGER; }
   {SPACE}                { return SPACE; }
   {B_COMMENT}            { return B_COMMENT; }

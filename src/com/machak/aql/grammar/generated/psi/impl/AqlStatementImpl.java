@@ -19,11 +19,11 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof AqlVisitor) {
-      accept((AqlVisitor) visitor);
-    } else {
-      super.accept(visitor);
-    }
+      if (visitor instanceof AqlVisitor) {
+          accept((AqlVisitor) visitor);
+      } else {
+          super.accept(visitor);
+      }
   }
 
   @Override
@@ -31,6 +31,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   public AqlComment getComment() {
     return findChildByClass(AqlComment.class);
   }
+
+    @Override
+    @Nullable
+    public AqlIntegerType getIntegerType() {
+        return findChildByClass(AqlIntegerType.class);
+    }
 
   @Override
   @Nullable

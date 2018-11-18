@@ -27,6 +27,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = BlockComment(b, 0);
         } else if (t == COMMENT) {
             r = Comment(b, 0);
+        } else if (t == INTEGER_TYPE) {
+            r = IntegerType(b, 0);
         } else if (t == KEYWORD_STATEMENTS) {
             r = KeywordStatements(b, 0);
         } else if (t == LIMIT_OFFSET) {
@@ -51,6 +53,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = Statement(b, 0);
         } else if (t == STRING_TYPE) {
             r = StringType(b, 0);
+        } else if (t == SYSTEM_PROPERTY) {
+            r = SystemProperty(b, 0);
         } else {
             r = parse_root_(t, b, 0);
         }
@@ -97,6 +101,22 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // NUMBER_INTEGER
+    public static boolean IntegerType(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "IntegerType")) {
+            return false;
+        }
+        if (!nextTokenIs(b, NUMBER_INTEGER)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, NUMBER_INTEGER);
+        exit_section_(b, m, INTEGER_TYPE, r);
+        return r;
+    }
+
+    /* ********************************************************** */
     // T_SHORTEST_PATH
     //                         | T_PHRASE
     //                         | T_SEARCH
@@ -114,12 +134,14 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                         | T_FOR
     //                         | T_LET
     //                         | T_COLLECT
+    //                         | T_COUNT
     //                         | T_WITH
     //                         | T_DISTINCT
     //                         | T_RETURN
     //                         | T_UPSERT
     //                         | T_REMOVE
     //                         | T_INSERT
+    //                         | T_INTERSECTION
     public static boolean KeywordStatements(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "KeywordStatements")) {
             return false;
@@ -176,6 +198,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = consumeToken(b, T_COLLECT);
         }
         if (!r) {
+            r = consumeToken(b, T_COUNT);
+        }
+        if (!r) {
             r = consumeToken(b, T_WITH);
         }
         if (!r) {
@@ -193,12 +218,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!r) {
             r = consumeToken(b, T_INSERT);
         }
+        if (!r) {
+            r = consumeToken(b, T_INTERSECTION);
+        }
         exit_section_(b, l, m, r, false, null);
         return r;
     }
 
     /* ********************************************************** */
-    // NUMBER_INTEGER "," NUMBER_INTEGER
+    // IntegerType "," IntegerType
     public static boolean LimitOffset(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "LimitOffset")) {
             return false;
@@ -208,7 +236,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         boolean r;
         Marker m = enter_section_(b);
-        r = consumeTokens(b, 0, NUMBER_INTEGER, T_COMMA, NUMBER_INTEGER);
+        r = IntegerType(b, l + 1);
+        r = r && consumeToken(b, T_COMMA);
+        r = r && IntegerType(b, l + 1);
         exit_section_(b, m, LIMIT_OFFSET, r);
         return r;
     }
@@ -308,6 +338,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     /* ********************************************************** */
     // T_NULL
     //                        | T_TRUE
+    //                        | T_AT
     //                        | T_IS
     //                        | T_FALSE
     //                        | T_NOT
@@ -354,6 +385,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         r = consumeToken(b, T_NULL);
         if (!r) {
             r = consumeToken(b, T_TRUE);
+        }
+        if (!r) {
+            r = consumeToken(b, T_AT);
         }
         if (!r) {
             r = consumeToken(b, T_IS);
@@ -471,16 +505,44 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // "." PropertyName
+    // ("." PropertyName) | ("." SystemProperty)
     public static boolean PropertyLookup(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "PropertyLookup")) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, PROPERTY_LOOKUP, "<property lookup>");
+        r = PropertyLookup_0(b, l + 1);
+        if (!r) {
+            r = PropertyLookup_1(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // "." PropertyName
+    private static boolean PropertyLookup_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "PropertyLookup_0")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
         r = consumeToken(b, ".");
         r = r && PropertyName(b, l + 1);
-        exit_section_(b, l, m, r, false, null);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // "." SystemProperty
+    private static boolean PropertyLookup_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "PropertyLookup_1")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, ".");
+        r = r && SystemProperty(b, l + 1);
+        exit_section_(b, m, null, r);
         return r;
     }
 
@@ -528,7 +590,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // NUMBER_INTEGER ".." NUMBER_INTEGER
+    // IntegerType ".." IntegerType
     public static boolean Sequence(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Sequence")) {
             return false;
@@ -538,7 +600,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         boolean r;
         Marker m = enter_section_(b);
-        r = consumeTokens(b, 0, NUMBER_INTEGER, T_RANGE, NUMBER_INTEGER);
+        r = IntegerType(b, l + 1);
+        r = r && consumeToken(b, T_RANGE);
+        r = r && IntegerType(b, l + 1);
         exit_section_(b, m, SEQUENCE, r);
         return r;
     }
@@ -550,6 +614,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //               | (ObjectVariable)
     //               | (Sequence)
     //               | (StringType)
+    //               | (IntegerType)
     //               | (LimitOffset)
     //               | (ObjectExpression)
     //               | (Comment)
@@ -583,6 +648,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = Statement_8(b, l + 1);
+        }
+        if (!r) {
+            r = Statement_9(b, l + 1);
         }
         exit_section_(b, l, m, r, false, null);
         return r;
@@ -660,9 +728,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // (LimitOffset)
+    // (IntegerType)
     private static boolean Statement_6(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement_6")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = IntegerType(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (LimitOffset)
+    private static boolean Statement_7(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_7")) {
             return false;
         }
         boolean r;
@@ -673,8 +753,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (ObjectExpression)
-    private static boolean Statement_7(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_7")) {
+    private static boolean Statement_8(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_8")) {
             return false;
         }
         boolean r;
@@ -685,8 +765,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (Comment)
-    private static boolean Statement_8(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_8")) {
+    private static boolean Statement_9(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_9")) {
             return false;
         }
         boolean r;
@@ -716,6 +796,28 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
+    public static boolean SystemProperty(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "SystemProperty")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, SYSTEM_PROPERTY, "<system property>");
+        r = consumeToken(b, T_KEY);
+        if (!r) {
+            r = consumeToken(b, T_ID);
+        }
+        if (!r) {
+            r = consumeToken(b, T_SYS_FROM);
+        }
+        if (!r) {
+            r = consumeToken(b, T_SYS_TO);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    /* ********************************************************** */
     // QueryItem *
     static boolean aql(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "aql")) {
@@ -736,15 +838,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     /* ********************************************************** */
     // !(
     //                         Statement
-    //                         | OperatorStatements
-    //                         | ObjectExpression
-    //                        /* | SyntaxOperators*/
-    //                         | Sequence
-    //                         | StringType
-    //                         | PropertyName
-    //                         | ObjectVariable
-    //                         | LimitOffset
-    //                         | Comment
+    //
     //                     )
     static boolean statement_recover(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover")) {
@@ -757,46 +851,18 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // Statement
-    //                         | OperatorStatements
-    //                         | ObjectExpression
-    //                        /* | SyntaxOperators*/
-    //                         | Sequence
-    //                         | StringType
-    //                         | PropertyName
-    //                         | ObjectVariable
-    //                         | LimitOffset
-    //                         | Comment
+    // (
+    //                         Statement
+    //
+    //                     )
     private static boolean statement_recover_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover_0")) {
             return false;
         }
         boolean r;
+        Marker m = enter_section_(b);
         r = Statement(b, l + 1);
-        if (!r) {
-            r = OperatorStatements(b, l + 1);
-        }
-        if (!r) {
-            r = ObjectExpression(b, l + 1);
-        }
-        if (!r) {
-            r = Sequence(b, l + 1);
-        }
-        if (!r) {
-            r = StringType(b, l + 1);
-        }
-        if (!r) {
-            r = PropertyName(b, l + 1);
-        }
-        if (!r) {
-            r = ObjectVariable(b, l + 1);
-        }
-        if (!r) {
-            r = LimitOffset(b, l + 1);
-        }
-        if (!r) {
-            r = Comment(b, l + 1);
-        }
+        exit_section_(b, m, null, r);
         return r;
     }
 

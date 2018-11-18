@@ -15,6 +15,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+    public void visitIntegerType(@NotNull AqlIntegerType o) {
+        visitPsiElement(o);
+    }
+
   public void visitKeywordStatements(@NotNull AqlKeywordStatements o) {
     visitPsiElement(o);
   }
@@ -62,6 +66,10 @@ public class AqlVisitor extends PsiElementVisitor {
   public void visitStringType(@NotNull AqlStringType o) {
     visitPsiElement(o);
   }
+
+    public void visitSystemProperty(@NotNull AqlSystemProperty o) {
+        visitPsiElement(o);
+    }
 
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);

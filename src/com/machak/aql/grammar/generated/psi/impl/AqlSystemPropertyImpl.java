@@ -4,22 +4,18 @@ package com.machak.aql.grammar.generated.psi.impl;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.machak.aql.grammar.generated.psi.AqlIntegerType;
-import com.machak.aql.grammar.generated.psi.AqlLimitOffset;
+import com.machak.aql.grammar.generated.psi.AqlSystemProperty;
 import com.machak.aql.grammar.generated.psi.AqlVisitor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+public class AqlSystemPropertyImpl extends ASTWrapperPsiElement implements AqlSystemProperty {
 
-public class AqlLimitOffsetImpl extends ASTWrapperPsiElement implements AqlLimitOffset {
-
-    public AqlLimitOffsetImpl(@NotNull ASTNode node) {
+    public AqlSystemPropertyImpl(@NotNull ASTNode node) {
         super(node);
     }
 
     public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitLimitOffset(this);
+        visitor.visitSystemProperty(this);
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
@@ -28,12 +24,6 @@ public class AqlLimitOffsetImpl extends ASTWrapperPsiElement implements AqlLimit
         } else {
             super.accept(visitor);
         }
-    }
-
-    @Override
-    @NotNull
-    public List<AqlIntegerType> getIntegerTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
     }
 
 }

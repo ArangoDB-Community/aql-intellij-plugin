@@ -50,6 +50,12 @@ public class AqlKeywordStatementsImpl extends ASTWrapperPsiElement implements Aq
 
     @Override
     @Nullable
+    public PsiElement getTCount() {
+        return findChildByType(T_COUNT);
+    }
+
+    @Override
+    @Nullable
     public PsiElement getTDesc() {
         return findChildByType(T_DESC);
     }
@@ -88,6 +94,12 @@ public class AqlKeywordStatementsImpl extends ASTWrapperPsiElement implements Aq
     @Nullable
     public PsiElement getTInsert() {
         return findChildByType(T_INSERT);
+    }
+
+    @Override
+    @Nullable
+    public PsiElement getTIntersection() {
+        return findChildByType(T_INTERSECTION);
     }
 
     @Override
