@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="LanguageInjectionConfiguration">
   <injection language="aql" injector-id="java">
-    <display-name>ArangoDB aql</display-name>
+    <display-name>ArangoDB AQL Spring Data Query Injection</display-name>
     <place>
-<![CDATA[
+      <![CDATA[
       psiMethod().withName("value").withParameters().definedInClass("com.arangodb.springframework.annotation.Query")
       ]]>
         </place>

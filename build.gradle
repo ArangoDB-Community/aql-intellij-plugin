@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.3.12'
+}
+
+group 'com.machak'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://jitpack.io' }
+    maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+}
+
+dependencies {
+    
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'com.arangodb:arangodb-java-driver:5.0.2'
+    compile 'com.github.graphstream:gs-core:2.0-alpha'
+}
+
+intellij {
+    version '2018.2'
+}
