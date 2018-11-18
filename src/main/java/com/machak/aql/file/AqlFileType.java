@@ -1,7 +1,7 @@
 package com.machak.aql.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.util.IconLoader;
+import com.machak.aql.util.Icons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,8 +11,6 @@ import static com.machak.aql.lang.AqlLanguage.*;
 
 public class AqlFileType extends LanguageFileType {
     public static final AqlFileType INSTANCE = new AqlFileType();
-
-    public static final Icon ICON = IconLoader.getIcon("/icons/aql-small.png");
 
     private AqlFileType() {
         super(AQL_LANGUAGE);
@@ -39,7 +37,7 @@ public class AqlFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return ICON;
+        return Icons.ICON_ARANGO_SMALL;
     }
 }
 

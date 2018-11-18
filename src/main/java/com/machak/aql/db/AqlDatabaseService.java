@@ -1,14 +1,19 @@
 package com.machak.aql.db;
 
+import com.intellij.codeInsight.lookup.LookupElement;
 import com.machak.aql.window.ArangoDbDataSource;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface AqlDatabaseService {
 
-    Set<String> getSearchViews();
+    Collection<LookupElement> getSearchViews();
 
-    Set<String> getCollections();
+    Collection<LookupElement> getCollections();
+
+    Collection<LookupElement> getGraphs();
 
     void refresh(ArangoDbDataSource databaseSettings);
+
+    Collection<LookupElement> getAll();
 }

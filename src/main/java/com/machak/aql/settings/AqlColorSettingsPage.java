@@ -5,9 +5,9 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import com.machak.aql.file.AqlFileType;
 import com.machak.aql.lang.AqlSyntaxColors;
 import com.machak.aql.lang.AqlSyntaxHighlighter;
+import com.machak.aql.util.Icons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +34,7 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
     @Nullable
     @Override
     public Icon getIcon() {
-        return AqlFileType.ICON;
+        return Icons.ICON_ARANGO_SMALL;
     }
 
     @NotNull

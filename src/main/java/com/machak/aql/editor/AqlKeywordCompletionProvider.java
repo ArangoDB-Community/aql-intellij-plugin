@@ -22,6 +22,6 @@ public final class AqlKeywordCompletionProvider extends AqlCompletionProvider {
     protected void addCompletions(@NotNull CompletionParameters parameters,
                                   @NotNull ProcessingContext context,
                                   @NotNull CompletionResultSet result) {
-        result.addAllElements(AqlKeywords.KEYWORD_LOOKUP_ELEMENTS);
+        result.addAllElements(AqlKeywords.ALL);
     }
 }

@@ -27,6 +27,14 @@ public class DataWindow {
         portField.setValue(ArangoDbDataSource.DEFAULT_PORT);
         dataWindowState = project.getComponent(DataWindowState.class);
         service = ServiceManager.getService(project, AqlDatabaseService.class);
+        final ArangoDbDataSource oldState = dataWindowState.getState();
+        service.refresh(oldState);
+        textDatabase.setText(oldState.getDatabase());
+        textHost.setText(oldState.getHost());
+        passwordField.setText(oldState.getPassword());
+        portField.setValue(oldState.getPort());
+        textUser.setText(oldState.getUser());
+
         refreshButton.addActionListener(e -> {
             final ArangoDbDataSource state = dataWindowState.getState();
             service.refresh(state);
@@ -37,7 +45,8 @@ public class DataWindow {
             state.setUser(textUser.getText());
             state.setPassword(String.valueOf(passwordField.getPassword()));
             state.setHost(textHost.getText());
-            //state.setPort(Integer.parseInt(portField.getValue()));
+            final Integer value = (Integer) portField.getValue();
+            state.setPort(value);
             service.refresh(state);
         });
 

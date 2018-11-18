@@ -8,7 +8,7 @@ import com.machak.aql.db.AqlDatabaseService;
 
 public abstract class AqlCompletionProvider extends CompletionProvider<CompletionParameters> {
 
-    protected void withService(CompletionParameters parameters, ProjectRunnable runnable) {
+    protected void executeService(CompletionParameters parameters, ProjectRunnable runnable) {
         final Project project = parameters.getEditor().getProject();
         if (project != null) {
             final AqlDatabaseService ser = ServiceManager.getService(project, AqlDatabaseService.class);
