@@ -41,20 +41,11 @@
       //############################################
     -->
     <projectService serviceInterface="com.machak.aql.db.AqlDatabaseService" serviceImplementation="com.machak.aql.db.AqlDatabaseServiceImpl"/>
-    <projectConfigurable id="aql.project.configurable" displayName="ArangoDB (Project)" instance="com.machak.aql.settings.ProjectSettingsComponent"/>
-    <applicationConfigurable id="aql.app.configurable" displayName="ArangoDB  (Global)" instance="com.machak.aql.settings.ApplicationSettingsComponent"/>
+    <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.machak.aql.window.DataWindowFactory" icon="/icons/aql.png"/>
   </extensions>
 
   <actions>
     <!-- Add your actions here -->
   </actions>
 
-  <application-components>
-    <component>
-      <implementation-class>com.machak.aql.settings.ProjectSettingsComponent</implementation-class>
-    </component>
-    <component>
-      <implementation-class>com.machak.aql.settings.ApplicationSettingsComponent</implementation-class>
-    </component>
-  </application-components>
 </idea-plugin>
