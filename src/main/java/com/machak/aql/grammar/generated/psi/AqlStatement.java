@@ -12,6 +12,9 @@ public interface AqlStatement extends PsiElement {
     @Nullable
     AqlIntegerType getIntegerType();
 
+    @Nullable
+    AqlKeywordFunctions getKeywordFunctions();
+
   @Nullable
   AqlKeywordStatements getKeywordStatements();
 

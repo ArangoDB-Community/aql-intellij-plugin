@@ -16,9 +16,6 @@ public interface AqlKeywordStatements extends PsiElement {
     PsiElement getTCollect();
 
     @Nullable
-    PsiElement getTCount();
-
-    @Nullable
     PsiElement getTDesc();
 
     @Nullable

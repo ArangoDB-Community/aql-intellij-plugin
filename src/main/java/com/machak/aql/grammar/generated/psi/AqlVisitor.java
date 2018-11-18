@@ -19,6 +19,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitKeywordFunctions(@NotNull AqlKeywordFunctions o) {
+        visitPsiElement(o);
+    }
+
   public void visitKeywordStatements(@NotNull AqlKeywordStatements o) {
     visitPsiElement(o);
   }

@@ -13,6 +13,7 @@ public interface AqlTypes {
   IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
   IElementType COMMENT = new AqlElementType("COMMENT");
     IElementType INTEGER_TYPE = new AqlElementType("INTEGER_TYPE");
+    IElementType KEYWORD_FUNCTIONS = new AqlElementType("KEYWORD_FUNCTIONS");
   IElementType KEYWORD_STATEMENTS = new AqlElementType("KEYWORD_STATEMENTS");
   IElementType LIMIT_OFFSET = new AqlElementType("LIMIT_OFFSET");
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
@@ -30,6 +31,33 @@ public interface AqlTypes {
   IElementType B_COMMENT = new AqlTokenType("B_COMMENT");
   IElementType DOLLAR = new AqlTokenType("$");
   IElementType DOUBLE_QUOTE = new AqlTokenType("\"");
+    IElementType F_COLLECTIONS = new AqlTokenType("F_COLLECTIONS");
+    IElementType F_COUNT = new AqlTokenType("F_COUNT");
+    IElementType F_COUNT_DISTINCT = new AqlTokenType("F_COUNT_DISTINCT");
+    IElementType F_COUNT_UNIQUE = new AqlTokenType("F_COUNT_UNIQUE");
+    IElementType F_FIRST = new AqlTokenType("F_FIRST");
+    IElementType F_HAS = new AqlTokenType("F_HAS");
+    IElementType F_INTERSECTION = new AqlTokenType("F_INTERSECTION");
+    IElementType F_LAST = new AqlTokenType("F_LAST");
+    IElementType F_LENGTH = new AqlTokenType("F_LENGTH");
+    IElementType F_MINUS = new AqlTokenType("F_MINUS");
+    IElementType F_NTH = new AqlTokenType("F_NTH");
+    IElementType F_OUTERSECTION = new AqlTokenType("F_OUTERSECTION");
+    IElementType F_POP = new AqlTokenType("F_POP");
+    IElementType F_POSITION = new AqlTokenType("F_POSITION");
+    IElementType F_PUSH = new AqlTokenType("F_PUSH");
+    IElementType F_REMOVE_NTH = new AqlTokenType("F_REMOVE_NTH");
+    IElementType F_REMOVE_VALUE = new AqlTokenType("F_REMOVE_VALUE");
+    IElementType F_REMOVE_VALUES = new AqlTokenType("F_REMOVE_VALUES");
+    IElementType F_REVERSE = new AqlTokenType("F_REVERSE");
+    IElementType F_SHIFT = new AqlTokenType("F_SHIFT");
+    IElementType F_SLICE = new AqlTokenType("F_SLICE");
+    IElementType F_SORTED = new AqlTokenType("F_SORTED");
+    IElementType F_SORTED_UNIQUE = new AqlTokenType("F_SORTED_UNIQUE");
+    IElementType F_UNION = new AqlTokenType("F_UNION");
+    IElementType F_UNION_DISTINCT = new AqlTokenType("F_UNION_DISTINCT");
+    IElementType F_UNIQUE = new AqlTokenType("F_UNIQUE");
+    IElementType F_UNSHIFT = new AqlTokenType("F_UNSHIFT");
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
@@ -49,7 +77,6 @@ public interface AqlTypes {
   IElementType T_COLLECT = new AqlTokenType("T_COLLECT");
   IElementType T_COLON = new AqlTokenType(":");
   IElementType T_COMMA = new AqlTokenType(",");
-    IElementType T_COUNT = new AqlTokenType("T_COUNT");
   IElementType T_DESC = new AqlTokenType("T_DESC");
   IElementType T_DISTINCT = new AqlTokenType("T_DISTINCT");
   IElementType T_DIV = new AqlTokenType("/");
@@ -116,6 +143,8 @@ public interface AqlTypes {
         return new AqlCommentImpl(node);
       } else if (type == INTEGER_TYPE) {
           return new AqlIntegerTypeImpl(node);
+      } else if (type == KEYWORD_FUNCTIONS) {
+          return new AqlKeywordFunctionsImpl(node);
       } else if (type == KEYWORD_STATEMENTS) {
         return new AqlKeywordStatementsImpl(node);
       } else if (type == LIMIT_OFFSET) {

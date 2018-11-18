@@ -38,6 +38,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
         return findChildByClass(AqlIntegerType.class);
     }
 
+    @Override
+    @Nullable
+    public AqlKeywordFunctions getKeywordFunctions() {
+        return findChildByClass(AqlKeywordFunctions.class);
+    }
+
   @Override
   @Nullable
   public AqlKeywordStatements getKeywordStatements() {

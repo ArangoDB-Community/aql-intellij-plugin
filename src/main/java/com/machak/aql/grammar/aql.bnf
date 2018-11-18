@@ -31,7 +31,6 @@ T_GRAPH = "regexp:([Gg])([Rr])([Aa])([Pp])([Hh])"
 T_FOR = "regexp:([Ff])([Oo])([Rr])"
 T_LET = "regexp:([Ll])([Ee])([Tt])"
 T_COLLECT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])"
-T_COUNT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])"
 T_WITH = "regexp:([Ww])([Ii])([Tt])([Hh])"
 T_DISTINCT = "regexp:([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
 T_RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
@@ -39,12 +38,41 @@ T_UPSERT = "regexp:([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])"
 T_REMOVE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])"
 T_INSERT = "regexp:([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])"
 T_INTERSECTION = "regexp:([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
+F_INTERSECTION = "regexp:([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
 T_OUTBOUND = "regexp:([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])"
 T_INBOUND = "regexp:([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])"
 T_ANY = "regexp:([Aa])([Nn])([Yy])"
 T_ALL = "regexp:([Aa])([Ll])([Ll])"
 T_NULL = "regexp:([Nn])([Uu])([Ll])([Ll])"
 T_AND = "regexp:([Aa])([Nn])([Dd])"
+// functions
+F_HAS = "regexp:([Hh])([Aa])([Ss])"
+F_LENGTH = "regexp:([Ll])([Ee])([Nn])([Nn])([Gg])([Tt])([Hh])"
+F_COLLECTIONS = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])([Ss])"
+F_COUNT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])"
+F_UNION = "regexp:([Uu])([Nn])([Ii])([Oo])([Nn])"
+F_UNION_DISTINCT = "regexp:([Uu])([Nn])([Ii])([Oo])([Nn])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+F_FIRST = "regexp:([Ff])([Ii])([Rr])([Ss])([Tt])"
+F_LAST = "regexp:([Ll])([Aa])([Ss])([Tt])"
+F_NTH = "regexp:([Nn])([Tt])([Hh])"
+F_REMOVE_NTH = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])([_])([Nn])([Tt])([Hh])"
+F_REMOVE_VALUE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])([_])([Vv])([Aa])([Ll])([Uu])([Ee])"
+F_REMOVE_VALUES = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])([_])([Vv])([Aa])([Ll])([Uu])([Ee])([Ss])"
+F_POP = "regexp:([Pp])([Oo])([Pp])"
+F_PUSH = "regexp:([Pp])([Uu])([Ss])([Hh])"
+F_SHIFT = "regexp:([Ss])([Hh])([Ii])([Ff])([Tt])"
+F_UNSHIFT = "regexp:([Uu])([Nn])([Ss])([Hh])([Ii])([Ff])([Tt])"
+F_SLICE = "regexp:([Ss])([Ll])([Ii])([Cc])([Ee])"
+F_SORTED = "regexp:([Ss])([Oo])([Rr])([Tt])([Ee])([Dd])"
+F_SORTED_UNIQUE = "regexp:([Ss])([Oo])([Rr])([Tt])([Ee])([Dd])([_])([Uu])([Nn])([Ii])([Qq])([Uu])([Ee])"
+F_POSITION = "regexp:([Pp])([Oo])([Ss])([Ii])([Tt])([Ii])([Oo])([Nn])"
+F_REVERSE = "regexp:([Rr])([Ee])([Vv])([Ee])([Rr])([Ss])([Ee])"
+F_MINUS = "regexp:([Mm])([Ii])([Nn])([Uu])([Ss])"
+F_COUNT_DISTINCT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+F_COUNT_UNIQUE = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Uu])([Nn])([Ii])([Qq])([Uu])([Ee])"
+F_UNIQUE = "regexp:([Uu])([Nn])([Ii])([Qq])([Uu])([Ee])"
+F_INTERSECTION = "regexp:([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
+
 T_KEY = "_key"
 T_ID = "_id"
 T_SYS_FROM = "_from"
@@ -109,10 +137,38 @@ Comment ::= LineComment | BlockComment
 QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
 private statement_recover::= !(
                         Statement
-                        
                     )
 
-/*SyntaxOperators ::=    SINGLE_QUOTE*/
+
+KeywordFunctions ::=    F_HAS
+                        | F_LENGTH
+                        | F_COUNT
+                        | F_COLLECTIONS
+                        | F_COUNT_DISTINCT
+                        | F_COUNT_UNIQUE
+                        | F_UNIQUE
+                        | F_FIRST
+                        | F_LAST
+                        | F_MINUS
+                        | F_NTH
+                        | F_REMOVE_NTH
+                        | F_REMOVE_VALUE
+                        | F_REMOVE_VALUES
+                        | F_REVERSE
+                        | F_SLICE
+                        | F_POP
+                        | F_PUSH
+                        | F_SHIFT
+                        | F_UNSHIFT
+                        | F_SORTED
+                        | F_SORTED_UNIQUE
+                        | F_POSITION
+                        | F_UNION
+                        | F_UNION_DISTINCT
+                        | F_OUTERSECTION
+
+
+
 KeywordStatements ::=    T_SHORTEST_PATH
                         | T_PHRASE
                         | T_SEARCH
@@ -130,7 +186,6 @@ KeywordStatements ::=    T_SHORTEST_PATH
                         | T_FOR
                         | T_LET
                         | T_COLLECT
-                        | T_COUNT
                         | T_WITH
                         | T_DISTINCT
                         | T_RETURN
@@ -180,6 +235,7 @@ OperatorStatements ::= T_NULL
                        | T_ALL
                        | T_NONE
 Statement ::= (KeywordStatements)
+              | (KeywordFunctions)
               | (OperatorStatements)
               | (PropertyName)
               | (ObjectVariable)

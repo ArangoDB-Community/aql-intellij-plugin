@@ -29,6 +29,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = Comment(b, 0);
         } else if (t == INTEGER_TYPE) {
             r = IntegerType(b, 0);
+        } else if (t == KEYWORD_FUNCTIONS) {
+            r = KeywordFunctions(b, 0);
         } else if (t == KEYWORD_STATEMENTS) {
             r = KeywordStatements(b, 0);
         } else if (t == LIMIT_OFFSET) {
@@ -117,6 +119,119 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // F_HAS
+    //                         | F_LENGTH
+    //                         | F_COUNT
+    //                         | F_COLLECTIONS
+    //                         | F_COUNT_DISTINCT
+    //                         | F_COUNT_UNIQUE
+    //                         | F_UNIQUE
+    //                         | F_FIRST
+    //                         | F_LAST
+    //                         | F_MINUS
+    //                         | F_NTH
+    //                         | F_REMOVE_NTH
+    //                         | F_REMOVE_VALUE
+    //                         | F_REMOVE_VALUES
+    //                         | F_REVERSE
+    //                         | F_SLICE
+    //                         | F_POP
+    //                         | F_PUSH
+    //                         | F_SHIFT
+    //                         | F_UNSHIFT
+    //                         | F_SORTED
+    //                         | F_SORTED_UNIQUE
+    //                         | F_POSITION
+    //                         | F_UNION
+    //                         | F_UNION_DISTINCT
+    //                         | F_OUTERSECTION
+    public static boolean KeywordFunctions(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "KeywordFunctions")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, KEYWORD_FUNCTIONS, "<keyword functions>");
+        r = consumeToken(b, F_HAS);
+        if (!r) {
+            r = consumeToken(b, F_LENGTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COUNT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COLLECTIONS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COUNT_DISTINCT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COUNT_UNIQUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNIQUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FIRST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LAST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MINUS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_NTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REMOVE_NTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REMOVE_VALUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REMOVE_VALUES);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REVERSE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SLICE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_POP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PUSH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SHIFT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNSHIFT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SORTED);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SORTED_UNIQUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_POSITION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNION_DISTINCT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_OUTERSECTION);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    /* ********************************************************** */
     // T_SHORTEST_PATH
     //                         | T_PHRASE
     //                         | T_SEARCH
@@ -134,7 +249,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                         | T_FOR
     //                         | T_LET
     //                         | T_COLLECT
-    //                         | T_COUNT
     //                         | T_WITH
     //                         | T_DISTINCT
     //                         | T_RETURN
@@ -196,9 +310,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = consumeToken(b, T_COLLECT);
-        }
-        if (!r) {
-            r = consumeToken(b, T_COUNT);
         }
         if (!r) {
             r = consumeToken(b, T_WITH);
@@ -609,6 +720,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     /* ********************************************************** */
     // (KeywordStatements)
+    //               | (KeywordFunctions)
     //               | (OperatorStatements)
     //               | (PropertyName)
     //               | (ObjectVariable)
@@ -652,6 +764,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!r) {
             r = Statement_9(b, l + 1);
         }
+        if (!r) {
+            r = Statement_10(b, l + 1);
+        }
         exit_section_(b, l, m, r, false, null);
         return r;
     }
@@ -668,9 +783,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // (OperatorStatements)
+    // (KeywordFunctions)
     private static boolean Statement_1(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "Statement_1")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = KeywordFunctions(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (OperatorStatements)
+    private static boolean Statement_2(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_2")) {
             return false;
         }
         boolean r;
@@ -681,8 +808,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (PropertyName)
-    private static boolean Statement_2(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_2")) {
+    private static boolean Statement_3(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_3")) {
             return false;
         }
         boolean r;
@@ -693,8 +820,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (ObjectVariable)
-    private static boolean Statement_3(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_3")) {
+    private static boolean Statement_4(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_4")) {
             return false;
         }
         boolean r;
@@ -705,8 +832,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (Sequence)
-    private static boolean Statement_4(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_4")) {
+    private static boolean Statement_5(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_5")) {
             return false;
         }
         boolean r;
@@ -717,8 +844,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (StringType)
-    private static boolean Statement_5(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_5")) {
+    private static boolean Statement_6(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_6")) {
             return false;
         }
         boolean r;
@@ -729,8 +856,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (IntegerType)
-    private static boolean Statement_6(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_6")) {
+    private static boolean Statement_7(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_7")) {
             return false;
         }
         boolean r;
@@ -741,8 +868,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (LimitOffset)
-    private static boolean Statement_7(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_7")) {
+    private static boolean Statement_8(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_8")) {
             return false;
         }
         boolean r;
@@ -753,8 +880,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (ObjectExpression)
-    private static boolean Statement_8(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_8")) {
+    private static boolean Statement_9(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_9")) {
             return false;
         }
         boolean r;
@@ -765,8 +892,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     // (Comment)
-    private static boolean Statement_9(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "Statement_9")) {
+    private static boolean Statement_10(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "Statement_10")) {
             return false;
         }
         boolean r;
@@ -838,7 +965,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     /* ********************************************************** */
     // !(
     //                         Statement
-    //
     //                     )
     static boolean statement_recover(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover")) {
@@ -853,7 +979,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     // (
     //                         Statement
-    //
     //                     )
     private static boolean statement_recover_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "statement_recover_0")) {

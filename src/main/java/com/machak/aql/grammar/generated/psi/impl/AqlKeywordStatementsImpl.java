@@ -50,12 +50,6 @@ public class AqlKeywordStatementsImpl extends ASTWrapperPsiElement implements Aq
 
     @Override
     @Nullable
-    public PsiElement getTCount() {
-        return findChildByType(T_COUNT);
-    }
-
-    @Override
-    @Nullable
     public PsiElement getTDesc() {
         return findChildByType(T_DESC);
     }
