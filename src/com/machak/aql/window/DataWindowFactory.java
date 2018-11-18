@@ -12,7 +12,7 @@ public class DataWindowFactory implements ToolWindowFactory {
 
     @Override
     public void createToolWindowContent(@NotNull final Project project, @NotNull final ToolWindow toolWindow) {
-        final DataWindow dataWindow = new DataWindow(toolWindow);
+        final DataWindow dataWindow = new DataWindow(project, toolWindow);
         final ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         final Content content = contentFactory.createContent(dataWindow.getContent(), "", false);
         toolWindow.getContentManager().addContent(content);
