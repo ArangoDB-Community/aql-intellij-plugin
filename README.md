@@ -7,7 +7,7 @@
 
 ## Parameter language injection
  
-![Query Injection](img/editor2.png)
+![Query Injection](img/query.png)
 
 
 ## Build
