@@ -29,12 +29,10 @@ public class DataWindow {
         service = ServiceManager.getService(project, AqlDatabaseService.class);
         refreshButton.addActionListener(e -> {
             final ArangoDbDataSource state = dataWindowState.getState();
-            // refresh data sources
             service.refresh(state);
         });
         saveButton.addActionListener(e -> {
             final ArangoDbDataSource state = dataWindowState.getState();
-            // refresh data sources
             service.refresh(state);
         });
 

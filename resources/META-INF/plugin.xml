@@ -22,6 +22,7 @@
   <depends>com.intellij.modules.lang</depends>
   -->
 
+  <depends optional="true" config-file="aql-language.xml">org.intellij.intelliLang</depends>
   <extensions defaultExtensionNs="com.intellij">
     <!--
       //############################################
@@ -42,6 +43,7 @@
     -->
     <projectService serviceInterface="com.machak.aql.db.AqlDatabaseService" serviceImplementation="com.machak.aql.db.AqlDatabaseServiceImpl"/>
     <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.machak.aql.window.DataWindowFactory" icon="/icons/toolbarArangoDB.png"/>
+    <annotator language="aql" implementationClass="com.machak.aql.editor.AqlAnnotator"/>
   </extensions>
 
   <actions>
