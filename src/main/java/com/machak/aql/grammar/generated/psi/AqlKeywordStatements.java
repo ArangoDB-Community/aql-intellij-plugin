@@ -46,9 +46,6 @@ public interface AqlKeywordStatements extends PsiElement {
   PsiElement getTLimit();
 
   @Nullable
-  PsiElement getTPhrase();
-
-  @Nullable
   PsiElement getTRemove();
 
   @Nullable

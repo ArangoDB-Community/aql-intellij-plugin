@@ -11,12 +11,20 @@ public final class log {
     private log() {
     }
 
+    public static void errorAction(final String message, final String actionName, final MessageCallback callback) {
+        final String html = message + "<br/><a href=''>" + actionName + "</a>";
+        notify(new Notification(DISPLAY_ID, DISPLAY_ID, html, NotificationType.INFORMATION, (notification, event) -> callback.call()));
+    }
+
+
     public static void info(final String message) {
         notify(new Notification(DISPLAY_ID, DISPLAY_ID, message, NotificationType.INFORMATION));
     }
 
+
     public static void info(final String title, final String message) {
-        notify(new Notification(DISPLAY_ID, DISPLAY_ID, message, NotificationType.INFORMATION));
+        final String content = title + "<br /><strong>" + message + "</strong>";
+        notify(new Notification(DISPLAY_ID, DISPLAY_ID, content, NotificationType.INFORMATION));
     }
 
     public static void error(final String message) {

@@ -13,12 +13,13 @@ public class DataWindow {
     private JPanel myToolWindowContent;
     private JButton refreshButton;
     private JToolBar toolbar;
-    private JTextField textUser;
+    private JTextField textUser;             
     private JTextField textHost;
     private JPasswordField passwordField;
     private JSpinner portField;
     private JTextField textDatabase;
     private JButton saveButton;
+    private JCheckBox excludeCheckBox;
     private AqlDatabaseService service;
     private DataWindowState dataWindowState;
 
@@ -28,16 +29,17 @@ public class DataWindow {
         dataWindowState = project.getComponent(DataWindowState.class);
         service = ServiceManager.getService(project, AqlDatabaseService.class);
         final ArangoDbDataSource oldState = dataWindowState.getState();
-        service.refresh(oldState);
+        service.refresh(oldState, project);
         textDatabase.setText(oldState.getDatabase());
         textHost.setText(oldState.getHost());
         passwordField.setText(oldState.getPassword());
         portField.setValue(oldState.getPort());
+        excludeCheckBox.setSelected(oldState.isExcludeSystemCollections());
         textUser.setText(oldState.getUser());
 
         refreshButton.addActionListener(e -> {
             final ArangoDbDataSource state = dataWindowState.getState();
-            service.refresh(state);
+            service.refresh(state, project);
         });
         saveButton.addActionListener(e -> {
             final ArangoDbDataSource state = dataWindowState.getState();
@@ -45,9 +47,10 @@ public class DataWindow {
             state.setUser(textUser.getText());
             state.setPassword(String.valueOf(passwordField.getPassword()));
             state.setHost(textHost.getText());
+            state.setExcludeSystemCollections(excludeCheckBox.isSelected());
             final Integer value = (Integer) portField.getValue();
             state.setPort(value);
-            service.refresh(state);
+            service.refresh(state, project);
         });
 
     }

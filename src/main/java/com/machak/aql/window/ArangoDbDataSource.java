@@ -4,6 +4,7 @@ public class ArangoDbDataSource {
 
     public static final int DEFAULT_PORT = 8529;
     private int port = DEFAULT_PORT;
+    private boolean excludeSystemCollections = true;
     private String host = "127.0.0.1";
     private String password;
     private String user;
@@ -21,6 +22,14 @@ public class ArangoDbDataSource {
         this.password = password;
         this.user = user;
         this.host = host;
+    }
+
+    public boolean isExcludeSystemCollections() {
+        return excludeSystemCollections;
+    }
+
+    public void setExcludeSystemCollections(final boolean excludeSystemCollections) {
+        this.excludeSystemCollections = excludeSystemCollections;
     }
 
     public int getPort() {

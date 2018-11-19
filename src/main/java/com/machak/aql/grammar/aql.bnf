@@ -1,4 +1,5 @@
 {
+// https://github.com/JetBrains/Grammar-Kit/blob/master/HOWTO.md
 // https://github.com/arangodb/arangodb/blob/devel/arangod/Aql/grammar.y
     psiClassPrefix="Aql"
     psiImplClassSuffix="Impl"
@@ -15,7 +16,6 @@
 tokens = [
     // system:
 T_SEARCH = "regexp:([Ss])([Ee])([Aa])([Rr])([Cc])([Hh])"
-T_PHRASE = "regexp:([Pp])([Hh])([Rr])([Aa])([Ss])([Ee])"
 T_SHORTEST_PATH = "regexp:([Ss])([Hh])([Oo])([Rr])([Tt])([Ee])([Ss])([Pp])([Aa])([Tt])([Hh])"
 T_REPLACE = "regexp:([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])"
 T_ASC = "regexp:([Aa])([Ss])([Cc])"
@@ -502,7 +502,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
 
 
 KeywordStatements ::=    T_SHORTEST_PATH
-                        | T_PHRASE
                         | T_SEARCH
                         | T_REPLACE
                         | T_ASC

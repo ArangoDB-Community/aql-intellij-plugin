@@ -16,7 +16,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven { url 'https://jitpack.io' }
-    maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
 }
 
 dependencies {
@@ -27,6 +27,9 @@ dependencies {
     }
 
     compile 'com.github.graphstream:gs-core:2.0-alpha'
+    
+    compile "com.fasterxml.jackson.core:jackson-core:2.9.7"
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
 }
 patchPluginXml{
     sinceBuild '163'

@@ -110,12 +110,6 @@ public class AqlKeywordStatementsImpl extends ASTWrapperPsiElement implements Aq
 
     @Override
     @Nullable
-    public PsiElement getTPhrase() {
-        return findChildByType(T_PHRASE);
-    }
-
-    @Override
-    @Nullable
     public PsiElement getTRemove() {
         return findChildByType(T_REMOVE);
     }

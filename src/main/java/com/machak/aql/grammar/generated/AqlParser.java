@@ -119,113 +119,781 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // F_HAS
-    //                         | F_LENGTH
-    //                         | F_COUNT
-    //                         | F_COLLECTIONS
-    //                         | F_COUNT_DISTINCT
-    //                         | F_COUNT_UNIQUE
-    //                         | F_UNIQUE
-    //                         | F_FIRST
+    // F_SUBSTITUTE
+    //                         | F_MD5
+    //                         | F_GEO_POINT
+    //                         | F_FIRST_LIST
+    //                         | F_DATE_SUBTRACT
+    //                         | F_DATE_MINUTE
+    //                         | F_SPLIT
+    //                         | F_WARN
+    //                         | F_DATE_LEAPYEAR
+    //                         | F_STDDEV_SAMPLE
+    //                         | F_TAN
+    //                         | F_IS_BOOL
+    //                         | F_TO_LIST
+    //                         | F_REGEX_SPLIT
+    //                         | F_MATCHES
+    //                         | F_CURRENT_DATABASE
+    //                         | F_VARIANCE_SAMPLE
+    //                         | F_UNSET
+    //                         | F_JSON_PARSE
+    //                         | F_DEGREES
+    //                         | F_GEO_MULTILINESTRING
+    //                         | F_DATE_DAYOFYEAR
     //                         | F_LAST
-    //                         | F_MINUS
-    //                         | F_NTH
-    //                         | F_REMOVE_NTH
-    //                         | F_REMOVE_VALUE
-    //                         | F_REMOVE_VALUES
+    //                         | F_VALUES
+    //                         | F_CONCAT_SEPARATOR
+    //                         | F_DATE_DAY
+    //                         | F_STDDEV
+    //                         | F_DATE_DAYS_IN_MONTH
+    //                         | F_NEAR
+    //                         | F_LTRIM
     //                         | F_REVERSE
-    //                         | F_SLICE
-    //                         | F_POP
-    //                         | F_PUSH
-    //                         | F_SHIFT
-    //                         | F_UNSHIFT
-    //                         | F_SORTED
-    //                         | F_SORTED_UNIQUE
-    //                         | F_POSITION
-    //                         | F_UNION
-    //                         | F_UNION_DISTINCT
+    //                         | F_RANGE
+    //                         | F_FIRST
+    //                         | F_LENGTH
+    //                         | F_UNSET_RECURSIVE
+    //                         | F_PARSE_IDENTIFIER
+    //                         | F_TO_BASE64
+    //                         | F_IS_DATESTRING
+    //                         | F_INTERSECTION
+    //                         | F_MINUS
+    //                         | F_IS_IN_POLYGON
+    //                         | F_IS_OBJECT
+    //                         | F_STARTS_WITH
+    //                         | F_DATE_DAYOFWEEK
+    //                         | F_LOG10
+    //                         | F_TFIDF
+    //                         | F_DATE_ISO8601
+    //                         | F_DATE_TRUNC
+    //                         | F_IS_LIST
+    //                         | F_NOOPT
+    //                         | F_ATTRIBUTES
+    //                         | F_CALL
+    //                         | F_LEVENSHTEIN_DISTANCE
+    //                         | F_REMOVE_VALUE
+    //                         | F_DATE_FORMAT
+    //                         | F_EXP
+    //                         | F_RADIANS
     //                         | F_OUTERSECTION
+    //                         | F_UNION
+    //                         | F_KEYS
+    //                         | F_COLLECTION_COUNT
+    //                         | F_BOOST
+    //                         | F_REGEX_MATCHES
+    //                         | F_DISTANCE
+    //                         | F_CHAR_LENGTH
+    //                         | F_MERGE_RECURSIVE
+    //                         | F_VARIANCE_POPULATION
+    //                         | F_UPPER
+    //                         | F_RAND
+    //                         | F_MIN_MATCH
+    //                         | F_GEO_EQUALS
+    //                         | F_TRIM
+    //                         | F_LEFT
+    //                         | F_PI
+    //                         | F_NOT_NULL
+    //                         | F_SUM
+    //                         | F_VERSION
+    //                         | F_POW
+    //                         | F_SLEEP
+    //                         | F_POP
+    //                         | F_MIN
+    //                         | F_UUID
+    //                         | F_TO_NUMBER
+    //                         | F_FIND_FIRST
+    //                         | F_DATE_ISOWEEK
+    //                         | F_LOWER
+    //                         | F_GEO_CONTAINS
+    //                         | F_TRANSLATE
+    //                         | F_GEO_LINESTRING
+    //                         | F_APPLY
+    //                         | F_ABS
+    //                         | F_EXP2
+    //                         | F_DATE_SECOND
+    //                         | F_BM25
+    //                         | F_DATE_MONTH
+    //                         | F_SHIFT
+    //                         | F_CONCAT
+    //                         | F_SUBSTRING
+    //                         | F_CURRENT_USER
+    //                         | F_CONTAINS_ARRAY
+    //                         | F_HAS
+    //                         | F_KEEP
+    //                         | F_TO_STRING
+    //                         | F_ACOS
+    //                         | F_V8
+    //                         | F_PREGEL_RESULT
+    //                         | F_UNION_DISTINCT
+    //                         | F_LIKE
+    //                         | F_COUNT_UNIQUE
+    //                         | F_WITHIN
+    //                         | F_IS_STRING
+    //                         | F_REGEX_TEST
+    //                         | F_REMOVE_VALUES
+    //                         | F_GEO_INTERSECTS
+    //                         | F_ATAN
+    //                         | F_LOG2
+    //                         | F_SIN
+    //                         | F_IS_DOCUMENT
+    //                         | F_REGEX_REPLACE
+    //                         | F_AVG
+    //                         | F_SORTED_UNIQUE
+    //                         | F_TYPENAME
+    //                         | F_DATE_ADD
+    //                         | F_REMOVE_NTH
+    //                         | F_APPEND
+    //                         | F_FLATTEN
+    //                         | F_GEO_POLYGON
+    //                         | F_COUNT
+    //                         | F_DATE_MILLISECOND
+    //                         | F_WITHIN_RECTANGLE
+    //                         | F_SOUNDEX
+    //                         | F_TOKENS
+    //                         | F_AVERAGE
+    //                         | F_DATE_QUARTER
+    //                         | F_IS_NULL
+    //                         | F_COLLECTIONS
+    //                         | F_ANALYZER
+    //                         | F_PHRASE
+    //                         | F_DATE_NOW
+    //                         | F_MEDIAN
+    //                         | F_TO_ARRAY
+    //                         | F_RIGHT
+    //                         | F_RTRIM
+    //                         | F_DOCUMENT
+    //                         | F_GEO_DISTANCE
+    //                         | F_PASSTHRU
+    //                         | F_ROUND
+    //                         | F_ZIP
+    //                         | F_TO_HEX
+    //                         | F_FULLTEXT
+    //                         | F_UNIQUE
+    //                         | F_IS_KEY
+    //                         | F_ATAN2
+    //                         | F_CEIL
+    //                         | F_IS_ARRAY
+    //                         | F_SHA512
+    //                         | F_DATE_COMPARE
+    //                         | F_IS_SAME_COLLECTION
+    //                         | F_PUSH
+    //                         | F_DATE_YEAR
+    //                         | F_HASH
+    //                         | F_COUNT_DISTINCT
+    //                         | F_SHA1
+    //                         | F_SQRT
+    //                         | F_LOG
+    //                         | F_POSITION
+    //                         | F_MERGE
+    //                         | F_DATE_TIMESTAMP
+    //                         | F_ENCODE_URI_COMPONENT
+    //                         | F_CONTAINS
+    //                         | F_FAIL
+    //                         | F_FLOOR
+    //                         | F_PERCENTILE
+    //                         | F_MAX
+    //                         | F_EXISTS
+    //                         | F_NTH
+    //                         | F_TO_BOOL
+    //                         | F_DATE_HOUR
+    //                         | F_JSON_STRINGIFY
+    //                         | F_FIRST_DOCUMENT
+    //                         | F_RANDOM_TOKEN
+    //                         | F_FIND_LAST
+    //                         | F_STDDEV_POPULATION
+    //                         | F_COS
+    //                         | F_VARIANCE
+    //                         | F_IS_NUMBER
+    //                         | F_SORTED
+    //                         | F_DATE_DIFF
+    //                         | F_UNSHIFT
+    //                         | F_ASSERT
+    //                         | F_GEO_MULTIPOINT
+    //                         | F_SLICE
+    //                         | F_ASIN
     public static boolean KeywordFunctions(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "KeywordFunctions")) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, KEYWORD_FUNCTIONS, "<keyword functions>");
-        r = consumeToken(b, F_HAS);
+        r = consumeToken(b, F_SUBSTITUTE);
         if (!r) {
-            r = consumeToken(b, F_LENGTH);
+            r = consumeToken(b, F_MD5);
         }
         if (!r) {
-            r = consumeToken(b, F_COUNT);
+            r = consumeToken(b, F_GEO_POINT);
         }
         if (!r) {
-            r = consumeToken(b, F_COLLECTIONS);
+            r = consumeToken(b, F_FIRST_LIST);
         }
         if (!r) {
-            r = consumeToken(b, F_COUNT_DISTINCT);
+            r = consumeToken(b, F_DATE_SUBTRACT);
         }
         if (!r) {
-            r = consumeToken(b, F_COUNT_UNIQUE);
+            r = consumeToken(b, F_DATE_MINUTE);
         }
         if (!r) {
-            r = consumeToken(b, F_UNIQUE);
+            r = consumeToken(b, F_SPLIT);
         }
         if (!r) {
-            r = consumeToken(b, F_FIRST);
+            r = consumeToken(b, F_WARN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_LEAPYEAR);
+        }
+        if (!r) {
+            r = consumeToken(b, F_STDDEV_SAMPLE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TAN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_BOOL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TO_LIST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REGEX_SPLIT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MATCHES);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CURRENT_DATABASE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_VARIANCE_SAMPLE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNSET);
+        }
+        if (!r) {
+            r = consumeToken(b, F_JSON_PARSE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DEGREES);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_MULTILINESTRING);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_DAYOFYEAR);
         }
         if (!r) {
             r = consumeToken(b, F_LAST);
         }
         if (!r) {
-            r = consumeToken(b, F_MINUS);
+            r = consumeToken(b, F_VALUES);
         }
         if (!r) {
-            r = consumeToken(b, F_NTH);
+            r = consumeToken(b, F_CONCAT_SEPARATOR);
         }
         if (!r) {
-            r = consumeToken(b, F_REMOVE_NTH);
+            r = consumeToken(b, F_DATE_DAY);
         }
         if (!r) {
-            r = consumeToken(b, F_REMOVE_VALUE);
+            r = consumeToken(b, F_STDDEV);
         }
         if (!r) {
-            r = consumeToken(b, F_REMOVE_VALUES);
+            r = consumeToken(b, F_DATE_DAYS_IN_MONTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_NEAR);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LTRIM);
         }
         if (!r) {
             r = consumeToken(b, F_REVERSE);
         }
         if (!r) {
-            r = consumeToken(b, F_SLICE);
+            r = consumeToken(b, F_RANGE);
         }
         if (!r) {
-            r = consumeToken(b, F_POP);
+            r = consumeToken(b, F_FIRST);
         }
         if (!r) {
-            r = consumeToken(b, F_PUSH);
+            r = consumeToken(b, F_LENGTH);
         }
         if (!r) {
-            r = consumeToken(b, F_SHIFT);
+            r = consumeToken(b, F_UNSET_RECURSIVE);
         }
         if (!r) {
-            r = consumeToken(b, F_UNSHIFT);
+            r = consumeToken(b, F_PARSE_IDENTIFIER);
         }
         if (!r) {
-            r = consumeToken(b, F_SORTED);
+            r = consumeToken(b, F_TO_BASE64);
         }
         if (!r) {
-            r = consumeToken(b, F_SORTED_UNIQUE);
+            r = consumeToken(b, F_IS_DATESTRING);
         }
         if (!r) {
-            r = consumeToken(b, F_POSITION);
+            r = consumeToken(b, F_INTERSECTION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MINUS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_IN_POLYGON);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_OBJECT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_STARTS_WITH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_DAYOFWEEK);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LOG10);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TFIDF);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_ISO8601);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_TRUNC);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_LIST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_NOOPT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ATTRIBUTES);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CALL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LEVENSHTEIN_DISTANCE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REMOVE_VALUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_FORMAT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_EXP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_RADIANS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_OUTERSECTION);
         }
         if (!r) {
             r = consumeToken(b, F_UNION);
         }
         if (!r) {
+            r = consumeToken(b, F_KEYS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COLLECTION_COUNT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_BOOST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REGEX_MATCHES);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DISTANCE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CHAR_LENGTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MERGE_RECURSIVE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_VARIANCE_POPULATION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UPPER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_RAND);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MIN_MATCH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_EQUALS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TRIM);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LEFT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PI);
+        }
+        if (!r) {
+            r = consumeToken(b, F_NOT_NULL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SUM);
+        }
+        if (!r) {
+            r = consumeToken(b, F_VERSION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_POW);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SLEEP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_POP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MIN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UUID);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TO_NUMBER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FIND_FIRST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_ISOWEEK);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LOWER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_CONTAINS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TRANSLATE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_LINESTRING);
+        }
+        if (!r) {
+            r = consumeToken(b, F_APPLY);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ABS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_EXP2);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_SECOND);
+        }
+        if (!r) {
+            r = consumeToken(b, F_BM25);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_MONTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SHIFT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CONCAT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SUBSTRING);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CURRENT_USER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CONTAINS_ARRAY);
+        }
+        if (!r) {
+            r = consumeToken(b, F_HAS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_KEEP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TO_STRING);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ACOS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_V8);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PREGEL_RESULT);
+        }
+        if (!r) {
             r = consumeToken(b, F_UNION_DISTINCT);
         }
         if (!r) {
-            r = consumeToken(b, F_OUTERSECTION);
+            r = consumeToken(b, F_LIKE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COUNT_UNIQUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_WITHIN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_STRING);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REGEX_TEST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REMOVE_VALUES);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_INTERSECTS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ATAN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LOG2);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SIN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_DOCUMENT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REGEX_REPLACE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_AVG);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SORTED_UNIQUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TYPENAME);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_ADD);
+        }
+        if (!r) {
+            r = consumeToken(b, F_REMOVE_NTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_APPEND);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FLATTEN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_POLYGON);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COUNT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_MILLISECOND);
+        }
+        if (!r) {
+            r = consumeToken(b, F_WITHIN_RECTANGLE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SOUNDEX);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TOKENS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_AVERAGE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_QUARTER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_NULL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COLLECTIONS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ANALYZER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PHRASE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_NOW);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MEDIAN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TO_ARRAY);
+        }
+        if (!r) {
+            r = consumeToken(b, F_RIGHT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_RTRIM);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DOCUMENT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_DISTANCE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PASSTHRU);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ROUND);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ZIP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TO_HEX);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FULLTEXT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNIQUE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_KEY);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ATAN2);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CEIL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_ARRAY);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SHA512);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_COMPARE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_SAME_COLLECTION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PUSH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_YEAR);
+        }
+        if (!r) {
+            r = consumeToken(b, F_HASH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COUNT_DISTINCT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SHA1);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SQRT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_LOG);
+        }
+        if (!r) {
+            r = consumeToken(b, F_POSITION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MERGE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_TIMESTAMP);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ENCODE_URI_COMPONENT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_CONTAINS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FAIL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FLOOR);
+        }
+        if (!r) {
+            r = consumeToken(b, F_PERCENTILE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_MAX);
+        }
+        if (!r) {
+            r = consumeToken(b, F_EXISTS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_NTH);
+        }
+        if (!r) {
+            r = consumeToken(b, F_TO_BOOL);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_HOUR);
+        }
+        if (!r) {
+            r = consumeToken(b, F_JSON_STRINGIFY);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FIRST_DOCUMENT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_RANDOM_TOKEN);
+        }
+        if (!r) {
+            r = consumeToken(b, F_FIND_LAST);
+        }
+        if (!r) {
+            r = consumeToken(b, F_STDDEV_POPULATION);
+        }
+        if (!r) {
+            r = consumeToken(b, F_COS);
+        }
+        if (!r) {
+            r = consumeToken(b, F_VARIANCE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_IS_NUMBER);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SORTED);
+        }
+        if (!r) {
+            r = consumeToken(b, F_DATE_DIFF);
+        }
+        if (!r) {
+            r = consumeToken(b, F_UNSHIFT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ASSERT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_GEO_MULTIPOINT);
+        }
+        if (!r) {
+            r = consumeToken(b, F_SLICE);
+        }
+        if (!r) {
+            r = consumeToken(b, F_ASIN);
         }
         exit_section_(b, l, m, r, false, null);
         return r;
@@ -233,7 +901,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     /* ********************************************************** */
     // T_SHORTEST_PATH
-    //                         | T_PHRASE
     //                         | T_SEARCH
     //                         | T_REPLACE
     //                         | T_ASC
@@ -262,9 +929,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, KEYWORD_STATEMENTS, "<keyword statements>");
         r = consumeToken(b, T_SHORTEST_PATH);
-        if (!r) {
-            r = consumeToken(b, T_PHRASE);
-        }
         if (!r) {
             r = consumeToken(b, T_SEARCH);
         }

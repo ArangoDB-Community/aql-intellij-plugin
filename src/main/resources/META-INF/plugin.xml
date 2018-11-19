@@ -30,9 +30,17 @@
       //############################################
     -->
     <fileTypeFactory implementation="com.machak.aql.file.AqlFileTypeFactory"/>
+
     <lang.parserDefinition language="aql" implementationClass="com.machak.aql.lang.AqlParserDefinition"/>
+    <internalFileTemplate name="templates.Aql Template"/>
     <colorSettingsPage implementation="com.machak.aql.settings.AqlColorSettingsPage"/>
     <lang.syntaxHighlighterFactory language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterFactory"/>
+    <!--
+    <codeStyleSettingsProvider implementation="com.simpleplugin.SimpleCodeStyleSettingsProvider"/>
+    <langCodeStyleSettingsProvider implementation="com.simpleplugin.SimpleLanguageCodeStyleSettingsProvider"/>
+    -->
+    <codeStyleSettingsProvider implementation="com.machak.aql.syntax.AqlCodeStyleSettingsProvider"/>
+    <langCodeStyleSettingsProvider implementation="com.machak.aql.syntax.AqlLanguageCodeStyleSettingsProvider"/>
     <annotator language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterAnnotator"/>
     <lang.commenter language="aql" implementationClass="com.machak.aql.syntax.AqlCommenter"/>
     <completion.contributor language="aql" implementationClass="com.machak.aql.editor.AqlCodeCompletionContributor"/>
@@ -43,14 +51,22 @@
     -->
     <projectService serviceInterface="com.machak.aql.db.AqlDatabaseService" serviceImplementation="com.machak.aql.db.AqlDatabaseServiceImpl"/>
     <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.machak.aql.window.DataWindowFactory" icon="/icons/toolbarArangoDB.png"/>
+    <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.machak.aql.window.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
     <annotator language="aql" implementationClass="com.machak.aql.editor.AqlAnnotator"/>
   </extensions>
 
-  <!--  <actions>
+  <actions>
       <action id="com.machak.aql.actions.AqlExecuteQueryAction" class="com.machak.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
         <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
       </action>
-    </actions>-->
+  </actions>
+  <actions>
+    <!-- Add your actions here -->
+    <action id="aql.NewAqlFile" class="com.machak.aql.file.AqlFileTemplateAction"
+            text="AQL File" description="Create new AQL file">
+      <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
+    </action>
+  </actions>
 
   <application-components>
     <component>
