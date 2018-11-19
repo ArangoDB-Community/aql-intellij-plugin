@@ -46,8 +46,11 @@
     <annotator language="aql" implementationClass="com.machak.aql.editor.AqlAnnotator"/>
   </extensions>
 
-  <actions>
-  </actions>
+  <!--  <actions>
+      <action id="com.machak.aql.actions.AqlExecuteQueryAction" class="com.machak.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
+        <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
+      </action>
+    </actions>-->
 
   <application-components>
     <component>

@@ -1,5 +1,6 @@
 package com.machak.aql.db;
 
+import com.arangodb.ArangoDatabase;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.machak.aql.window.ArangoDbDataSource;
 
@@ -16,4 +17,6 @@ public interface AqlDatabaseService {
     void refresh(ArangoDbDataSource databaseSettings);
 
     Collection<LookupElement> getAll();
+
+    ArangoDatabase getDatabase(final ArangoDbDataSource state);
 }

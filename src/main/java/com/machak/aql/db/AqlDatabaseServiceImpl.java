@@ -29,7 +29,7 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
     public static final String KEY_COLLECTIONS = "collections";
     public static final String KEY_VIEWS = "views";
     public static final String KEY_GRAPHS = "graph";
-    private ArangoDbDataSource settings;
+
     final Cache<String, Collection<LookupElement>> collectionsCache = CacheBuilder.newBuilder()
             .expireAfterWrite(10, TimeUnit.DAYS)
             .maximumSize(10)
@@ -67,17 +67,8 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
 
 
     @Override
-    public void refresh(final ArangoDbDataSource databaseSettings) {
-        this.settings = databaseSettings;
-        final ArangoDB arango = new ArangoDB
-                .Builder()
-                .host(settings.getHost(), settings.getPort())
-                .user(settings.getUser())
-                // TODO...make configurable?
-                .useProtocol(Protocol.HTTP_JSON)
-                .password(settings.getPassword())
-                .build();
-        final ArangoDatabase db = arango.db(settings.getDatabase());
+    public void refresh(final ArangoDbDataSource settings) {
+        final ArangoDatabase db = getDatabase(settings);
         final Collection<CollectionEntity> collections = db.getCollections();
         final Collection<ViewEntity> views = db.getViews();
         final Collection<GraphEntity> graphs = db.getGraphs();
@@ -101,5 +92,17 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
             graphSet.add(new AqlKeywordElement(graph.getName(), Icons.ICON_COLLECTION).createLookupElement());
         }
         collectionsCache.put(KEY_GRAPHS, graphSet);
+    }
+
+    @Override
+    public ArangoDatabase getDatabase(final ArangoDbDataSource settings) {
+        return new ArangoDB
+                .Builder()
+                .host(settings.getHost(), settings.getPort())
+                .user(settings.getUser())
+                // TODO...make configurable?
+                .useProtocol(Protocol.HTTP_JSON)
+                .password(settings.getPassword())
+                .build().db(settings.getDatabase());
     }
 }
