@@ -1,27 +1,28 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.Nullable;
 
 public interface AqlOperatorStatements extends PsiElement {
 
-    @Nullable
-    PsiElement getTAll();
+  @Nullable
+  PsiElement getTAll();
 
-    @Nullable
-    PsiElement getTAnd();
+  @Nullable
+  PsiElement getTAnd();
 
-    @Nullable
-    PsiElement getTAny();
+  @Nullable
+  PsiElement getTAny();
 
-    @Nullable
-    PsiElement getTInbound();
+  @Nullable
+  PsiElement getTInbound();
 
-    @Nullable
-    PsiElement getTNull();
+  @Nullable
+  PsiElement getTNull();
 
-    @Nullable
-    PsiElement getTOutbound();
+  @Nullable
+  PsiElement getTOutbound();
 
 }

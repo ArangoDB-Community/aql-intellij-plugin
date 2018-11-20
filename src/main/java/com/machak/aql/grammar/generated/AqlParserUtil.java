@@ -7,6 +7,7 @@ import com.intellij.psi.tree.TokenSet;
 
 public class AqlParserUtil extends GeneratedParserUtilBase {
 
+
     public static boolean consumeTokenFast(final PsiBuilder builder, final TokenSet tokens) {
         if (nextTokenIsFast(builder, tokens)) {
             builder.advanceLexer();

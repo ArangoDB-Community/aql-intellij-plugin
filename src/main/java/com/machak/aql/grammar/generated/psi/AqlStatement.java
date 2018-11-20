@@ -1,25 +1,26 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.Nullable;
 
 public interface AqlStatement extends PsiElement {
 
   @Nullable
   AqlComment getComment();
 
-    @Nullable
-    AqlIntegerType getIntegerType();
-
-    @Nullable
-    AqlKeywordFunctions getKeywordFunctions();
+  @Nullable
+  AqlIntegerType getIntegerType();
 
   @Nullable
   AqlKeywordStatements getKeywordStatements();
 
   @Nullable
   AqlLimitOffset getLimitOffset();
+
+  @Nullable
+  AqlNamedKeywordFunctions getNamedKeywordFunctions();
 
   @Nullable
   AqlObjectExpression getObjectExpression();

@@ -18,7 +18,7 @@ import com.machak.aql.exc.AqlPluginException;
 import com.machak.aql.lang.AqlLanguage;
 import com.machak.aql.util.log;
 import com.machak.aql.window.ArangoDbDataSource;
-import com.machak.aql.window.ConsoleWindowFactory;
+import com.machak.aql.window.ConsoleWindow;
 import com.machak.aql.window.DataWindowState;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,7 +43,7 @@ public class AqlExecuteQueryAction extends AnAction {
             return;
         }
         // TODO remove this....(see below)
-        final ToolWindow window = ToolWindowManager.getInstance(project).getToolWindow(ConsoleWindowFactory.ID);
+        final ToolWindow window = ToolWindowManager.getInstance(project).getToolWindow(ConsoleWindow.WINDOW_ID);
         if (window == null) {
             return;
         }
@@ -64,7 +64,9 @@ public class AqlExecuteQueryAction extends AnAction {
             }
             final MessageBus messageBus = project.getMessageBus();
             final ActionBusEvent queryPlanEvent = messageBus.syncPublisher(ActionBusEvent.AQL_QUERY_RESULT);
-            queryPlanEvent.onEvent(query, builder.toString());
+            final ActionEventData data = new ActionEventData(ActionEventData.KEY_QUERY, query);
+            data.set(ActionEventData.KEY_RESULT, builder.toString());
+            queryPlanEvent.onEvent(data);
             // TODO make configurable... and move to window itself...
             window.activate(null, true);
             log.info("Successfully executed query");

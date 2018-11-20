@@ -9,7 +9,7 @@
     elementTypeHolderClass="com.machak.aql.grammar.generated.psi.AqlTypes"
     elementTypeClass="com.machak.aql.grammar.AqlElementType"
     tokenTypeClass="com.machak.aql.grammar.AqlTokenType"
-    psiImplUtilClass="com.machak.aql.grammar.generated.psi.AqlPsiUtil"
+    psiImplUtilClass="com.machak.aql.grammar.generated.AqlPsiUtil"
     psiPackage="com.machak.aql.grammar.generated.psi"
     psiImplPackage="com.machak.aql.grammar.generated.psi.impl"
     
@@ -566,7 +566,7 @@ OperatorStatements ::= T_NULL
                        | T_ALL
                        | T_NONE
 Statement ::= (KeywordStatements)
-              | (KeywordFunctions)
+              | (NamedKeywordFunctions)
               | (OperatorStatements)
               | (PropertyName)
               | (ObjectVariable)
@@ -577,6 +577,13 @@ Statement ::= (KeywordStatements)
               | (ObjectExpression)
               | (Comment)
 
+NamedKeywordFunctions ::= KeywordFunctions {
+  methods=[
+    getName
+    setName
+  ]
+  mixin="com.machak.aql.grammar.psi.impl.AqlFunctionMixin"
+}
 ObjectExpression ::=  (PropertyLookup)+
 ObjectVariable ::=  OBJECT_START PropertyName | ObjectExpression T_OBJECT_CLOSE
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)

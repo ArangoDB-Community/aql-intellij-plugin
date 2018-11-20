@@ -1,12 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
+import static com.machak.aql.grammar.generated.psi.AqlTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.machak.aql.grammar.generated.psi.*;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.machak.aql.grammar.generated.AqlPsiUtil;
 
 public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStatement {
 
@@ -19,11 +23,8 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-      if (visitor instanceof AqlVisitor) {
-          accept((AqlVisitor) visitor);
-      } else {
-          super.accept(visitor);
-      }
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
   }
 
   @Override
@@ -32,17 +33,11 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
     return findChildByClass(AqlComment.class);
   }
 
-    @Override
-    @Nullable
-    public AqlIntegerType getIntegerType() {
-        return findChildByClass(AqlIntegerType.class);
-    }
-
-    @Override
-    @Nullable
-    public AqlKeywordFunctions getKeywordFunctions() {
-        return findChildByClass(AqlKeywordFunctions.class);
-    }
+  @Override
+  @Nullable
+  public AqlIntegerType getIntegerType() {
+    return findChildByClass(AqlIntegerType.class);
+  }
 
   @Override
   @Nullable
@@ -54,6 +49,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   @Nullable
   public AqlLimitOffset getLimitOffset() {
     return findChildByClass(AqlLimitOffset.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlNamedKeywordFunctions getNamedKeywordFunctions() {
+    return findChildByClass(AqlNamedKeywordFunctions.class);
   }
 
   @Override

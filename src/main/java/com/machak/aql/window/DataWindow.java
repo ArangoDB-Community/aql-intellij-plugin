@@ -1,5 +1,6 @@
 package com.machak.aql.window;
 
+import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
@@ -7,7 +8,8 @@ import com.machak.aql.db.AqlDatabaseService;
 
 import javax.swing.*;
 
-public class DataWindow {
+public class DataWindow implements Disposable {
+    public static final String WINDOW_ID = "ArangoDB";
 
 
     private JPanel myToolWindowContent;
@@ -61,6 +63,11 @@ public class DataWindow {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+
     }
 
+    @Override
+    public void dispose() {
+
+    }
 }

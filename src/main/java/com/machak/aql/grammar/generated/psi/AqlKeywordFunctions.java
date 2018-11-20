@@ -1,588 +1,589 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.Nullable;
 
 public interface AqlKeywordFunctions extends PsiElement {
 
-    @Nullable
-    PsiElement getFAbs();
+  @Nullable
+  PsiElement getFAbs();
 
-    @Nullable
-    PsiElement getFAcos();
+  @Nullable
+  PsiElement getFAcos();
 
-    @Nullable
-    PsiElement getFAnalyzer();
+  @Nullable
+  PsiElement getFAnalyzer();
 
-    @Nullable
-    PsiElement getFAppend();
+  @Nullable
+  PsiElement getFAppend();
 
-    @Nullable
-    PsiElement getFApply();
+  @Nullable
+  PsiElement getFApply();
 
-    @Nullable
-    PsiElement getFAsin();
+  @Nullable
+  PsiElement getFAsin();
 
-    @Nullable
-    PsiElement getFAssert();
+  @Nullable
+  PsiElement getFAssert();
 
-    @Nullable
-    PsiElement getFAtan();
+  @Nullable
+  PsiElement getFAtan();
 
-    @Nullable
-    PsiElement getFAtan2();
+  @Nullable
+  PsiElement getFAtan2();
 
-    @Nullable
-    PsiElement getFAttributes();
+  @Nullable
+  PsiElement getFAttributes();
 
-    @Nullable
-    PsiElement getFAverage();
+  @Nullable
+  PsiElement getFAverage();
 
-    @Nullable
-    PsiElement getFAvg();
+  @Nullable
+  PsiElement getFAvg();
 
-    @Nullable
-    PsiElement getFBm25();
+  @Nullable
+  PsiElement getFBm25();
 
-    @Nullable
-    PsiElement getFBoost();
+  @Nullable
+  PsiElement getFBoost();
 
-    @Nullable
-    PsiElement getFCall();
+  @Nullable
+  PsiElement getFCall();
 
-    @Nullable
-    PsiElement getFCeil();
+  @Nullable
+  PsiElement getFCeil();
 
-    @Nullable
-    PsiElement getFCharLength();
+  @Nullable
+  PsiElement getFCharLength();
 
-    @Nullable
-    PsiElement getFCollections();
+  @Nullable
+  PsiElement getFCollections();
 
-    @Nullable
-    PsiElement getFCollectionCount();
+  @Nullable
+  PsiElement getFCollectionCount();
 
-    @Nullable
-    PsiElement getFConcat();
+  @Nullable
+  PsiElement getFConcat();
 
-    @Nullable
-    PsiElement getFConcatSeparator();
+  @Nullable
+  PsiElement getFConcatSeparator();
 
-    @Nullable
-    PsiElement getFContains();
+  @Nullable
+  PsiElement getFContains();
 
-    @Nullable
-    PsiElement getFContainsArray();
+  @Nullable
+  PsiElement getFContainsArray();
 
-    @Nullable
-    PsiElement getFCos();
+  @Nullable
+  PsiElement getFCos();
 
-    @Nullable
-    PsiElement getFCount();
+  @Nullable
+  PsiElement getFCount();
 
-    @Nullable
-    PsiElement getFCountDistinct();
+  @Nullable
+  PsiElement getFCountDistinct();
 
-    @Nullable
-    PsiElement getFCountUnique();
+  @Nullable
+  PsiElement getFCountUnique();
 
-    @Nullable
-    PsiElement getFCurrentDatabase();
+  @Nullable
+  PsiElement getFCurrentDatabase();
 
-    @Nullable
-    PsiElement getFCurrentUser();
+  @Nullable
+  PsiElement getFCurrentUser();
 
-    @Nullable
-    PsiElement getFDateAdd();
+  @Nullable
+  PsiElement getFDateAdd();
 
-    @Nullable
-    PsiElement getFDateCompare();
+  @Nullable
+  PsiElement getFDateCompare();
 
-    @Nullable
-    PsiElement getFDateDay();
+  @Nullable
+  PsiElement getFDateDay();
 
-    @Nullable
-    PsiElement getFDateDayofweek();
+  @Nullable
+  PsiElement getFDateDayofweek();
 
-    @Nullable
-    PsiElement getFDateDayofyear();
+  @Nullable
+  PsiElement getFDateDayofyear();
 
-    @Nullable
-    PsiElement getFDateDaysInMonth();
+  @Nullable
+  PsiElement getFDateDaysInMonth();
 
-    @Nullable
-    PsiElement getFDateDiff();
+  @Nullable
+  PsiElement getFDateDiff();
 
-    @Nullable
-    PsiElement getFDateFormat();
+  @Nullable
+  PsiElement getFDateFormat();
 
-    @Nullable
-    PsiElement getFDateHour();
+  @Nullable
+  PsiElement getFDateHour();
 
-    @Nullable
-    PsiElement getFDateIso8601();
+  @Nullable
+  PsiElement getFDateIso8601();
 
-    @Nullable
-    PsiElement getFDateIsoweek();
+  @Nullable
+  PsiElement getFDateIsoweek();
 
-    @Nullable
-    PsiElement getFDateLeapyear();
+  @Nullable
+  PsiElement getFDateLeapyear();
 
-    @Nullable
-    PsiElement getFDateMillisecond();
+  @Nullable
+  PsiElement getFDateMillisecond();
 
-    @Nullable
-    PsiElement getFDateMinute();
+  @Nullable
+  PsiElement getFDateMinute();
 
-    @Nullable
-    PsiElement getFDateMonth();
+  @Nullable
+  PsiElement getFDateMonth();
 
-    @Nullable
-    PsiElement getFDateNow();
+  @Nullable
+  PsiElement getFDateNow();
 
-    @Nullable
-    PsiElement getFDateQuarter();
+  @Nullable
+  PsiElement getFDateQuarter();
 
-    @Nullable
-    PsiElement getFDateSecond();
+  @Nullable
+  PsiElement getFDateSecond();
 
-    @Nullable
-    PsiElement getFDateSubtract();
+  @Nullable
+  PsiElement getFDateSubtract();
 
-    @Nullable
-    PsiElement getFDateTimestamp();
+  @Nullable
+  PsiElement getFDateTimestamp();
 
-    @Nullable
-    PsiElement getFDateTrunc();
+  @Nullable
+  PsiElement getFDateTrunc();
 
-    @Nullable
-    PsiElement getFDateYear();
+  @Nullable
+  PsiElement getFDateYear();
 
-    @Nullable
-    PsiElement getFDegrees();
+  @Nullable
+  PsiElement getFDegrees();
 
-    @Nullable
-    PsiElement getFDistance();
+  @Nullable
+  PsiElement getFDistance();
 
-    @Nullable
-    PsiElement getFDocument();
+  @Nullable
+  PsiElement getFDocument();
 
-    @Nullable
-    PsiElement getFEncodeUriComponent();
+  @Nullable
+  PsiElement getFEncodeUriComponent();
 
-    @Nullable
-    PsiElement getFExists();
+  @Nullable
+  PsiElement getFExists();
 
-    @Nullable
-    PsiElement getFExp();
+  @Nullable
+  PsiElement getFExp();
 
-    @Nullable
-    PsiElement getFExp2();
+  @Nullable
+  PsiElement getFExp2();
 
-    @Nullable
-    PsiElement getFFail();
+  @Nullable
+  PsiElement getFFail();
 
-    @Nullable
-    PsiElement getFFindFirst();
+  @Nullable
+  PsiElement getFFindFirst();
 
-    @Nullable
-    PsiElement getFFindLast();
+  @Nullable
+  PsiElement getFFindLast();
 
-    @Nullable
-    PsiElement getFFirst();
+  @Nullable
+  PsiElement getFFirst();
 
-    @Nullable
-    PsiElement getFFirstDocument();
+  @Nullable
+  PsiElement getFFirstDocument();
 
-    @Nullable
-    PsiElement getFFirstList();
+  @Nullable
+  PsiElement getFFirstList();
 
-    @Nullable
-    PsiElement getFFlatten();
+  @Nullable
+  PsiElement getFFlatten();
 
-    @Nullable
-    PsiElement getFFloor();
+  @Nullable
+  PsiElement getFFloor();
 
-    @Nullable
-    PsiElement getFFulltext();
+  @Nullable
+  PsiElement getFFulltext();
 
-    @Nullable
-    PsiElement getFGeoContains();
+  @Nullable
+  PsiElement getFGeoContains();
 
-    @Nullable
-    PsiElement getFGeoDistance();
+  @Nullable
+  PsiElement getFGeoDistance();
 
-    @Nullable
-    PsiElement getFGeoEquals();
+  @Nullable
+  PsiElement getFGeoEquals();
 
-    @Nullable
-    PsiElement getFGeoIntersects();
+  @Nullable
+  PsiElement getFGeoIntersects();
 
-    @Nullable
-    PsiElement getFGeoLinestring();
+  @Nullable
+  PsiElement getFGeoLinestring();
 
-    @Nullable
-    PsiElement getFGeoMultilinestring();
+  @Nullable
+  PsiElement getFGeoMultilinestring();
 
-    @Nullable
-    PsiElement getFGeoMultipoint();
+  @Nullable
+  PsiElement getFGeoMultipoint();
 
-    @Nullable
-    PsiElement getFGeoPoint();
+  @Nullable
+  PsiElement getFGeoPoint();
 
-    @Nullable
-    PsiElement getFGeoPolygon();
+  @Nullable
+  PsiElement getFGeoPolygon();
 
-    @Nullable
-    PsiElement getFHas();
+  @Nullable
+  PsiElement getFHas();
 
-    @Nullable
-    PsiElement getFHash();
+  @Nullable
+  PsiElement getFHash();
 
-    @Nullable
-    PsiElement getFIntersection();
+  @Nullable
+  PsiElement getFIntersection();
 
-    @Nullable
-    PsiElement getFIsArray();
+  @Nullable
+  PsiElement getFIsArray();
 
-    @Nullable
-    PsiElement getFIsBool();
+  @Nullable
+  PsiElement getFIsBool();
 
-    @Nullable
-    PsiElement getFIsDatestring();
+  @Nullable
+  PsiElement getFIsDatestring();
 
-    @Nullable
-    PsiElement getFIsDocument();
+  @Nullable
+  PsiElement getFIsDocument();
 
-    @Nullable
-    PsiElement getFIsInPolygon();
+  @Nullable
+  PsiElement getFIsInPolygon();
 
-    @Nullable
-    PsiElement getFIsKey();
+  @Nullable
+  PsiElement getFIsKey();
 
-    @Nullable
-    PsiElement getFIsList();
+  @Nullable
+  PsiElement getFIsList();
 
-    @Nullable
-    PsiElement getFIsNull();
+  @Nullable
+  PsiElement getFIsNull();
 
-    @Nullable
-    PsiElement getFIsNumber();
+  @Nullable
+  PsiElement getFIsNumber();
 
-    @Nullable
-    PsiElement getFIsObject();
+  @Nullable
+  PsiElement getFIsObject();
 
-    @Nullable
-    PsiElement getFIsSameCollection();
+  @Nullable
+  PsiElement getFIsSameCollection();
 
-    @Nullable
-    PsiElement getFIsString();
+  @Nullable
+  PsiElement getFIsString();
 
-    @Nullable
-    PsiElement getFJsonParse();
+  @Nullable
+  PsiElement getFJsonParse();
 
-    @Nullable
-    PsiElement getFJsonStringify();
+  @Nullable
+  PsiElement getFJsonStringify();
 
-    @Nullable
-    PsiElement getFKeep();
+  @Nullable
+  PsiElement getFKeep();
 
-    @Nullable
-    PsiElement getFKeys();
+  @Nullable
+  PsiElement getFKeys();
 
-    @Nullable
-    PsiElement getFLast();
+  @Nullable
+  PsiElement getFLast();
 
-    @Nullable
-    PsiElement getFLeft();
+  @Nullable
+  PsiElement getFLeft();
 
-    @Nullable
-    PsiElement getFLength();
+  @Nullable
+  PsiElement getFLength();
 
-    @Nullable
-    PsiElement getFLevenshteinDistance();
+  @Nullable
+  PsiElement getFLevenshteinDistance();
 
-    @Nullable
-    PsiElement getFLike();
+  @Nullable
+  PsiElement getFLike();
 
-    @Nullable
-    PsiElement getFLog();
+  @Nullable
+  PsiElement getFLog();
 
-    @Nullable
-    PsiElement getFLog10();
+  @Nullable
+  PsiElement getFLog10();
 
-    @Nullable
-    PsiElement getFLog2();
+  @Nullable
+  PsiElement getFLog2();
 
-    @Nullable
-    PsiElement getFLower();
+  @Nullable
+  PsiElement getFLower();
 
-    @Nullable
-    PsiElement getFLtrim();
+  @Nullable
+  PsiElement getFLtrim();
 
-    @Nullable
-    PsiElement getFMatches();
+  @Nullable
+  PsiElement getFMatches();
 
-    @Nullable
-    PsiElement getFMax();
+  @Nullable
+  PsiElement getFMax();
 
-    @Nullable
-    PsiElement getFMd5();
+  @Nullable
+  PsiElement getFMd5();
 
-    @Nullable
-    PsiElement getFMedian();
+  @Nullable
+  PsiElement getFMedian();
 
-    @Nullable
-    PsiElement getFMerge();
+  @Nullable
+  PsiElement getFMerge();
 
-    @Nullable
-    PsiElement getFMergeRecursive();
+  @Nullable
+  PsiElement getFMergeRecursive();
 
-    @Nullable
-    PsiElement getFMin();
+  @Nullable
+  PsiElement getFMin();
 
-    @Nullable
-    PsiElement getFMinus();
+  @Nullable
+  PsiElement getFMinus();
 
-    @Nullable
-    PsiElement getFMinMatch();
+  @Nullable
+  PsiElement getFMinMatch();
 
-    @Nullable
-    PsiElement getFNear();
+  @Nullable
+  PsiElement getFNear();
 
-    @Nullable
-    PsiElement getFNoopt();
+  @Nullable
+  PsiElement getFNoopt();
 
-    @Nullable
-    PsiElement getFNotNull();
+  @Nullable
+  PsiElement getFNotNull();
 
-    @Nullable
-    PsiElement getFNth();
+  @Nullable
+  PsiElement getFNth();
 
-    @Nullable
-    PsiElement getFOutersection();
+  @Nullable
+  PsiElement getFOutersection();
 
-    @Nullable
-    PsiElement getFParseIdentifier();
+  @Nullable
+  PsiElement getFParseIdentifier();
 
-    @Nullable
-    PsiElement getFPassthru();
+  @Nullable
+  PsiElement getFPassthru();
 
-    @Nullable
-    PsiElement getFPercentile();
+  @Nullable
+  PsiElement getFPercentile();
 
-    @Nullable
-    PsiElement getFPhrase();
+  @Nullable
+  PsiElement getFPhrase();
 
-    @Nullable
-    PsiElement getFPi();
+  @Nullable
+  PsiElement getFPi();
 
-    @Nullable
-    PsiElement getFPop();
+  @Nullable
+  PsiElement getFPop();
 
-    @Nullable
-    PsiElement getFPosition();
+  @Nullable
+  PsiElement getFPosition();
 
-    @Nullable
-    PsiElement getFPow();
+  @Nullable
+  PsiElement getFPow();
 
-    @Nullable
-    PsiElement getFPregelResult();
+  @Nullable
+  PsiElement getFPregelResult();
 
-    @Nullable
-    PsiElement getFPush();
+  @Nullable
+  PsiElement getFPush();
 
-    @Nullable
-    PsiElement getFRadians();
+  @Nullable
+  PsiElement getFRadians();
 
-    @Nullable
-    PsiElement getFRand();
+  @Nullable
+  PsiElement getFRand();
 
-    @Nullable
-    PsiElement getFRandomToken();
+  @Nullable
+  PsiElement getFRandomToken();
 
-    @Nullable
-    PsiElement getFRange();
+  @Nullable
+  PsiElement getFRange();
 
-    @Nullable
-    PsiElement getFRegexMatches();
+  @Nullable
+  PsiElement getFRegexMatches();
 
-    @Nullable
-    PsiElement getFRegexReplace();
+  @Nullable
+  PsiElement getFRegexReplace();
 
-    @Nullable
-    PsiElement getFRegexSplit();
+  @Nullable
+  PsiElement getFRegexSplit();
 
-    @Nullable
-    PsiElement getFRegexTest();
+  @Nullable
+  PsiElement getFRegexTest();
 
-    @Nullable
-    PsiElement getFRemoveNth();
+  @Nullable
+  PsiElement getFRemoveNth();
 
-    @Nullable
-    PsiElement getFRemoveValue();
+  @Nullable
+  PsiElement getFRemoveValue();
 
-    @Nullable
-    PsiElement getFRemoveValues();
+  @Nullable
+  PsiElement getFRemoveValues();
 
-    @Nullable
-    PsiElement getFReverse();
+  @Nullable
+  PsiElement getFReverse();
 
-    @Nullable
-    PsiElement getFRight();
+  @Nullable
+  PsiElement getFRight();
 
-    @Nullable
-    PsiElement getFRound();
+  @Nullable
+  PsiElement getFRound();
 
-    @Nullable
-    PsiElement getFRtrim();
+  @Nullable
+  PsiElement getFRtrim();
 
-    @Nullable
-    PsiElement getFSha1();
+  @Nullable
+  PsiElement getFSha1();
 
-    @Nullable
-    PsiElement getFSha512();
+  @Nullable
+  PsiElement getFSha512();
 
-    @Nullable
-    PsiElement getFShift();
+  @Nullable
+  PsiElement getFShift();
 
-    @Nullable
-    PsiElement getFSin();
+  @Nullable
+  PsiElement getFSin();
 
-    @Nullable
-    PsiElement getFSleep();
+  @Nullable
+  PsiElement getFSleep();
 
-    @Nullable
-    PsiElement getFSlice();
+  @Nullable
+  PsiElement getFSlice();
 
-    @Nullable
-    PsiElement getFSorted();
+  @Nullable
+  PsiElement getFSorted();
 
-    @Nullable
-    PsiElement getFSortedUnique();
+  @Nullable
+  PsiElement getFSortedUnique();
 
-    @Nullable
-    PsiElement getFSoundex();
+  @Nullable
+  PsiElement getFSoundex();
 
-    @Nullable
-    PsiElement getFSplit();
+  @Nullable
+  PsiElement getFSplit();
 
-    @Nullable
-    PsiElement getFSqrt();
+  @Nullable
+  PsiElement getFSqrt();
 
-    @Nullable
-    PsiElement getFStartsWith();
+  @Nullable
+  PsiElement getFStartsWith();
 
-    @Nullable
-    PsiElement getFStddev();
+  @Nullable
+  PsiElement getFStddev();
 
-    @Nullable
-    PsiElement getFStddevPopulation();
+  @Nullable
+  PsiElement getFStddevPopulation();
 
-    @Nullable
-    PsiElement getFStddevSample();
+  @Nullable
+  PsiElement getFStddevSample();
 
-    @Nullable
-    PsiElement getFSubstitute();
+  @Nullable
+  PsiElement getFSubstitute();
 
-    @Nullable
-    PsiElement getFSubstring();
+  @Nullable
+  PsiElement getFSubstring();
 
-    @Nullable
-    PsiElement getFSum();
+  @Nullable
+  PsiElement getFSum();
 
-    @Nullable
-    PsiElement getFTan();
+  @Nullable
+  PsiElement getFTan();
 
-    @Nullable
-    PsiElement getFTfidf();
+  @Nullable
+  PsiElement getFTfidf();
 
-    @Nullable
-    PsiElement getFTokens();
+  @Nullable
+  PsiElement getFTokens();
 
-    @Nullable
-    PsiElement getFToArray();
+  @Nullable
+  PsiElement getFToArray();
 
-    @Nullable
-    PsiElement getFToBase64();
+  @Nullable
+  PsiElement getFToBase64();
 
-    @Nullable
-    PsiElement getFToBool();
+  @Nullable
+  PsiElement getFToBool();
 
-    @Nullable
-    PsiElement getFToHex();
+  @Nullable
+  PsiElement getFToHex();
 
-    @Nullable
-    PsiElement getFToList();
+  @Nullable
+  PsiElement getFToList();
 
-    @Nullable
-    PsiElement getFToNumber();
+  @Nullable
+  PsiElement getFToNumber();
 
-    @Nullable
-    PsiElement getFToString();
+  @Nullable
+  PsiElement getFToString();
 
-    @Nullable
-    PsiElement getFTranslate();
+  @Nullable
+  PsiElement getFTranslate();
 
-    @Nullable
-    PsiElement getFTrim();
+  @Nullable
+  PsiElement getFTrim();
 
-    @Nullable
-    PsiElement getFTypename();
+  @Nullable
+  PsiElement getFTypename();
 
-    @Nullable
-    PsiElement getFUnion();
+  @Nullable
+  PsiElement getFUnion();
 
-    @Nullable
-    PsiElement getFUnionDistinct();
+  @Nullable
+  PsiElement getFUnionDistinct();
 
-    @Nullable
-    PsiElement getFUnique();
+  @Nullable
+  PsiElement getFUnique();
 
-    @Nullable
-    PsiElement getFUnset();
+  @Nullable
+  PsiElement getFUnset();
 
-    @Nullable
-    PsiElement getFUnsetRecursive();
+  @Nullable
+  PsiElement getFUnsetRecursive();
 
-    @Nullable
-    PsiElement getFUnshift();
+  @Nullable
+  PsiElement getFUnshift();
 
-    @Nullable
-    PsiElement getFUpper();
+  @Nullable
+  PsiElement getFUpper();
 
-    @Nullable
-    PsiElement getFUuid();
+  @Nullable
+  PsiElement getFUuid();
 
-    @Nullable
-    PsiElement getFV8();
+  @Nullable
+  PsiElement getFV8();
 
-    @Nullable
-    PsiElement getFValues();
+  @Nullable
+  PsiElement getFValues();
 
-    @Nullable
-    PsiElement getFVariance();
+  @Nullable
+  PsiElement getFVariance();
 
-    @Nullable
-    PsiElement getFVariancePopulation();
+  @Nullable
+  PsiElement getFVariancePopulation();
 
-    @Nullable
-    PsiElement getFVarianceSample();
+  @Nullable
+  PsiElement getFVarianceSample();
 
-    @Nullable
-    PsiElement getFVersion();
+  @Nullable
+  PsiElement getFVersion();
 
-    @Nullable
-    PsiElement getFWarn();
+  @Nullable
+  PsiElement getFWarn();
 
-    @Nullable
-    PsiElement getFWithin();
+  @Nullable
+  PsiElement getFWithin();
 
-    @Nullable
-    PsiElement getFWithinRectangle();
+  @Nullable
+  PsiElement getFWithinRectangle();
 
-    @Nullable
-    PsiElement getFZip();
+  @Nullable
+  PsiElement getFZip();
 
 }

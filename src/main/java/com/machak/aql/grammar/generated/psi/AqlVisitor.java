@@ -1,9 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.psi.PsiElement;
 
 public class AqlVisitor extends PsiElementVisitor {
 
@@ -15,13 +15,13 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitIntegerType(@NotNull AqlIntegerType o) {
-        visitPsiElement(o);
-    }
+  public void visitIntegerType(@NotNull AqlIntegerType o) {
+    visitPsiElement(o);
+  }
 
-    public void visitKeywordFunctions(@NotNull AqlKeywordFunctions o) {
-        visitPsiElement(o);
-    }
+  public void visitKeywordFunctions(@NotNull AqlKeywordFunctions o) {
+    visitPsiElement(o);
+  }
 
   public void visitKeywordStatements(@NotNull AqlKeywordStatements o) {
     visitPsiElement(o);
@@ -32,6 +32,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitLineComment(@NotNull AqlLineComment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedKeywordFunctions(@NotNull AqlNamedKeywordFunctions o) {
     visitPsiElement(o);
   }
 
@@ -71,9 +75,9 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitSystemProperty(@NotNull AqlSystemProperty o) {
-        visitPsiElement(o);
-    }
+  public void visitSystemProperty(@NotNull AqlSystemProperty o) {
+    visitPsiElement(o);
+  }
 
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);

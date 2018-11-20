@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class DataWindowFactory implements ToolWindowFactory {
 
-    public static final String ID = "ArangoDB";
 
     @Override
     public void createToolWindowContent(@NotNull final Project project, @NotNull final ToolWindow toolWindow) {

@@ -8,14 +8,32 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="4c83f" class="javax.swing.JTextPane" binding="textPane">
+      <tabbedpane id="1cd87" class="com.intellij.ui.components.JBTabbedPane" binding="tabContainer">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
-      </component>
+        <properties>
+          <toolTipText value="Log"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="9319d" binding="jsonResults" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Log"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="83fa8" binding="jsonTabPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="South"/>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
     </children>
   </grid>
 </form>

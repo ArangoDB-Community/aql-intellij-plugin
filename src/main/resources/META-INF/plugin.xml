@@ -34,6 +34,9 @@
     <lang.parserDefinition language="aql" implementationClass="com.machak.aql.lang.AqlParserDefinition"/>
     <internalFileTemplate name="templates.Aql Template"/>
     <colorSettingsPage implementation="com.machak.aql.settings.AqlColorSettingsPage"/>
+    <psi.referenceContributor implementation="com.machak.aql.lang.AqlPsiReferenceContributor"/>
+    <lang.findUsagesProvider language="aql" implementationClass="com.machak.aql.lang.AqlFindUsagesProvider"/>
+    <lang.documentationProvider language="aql" implementationClass="com.machak.aql.lang.AqlDocumentationProvider"/>
     <lang.syntaxHighlighterFactory language="aql" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterFactory"/>
     <!--
     <codeStyleSettingsProvider implementation="com.simpleplugin.SimpleCodeStyleSettingsProvider"/>
@@ -59,14 +62,28 @@
       <action id="com.machak.aql.actions.AqlExecuteQueryAction" class="com.machak.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
         <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
       </action>
-  </actions>
-  <actions>
-    <!-- Add your actions here -->
     <action id="aql.NewAqlFile" class="com.machak.aql.file.AqlFileTemplateAction"
             text="AQL File" description="Create new AQL file">
       <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
     </action>
+
+    <!-- com.machak.aql.actions.ActionBusEvent.ACTION_CONSOLE-->
+    <group id="Aql.Action.Console" text="AQL Console">
+      <action id="Aql.Action.Console.ExecuteQuery"
+              class="com.machak.aql.actions.AqlExecuteQueryAction"
+              text="Execute AQL query"
+              icon="/toolwindows/toolWindowRun.png"
+              description="Execute AQL query">
+      </action>
+      <action id="Aql.Action.Console.Clean"
+              class="com.machak.aql.actions.AqlEmptyLogAction"
+              text="Clear"
+              icon="/actions/refresh.png"
+              description="Clear">
+      </action>
+    </group>
   </actions>
+
 
   <application-components>
     <component>
