@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CONTAINS</title>
+</head>
+<body>
+<h2>CONTAINS()</h2>
+<p><code>CONTAINS(text, search, returnIndex) → match</code></p>
+<p>Check whether the string <em>search</em> is contained in the string <em>text</em>.
+  The string matching performed by <em>CONTAINS</em> is case-sensitive.</p>
+<ul>
+  <li><strong>text</strong> (string): the haystack</li>
+  <li><strong>search</strong> (string): the needle</li>
+  <li><strong>returnIndex</strong> (bool, <em>optional</em>): if set to <em>true</em>, the character position
+    of the match is returned instead of a boolean. The default is <em>false</em>.
+    The default is <em>false</em>.
+  </li>
+  <li>returns <strong>match</strong> (bool|number): by default, <em>true</em> is returned if <em>search</em>
+    is contained in <em>text</em>, and <em>false</em> otherwise. With <em>returnIndex</em> set to <em>true</em>,
+    the position of the first occurrence of <em>search</em> within <em>text</em> is returned
+    (starting at offset 0), or <em>-1</em> if <em>search</em> is not contained in <em>text</em>.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">CONTAINS</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">CONTAINS</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>horse<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">CONTAINS</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ba<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">//</span> 3</span>
+<span class="pl-en">CONTAINS</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>horse<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">//</span> -1</span></pre>
+</div>
+<p>To determine if or at which position a value is included in an array, see the
+  <a href="#position">POSITION() array function</a>.
+</p>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SUBSTITUTE</title>
+</head>
+<body>
+<h2>SUBSTITUTE()</h2>
+<p><code>SUBSTITUTE(value, search, replace, limit) → substitutedString</code></p>
+<p>Replace search values in the string <em>value</em>.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li><strong>search</strong> (string|array): if <em>search</em> is a string, all occurrences of
+    <em>search</em> will be replaced in <em>value</em>. If <em>search</em> is an array of strings,
+    each occurrence of a value contained in <em>search</em> will be replaced by the
+    corresponding array element in <em>replace</em>. If <em>replace</em> has less list items
+    than <em>search</em>, occurrences of unmapped <em>search</em> items will be replaced by an
+    empty string.
+  </li>
+  <li><strong>replace</strong> (string|array, <em>optional</em>): a replacement string, or an array of
+    strings to replace the corresponding elements of <em>search</em> with. Can have less
+    elements than <em>search</em> or be left out to remove matches. If <em>search</em> is an array
+    but <em>replace</em> is a string, then all matches will be replaced with <em>replace</em>.
+  </li>
+  <li><strong>limit</strong> (number, <em>optional</em>): cap the number of replacements to this value</li>
+  <li>returns <strong>substitutedString</strong> (string): a new string with matches replaced
+    (or removed)
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">SUBSTITUTE</span>( <span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>lazy<span class="pl-pds">"</span></span> )
+<span class="pl-c"><span class="pl-c">//</span> "the lazy brown foxx"</span>
+
+<span class="pl-en">SUBSTITUTE</span>( <span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span> ], [ <span class="pl-s"><span class="pl-pds">"</span>slow<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>dog<span class="pl-pds">"</span></span> ] )
+<span class="pl-c"><span class="pl-c">//</span> "the slow brown dog"</span>
+
+<span class="pl-en">SUBSTITUTE</span>( <span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>the<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span> ], [ <span class="pl-s"><span class="pl-pds">"</span>that<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>dog<span class="pl-pds">"</span></span> ], <span class="pl-c1">1</span> )
+<span class="pl-c"><span class="pl-c">//</span>  "that quick brown foxx"</span>
+
+<span class="pl-en">SUBSTITUTE</span>( <span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>the<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span> ], [ <span class="pl-s"><span class="pl-pds">"</span>A<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>VOID!<span class="pl-pds">"</span></span> ] )
+<span class="pl-c"><span class="pl-c">//</span> "A VOID! brown "</span>
+
+<span class="pl-en">SUBSTITUTE</span>( <span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span> ], <span class="pl-s"><span class="pl-pds">"</span>xx<span class="pl-pds">"</span></span> )
+<span class="pl-c"><span class="pl-c">//</span> "the xx brown xx"</span></pre>
+</div>
+<p><code>SUBSTITUTE(value, mapping, limit) → substitutedString</code></p>
+<p>Alternatively, <em>search</em> and <em>replace</em> can be specified in a combined value.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li><strong>mapping</strong> (object): a lookup map with search strings as keys and replacement
+    strings as values. Empty strings and <em>null</em> as values remove matches.
+    Please note that no sequence of search strings can be warrantied by this;
+    Means, if you have overlapping search results, one time the first may win,
+    another time the second. If you need to ensure the precedence of the sequence
+    choose the array based invocation method.
+  </li>
+  <li><strong>limit</strong> (number, <em>optional</em>): cap the number of replacements to this value</li>
+  <li>returns <strong>substitutedString</strong> (string): a new string with matches replaced
+    (or removed)
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">SUBSTITUTE</span>(<span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, {
+  <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>small<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>brown<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>slow<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ant<span class="pl-pds">"</span></span>
+})
+<span class="pl-c"><span class="pl-c">//</span> "the small slow ant"</span>
+
+<span class="pl-en">SUBSTITUTE</span>(<span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, {
+  <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>brown<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">null</span>,
+  <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ant<span class="pl-pds">"</span></span>
+})
+<span class="pl-c"><span class="pl-c">//</span> "the   ant"</span>
+
+<span class="pl-en">SUBSTITUTE</span>(<span class="pl-s"><span class="pl-pds">"</span>the quick brown foxx<span class="pl-pds">"</span></span>, {
+  <span class="pl-s"><span class="pl-pds">"</span>quick<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>small<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>brown<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>slow<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>foxx<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>ant<span class="pl-pds">"</span></span>
+}, <span class="pl-c1">2</span>)
+<span class="pl-c"><span class="pl-c">//</span> "the small slow foxx"</span></pre>
+</div>
+</body>
+</html>

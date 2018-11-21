@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CONCAT</title>
+</head>
+<body>
+<h2>CONCAT()</h2>
+<p><code>CONCAT(value1, value2, ... valueN) → str</code></p>
+<p>Concatenate the values passed as <em>value1</em> to <em>valueN</em>.</p>
+<ul>
+  <li><strong>values</strong> (any, <em>repeatable</em>): elements of arbitrary type (at least 1)</li>
+  <li>returns <strong>str</strong> (string): a concatenation of the elements. <em>null</em> values
+    are ignored.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">CONCAT</span>(<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foobarbaz"</span>
+<span class="pl-en">CONCAT</span>(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>) <span class="pl-c"><span class="pl-c">//</span> "123"</span>
+<span class="pl-en">CONCAT</span>(<span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, [<span class="pl-c1">5</span>, <span class="pl-c1">6</span>], {bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>}) <span class="pl-c"><span class="pl-c">//</span> "foo[5,6]{\"bar\":\"baz\"}"</span></pre>
+</div>
+<p><code>CONCAT(anyArray) → str</code></p>
+<p>If a single array is passed to <em>CONCAT()</em>, its members are concatenated.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li>returns <strong>str</strong> (string): a concatenation of the array elements. <em>null</em> values
+    are ignored.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">CONCAT</span>( [ <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span> ] ) <span class="pl-c"><span class="pl-c">//</span> "foobarbaz"</span>
+<span class="pl-en">CONCAT</span>( [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>] ) <span class="pl-c"><span class="pl-c">//</span> "123"</span></pre>
+</div>
+</body>
+</html>

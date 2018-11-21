@@ -1,26 +1,32 @@
 package com.machak.aql.lang.psi;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
+import com.intellij.lang.ASTNode;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.TextRange;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.*;
+import com.intellij.psi.search.FileTypeIndex;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.util.PsiUtilCore;
+import com.intellij.util.IncorrectOperationException;
+import com.machak.aql.file.AqlFile;
+import com.machak.aql.file.AqlFileType;
+import com.machak.aql.grammar.psi.AqlNamedElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementResolveResult;
-import com.intellij.psi.PsiNamedElement;
-import com.intellij.psi.PsiPolyVariantReference;
-import com.intellij.psi.PsiReferenceBase;
-import com.intellij.psi.ResolveResult;
-import com.intellij.util.IncorrectOperationException;
-import com.machak.aql.grammar.psi.AqlPsiNamedIdentifier;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
 
+
+    protected <T extends AqlNamedElement> ResolveResult[] asArray(final Set<T> data) {
+        return data.stream().map(PsiElementResolveResult::new).toArray(ResolveResult[]::new);
+    }
 
     public AqlPsiReference(final PsiElement element, final TextRange rangeInElement) {
         super(element, rangeInElement);
@@ -28,7 +34,20 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
 
     @NotNull
     @Override
-    public abstract ResolveResult[] multiResolve(boolean incompleteCode);
+    public ResolveResult[] multiResolve(final boolean incompleteCode) {
+        if (myElement instanceof AqlNamedElement) {
+            final AqlNamedElement namedElement = (AqlNamedElement) myElement;
+
+            final IElementType elementType = PsiUtilCore.getElementType(myElement);
+            if (elementType == null) {
+                return ResolveResult.EMPTY_ARRAY;
+            }
+            return asArray(findAll(namedElement.getProject(), elementType));
+        }
+        return ResolveResult.EMPTY_ARRAY;
+
+    }
+
 
     @Nullable
     @Override
@@ -38,14 +57,57 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
     }
 
     @Override
-    public PsiElement handleElementRename(String newElementName) throws IncorrectOperationException {
+    public PsiElement handleElementRename(@NotNull String newElementName) throws IncorrectOperationException {
         ((PsiNamedElement) myElement).setName(newElementName);
         return myElement;
     }
 
-    @NotNull
-    @Override
-    public abstract Object[] getVariants();
+    public <T extends AqlNamedElement> Set<T> findAll(final Project project, final IElementType elementType) {
+        final Set<T> result = findInjected(project, elementType);
+        final GlobalSearchScope scope = GlobalSearchScope.allScope(project);
+        final Collection<VirtualFile> virtualFiles = FileTypeIndex.getFiles(AqlFileType.INSTANCE, scope);
+        for (VirtualFile virtualFile : virtualFiles) {
+            final AqlFile file = (AqlFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (file != null) {
+                final Set<T> found = processFile(file, elementType);
+                result.addAll(found);
+            }
+        }
+        return result;
+    }
+
+    private <T extends AqlNamedElement> Set<T> findInjected(final Project project, final IElementType elementType) {
+        // TODO find injected references
+        return new HashSet<>();
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public <T extends PsiElement> Set<T> processFile(final AqlFile file, final IElementType type) {
+        final ASTNode rootNode = file.getNode();
+        final Set<ASTNode> nodes = new HashSet<>();
+        populateASTNodes(nodes, rootNode, type);
+        return nodes.stream().map(node -> (T) node.getPsi()).collect(Collectors.toSet());
+    }
+
+    public void populateASTNodes(final Set<ASTNode> nodes, ASTNode rootNode, IElementType type) {
+        final PsiElement psi = rootNode.getPsi();
+        if (psi instanceof AqlNamedElement) {
+            final AqlNamedElement node = (AqlNamedElement) psi;
+            final AqlNamedElement me = (AqlNamedElement) myElement;
+            if (node.getAqlType() == me.getAqlType()) {
+                final String name = node.getName();
+                if (name != null && name.equals(me.getName())) {
+                    nodes.add(rootNode);
+                }
+            }
+        }
+        ASTNode childNode = rootNode.getFirstChildNode();
+        while (childNode != null) {
+            populateASTNodes(nodes, childNode, type);
+            childNode = childNode.getTreeNext();
+        }
+    }
 
 
 }

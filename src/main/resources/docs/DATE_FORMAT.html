@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_FORMAT</title>
+</head>
+<body>
+<h3>DATE_FORMAT()</h3>
+<p><code>DATE_FORMAT(date, format) → str</code></p>
+<p>Format a date according to the given format string.</p>
+<ul>
+  <li><strong>date</strong> (string|number): a date string or timestamp</li>
+  <li><strong>format</strong> (string): a format string, see below</li>
+  <li>returns <strong>str</strong> (string): a formatted date string</li>
+</ul>
+<p><em>format</em> supports the following placeholders (case-insensitive):</p>
+<ul>
+  <li>%t – timestamp, in milliseconds since midnight 1970-01-01</li>
+  <li>%z – ISO date (0000-00-00T00:00:00.000Z)</li>
+  <li>%w – day of week (0..6)</li>
+  <li>%y – year (0..9999)</li>
+  <li>%yy – year (00..99), abbreviated (last two digits)</li>
+  <li>%yyyy – year (0000..9999), padded to length of 4</li>
+  <li>%yyyyyy – year (-009999 .. +009999), with sign prefix and padded to length of 6</li>
+  <li>%m – month (1..12)</li>
+  <li>%mm – month (01..12), padded to length of 2</li>
+  <li>%d – day (1..31)</li>
+  <li>%dd – day (01..31), padded to length of 2</li>
+  <li>%h – hour (0..23)</li>
+  <li>%hh – hour (00..23), padded to length of 2</li>
+  <li>%i – minute (0..59)</li>
+  <li>%ii – minute (00..59), padded to length of 2</li>
+  <li>%s – second (0..59)</li>
+  <li>%ss – second (00..59), padded to length of 2</li>
+  <li>%f – millisecond (0..999)</li>
+  <li>%fff – millisecond (000..999), padded to length of 3</li>
+  <li>%x – day of year (1..366)</li>
+  <li>%xxx – day of year (001..366), padded to length of 3</li>
+  <li>%k – ISO week date (1..53)</li>
+  <li>%kk – ISO week date (01..53), padded to length of 2</li>
+  <li>%l – leap year (0 or 1)</li>
+  <li>%q – quarter (1..4)</li>
+  <li>%a – days in month (28..31)</li>
+  <li>%mmm – abbreviated English name of month (Jan..Dec)</li>
+  <li>%mmmm – English name of month (January..December)</li>
+  <li>%www – abbreviated English name of weekday (Sun..Sat)</li>
+  <li>%wwww – English name of weekday (Sunday..Saturday)</li>
+  <li>%&amp; – special escape sequence for rare occasions</li>
+  <li>%% – literal %</li>
+  <li>% – ignored</li>
+</ul>
+<p><code>%yyyy</code> does not enforce a length of 4 for years before 0 and past 9999.
+  The same format as for <code>%yyyyyy</code> will be used instead. <code>%yy</code> preserves the
+  sign for negative years and may thus return 3 characters in total.</p>
+<p>Single <code>%</code> characters will be ignored. Use <code>%%</code> for a literal <code>%</code>. To resolve
+  ambiguities like in <code>%mmonth</code> (unpadded month number + the string "month")
+  between <code>%mm</code> + "onth" and <code>%m</code> + "month", use the escape sequence <code>%&amp;</code>:
+  <code>%m%&amp;month</code>.</p>
+<p>Note that <em>DATE_FORMAT()</em> is a rather costly operation and may not be suitable for large
+  datasets (like over 1 million dates). If possible, avoid formatting dates on
+  server-side and leave it up to the client to do so. This function should only
+  be used for special date comparisons or to store the formatted dates in the
+  database. For better performance, use the primitive <code>DATE_*()</code> functions
+  together with <code>CONCAT()</code> if possible.</p>
+<p>Examples:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">DATE_FORMAT</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>%q/%yyyy<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> quarter and year (e.g. "3/2015")</span>
+<span class="pl-en">DATE_FORMAT</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>%dd.%mm.%yyyy %hh:%ii:%ss,%fff<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> e.g. "18.09.2015 15:30:49,374"</span>
+<span class="pl-en">DATE_FORMAT</span>(<span class="pl-s"><span class="pl-pds">"</span>1969<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Summer of '%yy<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "Summer of '69"</span>
+<span class="pl-en">DATE_FORMAT</span>(<span class="pl-s"><span class="pl-pds">"</span>2016<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>%%l = %l<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "%l = 1" (2016 is a leap year)</span>
+<span class="pl-en">DATE_FORMAT</span>(<span class="pl-s"><span class="pl-pds">"</span>2016-03-01<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>%xxx%<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "063", trailing % ignored</span></pre>
+</div>
+</body>
+</html>

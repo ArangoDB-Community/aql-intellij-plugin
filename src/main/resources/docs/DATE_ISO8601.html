@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_ISO8601</title>
+</head>
+<body>
+<h3>DATE_ISO8601()</h3>
+<p><code>DATE_ISO8601(date) → dateString</code></p>
+<p>Return an ISO 8601 date time string from <em>date</em>.
+  The date time string will always use UTC / Zulu time, indicated by the <em>Z</em> at its end.</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li>returns <strong>dateString</strong>: date and time expressed according to ISO 8601, in Zulu time</li>
+</ul>
+<p><code>DATE_ISO8601(year, month, day, hour, minute, second, millisecond) → dateString</code></p>
+<p>Return a ISO 8601 date time string from <em>date</em>, but allows to specify the individual
+  date components separately. All parameters after <em>day</em> are optional.</p>
+<ul>
+  <li><strong>year</strong> (number): typically in the range 0..9999, e.g. <em>2017</em></li>
+  <li><strong>month</strong> (number): 1..12 for January through December</li>
+  <li><strong>day</strong> (number): 1..31 (upper bound depends on number of days in month)</li>
+  <li><strong>hour</strong> (number, <em>optional</em>): 0..23</li>
+  <li><strong>minute</strong> (number, <em>optional</em>): 0..59</li>
+  <li><strong>second</strong> (number, <em>optional</em>): 0..59</li>
+  <li><strong>milliseconds</strong> (number, <em>optional</em>): 0..999</li>
+  <li>returns <strong>dateString</strong>: date and time expressed according to ISO 8601, in Zulu time</li>
+</ul>
+<h3><a id="user-content-date_timestamp" class="anchor" aria-hidden="true" href="#date_timestamp">
+  <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg>
+</a></h3>
+</body>
+</html>

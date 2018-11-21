@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RANDOM_TOKEN</title>
+</head>
+<body>
+<h2>RANDOM_TOKEN()</h2>
+<p><code>RANDOM_TOKEN(length) → randomString</code></p>
+<p>Generate a pseudo-random token string with the specified length.
+  The algorithm for token generation should be treated as opaque.</p>
+<ul>
+  <li><strong>length</strong> (number): desired string length for the token. It must be greater
+    than 0 and at most 65536.
+  </li>
+  <li>returns <strong>randomString</strong> (string): a generated token consisting of lowercase
+    letters, uppercase letters and numbers
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">RANDOM_TOKEN</span>(<span class="pl-c1">8</span>) <span class="pl-c"><span class="pl-c">//</span> "zGl09z42"</span>
+<span class="pl-en">RANDOM_TOKEN</span>(<span class="pl-c1">8</span>) <span class="pl-c"><span class="pl-c">//</span> "m9w50Ft9"</span></pre>
+</div>
+</body>
+</html>

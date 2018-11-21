@@ -1,11 +1,11 @@
 package com.machak.aql.lang.psi;
 
-import org.jetbrains.annotations.NotNull;
-
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveResult;
-import com.machak.aql.lang.AqlPsiReferenceContributor;
+import com.machak.aql.grammar.generated.psi.AqlTypes;
+import com.machak.aql.util.Icons;
+import org.jetbrains.annotations.NotNull;
 
 public class AqlFunctionReference extends AqlPsiReference {
 
@@ -14,15 +14,20 @@ public class AqlFunctionReference extends AqlPsiReference {
         super(element, rangeInElement);
     }
 
-    @NotNull
-    @Override
-    public ResolveResult[] multiResolve(final boolean incompleteCode) {
-        return new ResolveResult[0];
-    }
 
     @NotNull
     @Override
     public Object[] getVariants() {
-        return new Object[0];
+
+        return findAll(myElement.getProject(), AqlTypes.NAMED_KEYWORD_FUNCTIONS).stream()
+                .map(name -> LookupElementBuilder
+                        .create(name)
+                        .withIcon(Icons.ICON_FUNCTION)
+                        .withTypeText("function " + name + "()")
+                        .bold()
+                )
+                .toArray(Object[]::new);
     }
+
+
 }

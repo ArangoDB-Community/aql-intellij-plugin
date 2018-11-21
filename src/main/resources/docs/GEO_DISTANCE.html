@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_DISTANCE</title>
+</head>
+<body>
+<h3>GEO_DISTANCE()</h3>
+<p><code>GEO_DISTANCE(geoJsonA, geoJsonB) → distance</code></p>
+<p>Return the distance between two GeoJSON objects, measured from the <strong>centroid</strong>
+  of each shape (For a list of supported Types see
+  <a href="#geojson">geo index
+    page</a>).</p>
+<ul>
+  <li><strong>geoJsonA</strong> (object): first GeoJSON object</li>
+  <li><strong>geoJsonB</strong> (object): second GeoJSON object</li>
+  <li>returns <strong>distance</strong> (number): the distance between the centroid points of
+    the two objects
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> polygon <span class="pl-k">=</span> {
+  type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Polygon<span class="pl-pds">"</span></span>,
+  coordinates<span class="pl-k">:</span> [[[<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>], [<span class="pl-k">-</span><span class="pl-c1">10.5</span>, <span class="pl-c1">26.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.2</span>, <span class="pl-c1">27.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>]]]
+}
+<span class="pl-c1">FOR</span> doc <span class="pl-c1">IN</span> collectionName
+  <span class="pl-c1">LET</span> distance <span class="pl-k">=</span> <span class="pl-en">GEO_DISTANCE</span>(<span class="pl-smi">doc</span>.<span class="pl-smi">geometry</span>, polygon) <span class="pl-c"><span class="pl-c">//</span> calculates the distance</span>
+  <span class="pl-c1">RETURN</span> distance</pre>
+</div>
+</body>
+</html>

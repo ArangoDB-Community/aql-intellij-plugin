@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MERGE_RECURSIVE</title>
+</head>
+<body><h2>MERGE_RECURSIVE()</h2>
+<p><code>MERGE_RECURSIVE(document1, document2, ... documentN) → mergedDocument</code></p>
+<p>Recursively merge the documents <em>document1</em> to <em>documentN</em> into a single document.
+  If document attribute keys are ambiguous, the merged result will contain the values
+  of the documents contained later in the argument list.</p>
+<ul>
+  <li><strong>documents</strong> (object, <em>repeatable</em>): an arbitrary number of documents as
+    multiple arguments (at least 2)
+  </li>
+  <li>returns <strong>mergedDocument</strong> (object): a combined document</li>
+</ul>
+<p>For example, two documents with distinct attribute names can easily be merged into one:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">MERGE_RECURSIVE</span>(
+    { <span class="pl-s"><span class="pl-pds">"</span>user-1<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>livesIn<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>LA<span class="pl-pds">"</span></span> } } },
+    { <span class="pl-s"><span class="pl-pds">"</span>user-1<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>age<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">42</span>, <span class="pl-s"><span class="pl-pds">"</span>livesIn<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>state<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>CA<span class="pl-pds">"</span></span> } } }
+)
+<span class="pl-c"><span class="pl-c">//</span> { "user-1": { "name": "Jane", "livesIn": { "city": "LA", "state": "CA" }, "age": 42 } }</span></pre>
+</div>
+<p><em>MERGE_RECURSIVE()</em> does not support the single array parameter variant that <em>MERGE</em> offers.</p></body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FLATTEN</title>
+</head>
+<body>
+<h2>FLATTEN()</h2>
+<p><code>FLATTEN(anyArray, depth) → flatArray</code></p>
+<p>Turn an array of arrays into a flat array. All array elements in <em>array</em> will be
+  expanded in the result array. Non-array elements are added as they are. The function
+  will recurse into sub-arrays up to the specified depth. Duplicates will not be removed.</p>
+<ul>
+  <li><strong>array</strong> (array): array with elements of arbitrary type, including nested arrays</li>
+  <li><strong>depth</strong> (number, <em>optional</em>): flatten up to this many levels, the default is 1</li>
+  <li>returns <strong>flatArray</strong> (array): a flattened array</li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayFlatten_1
+  @EXAMPLE_AQL{aqlArrayFlatten_1}
+  RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayFlatten_1</p>
+<p>To fully flatten the example array, use a <em>depth</em> of 2:</p>
+<p>@startDocuBlockInline aqlArrayFlatten_2
+  @EXAMPLE_AQL{aqlArrayFlatten_2}
+  RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayFlatten_2</p>
+
+</body>
+</html>

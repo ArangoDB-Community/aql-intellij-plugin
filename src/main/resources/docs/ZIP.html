@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZIP</title>
+</head>
+<body>
+<h2>ZIP()</h2>
+<p><code>ZIP(keys, values) → doc</code></p>
+<p>Return a document object assembled from the separate parameters <em>keys</em> and <em>values</em>.</p>
+<p><em>keys</em> and <em>values</em> must be arrays and have the same length.</p>
+<ul>
+  <li><strong>keys</strong> (array): an array of strings, to be used as attribute names in the result</li>
+  <li><strong>values</strong> (array): an array with elements of arbitrary types, to be used as
+    attribute values
+  </li>
+  <li>returns <strong>doc</strong> (object): a document with the keys and values assembled</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">ZIP</span>( [ <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>active<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>hobbies<span class="pl-pds">"</span></span> ], [ <span class="pl-s"><span class="pl-pds">"</span>some user<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>, [ <span class="pl-s"><span class="pl-pds">"</span>swimming<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>riding<span class="pl-pds">"</span></span> ] ] )
+<span class="pl-c"><span class="pl-c">//</span> { "name": "some user", "active": true, "hobbies": [ "swimming", "riding" ] }</span></pre>
+</div>
+</body>
+</html>

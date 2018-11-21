@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NTG</title>
+</head>
+<body><h2>NTH()</h2>
+<p><code>NTH(anyArray, position) → nthElement</code></p>
+<p>Get the element of an array at a given position. It is the same as <code>anyArray[position]</code>
+  for positive positions, but does not support negative positions.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>position</strong> (number): position of desired element in array, positions start at 0</li>
+  <li>returns <strong>nthElement</strong> (any|null): the array element at the given <em>position</em>.
+    If <em>position</em> is negative or beyond the upper bound of the array,
+    then <em>null</em> will be returned.
+  </li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayNth_1
+  @EXAMPLE_AQL{aqlArrayNth_1}
+  RETURN NTH( [ "foo", "bar", "baz" ], 2 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayNth_1</p>
+<p>@startDocuBlockInline aqlArrayNth_2
+  @EXAMPLE_AQL{aqlArrayNth_2}
+  RETURN NTH( [ "foo", "bar", "baz" ], 3 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayNth_2</p>
+<p>@startDocuBlockInline aqlArrayNth_3
+  @EXAMPLE_AQL{aqlArrayNth_3}
+  RETURN NTH( [ "foo", "bar", "baz" ], -1 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayNth_3</p>
+
+</body>
+</html>

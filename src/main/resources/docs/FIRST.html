@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>First</title>
+</head>
+<body>
+<h2>FIRST()</h2>
+<p><code>FIRST(anyArray) → firstElement</code></p>
+<p>Get the first element of an array. It is the same as <code>anyArray[0]</code>.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li>returns <strong>firstElement</strong> (any|null): the first element of <em>anyArray</em>, or <em>null</em> if
+    the array is empty.
+  </li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayFirst_1
+  @EXAMPLE_AQL{aqlArrayFirst_1}
+  RETURN FIRST([ 1, 2, 3 ])
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayFirst_1</p>
+<p>@startDocuBlockInline aqlArrayFirst_2
+  @EXAMPLE_AQL{aqlArrayFirst_2}
+  RETURN FIRST([])
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayFirst_2</p>
+</body>
+</html>

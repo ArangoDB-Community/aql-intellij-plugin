@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PARSE_IDENTIFIER</title>
+</head>
+<body><h2>PARSE_IDENTIFIER()</h2>
+<p><code>PARSE_IDENTIFIER(documentHandle) → parts</code></p>
+<p>Parse a
+  <a href="#document-handle">document handle</a> and return its
+  individual parts as separate attributes.</p>
+<p>This function can be used to easily determine the
+  <a href="#collection-name">collection name</a> and key of a given document.
+</p>
+<ul>
+  <li><strong>documentHandle</strong> (string|object): a document identifier string (e.g. <em>_users/1234</em>)
+    or a regular document from a collection. Passing either a non-string or a non-document
+    or a document without an <em>_id</em> attribute will result in an error.
+  </li>
+  <li>returns <strong>parts</strong> (object): an object with the attributes <em>collection</em> and <em>key</em></li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">PARSE_IDENTIFIER</span>(<span class="pl-s"><span class="pl-pds">"</span>_users/my-user<span class="pl-pds">"</span></span>)
+<span class="pl-c"><span class="pl-c">//</span> { "collection": "_users", "key": "my-user" }</span>
+
+<span class="pl-en">PARSE_IDENTIFIER</span>( { <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>mycollection/mykey<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>value<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>some value<span class="pl-pds">"</span></span> } )
+<span class="pl-c"><span class="pl-c">//</span> { "collection": "mycollection", "key": "mykey" }</span></pre>
+</div>
+</body>
+</html>

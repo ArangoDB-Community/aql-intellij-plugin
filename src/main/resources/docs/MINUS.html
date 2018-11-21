@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MINUS</title>
+</head>
+<body>
+<h2>MINUS()</h2>
+<p><code>MINUS(array1, array2, ... arrayN) → newArray</code></p>
+<p>Return the difference of all arrays specified.</p>
+<ul>
+  <li><strong>arrays</strong> (array, <em>repeatable</em>): an arbitrary number of arrays as multiple
+    arguments (at least 2)
+  </li>
+  <li>returns <strong>newArray</strong> (array): an array of values that occur in the first array,
+    but not in any of the subsequent arrays. The order of the result array is undefined
+    and should not be relied on. Duplicates will be removed.
+  </li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArrayMinus_1
+  @EXAMPLE_AQL{aqlArrayMinus_1}
+  RETURN MINUS( [1,2,3,4], [3,4,5,6], [5,6,7,8] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayMinus_1</p>
+</body>
+</html>

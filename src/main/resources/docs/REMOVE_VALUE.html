@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REMOVE_VALUES</title>
+</head>
+<body><h2>REMOVE_VALUES()</h2>
+<p><code>REMOVE_VALUES(anyArray, values) → newArray</code></p>
+<p>Remove all occurrences of any of the <em>values</em> from <em>anyArray</em>.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>values</strong> (array): an array with elements of arbitrary type, that shall
+    be removed from <em>anyArray</em></li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em> with all individual <em>values</em> removed</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArrayRemoveValues_1
+  @EXAMPLE_AQL{aqlArrayRemoveValues_1}
+  RETURN REMOVE_VALUES( [ "a", "a", "b", "c", "d", "e", "f" ], [ "a", "f", "d" ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayRemoveValues_1</p></body>
+</html>

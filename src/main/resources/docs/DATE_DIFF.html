@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_DIFF</title>
+</head>
+<body>
+<h3>DATE_DIFF()</h3>
+<p><code>DATE_DIFF(date1, date2, unit, asFloat) → diff</code></p>
+<p>Calculate the difference between two dates in given time <em>unit</em>, optionally
+  with decimal places.</p>
+<ul>
+  <li><strong>date1</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>date2</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>unit</strong> (string): either of the following to specify the time unit to return the
+    difference in (case-insensitive):
+    <ul>
+      <li>y, year, years</li>
+      <li>m, month, months</li>
+      <li>w, week, weeks</li>
+      <li>d, day, days</li>
+      <li>h, hour, hours</li>
+      <li>i, minute, minutes</li>
+      <li>s, second, seconds</li>
+      <li>f, millisecond, milliseconds</li>
+    </ul>
+  </li>
+  <li><strong>asFloat</strong> (boolean, <em>optional</em>): if set to <em>true</em>, decimal places will be
+    preserved in the result. The default is <em>false</em> and an integer is returned.
+  </li>
+  <li>returns <strong>diff</strong> (number): the calculated difference as number in <em>unit</em>.
+    The value will be negative if <em>date2</em> is before <em>date1</em>.
+  </li>
+</ul>
+</body>
+</html>

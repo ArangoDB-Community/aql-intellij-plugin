@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON_STRINGIFY</title>
+</head>
+<body><h2>JSON_STRINGIFY()</h2>
+<p><code>JSON_STRINGIFY(value) → text</code></p>
+<p>Return a JSON string representation of the input value.</p>
+<ul>
+  <li><strong>value</strong> (mixed): the value to convert to a JSON string</li>
+  <li>returns <strong>text</strong> (string): the JSON string representing <em>value</em>.
+    For input values that cannot be converted to JSON, the function
+    will return <em>null</em>.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">JSON_STRINGIFY</span>(<span class="pl-s"><span class="pl-pds">"</span>1<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "1"</span>
+<span class="pl-en">JSON_STRINGIFY</span>(<span class="pl-s"><span class="pl-pds">"</span>abc<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "\"abc\""</span>
+<span class="pl-en">JSON_STRINGIFY</span>(<span class="pl-s"><span class="pl-pds">"</span>[1, 2, 3]<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "[1,2,3]"</span></pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_COMPARE</title>
+</head>
+<body>
+<h3>DATE_COMPARE()</h3>
+<p><code>DATE_COMPARE(date1, date2, unitRangeStart, unitRangeEnd) → bool</code></p>
+<p>Check if two partial dates match.</p>
+<ul>
+  <li><strong>date1</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>date2</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>unitRangeStart</strong> (string): unit to start from, see below</li>
+  <li><strong>unitRangeEnd</strong> (string, <em>optional</em>): unit to end with, leave out to only
+    compare the component as specified by <em>unitRangeStart</em>. An error is raised if
+    <em>unitRangeEnd</em> is a unit before <em>unitRangeStart</em>.
+  </li>
+  <li>returns <strong>bool</strong> (bool): <em>true</em> if the dates match, <em>false</em> otherwise</li>
+</ul>
+<p>The parts to compare are defined by a range of time units. The full range is:
+  years, months, days, hours, minutes, seconds, milliseconds (in this order).</p>
+<p>All components of <em>date1</em> and <em>date2</em> as specified by the range will be compared.
+  You can refer to the units as:</p>
+<ul>
+  <li>y, year, years</li>
+  <li>m, month, months</li>
+  <li>d, day, days</li>
+  <li>h, hour, hours</li>
+  <li>i, minute, minutes</li>
+  <li>s, second, seconds</li>
+  <li>f, millisecond, milliseconds</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span> Compare months and days, true on birthdays if you're born on 4th of April</span>
+<span class="pl-en">DATE_COMPARE</span>(<span class="pl-s"><span class="pl-pds">"</span>1985-04-04<span class="pl-pds">"</span></span>, <span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>months<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>days<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">//</span> Will only match on one day if the current year is a leap year!</span>
+<span class="pl-c"><span class="pl-c">//</span> You may want to add or subtract one day from date1 to match every year.</span>
+<span class="pl-en">DATE_COMPARE</span>(<span class="pl-s"><span class="pl-pds">"</span>1984-02-29<span class="pl-pds">"</span></span>, <span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>months<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>days<span class="pl-pds">"</span></span>)
+
+<span class="pl-c"><span class="pl-c">//</span> compare years, months and days (true, because it's the same day)</span>
+<span class="pl-en">DATE_COMPARE</span>(<span class="pl-s"><span class="pl-pds">"</span>2001-01-01T15:30:45.678Z<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>2001-01-01T08:08:08.008Z<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>years<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>days<span class="pl-pds">"</span></span>)</pre>
+</div>
+<p>You can directly compare ISO date <strong>strings</strong> if you want to find dates before or
+  after a certain date, or in between two dates (<code>&gt;=</code>, <code>&gt;</code>, <code>&lt;</code>,
+  <code>&lt;=</code>).
+  No special date function is required. Equality tests (<code>==</code> and <code>!=</code>) will only
+  match the exact same date and time however. You may use <code>SUBSTRING()</code> to
+  compare partial date strings, <code>DATE_COMPARE()</code> is basically a convenience
+  function for that. However, neither is really required to limit a search to a
+  certain day as demonstrated here:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">FOR</span> doc <span class="pl-c1">IN</span> coll
+    <span class="pl-c1">FILTER</span> <span class="pl-smi">doc</span>.<span class="pl-smi">date</span> <span class="pl-k">&gt;=</span> <span class="pl-s"><span class="pl-pds">"</span>2015-05-15<span class="pl-pds">"</span></span> <span class="pl-c1">AND</span> <span class="pl-smi">doc</span>.<span class="pl-smi">date</span> <span class="pl-k">&lt;</span> <span class="pl-s"><span class="pl-pds">"</span>2015-05-16<span class="pl-pds">"</span></span>
+    <span class="pl-c1">RETURN</span> doc</pre>
+</div>
+<p>Every ISO date on that day is greater than or equal to <code>2015-05-15</code> in a string
+  comparison (e.g. <code>2015-05-15T11:30:00.000Z</code>). Dates before <code>2015-05-15</code> are smaller
+  and therefore filtered out by the first condition. Every date past <code>2015-05-15</code> is
+  greater than this date in a string comparison, and therefore filtered out by the
+  second condition. The result is that the time components in the dates you compare
+  with are "ignored". The query will return every document with <em>date</em> ranging from
+  <code>2015-05-15T00:00:00.000Z</code> to <code>2015-05-15T23:99:99.999Z</code>. It would also include
+  <code>2015-05-15T24:00:00.000Z</code>, but that date is actually <code>2015-05-16T00:00:00.000Z</code>
+  and can only occur if inserted manually (you may want to pass dates through
+  <a href="#dateiso8601">DATE_ISO8601()</a> to ensure a correct date representation).</p>
+<p>Leap days in leap years (29th of February) must be always handled manually,
+  if you require so (e.g. birthday checks):</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> today <span class="pl-k">=</span> <span class="pl-en">DATE_NOW</span>()
+<span class="pl-c1">LET</span> noLeapYear <span class="pl-k">=</span> <span class="pl-c1">NOT</span> <span class="pl-en">DATE_LEAPYEAR</span>(today)
+
+<span class="pl-c1">FOR</span> user <span class="pl-c1">IN</span> users
+    <span class="pl-c1">LET</span> birthday <span class="pl-k">=</span> noLeapYear <span class="pl-c1">AND</span>
+                   <span class="pl-en">DATE_MONTH</span>(<span class="pl-smi">user</span>.<span class="pl-smi">birthday</span>) <span class="pl-k">==</span> <span class="pl-c1">2</span> <span class="pl-c1">AND</span>
+                   <span class="pl-en">DATE_DAY</span>(<span class="pl-smi">user</span>.<span class="pl-smi">birthday</span>) <span class="pl-k">==</span> <span class="pl-c1">29</span>
+                   <span class="pl-k">?</span> <span class="pl-en">DATE_SUBTRACT</span>(<span class="pl-smi">user</span>.<span class="pl-smi">birthday</span>, <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>day<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">/*</span> treat like 28th in non-leap years <span class="pl-c">*/</span></span>
+                   <span class="pl-k">:</span> <span class="pl-smi">user</span>.<span class="pl-smi">birthday</span>
+    <span class="pl-c1">FILTER</span> <span class="pl-en">DATE_COMPARE</span>(today, birthday, <span class="pl-s"><span class="pl-pds">"</span>month<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>day<span class="pl-pds">"</span></span>)
+    <span class="pl-c"><span class="pl-c">/*</span> includes leaplings on the 28th of February in non-leap years,</span>
+<span class="pl-c">     * but excludes them in leap years which do have a 29th February.</span>
+<span class="pl-c">     * Replace DATE_SUBTRACT() by DATE_ADD() to include them on the 1st of March</span>
+<span class="pl-c">     * in non-leap years instead (depends on local jurisdiction).</span>
+<span class="pl-c">     <span class="pl-c">*/</span></span>
+    <span class="pl-c1">RETURN</span> user</pre>
+</div>
+</body>
+</html>

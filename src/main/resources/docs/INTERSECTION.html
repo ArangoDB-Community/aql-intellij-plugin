@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>INTERSECTION</title>
+</head>
+<body>
+<h2>INTERSECTION()</h2>
+<p><code>INTERSECTION(array1, array2, ... arrayN) → newArray</code></p>
+<p>Return the intersection of all arrays specified. The result is an array of values that
+  occur in all arguments.</p>
+<ul>
+  <li><strong>arrays</strong> (array, <em>repeatable</em>): an arbitrary number of arrays as multiple arguments
+    (at least 2)
+  </li>
+  <li>returns <strong>newArray</strong> (array): a single array with only the elements, which exist in all
+    provided arrays. The element order is random. Duplicates are removed.
+  </li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayIntersection_1
+  @EXAMPLE_AQL{aqlArrayIntersection_1}
+  RETURN INTERSECTION( [1,2,3,4,5], [2,3,4,5,6], [3,4,5,6,7] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayIntersection_1</p>
+<p>@startDocuBlockInline aqlArrayIntersection_2
+  @EXAMPLE_AQL{aqlArrayIntersection_2}
+  RETURN INTERSECTION( [2,4,6], [8,10,12], [14,16,18] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayIntersection_2</p>
+</body>
+</html>

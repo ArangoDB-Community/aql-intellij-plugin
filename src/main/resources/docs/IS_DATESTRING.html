@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IS_DATESTRING</title>
+</head>
+<body>
+<h3>IS_DATESTRING()</h3>
+<p><code>IS_DATESTRING(value) → bool</code></p>
+<p>Check if an arbitrary string is suitable for interpretation as date time string.</p>
+<ul>
+  <li><strong>value</strong> (string): an arbitrary string</li>
+  <li>returns <strong>bool</strong> (bool): <em>true</em> if <em>value</em> is a string that can be used
+    in a date function. This includes partial dates such as <em>2015</em> or <em>2015-10</em> and
+    strings containing invalid dates such as <em>2015-02-31</em>. The function will return
+    <em>false</em> for all non-string values, even if some of them may be usable in date
+    functions.
+  </li>
+</ul>
+</body>
+</html>

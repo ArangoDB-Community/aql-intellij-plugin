@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REMOVE_VALUE</title>
+</head>
+<body>
+<h2>REMOVE_VALUE()</h2>
+<p><code>REMOVE_VALUE(anyArray, value, limit) → newArray</code></p>
+<p>Remove all occurrences of <em>value</em> in <em>anyArray</em>. Optionally with a <em>limit</em>
+  to the number of removals.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>value</strong> (any): an element of arbitrary type</li>
+  <li><strong>limit</strong> (number, <em>optional</em>): cap the number of removals to this value</li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em> with <em>value</em> removed</li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayRemoveValue_1
+  @EXAMPLE_AQL{aqlArrayRemoveValue_1}
+  RETURN REMOVE_VALUE( [ "a", "b", "b", "a", "c" ], "a" )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayRemoveValue_1</p>
+<p>@startDocuBlockInline aqlArrayRemoveValue_2
+  @EXAMPLE_AQL{aqlArrayRemoveValue_2}
+  RETURN REMOVE_VALUE( [ "a", "b", "b", "a", "c" ], "a", 1 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayRemoveValue_2</p>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FULLTEXT</title>
+</head>
+<body>
+<h2>FULLTEXT()</h2>
+<p><code>FULLTEXT(coll, attribute, query, limit) → docArray</code></p>
+<p>Return all documents from collection <em>coll</em>, for which the attribute <em>attribute</em>
+  matches the fulltext search phrase <em>query</em>, optionally capped to <em>limit</em> results.</p>
+<p><strong>Note</strong>: the <em>FULLTEXT()</em> function requires the collection <em>coll</em> to have a
+  fulltext index on <em>attribute</em>. If no fulltext index is available, this function
+  will fail with an error at runtime. It doesn't fail when explaining the query however.</p>
+<ul>
+  <li><strong>coll</strong> (collection): a collection</li>
+  <li><strong>attribute</strong> (string): the attribute name of the attribute to search in</li>
+  <li><strong>query</strong> (string): a fulltext search expression as described below</li>
+  <li><strong>limit</strong> (number, <em>optional</em>): if set to a non-zero value, it will cap the result
+    to at most this number of documents
+  </li>
+  <li>returns <strong>docArray</strong> (array): an array of documents</li>
+</ul>
+<p><em>FULLTEXT()</em> is not meant to be used as an argument to <em>FILTER</em>,
+  but rather to be used as the expression of a <em>FOR</em> statement:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">FOR</span> oneMail <span class="pl-c1">IN</span> <span class="pl-en">FULLTEXT</span>(emails, <span class="pl-s"><span class="pl-pds">"</span>body<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>banana,-apple<span class="pl-pds">"</span></span>)
+    <span class="pl-c1">RETURN</span> <span class="pl-smi">oneMail</span>.<span class="pl-smi">_id</span></pre>
+</div>
+<p><em>query</em> is a comma-separated list of sought words (or prefixes of sought words). To
+  distinguish between prefix searches and complete-match searches, each word can optionally be
+  prefixed with either the <em>prefix:</em> or <em>complete:</em> qualifier. Different qualifiers can
+  be mixed in the same query. Not specifying a qualifier for a search word will implicitly
+  execute a complete-match search for the given word:</p>
+<ul>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "banana")</em> Will look for the word <em>banana</em> in the
+      attribute <em>body</em> of the collection <em>collection</em>.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "banana,orange")</em> Will look for both words
+      <em>banana</em> and <em>orange</em> in the mentioned attribute. Only those documents will be
+      returned that contain both words.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "prefix:head")</em> Will look for documents that contain any
+      words starting with the prefix <em>head</em>.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "prefix:head,complete:aspirin")</em> Will look for all
+      documents that contain a word starting with the prefix <em>head</em> and that also contain
+      the (complete) word <em>aspirin</em>. Note: specifying <em>complete</em> is optional here.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "prefix:cent,prefix:subst")</em> Will look for all documents
+      that contain a word starting with the prefix <em>cent</em> and that also contain a word
+      starting with the prefix <em>subst</em>.</p>
+  </li>
+</ul>
+<p>If multiple search words (or prefixes) are given, then by default the results will be
+  AND-combined, meaning only the logical intersection of all searches will be returned.
+  It is also possible to combine partial results with a logical OR, and with a logical NOT:</p>
+<ul>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "+this,+text,+document")</em> Will return all documents that
+      contain all the mentioned words. Note: specifying the <em>+</em> symbols is optional here.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "banana,|apple")</em> Will return all documents that contain
+      either (or both) words <em>banana</em> or <em>apple</em>.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "banana,-apple")</em> Will return all documents that contain
+      the word <em>banana</em>, but do not contain the word <em>apple</em>.</p>
+  </li>
+  <li>
+    <p><em>FULLTEXT(emails, "body", "banana,pear,-cranberry")</em> Will return all documents that
+      contain both the words <em>banana</em> and <em>pear</em>, but do not contain the word
+      <em>cranberry</em>.</p>
+  </li>
+</ul>
+<p>No precedence of logical operators will be honored in a fulltext query. The query will simply
+  be evaluated from left to right.</p>
+</body>
+</html>

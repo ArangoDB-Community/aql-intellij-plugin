@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_NOW</title>
+</head>
+<body>
+<h3>DATE_NOW()</h3>
+<p><code>DATE_NOW() → timestamp</code></p>
+<p>Get the current unix time as numeric timestamp.</p>
+<ul>
+  <li>returns <strong>timestamp</strong> (number): the current unix time as a timestamp.
+    The return value has millisecond precision. To convert the return value to
+    seconds, divide it by 1000.
+  </li>
+</ul>
+<p>Note that this function is evaluated on every invocation and may return
+  different values when invoked multiple times in the same query. Assign it
+  to a variable to use the exact same timestamp multiple times.</p>
+<h2><a id="user-content-conversion" class="anchor" aria-hidden="true" href="#conversion">
+  <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg>
+</a></h2>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_TRUNC</title>
+</head>
+<body>
+<h3>DATE_TRUNC()</h3>
+<p><code>DATE_TRUNC(date, unit) → isoDate</code></p>
+<p>Truncates the given date after <em>unit</em> and returns the modified date.</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>unit</strong> (string): either of the following to specify the time unit (case-insensitive):
+    <ul>
+      <li>y, year, years</li>
+      <li>m, month, months</li>
+      <li>d, day, days</li>
+      <li>h, hour, hours</li>
+      <li>i, minute, minutes</li>
+      <li>s, second, seconds</li>
+      <li>f, millisecond, milliseconds</li>
+    </ul>
+  </li>
+  <li>returns <strong>isoDate</strong> (string): the truncated ISO 8601 date time string</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">DATE_TRUNC</span>(<span class="pl-s"><span class="pl-pds">'</span>2017-02-03<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>month<span class="pl-pds">'</span></span>) <span class="pl-c"><span class="pl-c">//</span> 2017-02-01T00:00:00.000Z</span>
+<span class="pl-en">DATE_TRUNC</span>(<span class="pl-s"><span class="pl-pds">'</span>2017-02-03 04:05:06<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>hours<span class="pl-pds">'</span></span>) <span class="pl-c"><span class="pl-c">//</span> 2017-02-03 04:00:00.000Z</span></pre>
+</div>
+</body>
+</html>

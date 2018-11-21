@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TRIM</title>
+</head>
+<body>
+<h2>TRIM()</h2>
+<p><code>TRIM(value, type) → strippedString</code></p>
+<p>Return the string <em>value</em> with whitespace stripped from the start and/or end.</p>
+<p>The optional <em>type</em> parameter specifies from which parts of the string the
+  whitespace is stripped. <a href="#ltrim">LTRIM()</a>
+  and <a href="#rtrim">RTRIM()</a> are preferred
+  however.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li><strong>type</strong> (number, <em>optional</em>): strip whitespace from the
+    <ul>
+      <li>0 – start and end of the string</li>
+      <li>1 – start of the string only</li>
+      <li>2 – end of the string only
+        The default is 0.
+      </li>
+    </ul>
+  </li>
+</ul>
+<p><code>TRIM(value, chars) → strippedString</code></p>
+<p>Return the string <em>value</em> with whitespace stripped from the start and end.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li><strong>chars</strong> (string, <em>optional</em>): override the characters that should
+    be removed from the string. It defaults to <code>\r\n \t</code> (i.e. <code>0x0d</code>, <code>0x0a</code>,
+    <code>0x20</code> and <code>0x09</code>).
+  </li>
+  <li>returns <strong>strippedString</strong> (string): <em>value</em> without <em>chars</em> on both sides</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">TRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>foo bar<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foo bar"</span>
+<span class="pl-en">TRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>  foo bar  <span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foo bar"</span>
+<span class="pl-en">TRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>--==[foo-bar]==--<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>-=[]<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foo-bar"  </span>
+<span class="pl-en">TRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>  foobar<span class="pl-cce">\t</span> <span class="pl-cce">\r\n</span> <span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foobar"</span>
+<span class="pl-en">TRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>;foo;bar;baz, <span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>,; <span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foo;bar;baz"</span></pre>
+</div>
+</body>
+</html>

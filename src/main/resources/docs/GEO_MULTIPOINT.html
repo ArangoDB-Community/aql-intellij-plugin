@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_MULTIPOINT</title>
+</head>
+<body>
+<h3>GEO_MULTIPOINT()</h3>
+<p><code>GEO_MULTIPOINT(points) → geoJson</code></p>
+<p>Construct a GeoJSON LineString. Needs at least two longitude/latitude pairs.</p>
+<ul>
+  <li><strong>points</strong> (array): number array of longitude/latitude pairs</li>
+  <li>returns <strong>geoJson</strong> (object): a valid GeoJSON Point</li>
+</ul>
+<p>@startDocuBlockInline aqlGeoMultiPoint_1
+  @EXAMPLE_AQL{aqlGeoMultiPoint_1}
+  RETURN GEO_MULTIPOINT([
+  [35, 10], [45, 45]
+  ])
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlGeoMultiPoint_1</p>
+</body>
+</html>

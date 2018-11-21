@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MERGE</title>
+</head>
+<body>
+<h2>MERGE()</h2>
+<p><code>MERGE(document1, document2, ... documentN) → mergedDocument</code></p>
+<p>Merge the documents <em>document1</em> to <em>documentN</em> into a single document.
+  If document attribute keys are ambiguous, the merged result will contain the values
+  of the documents contained later in the argument list.</p>
+<ul>
+  <li><strong>documents</strong> (object, <em>repeatable</em>): an arbitrary number of documents as
+    multiple arguments (at least 2)
+  </li>
+  <li>returns <strong>mergedDocument</strong> (object): a combined document</li>
+</ul>
+<p>Note that merging will only be done for top-level attributes. If you wish to
+  merge sub-attributes, use <a href="#mergerecursive">MERGE_RECURSIVE()</a> instead.</p>
+<p>Two documents with distinct attribute names can easily be merged into one:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">MERGE</span>(
+    { <span class="pl-s"><span class="pl-pds">"</span>user1<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span> } },
+    { <span class="pl-s"><span class="pl-pds">"</span>user2<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Tom<span class="pl-pds">"</span></span> } }
+)
+<span class="pl-c"><span class="pl-c">//</span> { "user1": { "name": "Jane" }, "user2": { "name": "Tom" } }</span></pre>
+</div>
+<p>When merging documents with identical attribute names, the attribute values of the
+  latter documents will be used in the end result:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">MERGE</span>(
+    { <span class="pl-s"><span class="pl-pds">"</span>users<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span> } },
+    { <span class="pl-s"><span class="pl-pds">"</span>users<span class="pl-pds">"</span></span><span class="pl-k">:</span> { <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Tom<span class="pl-pds">"</span></span> } }
+)
+<span class="pl-c"><span class="pl-c">//</span> { "users": { "name": "Tom" } }</span></pre>
+</div>
+<p><code>MERGE(docArray) → mergedDocument</code></p>
+<p><em>MERGE</em> works with a single array parameter, too. This variant allows combining the
+  attributes of multiple objects in an array into a single object.</p>
+<ul>
+  <li><strong>docArray</strong> (array): an array of documents, as sole argument</li>
+  <li>returns <strong>mergedDocument</strong> (object): a combined document</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">MERGE</span>(
+    [
+        { foo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> },
+        { quux<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>quetzalcoatl<span class="pl-pds">"</span></span>, ruled<span class="pl-k">:</span> <span class="pl-c1">true</span> },
+        { bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>, foo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>done<span class="pl-pds">"</span></span> }
+    ]
+)</pre>
+</div>
+<p>This will now return:</p>
+<div class="highlight highlight-source-js"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>done<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>quux<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>quetzalcoatl<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>ruled<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">true</span>,
+    <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>
+}</pre>
+</div>
+</body>
+</html>

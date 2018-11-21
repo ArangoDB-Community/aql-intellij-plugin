@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SPLIT</title>
+</head>
+<body>
+<h2>SPLIT()</h2>
+<p><code>SPLIT(value, separator, limit) → strArray</code></p>
+<p>Split the given string <em>value</em> into a list of strings, using the <em>separator</em>.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li><strong>separator</strong> (string): either a string or a list of strings. If <em>separator</em> is
+    an empty string, <em>value</em> will be split into a list of characters. If no <em>separator</em>
+    is specified, <em>value</em> will be returned as array.
+  </li>
+  <li><strong>limit</strong> (number, <em>optional</em>): limit the number of split values in the result.
+    If no <em>limit</em> is given, the number of splits returned is not bounded.
+  </li>
+  <li>returns <strong>strArray</strong> (array): an array of strings</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">SPLIT</span>( <span class="pl-s"><span class="pl-pds">"</span>foo-bar-baz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>-<span class="pl-pds">"</span></span> ) <span class="pl-c"><span class="pl-c">//</span> [ "foo", "bar", "baz" ]</span>
+<span class="pl-en">SPLIT</span>( <span class="pl-s"><span class="pl-pds">"</span>foo-bar-baz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>-<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span> ) <span class="pl-c"><span class="pl-c">//</span> [ "foo", "bar-baz" ]</span>
+<span class="pl-en">SPLIT</span>( <span class="pl-s"><span class="pl-pds">"</span>foo, bar &amp; baz<span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span> &amp; <span class="pl-pds">"</span></span> ] ) <span class="pl-c"><span class="pl-c">//</span> [ "foo", "bar", "baz" ]</span></pre>
+</div>
+</body>
+</html>

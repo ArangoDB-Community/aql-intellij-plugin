@@ -31,6 +31,7 @@ public class JsonPanel implements Disposable, MessageView {
         };
         editor.setOneLineMode(false);
 
+
     }
 
     public EditorTextField getEditor() {

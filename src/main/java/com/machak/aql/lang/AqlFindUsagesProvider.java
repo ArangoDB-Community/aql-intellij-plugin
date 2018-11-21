@@ -1,14 +1,12 @@
 package com.machak.aql.lang;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.intellij.lang.HelpID;
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNamedElement;
-import com.machak.aql.grammar.psi.AqlPsiNamedIdentifier;
+import com.machak.aql.grammar.psi.AqlNamedElement;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AqlFindUsagesProvider implements FindUsagesProvider {
     @Nullable
@@ -19,7 +17,7 @@ public class AqlFindUsagesProvider implements FindUsagesProvider {
 
     @Override
     public boolean canFindUsagesFor(@NotNull final PsiElement psiElement) {
-        return psiElement instanceof PsiNamedElement;
+        return psiElement instanceof AqlNamedElement;
     }
 
     @Nullable
@@ -40,8 +38,8 @@ public class AqlFindUsagesProvider implements FindUsagesProvider {
 
     @Nullable
     private String extractName(@NotNull final PsiElement element) {
-        if (element instanceof AqlPsiNamedIdentifier) {
-            final String name = ((AqlPsiNamedIdentifier) element).getName();
+        if (element instanceof AqlNamedElement) {
+            final String name = ((AqlNamedElement) element).getName();
             if (name == null) {
                 return "";
             }

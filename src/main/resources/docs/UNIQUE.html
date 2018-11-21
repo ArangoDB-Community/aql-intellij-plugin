@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UNIQUE</title>
+</head>
+<body>
+<h2>UNIQUE()</h2>
+<p><code>UNIQUE(anyArray) → newArray</code></p>
+<p>Return all unique elements in <em>anyArray</em>. To determine uniqueness, the
+  function will use the comparison order.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em> without duplicates, in any order</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArrayUnique_1
+  @EXAMPLE_AQL{aqlArrayUnique_1}
+  RETURN UNIQUE( [ 1,2,2,3,3,3,4,4,4,4,5,5,5,5,5 ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayUnique_1</p>
+</body>
+</html>

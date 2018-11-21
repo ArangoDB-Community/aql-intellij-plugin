@@ -291,8 +291,6 @@ T_NONE = "none"
     TEXT_SINGLE ="regexp:'(''|[^']*)'"
     TEXT_DOUBLE ="regexp:\".*\""
     ID='regexp:\p{Alpha}\w*'
-    ID='regexp:\p{Alpha}\w*'
-
 ]
     
 }
@@ -523,7 +521,12 @@ KeywordStatements ::=    T_SHORTEST_PATH
                         | T_UPSERT
                         | T_REMOVE
                         | T_INSERT
-                
+                        | T_OUTBOUND
+                        | T_INBOUND
+                        | T_ANY
+                        | T_ALL
+                        | T_NONE
+
 
 OperatorStatements ::= T_NULL
                        | T_TRUE
@@ -560,12 +563,8 @@ OperatorStatements ::= T_NULL
                        | T_OBJECT_CLOSE
                        | T_ARRAY_OPEN
                        | T_ARRAY_CLOSE
-                       | T_OUTBOUND
-                       | T_INBOUND
-                       | T_ANY
-                       | T_ALL
-                       | T_NONE
-Statement ::= (KeywordStatements)
+
+Statement ::= (NamedKeywordStatements)
               | (NamedKeywordFunctions)
               | (OperatorStatements)
               | (PropertyName)
@@ -584,6 +583,14 @@ NamedKeywordFunctions ::= KeywordFunctions {
   ]
   mixin="com.machak.aql.grammar.psi.impl.AqlFunctionMixin"
 }
+NamedKeywordStatements ::= KeywordStatements {
+  methods=[
+    getName
+    setName
+  ]
+  mixin="com.machak.aql.grammar.psi.impl.AqlKeywordMixin"
+}
+
 ObjectExpression ::=  (PropertyLookup)+
 ObjectVariable ::=  OBJECT_START PropertyName | ObjectExpression T_OBJECT_CLOSE
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)

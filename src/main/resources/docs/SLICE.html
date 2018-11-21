@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SLICE</title>
+</head>
+<body>
+<h2>SLICE()</h2>
+<p><code>SLICE(anyArray, start, length) → newArray</code></p>
+<p>Extract a slice of <em>anyArray</em>.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>start</strong> (number): start extraction at this element. Positions start at 0.
+    Negative values indicate positions from the end of the array.
+  </li>
+  <li><strong>length</strong> (number, <em>optional</em>): extract up to <em>length</em> elements, or all
+    elements from <em>start</em> up to <em>length</em> if negative (exclusive)
+  </li>
+  <li>returns <strong>newArray</strong> (array): the specified slice of <em>anyArray</em>. If <em>length</em>
+    is not specified, all array elements starting at <em>start</em> will be returned.
+  </li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArraySlice_1
+  @EXAMPLE_AQL{aqlArraySlice_1}
+  RETURN SLICE( [ 1, 2, 3, 4, 5 ], 0, 1 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySlice_1</p>
+<p>@startDocuBlockInline aqlArraySlice_2
+  @EXAMPLE_AQL{aqlArraySlice_2}
+  RETURN SLICE( [ 1, 2, 3, 4, 5 ], 1, 2 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySlice_2</p>
+<p>@startDocuBlockInline aqlArraySlice_3
+  @EXAMPLE_AQL{aqlArraySlice_3}
+  RETURN SLICE( [ 1, 2, 3, 4, 5 ], 3 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySlice_3</p>
+<p>@startDocuBlockInline aqlArraySlice_4
+  @EXAMPLE_AQL{aqlArraySlice_4}
+  RETURN SLICE( [ 1, 2, 3, 4, 5 ], 1, -1 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySlice_4</p>
+<p>@startDocuBlockInline aqlArraySlice_5
+  @EXAMPLE_AQL{aqlArraySlice_5}
+  RETURN SLICE( [ 1, 2, 3, 4, 5 ], 0, -2 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySlice_5</p>
+<p>@startDocuBlockInline aqlArraySlice_6
+  @EXAMPLE_AQL{aqlArraySlice_6}
+  RETURN SLICE( [ 1, 2, 3, 4, 5 ], -3, 2 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySlice_6</p>
+</body>
+</html>

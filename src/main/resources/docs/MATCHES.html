@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MATCHES</title>
+</head>
+<body>
+
+<h2>MATCHES()</h2>
+<p><code>MATCHES(document, examples, returnIndex) → match</code></p>
+<p>Compare the given <em>document</em> against each example document provided. The comparisons
+  will be started with the first example. All attributes of the example will be compared
+  against the attributes of <em>document</em>. If all attributes match, the comparison stops
+  and the result is returned. If there is a mismatch, the function will continue the
+  comparison with the next example until there are no more examples left.</p>
+<p>The <em>examples</em> can be an array of 1..n example documents or a single document,
+  with any number of attributes each.</p>
+<p>Note that <em>MATCHES()</em> can not utilize indexes.</p>
+<ul>
+  <li><strong>document</strong> (object): document to determine whether it matches any example</li>
+  <li><strong>examples</strong> (object|array): a single document, or an array of documents to compare
+    against. Specifying an empty array is not allowed.
+  </li>
+  <li><strong>returnIndex</strong> (bool): by setting this flag to <em>true</em>, the index of the example that
+    matched will be returned (starting at offset 0), or <em>-1</em> if there was no match.
+    The default is <em>false</em> and makes the function return a boolean.
+  </li>
+  <li>returns <strong>match</strong> (bool|number): if <em>document</em> matches one of the examples, <em>true</em> is
+    returned, otherwise <em>false</em>. A number is returned instead if <em>returnIndex</em> is used.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> doc <span class="pl-k">=</span> {
+    name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>jane<span class="pl-pds">"</span></span>,
+    age<span class="pl-k">:</span> <span class="pl-c1">27</span>,
+    active<span class="pl-k">:</span> <span class="pl-c1">true</span>
+}
+<span class="pl-c1">RETURN</span> <span class="pl-en">MATCHES</span>(doc, { age<span class="pl-k">:</span> <span class="pl-c1">27</span>, active<span class="pl-k">:</span> <span class="pl-c1">true</span> } )</pre>
+</div>
+<p>This will return <em>true</em>, because all attributes of the example are present in the document.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">RETURN</span> <span class="pl-en">MATCHES</span>(
+    { <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span> },
+    [
+        { <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> },
+        { <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span> },
+        { <span class="pl-s"><span class="pl-pds">"</span>test<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">1</span> }
+    ], <span class="pl-c1">true</span>)</pre>
+</div>
+<p>This will return <em>2</em>, because the third example matches, and because the
+  <em>returnIndex</em> flag is set to <em>true</em>.</p>
+</body>
+</html>

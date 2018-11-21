@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REMOVE_NTH</title>
+</head>
+<body>
+<h2>REMOVE_NTH()</h2>
+<p><code>REMOVE_NTH(anyArray, position) → newArray</code></p>
+<p>Remove the element at <em>position</em> from the <em>anyArray</em>.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>position</strong> (number): the position of the element to remove. Positions start
+    at 0. Negative positions are supported, with -1 being the last array element.
+    If <em>position</em> is out of bounds, the array is returned unmodified.
+  </li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em> without the element at <em>position</em></li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayRemoveNth_1
+  @EXAMPLE_AQL{aqlArrayRemoveNth_1}
+  RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], 1 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayRemoveNth_1</p>
+<p>@startDocuBlockInline aqlArrayRemoveNth_2
+  @EXAMPLE_AQL{aqlArrayRemoveNth_2}
+  RETURN REMOVE_NTH( [ "a", "b", "c", "d", "e" ], -2 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayRemoveNth_2</p>
+</body>
+</html>

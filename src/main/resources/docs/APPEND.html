@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>APPEND</title>
+</head>
+<body>
+<h2>APPEND()</h2>
+<p><code>APPEND(anyArray, values, unique) → newArray</code></p>
+<p>Add all elements of an array to another array. All values are added at the end of the
+  array (right side).</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>values</strong> (array): array, whose elements shall be added to <em>anyArray</em></li>
+  <li><strong>unique</strong> (bool, <em>optional</em>): if set to <em>true</em>, only those
+    <em>values</em> will be added
+    that are not already contained in <em>anyArray</em>. The default is <em>false</em>.
+  </li>
+  <li>returns <strong>newArray</strong> (array): the modified array</li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayAppend_1
+  @EXAMPLE_AQL{aqlArrayAppend_1}
+  RETURN APPEND([ 1, 2, 3 ], [ 5, 6, 9 ])
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayAppend_1</p>
+<p>@startDocuBlockInline aqlArrayAppend_2
+  @EXAMPLE_AQL{aqlArrayAppend_2}
+  RETURN APPEND([ 1, 2, 3 ], [ 3, 4, 5, 2, 9 ], true)
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayAppend_2</p>
+<h2><a id="user-content-contains_array" class="anchor" aria-hidden="true" href="#contains_array">
+  <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg>
+</a></h2>
+</body>
+</html>

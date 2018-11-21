@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PUSH</title>
+</head>
+<body>
+<h2>PUSH()</h2>
+<p><code>PUSH(anyArray, value, unique) → newArray</code></p>
+<p>Append <em>value</em> to the array specified by <em>anyArray</em>.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li><strong>value</strong> (any): an element of arbitrary type</li>
+  <li><strong>unique</strong> (bool): if set to <em>true</em>, then <em>value</em> is not added if already
+    present in the array. The default is <em>false</em>.
+  </li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em> with <em>value</em> added at the end
+    (right side)
+  </li>
+</ul>
+<p>Note: The <em>unique</em> flag only controls if <em>value</em> is added if it's already present
+  in <em>anyArray</em>. Duplicate elements that already exist in <em>anyArray</em> will not be
+  removed. To make an array unique, use the <a href="#unique">UNIQUE()</a> function.</p>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayPush_1
+  @EXAMPLE_AQL{aqlArrayPush_1}
+  RETURN PUSH([ 1, 2, 3 ], 4)
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayPush_1</p>
+<p>@startDocuBlockInline aqlArrayPush_2
+  @EXAMPLE_AQL{aqlArrayPush_2}
+  RETURN PUSH([ 1, 2, 2, 3 ], 2, true)
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayPush_2</p>
+</body>
+</html>

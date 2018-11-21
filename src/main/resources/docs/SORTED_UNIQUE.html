@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SORTED_UNIQUE</title>
+</head>
+<body>
+<h2>SORTED_UNIQUE()</h2>
+<p><code>SORTED_UNIQUE(anyArray) → newArray</code></p>
+<p>Sort all elements in <em>anyArray</em>. The function will use the default comparison
+  order for AQL value types. Additionally, the values in the result array will
+  be made unique.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em>, with elements sorted and duplicates
+    removed
+  </li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArraySortedUnique_1
+  @EXAMPLE_AQL{aqlArraySortedUnique_1}
+  RETURN SORTED_UNIQUE( [ 8,4,2,10,6,2,8,6,4 ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArraySortedUnique_1</p>
+</body>
+</html>

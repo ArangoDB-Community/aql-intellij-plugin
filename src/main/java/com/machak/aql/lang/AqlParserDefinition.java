@@ -10,18 +10,21 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import com.machak.aql.file.AqlFile;
-import com.machak.aql.grammar.AqlElementType;
 import com.machak.aql.grammar.generated.AqlLexerAdapter;
 import com.machak.aql.grammar.generated.AqlParser;
 import com.machak.aql.grammar.generated.psi.AqlTypes;
 import org.jetbrains.annotations.NotNull;
 
 public class AqlParserDefinition implements ParserDefinition {
-    public static final IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
+
+    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
+    public static final TokenSet COMMENTS = TokenSet.create(AqlTypes.COMMENT, AqlTypes.BLOCK_COMMENT);
+    public static final TokenSet STRING_LITERALS = TokenSet.create(AqlTypes.TEXT_SINGLE, AqlTypes.TEXT_DOUBLE);
+    public static final IFileElementType FILE = new IFileElementType(Language.findInstance(AqlLanguage.class));
+
 
     //@Override
     public SpaceRequirements spaceExistenceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
@@ -33,13 +36,6 @@ public class AqlParserDefinition implements ParserDefinition {
         return this.spaceExistenceTypeBetweenTokens(left, right);
     }
 
-    public static final IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
-
-    public static final TokenSet WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE);
-    public static final TokenSet COMMENTS = TokenSet.create(LINE_COMMENT, BLOCK_COMMENT);
-    public static final TokenSet STRINGS = TokenSet.create(AqlTypes.ID);
-
-    public static final IFileElementType FILE = new IFileElementType(Language.findInstance(AqlLanguage.class));
 
     @NotNull
     @Override
@@ -72,7 +68,7 @@ public class AqlParserDefinition implements ParserDefinition {
     @NotNull
     @Override
     public TokenSet getStringLiteralElements() {
-        return STRINGS;
+        return STRING_LITERALS;
     }
 
     @NotNull

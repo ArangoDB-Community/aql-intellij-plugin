@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NEAR</title>
+</head>
+<body>
+<h3>NEAR()</h3>
+<p>{% hint 'warning' %}
+  <code>NEAR</code> is a deprecated AQL function from version 3.4.0 on.
+  Use <a href="#distance">DISTANCE()</a> in a query like this instead:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">FOR</span> doc <span class="pl-c1">IN</span> doc
+  <span class="pl-c1">SORT</span> <span class="pl-en">DISTANCE</span>(<span class="pl-smi">doc</span>.<span class="pl-smi">latitude</span>, <span class="pl-smi">doc</span>.<span class="pl-smi">longitude</span>, paramLatitude, paramLongitude) <span class="pl-c1">ASC</span>
+  <span class="pl-c1">RETURN</span> doc</pre>
+</div>
+<p>Assuming there exists a geo-type index on <code>latitude</code> and <code>longitude</code>, the
+  optimizer will recognize it and accelerate the query.
+  {% endhint %}</p>
+<p><code>NEAR(coll, latitude, longitude, limit, distanceName) → docArray</code></p>
+<p>Return at most <em>limit</em> documents from collection <em>coll</em> that are near
+  <em>latitude</em> and <em>longitude</em>. The result contains at most <em>limit</em> documents,
+  returned sorted by distance, with closest distances being returned first.
+  Optionally, the distances in meters between the specified coordinate
+  (<em>latitude</em> and <em>longitude</em>) and the document coordinates can be returned as
+  well. To make use of that, the desired attribute name for the distance result
+  has to be specified in the <em>distanceName</em> argument. The result documents will
+  contain the distance value in an attribute of that name.</p>
+<ul>
+  <li><strong>coll</strong> (collection): a collection</li>
+  <li><strong>latitude</strong> (number): the latitude portion of the search coordinate</li>
+  <li><strong>longitude</strong> (number): the longitude portion of the search coordinate</li>
+  <li><strong>limit</strong> (number, <em>optional</em>): cap the result to at most this number of
+    documents. The default is 100. If more documents than <em>limit</em> are found,
+    it is undefined which ones will be returned.
+  </li>
+  <li><strong>distanceName</strong> (string, <em>optional</em>): include the distance to the search
+    coordinate in each document in the result (in meters), using the attribute
+    name <em>distanceName</em></li>
+  <li>returns <strong>docArray</strong> (array): an array of documents, sorted by distance
+    (shortest distance first)
+  </li>
+</ul>
+</body>
+</html>

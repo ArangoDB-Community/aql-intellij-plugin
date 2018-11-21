@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_SUBTRACT</title>
+</head>
+<body>
+<h3>DATE_SUBTRACT()</h3>
+<p><code>DATE_SUBTRACT(date, amount, unit) → isoDate</code></p>
+<p>Subtract <em>amount</em> given in <em>unit</em> from <em>date</em> and return the calculated date.</p>
+<p>It works the same as <a href="#dateadd">DATE_ADD()</a>, except that it subtracts. It is
+  equivalent to calling <em>DATE_ADD()</em> with a negative amount, except that
+  <em>DATE_SUBTRACT()</em> can also subtract ISO durations. Note that negative ISO
+  durations are not supported (i.e. starting with <code>-P</code>, like <code>-P1Y</code>).</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>amount</strong> (number|string): number of <em>unit</em>s to subtract (positive value) or
+    add (negative value). It is recommended to use positive values only,
+    and use <a href="#dateadd">DATE_ADD()</a> for additions instead.
+  </li>
+  <li><strong>unit</strong> (string): either of the following to specify the time unit to add or
+    subtract (case-insensitive):
+    <ul>
+      <li>y, year, years</li>
+      <li>m, month, months</li>
+      <li>w, week, weeks</li>
+      <li>d, day, days</li>
+      <li>h, hour, hours</li>
+      <li>i, minute, minutes</li>
+      <li>s, second, seconds</li>
+      <li>f, millisecond, milliseconds</li>
+    </ul>
+  </li>
+  <li>returns <strong>isoDate</strong> (string): the calculated ISO 8601 date time string</li>
+</ul>
+<p><code>DATE_SUBTRACT(date, isoDuration) → isoDate</code></p>
+<p>You may also pass an ISO duration string as <em>amount</em> and leave out <em>unit</em>.</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>isoDuration</strong> (string): an ISO 8601 duration string to subtract from <em>date</em>,
+    see below
+  </li>
+  <li>returns <strong>isoDate</strong> (string): the calculated ISO 8601 date time string</li>
+</ul>
+<p>The format is <code>P_Y_M_W_DT_H_M_._S</code>, where underscores stand for digits and
+  letters for time intervals - except for the separators <code>P</code> (period) and <code>T</code> (time).
+  The meaning of the other letters are:</p>
+<ul>
+  <li>Y – years</li>
+  <li>M – months (if before T)</li>
+  <li>W – weeks</li>
+  <li>D – days</li>
+  <li>H – hours</li>
+  <li>M – minutes (if after T)</li>
+  <li>S – seconds (optionally with 3 decimal places for milliseconds)</li>
+</ul>
+<p>The string must be prefixed by a <code>P</code>. A separating <code>T</code> is only required if
+  <code>H</code>, <code>M</code> and/or <code>S</code> are specified. You only need to specify the needed pairs
+  of letters and numbers.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">DATE_SUBTRACT</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>day<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> yesterday</span>
+<span class="pl-en">DATE_SUBTRACT</span>(<span class="pl-en">DATE_TIMESTAMP</span>(<span class="pl-en">DATE_YEAR</span>(<span class="pl-en">DATE_NOW</span>()), <span class="pl-c1">12</span>, <span class="pl-c1">24</span>), <span class="pl-c1">4</span>, <span class="pl-s"><span class="pl-pds">"</span>years<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> Christmas four years ago</span>
+<span class="pl-en">DATE_SUBTRACT</span>(<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2016-02<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>month<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>), <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>day<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> last day of February (29th, because 2016 is a leap year!)</span>
+<span class="pl-en">DATE_SUBTRACT</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>P4D<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> four days ago</span>
+<span class="pl-en">DATE_SUBTRACT</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>PT1H3M<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> 1 hour and 30 minutes ago</span></pre>
+</div>
+</body>
+</html>

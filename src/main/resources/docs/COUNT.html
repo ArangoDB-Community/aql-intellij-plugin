@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>COUNT</title>
+</head>
+<body>
+<h2>Alias of LENGTH()</h2>
+<p><code>LENGTH(anyArray) → length</code></p>
+<p>Determine the number of elements in an array.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li>returns <strong>length</strong> (number): the number of array elements in <em>anyArray</em>.</li>
+</ul>
+<p><em>LENGTH()</em> can also determine the
+  <a href="#length">number of attribute keys</a>
+  of an object / document, the
+  <a href="#length">amount of documents</a> in a
+  collection and the
+  <a href="#length">character length</a> of a string.
+</p>
+<table>
+  <thead>
+  <tr>
+    <th>input</th>
+    <th>length</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>String</td>
+    <td>number of unicode characters</td>
+  </tr>
+  <tr>
+    <td>Number</td>
+    <td>number of unicode characters that represent the number</td>
+  </tr>
+  <tr>
+    <td>Array</td>
+    <td>number of elements</td>
+  </tr>
+  <tr>
+    <td>Object</td>
+    <td>number of first level elements</td>
+  </tr>
+  <tr>
+    <td>true</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>false</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>null</td>
+    <td>0</td>
+  </tr>
+  </tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayLength_1
+  @EXAMPLE_AQL{aqlArrayLength_1}
+  RETURN LENGTH( "
+  <g-emoji class="g-emoji" alias="avocado" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f951.png">
+    <img class="emoji" alt="avocado" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f951.png" width="20" height="20">
+  </g-emoji>
+  " )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayLength_1
+</p>
+<p>@startDocuBlockInline aqlArrayLength_2
+  @EXAMPLE_AQL{aqlArrayLength_2}
+  RETURN LENGTH( 1234 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayLength_2</p>
+<p>@startDocuBlockInline aqlArrayLength_3
+  @EXAMPLE_AQL{aqlArrayLength_3}
+  RETURN LENGTH( [1,2,3,4,5,6,7] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayLength_3</p>
+<p>@startDocuBlockInline aqlArrayLength_4
+  @EXAMPLE_AQL{aqlArrayLength_4}
+  RETURN LENGTH( [1,2,3,4,5,6,7] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayLength_4</p>
+<p>@startDocuBlockInline aqlArrayLength_5
+  @EXAMPLE_AQL{aqlArrayLength_5}
+  RETURN LENGTH( {a:1, b:2, c:3, d:4, e:{f:5,g:6}} )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayLength_5</p>
+
+</body>
+</html>

@@ -1,16 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.util.PsiTreeUtil;
-import static com.machak.aql.grammar.generated.psi.AqlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElementVisitor;
 import com.machak.aql.grammar.generated.psi.*;
-import com.machak.aql.grammar.generated.AqlPsiUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStatement {
 
@@ -41,12 +37,6 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
   @Override
   @Nullable
-  public AqlKeywordStatements getKeywordStatements() {
-    return findChildByClass(AqlKeywordStatements.class);
-  }
-
-  @Override
-  @Nullable
   public AqlLimitOffset getLimitOffset() {
     return findChildByClass(AqlLimitOffset.class);
   }
@@ -56,6 +46,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   public AqlNamedKeywordFunctions getNamedKeywordFunctions() {
     return findChildByClass(AqlNamedKeywordFunctions.class);
   }
+
+    @Override
+    @Nullable
+    public AqlNamedKeywordStatements getNamedKeywordStatements() {
+        return findChildByClass(AqlNamedKeywordStatements.class);
+    }
 
   @Override
   @Nullable

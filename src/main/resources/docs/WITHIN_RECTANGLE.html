@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WITHIN_RECTANGLE</title>
+</head>
+<body>
+<h3>WITHIN_RECTANGLE()</h3>
+<p>{% hint 'warning' %}
+  <code>WITHIN_RECTANGLE</code> is a deprecated AQL function from version 3.4.0 on. Use
+  <a href="#geocontains">GEO_CONTAINS</a> and a GeoJSON polygon instead:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> rect <span class="pl-k">=</span> {type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Polygon<span class="pl-pds">"</span></span>, coordinates<span class="pl-k">:</span> [[[longitude1, latitude1], <span class="pl-k">...</span>]]]}
+<span class="pl-c1">FOR</span> doc <span class="pl-c1">IN</span> doc
+  <span class="pl-c1">FILTER</span> <span class="pl-en">GEO_CONTAINS</span>(poly, [<span class="pl-smi">doc</span>.<span class="pl-smi">longitude</span>, <span class="pl-smi">doc</span>.<span class="pl-smi">latitude</span>])
+  <span class="pl-c1">RETURN</span> doc</pre>
+</div>
+<p>Assuming there exists a geo-type index on <code>latitude</code> and <code>longitude</code>, the
+  optimizer will recognize it and accelerate the query.
+  {% endhint %}</p>
+<p><code>WITHIN_RECTANGLE(coll, latitude1, longitude1, latitude2, longitude2) → docArray</code></p>
+<p>Return all documents from collection <em>coll</em> that are positioned inside the
+  bounding rectangle with the points (<em>latitude1</em>, <em>longitude1</em>) and (<em>latitude2</em>,
+  <em>longitude2</em>). There is no guaranteed order in which the documents are returned.</p>
+<ul>
+  <li><strong>coll</strong> (collection): a collection</li>
+  <li><strong>latitude1</strong> (number): the bottom-left latitude portion of the search
+    coordinate
+  </li>
+  <li><strong>longitude1</strong> (number): the bottom-left longitude portion of the search
+    coordinate
+  </li>
+  <li><strong>latitude2</strong> (number): the top-right latitude portion of the search
+    coordinate
+  </li>
+  <li><strong>longitude2</strong> (number): the top-right longitude portion of the search
+    coordinate
+  </li>
+  <li>returns <strong>docArray</strong> (array): an array of documents, in random order</li>
+</ul>
+</body>
+</html>

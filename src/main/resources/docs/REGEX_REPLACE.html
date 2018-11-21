@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REGEX_REPLACE</title>
+</head>
+<body>
+<h2>REGEX_REPLACE()</h2>
+<p><code>REGEX_REPLACE(text, search, replacement, caseInsensitive) → string</code></p>
+<p>Replace the pattern <em>search</em> with the string <em>replacement</em> in the string
+  <em>text</em>, using regular expression matching.</p>
+<ul>
+  <li><strong>text</strong> (string): the string to search in</li>
+  <li><strong>search</strong> (string): a regular expression search pattern</li>
+  <li><strong>replacement</strong> (string): the string to replace the <em>search</em> pattern with</li>
+  <li>returns <strong>string</strong> (string): the string <em>text</em> with the <em>search</em> regex
+    pattern replaced with the <em>replacement</em> string wherever the pattern exists
+    in <em>text</em></li>
+  <li><strong>caseInsensitive</strong> (bool, <em>optional</em>): if set to <em>true</em>, the matching will be
+    case-insensitive. The default is <em>false</em>.
+  </li>
+</ul>
+<p>For more details about the rules for characters and sequences refer
+  <a href="#regextest">REGEX_TEST()</a>.</p>
+<p>If the regular expression in <em>search</em> is invalid, a warning will be raised
+  and the function will return <em>null</em>.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">REGEX_REPLACE</span>(<span class="pl-s"><span class="pl-pds">"</span>the quick brown fox<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>the.*fox<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>jumped over<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> jumped over</span>
+<span class="pl-en">REGEX_REPLACE</span>(<span class="pl-s"><span class="pl-pds">"</span>the quick brown fox<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>o<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>i<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> the quick briwn fix</span></pre>
+</div>
+</body>
+</html>

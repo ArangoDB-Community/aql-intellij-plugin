@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_INTERSECTS</title>
+</head>
+<body>
+<h3>GEO_INTERSECTS()</h3>
+<p><code>GEO_INTERSECTS(geoJsonA, geoJsonB) → bool</code></p>
+<p>Checks whether the
+  <a href="Geo.html#geojson">GeoJSON object</a>
+  <code>geoJsonA</code>
+  intersects with <code>geoJsonB</code> (At least one point in B is also A or vice-versa).
+  This function can be <strong>optimized</strong> via a S2 based geospatial index, please look at the
+  <a href="Geo.html">relevant</a> manual section for more information.
+</p>
+<ul>
+  <li><strong>geoJsonA</strong> (object): first GeoJSON object</li>
+  <li><strong>geoJsonB</strong> (object): second GeoJSON object.</li>
+  <li>returns <strong>bool</strong> (bool): true if B intersects A, false otherwise</li>
+</ul>
+</body>
+</html>

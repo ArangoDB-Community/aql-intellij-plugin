@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_POINT</title>
+</head>
+<body>
+<p><code>GEO_POINT(longitude, latitude) → geoJson</code></p>
+<p>Construct a valid GeoJSON Point.</p>
+<ul>
+  <li><strong>longitude</strong> (number): the longitude portion of the point</li>
+  <li><strong>latitude</strong> (number): the latitude portion of the point</li>
+  <li>returns <strong>geoJson</strong> (object): a GeoJSON Point</li>
+</ul>
+<p>@startDocuBlockInline aqlGeoPoint_1
+  @EXAMPLE_AQL{aqlGeoPoint_1}
+  RETURN GEO_POINT(1.0, 2.0)
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlGeoPoint_1</p>
+</body>
+</html>

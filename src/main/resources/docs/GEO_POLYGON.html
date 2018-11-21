@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_POLYGON</title>
+</head>
+<body>
+<h3>GEO_POLYGON()</h3>
+<p><code>GEO_POLYGON(points) → geoJson</code></p>
+<p>Construct a GeoJSON Polygon. Needs at least one array representing a loop.
+  Each loop consists of an array with at least three longitude/latitude pairs. The
+  first loop must be the outermost, while any subsequent loops will be interpreted
+  as holes.</p>
+<ul>
+  <li><strong>points</strong> (array): array of arrays of longitude/latitude pairs</li>
+  <li>returns <strong>geoJson</strong> (object|null): a valid GeoJSON Polygon</li>
+</ul>
+<p>Simple Polygon:</p>
+<p>@startDocuBlockInline aqlGeoPolygon_1
+  @EXAMPLE_AQL{aqlGeoPolygon_1}
+  RETURN GEO_POLYGON([
+  [0.0, 0.0], [7.5, 2.5], [0.0, 5.0]
+  ])
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlGeoPolygon_1</p>
+<p>Advanced Polygon with a hole inside:</p>
+<p>@startDocuBlockInline aqlGeoPolygon_2
+  @EXAMPLE_AQL{aqlGeoPolygon_2}
+  RETURN GEO_POLYGON([
+  [[35, 10], [45, 45], [15, 40], [10, 20], [35, 10]],
+  [[20, 30], [35, 35], [30, 20], [20, 30]]
+  ])
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlGeoPolygon</p>
+</body>
+</html>

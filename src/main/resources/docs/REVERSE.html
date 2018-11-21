@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REVERSE</title>
+</head>
+<body>
+<h2>REVERSE()</h2>
+<p><code>REVERSE(anyArray) → reversedArray</code></p>
+<p>Return an array with its elements reversed.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements of arbitrary type</li>
+  <li>returns <strong>reversedArray</strong> (array): a new array with all elements of <em>anyArray</em> in
+    reversed order
+  </li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArrayReverse_1
+  @EXAMPLE_AQL{aqlArrayReverse_1}
+  RETURN REVERSE ( [2,4,6,8,10] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayReverse_1</p>
+
+<h2>REVERSE()</h2>
+<p><code>REVERSE(value) → reversedString</code></p>
+<p>Return the reverse of the string <em>value</em>.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li>returns <strong>reversedString</strong> (string): a new string with the characters in
+    reverse order
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">REVERSE</span>(<span class="pl-s"><span class="pl-pds">"</span>foobar<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "raboof"</span>
+<span class="pl-en">REVERSE</span>(<span class="pl-s"><span class="pl-pds">"</span>电脑坏了<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "了坏脑电"</span></pre>
+</div>
+</body>
+</html>

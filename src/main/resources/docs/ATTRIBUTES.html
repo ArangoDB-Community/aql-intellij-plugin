@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ATTRIBUTES</title>
+</head>
+<body>
+<h2>ATTRIBUTES()</h2>
+<p><code>ATTRIBUTES(document, removeInternal, sort) → strArray</code></p>
+<p>Return the attribute keys of the <em>document</em> as an array. Optionally omit
+  system attributes.</p>
+<ul>
+  <li><strong>document</strong> (object): an arbitrary document / object</li>
+  <li><strong>removeInternal</strong> (bool, <em>optional</em>): whether all system attributes (<em>_key</em>,
+    <em>_id</em> etc.,
+    every attribute key that starts with an underscore) shall be omitted in the result.
+    The default is <em>false</em>.
+  </li>
+  <li><strong>sort</strong> (bool, <em>optional</em>): optionally sort the resulting array alphabetically.
+    The default is <em>false</em> and will return the attribute names in any order.
+  </li>
+  <li>returns <strong>strArray</strong> (array): the attribute keys of the input <em>document</em> as an
+    array of strings
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">ATTRIBUTES</span>( { <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>123<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_custom<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span> } )
+<span class="pl-c"><span class="pl-c">//</span> [ "foo", "_key", "_custom" ]</span>
+
+<span class="pl-en">ATTRIBUTES</span>( { <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>123<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_custom<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span> }, <span class="pl-c1">true</span> )
+<span class="pl-c"><span class="pl-c">//</span> [ "foo" ]</span>
+
+<span class="pl-en">ATTRIBUTES</span>( { <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>123<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_custom<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span> }, <span class="pl-c1">false</span>, <span class="pl-c1">true</span> )
+<span class="pl-c"><span class="pl-c">//</span> [ "_custom", "_key", "foo" ]</span></pre>
+</div>
+<p>Complex example to count how often every attribute key occurs in the documents
+  of <em>collection</em> (expensive on large collections):</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> attributesPerDocument <span class="pl-k">=</span> (
+    <span class="pl-c1">FOR</span> doc <span class="pl-c1">IN</span> collection <span class="pl-c1">RETURN</span> <span class="pl-en">ATTRIBUTES</span>(doc, <span class="pl-c1">true</span>)
+)
+<span class="pl-c1">FOR</span> attributeArray <span class="pl-c1">IN</span> attributesPerDocument
+    <span class="pl-c1">FOR</span> attribute <span class="pl-c1">IN</span> attributeArray
+        <span class="pl-c1">COLLECT</span> attr <span class="pl-k">=</span> attribute <span class="pl-c1">WITH</span> <span class="pl-c1">COUNT</span> <span class="pl-c1">INTO</span> count
+        <span class="pl-c1">SORT</span> count <span class="pl-c1">DESC</span>
+        <span class="pl-c1">RETURN</span> {attr, count}</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IS_IN_POLYGON</title>
+</head>
+<body>
+<h3>IS_IN_POLYGON()</h3>
+<p>Determine whether a coordinate is inside a polygon.</p>
+<p>{% hint 'warning' %}
+  The <em>IS_IN_POLYGON</em> AQL function is <strong>deprecated</strong> as of ArangoDB 3.4.0 in
+  favor of the new <code>GEO_CONTAINS</code> AQL function, which works with
+  <a href="https://tools.ietf.org/html/rfc7946" rel="nofollow">GeoJSON</a> Polygons and MultiPolygons.
+  {% endhint %}</p>
+<p><code>IS_IN_POLYGON(polygon, latitude, longitude) → bool</code></p>
+<ul>
+  <li><strong>polygon</strong> (array): an array of arrays with 2 elements each, representing the
+    points of the polygon in the format <em>[lat, lon]</em></li>
+  <li><strong>latitude</strong> (number): the latitude portion of the search coordinate</li>
+  <li><strong>longitude</strong> (number): the longitude portion of the search coordinate</li>
+  <li>returns <strong>bool</strong> (bool): <em>true</em> if the point (<em>latitude</em>, <em>longitude</em>) is
+    inside the <em>polygon</em> or <em>false</em> if it's not. The result is undefined (can be
+    <em>true</em> or <em>false</em>) if the specified point is exactly on a boundary of the
+    polygon.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span> will check if the point (lat 4, lon 7) is contained inside the polygon</span>
+<span class="pl-en">IS_IN_POLYGON</span>( [ [ <span class="pl-c1">0</span>, <span class="pl-c1">0</span> ], [ <span class="pl-c1">0</span>, <span class="pl-c1">10</span> ], [ <span class="pl-c1">10</span>, <span class="pl-c1">10</span> ], [ <span class="pl-c1">10</span>, <span class="pl-c1">0</span> ] ], <span class="pl-c1">4</span>, <span class="pl-c1">7</span> )</pre>
+</div>
+<p><code>IS_IN_POLYGON(polygon, coord, useLonLat) → bool</code></p>
+<p>The 2nd parameter can alternatively be specified as an array with two values.</p>
+<p>By default, each array element in <em>polygon</em> is expected to be in the format
+  <em>[lat, lon]</em>. This can be changed by setting the 3rd parameter to <em>true</em> to
+  interpret the points as <em>[lon, lat]</em>. <em>coord</em> will then also be interpreted in
+  the same way.</p>
+<ul>
+  <li><strong>polygon</strong> (array): an array of arrays with 2 elements each, representing the
+    points of the polygon
+  </li>
+  <li><strong>coord</strong> (array): the search coordinate as a number array with two elements</li>
+  <li><strong>useLonLat</strong> (bool, <em>optional</em>): if set to <em>true</em>, the coordinates in
+    <em>polygon</em> and the search coordinate <em>coord</em> will be interpreted as
+    <em>[lon, lat]</em> (GeoJSON). The default is <em>false</em> and the format <em>[lat, lon]</em> is
+    expected.
+  </li>
+  <li>returns <strong>bool</strong> (bool): <em>true</em> if the point <em>coord</em> is inside the <em>polygon</em>
+    or <em>false</em> if it's not. The result is undefined (can be <em>true</em> or <em>false</em>) if
+    the specified point is exactly on a boundary of the polygon.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span> will check if the point (lat 4, lon 7) is contained inside the polygon</span>
+<span class="pl-en">IS_IN_POLYGON</span>( [ [ <span class="pl-c1">0</span>, <span class="pl-c1">0</span> ], [ <span class="pl-c1">0</span>, <span class="pl-c1">10</span> ], [ <span class="pl-c1">10</span>, <span class="pl-c1">10</span> ], [ <span class="pl-c1">10</span>, <span class="pl-c1">0</span> ] ], [ <span class="pl-c1">4</span>, <span class="pl-c1">7</span> ] )
+
+<span class="pl-c"><span class="pl-c">//</span> will check if the point (lat 4, lon 7) is contained inside the polygon</span>
+<span class="pl-en">IS_IN_POLYGON</span>( [ [ <span class="pl-c1">0</span>, <span class="pl-c1">0</span> ], [ <span class="pl-c1">10</span>, <span class="pl-c1">0</span> ], [ <span class="pl-c1">10</span>, <span class="pl-c1">10</span> ], [ <span class="pl-c1">0</span>, <span class="pl-c1">10</span> ] ], [ <span class="pl-c1">7</span>, <span class="pl-c1">4</span> ], <span class="pl-c1">true</span> )</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TRANSLATE</title>
+</head>
+<body>
+<h2>TRANSLATE()</h2>
+<p><code>TRANSLATE(value, lookupDocument, defaultValue) → mappedValue</code></p>
+<p>Look up the specified <em>value</em> in the <em>lookupDocument</em>. If <em>value</em> is a key in
+  <em>lookupDocument</em>, then <em>value</em> will be replaced with the lookup value found.
+  If <em>value</em> is not present in <em>lookupDocument</em>, then <em>defaultValue</em> will be returned
+  if specified. If no <em>defaultValue</em> is specified, <em>value</em> will be returned unchanged.</p>
+<ul>
+  <li><strong>value</strong> (string): the value to encode according to the mapping</li>
+  <li><strong>lookupDocument</strong> (object): a key/value mapping as document</li>
+  <li><strong>defaultValue</strong> (any, <em>optional</em>): a fallback value in case <em>value</em> is not found</li>
+  <li>returns <strong>mappedValue</strong> (any): the encoded value, or the unaltered <em>value</em> or
+    <em>defaultValue</em>
+    (if supplied) in case it couldn't be mapped
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">TRANSLATE</span>(<span class="pl-s"><span class="pl-pds">"</span>FR<span class="pl-pds">"</span></span>, { <span class="pl-c1">US</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>United States<span class="pl-pds">"</span></span>, <span class="pl-c1">UK</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>United Kingdom<span class="pl-pds">"</span></span>, <span class="pl-c1">FR</span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>France<span class="pl-pds">"</span></span> } )
+<span class="pl-c"><span class="pl-c">//</span> "France"</span>
+
+<span class="pl-en">TRANSLATE</span>(<span class="pl-c1">42</span>, { foo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span> } )
+<span class="pl-c"><span class="pl-c">//</span> 42</span>
+
+<span class="pl-en">TRANSLATE</span>(<span class="pl-c1">42</span>, { foo<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, bar<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span> }, <span class="pl-s"><span class="pl-pds">"</span>not found!<span class="pl-pds">"</span></span>)
+<span class="pl-c"><span class="pl-c">//</span> "not found!"</span></pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_ADD</title>
+</head>
+<body>
+<h3>DATE_ADD()</h3>
+<p><code>DATE_ADD(date, amount, unit) → isoDate</code></p>
+<p>Add <em>amount</em> given in <em>unit</em> to <em>date</em> and return the calculated date.</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>amount</strong> (number|string): number of <em>unit</em>s to add (positive value) or
+    subtract (negative value). It is recommended to use positive values only,
+    and use <a href="#datesubtract">DATE_SUBTRACT()</a> for subtractions instead.
+  </li>
+  <li><strong>unit</strong> (string): either of the following to specify the time unit to add or
+    subtract (case-insensitive):
+    <ul>
+      <li>y, year, years</li>
+      <li>m, month, months</li>
+      <li>w, week, weeks</li>
+      <li>d, day, days</li>
+      <li>h, hour, hours</li>
+      <li>i, minute, minutes</li>
+      <li>s, second, seconds</li>
+      <li>f, millisecond, milliseconds</li>
+    </ul>
+  </li>
+  <li>returns <strong>isoDate</strong> (string): the calculated ISO 8601 date time string</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-k">-</span><span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>day<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> yesterday; also see DATE_SUBTRACT()</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-c1">3</span>, <span class="pl-s"><span class="pl-pds">"</span>months<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> in three months</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2015-04-01<span class="pl-pds">"</span></span>, <span class="pl-c1">5</span>, <span class="pl-s"><span class="pl-pds">"</span>years<span class="pl-pds">"</span></span>), <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>month<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> May 1st 2020</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2015-04-01<span class="pl-pds">"</span></span>, <span class="pl-c1">12</span><span class="pl-k">*</span><span class="pl-c1">5</span> <span class="pl-k">+</span> <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>months<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> also May 1st 2020</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_TIMESTAMP</span>(<span class="pl-en">DATE_YEAR</span>(<span class="pl-en">DATE_NOW</span>()), <span class="pl-c1">12</span>, <span class="pl-c1">24</span>), <span class="pl-k">-</span><span class="pl-c1">4</span>, <span class="pl-s"><span class="pl-pds">"</span>years<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> Christmas four years ago</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2016-02<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>month<span class="pl-pds">"</span></span>, <span class="pl-c1">1</span>), <span class="pl-k">-</span><span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>day<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> last day of February (29th, because 2016 is a leap year!)</span></pre>
+</div>
+<p><code>DATE_ADD(date, isoDuration) → isoDate</code></p>
+<p>You may also pass an ISO duration string as <em>amount</em> and leave out <em>unit</em>.</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li><strong>isoDuration</strong> (string): an ISO 8601 duration string to add to <em>date</em>, see below</li>
+  <li>returns <strong>isoDate</strong> (string): the calculated ISO 8601 date time string</li>
+</ul>
+<p>The format is <code>P_Y_M_W_DT_H_M_._S</code>, where underscores stand for digits and
+  letters for time intervals - except for the separators <code>P</code> (period) and <code>T</code> (time).
+  The meaning of the other letters are:</p>
+<ul>
+  <li>Y – years</li>
+  <li>M – months (if before T)</li>
+  <li>W – weeks</li>
+  <li>D – days</li>
+  <li>H – hours</li>
+  <li>M – minutes (if after T)</li>
+  <li>S – seconds (optionally with 3 decimal places for milliseconds)</li>
+</ul>
+<p>The string must be prefixed by a <code>P</code>. A separating <code>T</code> is only required if
+  <code>H</code>, <code>M</code> and/or <code>S</code> are specified. You only need to specify the needed pairs
+  of letters and numbers.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>P1Y<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> add 1 year</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>P3M2W<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> add 3 months and 2 weeks</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-en">DATE_NOW</span>(), <span class="pl-s"><span class="pl-pds">"</span>P5DT26H<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> add 5 days and 26 hours (=6 days and 2 hours)</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2000-01-01<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>PT4H<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> add 4 hours</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2000-01-01<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>PT30M44.4S<span class="pl-pds">"</span></span> <span class="pl-c"><span class="pl-c">//</span> add 30 minutes, 44 seconds and 400 ms</span>
+<span class="pl-en">DATE_ADD</span>(<span class="pl-s"><span class="pl-pds">"</span>2000-01-01<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>P1Y2M3W4DT5H6M7.89S<span class="pl-pds">"</span></span> <span class="pl-c"><span class="pl-c">//</span> add a bit of everything</span></pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HAS</title>
+</head>
+<body>
+<h2>HAS()</h2>
+<p><code>HAS(document, attributeName) → isPresent</code></p>
+<p>Test whether an attribute is present in the provided document.</p>
+<ul>
+  <li><strong>document</strong> (object): an arbitrary document / object</li>
+  <li><strong>attributeName</strong> (string): the attribute key to test for</li>
+  <li>returns <strong>isPresent</strong> (bool): <em>true</em> if <em>document</em> has an attribute named
+    <em>attributeName</em>, and <em>false</em> otherwise. An attribute with a falsy value (<em>0</em>, <em>false</em>,
+    empty string <em>""</em>) or <em>null</em> is also considered as present and returns <em>true</em>.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">HAS</span>( { name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span> }, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> ) <span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">HAS</span>( { name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span> }, <span class="pl-s"><span class="pl-pds">"</span>age<span class="pl-pds">"</span></span> ) <span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">HAS</span>( { name<span class="pl-k">:</span> <span class="pl-c1">null</span> }, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> ) <span class="pl-c"><span class="pl-c">//</span> true</span></pre>
+</div>
+<p>Note that the function checks if the specified attribute exists. This is different
+  from similar ways to test for the existance of an attribute, in case the attribute
+  has a falsy value or is not present (implicitly <em>null</em> on object access):</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">!!</span>{ name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> }.<span class="pl-c1">name</span>        <span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">HAS</span>( { name<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span> }, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> true</span>
+
+{ name<span class="pl-k">:</span> <span class="pl-c1">null</span> }.<span class="pl-c1">name</span> <span class="pl-k">==</span> <span class="pl-c1">null</span>   <span class="pl-c"><span class="pl-c">//</span> true</span>
+{ }.<span class="pl-c1">name</span> <span class="pl-k">==</span> <span class="pl-c1">null</span>              <span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">HAS</span>( { name<span class="pl-k">:</span> <span class="pl-c1">null</span> }, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> ) <span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">HAS</span>( { }, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span> )            <span class="pl-c"><span class="pl-c">//</span> false</span></pre>
+</div>
+<p>Note that <code>HAS()</code> can not utilize indexes. If it's not necessary to distinguish
+  between explicit and implicit <em>null</em> values in your query, you may use an equality
+  comparison to test for <em>null</em> and create a non-sparse index on the attribute you
+  want to test against:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">FILTER</span> <span class="pl-k">!</span><span class="pl-en">HAS</span>(doc, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>)    <span class="pl-c"><span class="pl-c">//</span> can not use indexes</span>
+<span class="pl-c1">FILTER</span> <span class="pl-en">IS_NULL</span>(doc, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> can not use indexes</span>
+<span class="pl-c1">FILTER</span> <span class="pl-smi">doc</span>.<span class="pl-c1">name</span> <span class="pl-k">==</span> <span class="pl-c1">null</span>     <span class="pl-c"><span class="pl-c">//</span> can utilize non-sparse indexes</span></pre>
+</div>
+</body>
+</html>

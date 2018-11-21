@@ -1,14 +1,19 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.Nullable;
 
 public interface AqlKeywordStatements extends PsiElement {
 
   @Nullable
   PsiElement getTAggregate();
+
+    @Nullable
+    PsiElement getTAll();
+
+    @Nullable
+    PsiElement getTAny();
 
   @Nullable
   PsiElement getTAsc();
@@ -34,6 +39,9 @@ public interface AqlKeywordStatements extends PsiElement {
   @Nullable
   PsiElement getTIn();
 
+    @Nullable
+    PsiElement getTInbound();
+
   @Nullable
   PsiElement getTInsert();
 
@@ -45,6 +53,9 @@ public interface AqlKeywordStatements extends PsiElement {
 
   @Nullable
   PsiElement getTLimit();
+
+    @Nullable
+    PsiElement getTOutbound();
 
   @Nullable
   PsiElement getTRemove();

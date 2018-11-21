@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CONCAT_SEPARATOR</title>
+</head>
+<body><h2>CONCAT_SEPARATOR()</h2>
+<p><code>CONCAT_SEPARATOR(separator, value1, value2, ... valueN) → joinedString</code></p>
+<p>Concatenate the strings passed as arguments <em>value1</em> to <em>valueN</em> using the
+  <em>separator</em> string.</p>
+<ul>
+  <li><strong>separator</strong> (string): an arbitrary separator string</li>
+  <li><strong>values</strong> (string|array, <em>repeatable</em>): strings or arrays of strings as multiple
+    arguments (at least 1)
+  </li>
+  <li>returns <strong>joinedString</strong> (string): a concatenated string of the elements, using
+    <em>separator</em> as separator string. <em>null</em> values are ignored. Array value arguments
+    are expanded automatically, and their individual members will be concatenated.
+    Nested arrays will be expanded too, but with their elements separated by commas
+    if they have more than a single element.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">CONCAT_SEPARATOR</span>(<span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span>)
+<span class="pl-c"><span class="pl-c">//</span> "foo, bar, baz"</span>
+
+<span class="pl-en">CONCAT_SEPARATOR</span>(<span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span> ])
+<span class="pl-c"><span class="pl-c">//</span> "foo, bar, baz"</span>
+
+<span class="pl-en">CONCAT_SEPARATOR</span>(<span class="pl-s"><span class="pl-pds">"</span>, <span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, [ <span class="pl-s"><span class="pl-pds">"</span>b<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>a<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>r<span class="pl-pds">"</span></span> ], <span class="pl-s"><span class="pl-pds">"</span>baz<span class="pl-pds">"</span></span> ])
+<span class="pl-c"><span class="pl-c">//</span> [ "foo, b,a,r, baz" ]</span>
+
+<span class="pl-en">CONCAT_SEPARATOR</span>(<span class="pl-s"><span class="pl-pds">"</span>-<span class="pl-pds">"</span></span>, [<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-c1">null</span>], [<span class="pl-c1">4</span>, <span class="pl-c1">null</span>, <span class="pl-c1">5</span>])
+<span class="pl-c"><span class="pl-c">//</span> "1-2-3-4-5"</span></pre>
+</div>
+</body>
+</html>

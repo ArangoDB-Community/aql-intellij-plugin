@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CONTAINS_ARRAY</title>
+</head>
+<body><h2>alis of POSITION()</h2>
+<p><code>POSITION(anyArray, search, returnIndex) → position</code></p>
+<p>Return whether <em>search</em> is contained in <em>array</em>. Optionally return the position.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): the haystack, an array with elements of arbitrary type</li>
+  <li><strong>search</strong> (any): the needle, an element of arbitrary type</li>
+  <li><strong>returnIndex</strong> (bool, <em>optional</em>): if set to <em>true</em>, the position of the match
+    is returned instead of a boolean. The default is <em>false</em>.
+  </li>
+  <li>returns <strong>position</strong> (bool|number): <em>true</em> if <em>search</em> is contained in
+    <em>anyArray</em>,
+    <em>false</em> otherwise. If <em>returnIndex</em> is enabled, the position of the match is
+    returned (positions start at 0), or <em>-1</em> if it's not found.
+  </li>
+</ul>
+<p>To determine if or at which position a string occurs in another string, see the
+  <a href="#contains">CONTAINS() string function</a>.
+</p>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayPosition_1
+  @EXAMPLE_AQL{aqlArrayPosition_1}
+  RETURN POSITION( [2,4,6,8], 4 )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayPosition_1</p>
+<p>@startDocuBlockInline aqlArrayPosition_2
+  @EXAMPLE_AQL{aqlArrayPosition_2}
+  RETURN POSITION( [2,4,6,8], 4, true )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayPosition_2</p></body>
+</html>

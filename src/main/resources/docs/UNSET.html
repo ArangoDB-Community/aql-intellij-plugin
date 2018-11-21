@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UNSET</title>
+</head>
+<body>
+<h2>UNSET()</h2>
+<p><code>UNSET(document, attributeName1, attributeName2, ... attributeNameN) → doc</code></p>
+<p>Remove the attributes <em>attributeName1</em> to <em>attributeNameN</em> from <em>document</em>.
+  All other attributes will be preserved.</p>
+<ul>
+  <li><strong>document</strong> (object): a document / object</li>
+  <li><strong>attributeNames</strong> (string, <em>repeatable</em>): an arbitrary number of attribute
+    names as multiple arguments (at least 1)
+  </li>
+  <li>returns <strong>doc</strong> (object): <em>document</em> without the specified attributes on the
+    top-level
+  </li>
+</ul>
+<div class="highlight highlight-source-js">
+  <pre><span class="pl-en">UNSET</span>( doc, <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> )</pre>
+</div>
+<p><code>UNSET(document, attributeNameArray) → doc</code></p>
+<ul>
+  <li><strong>document</strong> (object): a document / object</li>
+  <li><strong>attributeNameArray</strong> (array): an array of attribute names as strings</li>
+  <li>returns <strong>doc</strong> (object): <em>document</em> without the specified attributes on the
+    top-level
+  </li>
+</ul>
+<div class="highlight highlight-source-js">
+  <pre><span class="pl-en">UNSET</span>( doc, [ <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span> ] )</pre>
+</div>
+</body>
+</html>

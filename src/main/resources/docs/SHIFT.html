@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SHIFT</title>
+</head>
+<body>
+<h2>SHIFT()</h2>
+<p><code>SHIFT(anyArray) → newArray</code></p>
+<p>Remove the element at the start (left side) of <em>anyArray</em>.</p>
+<ul>
+  <li><strong>anyArray</strong> (array): array with elements with arbitrary type</li>
+  <li>returns <strong>newArray</strong> (array): <em>anyArray</em> without the left-most element. If <em>anyArray</em>
+    is already empty or has only one element left, an empty array is returned.
+  </li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayShift_1
+  @EXAMPLE_AQL{aqlArrayShift_1}
+  RETURN SHIFT( [ 1, 2, 3, 4 ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayShift_1</p>
+<p>@startDocuBlockInline aqlArrayShift_2
+  @EXAMPLE_AQL{aqlArrayShift_2}
+  RETURN SHIFT( [ 1 ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayShift_2</p>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VALUES</title>
+</head>
+<body>
+<h2>VALUES()</h2>
+<p><code>VALUES(document, removeInternal) → anyArray</code></p>
+<p>Return the attribute values of the <em>document</em> as an array. Optionally omit
+  system attributes.</p>
+<ul>
+  <li><strong>document</strong> (object): a document / object</li>
+  <li><strong>removeInternal</strong> (bool, <em>optional</em>): if set to <em>true</em>, then all internal attributes
+    (such as <em>_id</em>, <em>_key</em> etc.) are removed from the result
+  </li>
+  <li>returns <strong>anyArray</strong> (array): the values of <em>document</em> returned in any order</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">VALUES</span>( { <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>users/jane<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>age<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">35</span> } )
+<span class="pl-c"><span class="pl-c">//</span> [ "Jane", 35, "users/jane" ]</span>
+
+<span class="pl-en">VALUES</span>( { <span class="pl-s"><span class="pl-pds">"</span>_key<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>users/jane<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>Jane<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>age<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">35</span> }, <span class="pl-c1">true</span> )
+<span class="pl-c"><span class="pl-c">//</span> [ "Jane", 35 ]</span></pre>
+</div>
+</body>
+</html>

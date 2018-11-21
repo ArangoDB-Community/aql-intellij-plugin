@@ -1,14 +1,18 @@
 package com.machak.aql.grammar.psi.impl;
 
+import com.intellij.lang.ASTNode;
+import com.machak.aql.grammar.psi.AqlMixinType;
+import com.machak.aql.grammar.psi.AqlNamedElementImpl;
 import org.jetbrains.annotations.NotNull;
 
-import com.intellij.lang.ASTNode;
-import com.machak.aql.grammar.psi.AqlFunction;
-import com.machak.aql.grammar.psi.AqlPsiNamedIdentifierImpl;
-
-public abstract class AqlFunctionMixin extends AqlPsiNamedIdentifierImpl {
+public abstract class AqlFunctionMixin extends AqlNamedElementImpl {
     public AqlFunctionMixin(@NotNull final ASTNode node) {
         super(node);
     }
-    
+
+    @NotNull
+    @Override
+    public AqlMixinType getAqlType() {
+        return AqlMixinType.FUNCTION;
+    }
 }

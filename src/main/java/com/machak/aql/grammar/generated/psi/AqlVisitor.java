@@ -1,9 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
+import org.jetbrains.annotations.NotNull;
 
 public class AqlVisitor extends PsiElementVisitor {
 
@@ -38,6 +38,10 @@ public class AqlVisitor extends PsiElementVisitor {
   public void visitNamedKeywordFunctions(@NotNull AqlNamedKeywordFunctions o) {
     visitPsiElement(o);
   }
+
+    public void visitNamedKeywordStatements(@NotNull AqlNamedKeywordStatements o) {
+        visitPsiElement(o);
+    }
 
   public void visitObjectExpression(@NotNull AqlObjectExpression o) {
     visitPsiElement(o);

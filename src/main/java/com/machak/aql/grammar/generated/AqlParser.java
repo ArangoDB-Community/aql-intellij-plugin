@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated;
 
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import static com.machak.aql.grammar.generated.psi.AqlTypes.*;
-import static com.machak.aql.grammar.generated.AqlParserUtil.*;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.lang.PsiParser;
-import com.intellij.lang.LightPsiParser;
+import com.intellij.psi.tree.IElementType;
+
+import static com.machak.aql.grammar.generated.AqlParserUtil.*;
+import static com.machak.aql.grammar.generated.psi.AqlTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class AqlParser implements PsiParser, LightPsiParser {
@@ -46,39 +46,30 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
     else if (t == NAMED_KEYWORD_FUNCTIONS) {
       r = NamedKeywordFunctions(b, 0);
-    }
-    else if (t == OBJECT_EXPRESSION) {
-      r = ObjectExpression(b, 0);
-    }
-    else if (t == OBJECT_VARIABLE) {
-      r = ObjectVariable(b, 0);
-    }
-    else if (t == OPERATOR_STATEMENTS) {
-      r = OperatorStatements(b, 0);
-    }
-    else if (t == PROPERTY_LOOKUP) {
-      r = PropertyLookup(b, 0);
-    }
-    else if (t == PROPERTY_NAME) {
-      r = PropertyName(b, 0);
-    }
-    else if (t == QUERY_ITEM) {
-      r = QueryItem(b, 0);
-    }
-    else if (t == SEQUENCE) {
-      r = Sequence(b, 0);
-    }
-    else if (t == STATEMENT) {
-      r = Statement(b, 0);
-    }
-    else if (t == STRING_TYPE) {
-      r = StringType(b, 0);
-    }
-    else if (t == SYSTEM_PROPERTY) {
-      r = SystemProperty(b, 0);
-    }
-    else {
-      r = parse_root_(t, b, 0);
+    } else if (t == NAMED_KEYWORD_STATEMENTS) {
+        r = NamedKeywordStatements(b, 0);
+    } else if (t == OBJECT_EXPRESSION) {
+        r = ObjectExpression(b, 0);
+    } else if (t == OBJECT_VARIABLE) {
+        r = ObjectVariable(b, 0);
+    } else if (t == OPERATOR_STATEMENTS) {
+        r = OperatorStatements(b, 0);
+    } else if (t == PROPERTY_LOOKUP) {
+        r = PropertyLookup(b, 0);
+    } else if (t == PROPERTY_NAME) {
+        r = PropertyName(b, 0);
+    } else if (t == QUERY_ITEM) {
+        r = QueryItem(b, 0);
+    } else if (t == SEQUENCE) {
+        r = Sequence(b, 0);
+    } else if (t == STATEMENT) {
+        r = Statement(b, 0);
+    } else if (t == STRING_TYPE) {
+        r = StringType(b, 0);
+    } else if (t == SYSTEM_PROPERTY) {
+        r = SystemProperty(b, 0);
+    } else {
+        r = parse_root_(t, b, 0);
     }
     exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
   }
@@ -542,6 +533,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                         | T_UPSERT
   //                         | T_REMOVE
   //                         | T_INSERT
+  //                         | T_OUTBOUND
+  //                         | T_INBOUND
+  //                         | T_ANY
+  //                         | T_ALL
+  //                         | T_NONE
   public static boolean KeywordStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "KeywordStatements")) return false;
     boolean r;
@@ -568,6 +564,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_UPSERT);
     if (!r) r = consumeToken(b, T_REMOVE);
     if (!r) r = consumeToken(b, T_INSERT);
+      if (!r) {
+          r = consumeToken(b, T_OUTBOUND);
+      }
+      if (!r) {
+          r = consumeToken(b, T_INBOUND);
+      }
+      if (!r) {
+          r = consumeToken(b, T_ANY);
+      }
+      if (!r) {
+          r = consumeToken(b, T_ALL);
+      }
+      if (!r) {
+          r = consumeToken(b, T_NONE);
+      }
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -608,6 +619,19 @@ public class AqlParser implements PsiParser, LightPsiParser {
     exit_section_(b, l, m, r, false, null);
     return r;
   }
+
+    /* ********************************************************** */
+    // KeywordStatements
+    public static boolean NamedKeywordStatements(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "NamedKeywordStatements")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, NAMED_KEYWORD_STATEMENTS, "<named keyword statements>");
+        r = KeywordStatements(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
 
   /* ********************************************************** */
   // (PropertyLookup)+
@@ -705,11 +729,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                        | T_OBJECT_CLOSE
   //                        | T_ARRAY_OPEN
   //                        | T_ARRAY_CLOSE
-  //                        | T_OUTBOUND
-  //                        | T_INBOUND
-  //                        | T_ANY
-  //                        | T_ALL
-  //                        | T_NONE
   public static boolean OperatorStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperatorStatements")) return false;
     boolean r;
@@ -749,11 +768,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_OBJECT_CLOSE);
     if (!r) r = consumeToken(b, T_ARRAY_OPEN);
     if (!r) r = consumeToken(b, T_ARRAY_CLOSE);
-    if (!r) r = consumeToken(b, T_OUTBOUND);
-    if (!r) r = consumeToken(b, T_INBOUND);
-    if (!r) r = consumeToken(b, T_ANY);
-    if (!r) r = consumeToken(b, T_ALL);
-    if (!r) r = consumeToken(b, T_NONE);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -842,7 +856,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (KeywordStatements)
+  // (NamedKeywordStatements)
   //               | (NamedKeywordFunctions)
   //               | (OperatorStatements)
   //               | (PropertyName)
@@ -872,12 +886,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (KeywordStatements)
+    // (NamedKeywordStatements)
   private static boolean Statement_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = KeywordStatements(b, l + 1);
+      r = NamedKeywordStatements(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }

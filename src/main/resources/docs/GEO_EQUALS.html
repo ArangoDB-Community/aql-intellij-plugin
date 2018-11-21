@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_EQUALS</title>
+</head>
+<body>
+<h3>GEO_EQUALS()</h3>
+<p><code>GEO_EQUALS(geoJsonA, geoJsonB) → bool</code></p>
+<p>Checks whether two GeoJSON objects are equal or not. (For a list of supported
+  Types see
+  <a href="#geojson">geo index page</a>).</p>
+<ul>
+  <li><strong>geoJsonA</strong> (object): first GeoJSON object</li>
+  <li><strong>geoJsonB</strong> (object): second GeoJSON object.</li>
+  <li>returns <strong>bool</strong> (bool): true for equality.</li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> polygonA <span class="pl-k">=</span> <span class="pl-en">GEO_POLYGON</span>([
+  [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>], [<span class="pl-k">-</span><span class="pl-c1">10.5</span>, <span class="pl-c1">26.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.2</span>, <span class="pl-c1">27.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>]
+])
+<span class="pl-c1">LET</span> polygonB <span class="pl-k">=</span> <span class="pl-en">GEO_POLYGON</span>([
+  [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>], [<span class="pl-k">-</span><span class="pl-c1">10.5</span>, <span class="pl-c1">26.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.2</span>, <span class="pl-c1">27.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>]
+])
+<span class="pl-c1">RETURN</span> <span class="pl-en">GEO_EQUALS</span>(polygonA, polygonB) <span class="pl-c"><span class="pl-c">//</span> true</span></pre>
+</div>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">LET</span> polygonA <span class="pl-k">=</span> <span class="pl-en">GEO_POLYGON</span>([
+  [<span class="pl-k">-</span><span class="pl-c1">11.1</span>, <span class="pl-c1">24.0</span>], [<span class="pl-k">-</span><span class="pl-c1">10.5</span>, <span class="pl-c1">26.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.2</span>, <span class="pl-c1">27.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.1</span>, <span class="pl-c1">24.0</span>]
+])
+<span class="pl-c1">LET</span> polygonB <span class="pl-k">=</span> <span class="pl-en">GEO_POLYGON</span>([
+  [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>], [<span class="pl-k">-</span><span class="pl-c1">10.5</span>, <span class="pl-c1">26.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.2</span>, <span class="pl-c1">27.1</span>], [<span class="pl-k">-</span><span class="pl-c1">11.5</span>, <span class="pl-c1">23.5</span>]
+])
+<span class="pl-c1">RETURN</span> <span class="pl-en">GEO_EQUALS</span>(polygonA, polygonB) <span class="pl-c"><span class="pl-c">//</span> false</span></pre>
+</div>
+</body>
+</html>

@@ -1,9 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 import com.machak.aql.grammar.AqlElementType;
 import com.machak.aql.grammar.AqlTokenType;
 import com.machak.aql.grammar.generated.psi.impl.*;
@@ -18,6 +18,7 @@ public interface AqlTypes {
   IElementType LIMIT_OFFSET = new AqlElementType("LIMIT_OFFSET");
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
   IElementType NAMED_KEYWORD_FUNCTIONS = new AqlElementType("NAMED_KEYWORD_FUNCTIONS");
+    IElementType NAMED_KEYWORD_STATEMENTS = new AqlElementType("NAMED_KEYWORD_STATEMENTS");
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
   IElementType OBJECT_VARIABLE = new AqlElementType("OBJECT_VARIABLE");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
@@ -325,36 +326,28 @@ public interface AqlTypes {
       }
       else if (type == NAMED_KEYWORD_FUNCTIONS) {
         return new AqlNamedKeywordFunctionsImpl(node);
-      }
-      else if (type == OBJECT_EXPRESSION) {
-        return new AqlObjectExpressionImpl(node);
-      }
-      else if (type == OBJECT_VARIABLE) {
-        return new AqlObjectVariableImpl(node);
-      }
-      else if (type == OPERATOR_STATEMENTS) {
-        return new AqlOperatorStatementsImpl(node);
-      }
-      else if (type == PROPERTY_LOOKUP) {
-        return new AqlPropertyLookupImpl(node);
-      }
-      else if (type == PROPERTY_NAME) {
-        return new AqlPropertyNameImpl(node);
-      }
-      else if (type == QUERY_ITEM) {
-        return new AqlQueryItemImpl(node);
-      }
-      else if (type == SEQUENCE) {
-        return new AqlSequenceImpl(node);
-      }
-      else if (type == STATEMENT) {
-        return new AqlStatementImpl(node);
-      }
-      else if (type == STRING_TYPE) {
-        return new AqlStringTypeImpl(node);
-      }
-      else if (type == SYSTEM_PROPERTY) {
-        return new AqlSystemPropertyImpl(node);
+      } else if (type == NAMED_KEYWORD_STATEMENTS) {
+          return new AqlNamedKeywordStatementsImpl(node);
+      } else if (type == OBJECT_EXPRESSION) {
+          return new AqlObjectExpressionImpl(node);
+      } else if (type == OBJECT_VARIABLE) {
+          return new AqlObjectVariableImpl(node);
+      } else if (type == OPERATOR_STATEMENTS) {
+          return new AqlOperatorStatementsImpl(node);
+      } else if (type == PROPERTY_LOOKUP) {
+          return new AqlPropertyLookupImpl(node);
+      } else if (type == PROPERTY_NAME) {
+          return new AqlPropertyNameImpl(node);
+      } else if (type == QUERY_ITEM) {
+          return new AqlQueryItemImpl(node);
+      } else if (type == SEQUENCE) {
+          return new AqlSequenceImpl(node);
+      } else if (type == STATEMENT) {
+          return new AqlStatementImpl(node);
+      } else if (type == STRING_TYPE) {
+          return new AqlStringTypeImpl(node);
+      } else if (type == SYSTEM_PROPERTY) {
+          return new AqlSystemPropertyImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

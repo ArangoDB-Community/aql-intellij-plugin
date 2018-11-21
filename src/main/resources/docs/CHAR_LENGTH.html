@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CHAR_LENGTH</title>
+</head>
+<body>
+<h2>CHAR_LENGTH()</h2>
+<p><code>CHAR_LENGTH(value) → length</code></p>
+<p>Return the number of characters in <em>value</em> (not byte length).</p>
+<table>
+  <thead>
+  <tr>
+    <th>input</th>
+    <th>length</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>String</td>
+    <td>number of unicode characters</td>
+  </tr>
+  <tr>
+    <td>Number</td>
+    <td>number of unicode characters that represent the number</td>
+  </tr>
+  <tr>
+    <td>Array / Object</td>
+    <td>number of unicode characters from the resulting stringification</td>
+  </tr>
+  <tr>
+    <td>true</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>false</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>null</td>
+    <td>0</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

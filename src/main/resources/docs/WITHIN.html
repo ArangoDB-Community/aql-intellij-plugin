@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WITHIN</title>
+</head>
+<body>
+<h3>WITHIN()</h3>
+<p>{% hint 'warning' %}
+  <code>WITHIN</code> is a deprecated AQL function from version 3.4.0 on.
+  Use <a href="#distance">DISTANCE()</a> in a query like this instead:</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">FOR</span> doc <span class="pl-c1">IN</span> doc
+  <span class="pl-c1">LET</span> d <span class="pl-k">=</span> <span class="pl-en">DISTANCE</span>(<span class="pl-smi">doc</span>.<span class="pl-smi">latitude</span>, <span class="pl-smi">doc</span>.<span class="pl-smi">longitude</span>, paramLatitude, paramLongitude)
+  <span class="pl-c1">FILTER</span> d <span class="pl-k">&lt;=</span> radius
+  <span class="pl-c1">SORT</span> d <span class="pl-c1">ASC</span>
+  <span class="pl-c1">RETURN</span> doc</pre>
+</div>
+<p>Assuming there exists a geo-type index on <code>latitude</code> and <code>longitude</code>, the
+  optimizer will recognize it and accelerate the query.
+  {% endhint %}</p>
+<p><code>WITHIN(coll, latitude, longitude, radius, distanceName) → docArray</code></p>
+<p>Return all documents from collection <em>coll</em> that are within a radius of <em>radius</em>
+  around the specified coordinate (<em>latitude</em> and <em>longitude</em>). The documents
+  returned are sorted by distance to the search coordinate, with the closest
+  distances being returned first. Optionally, the distance in meters between the
+  search coordinate and the document coordinates can be returned as well. To make
+  use of that, an attribute name for the distance result has to be specified in
+  the <em>distanceName</em> argument. The result documents will contain the distance
+  value in an attribute of that name.</p>
+<ul>
+  <li><strong>coll</strong> (collection): a collection</li>
+  <li><strong>latitude</strong> (number): the latitude portion of the search coordinate</li>
+  <li><strong>longitude</strong> (number): the longitude portion of the search coordinate</li>
+  <li><strong>radius</strong> (number): radius in meters</li>
+  <li><strong>distanceName</strong> (string, <em>optional</em>): include the distance to the search
+    coordinate in each document in the result (in meters), using the attribute
+    name <em>distanceName</em></li>
+  <li>returns <strong>docArray</strong> (array): an array of documents, sorted by distance
+    (shortest distance first)
+  </li>
+</ul>
+</body>
+</html>

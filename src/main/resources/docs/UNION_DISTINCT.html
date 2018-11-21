@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UNION_DISTINCT</title>
+</head>
+<body><h2>UNION_DISTINCT()</h2>
+<p><code>UNION_DISTINCT(array1, array2, ... arrayN) → newArray</code></p>
+<p>Return the union of distinct values of all arrays specified.</p>
+<ul>
+  <li><strong>arrays</strong> (array, <em>repeatable</em>): an arbitrary number of arrays as multiple
+    arguments (at least 2)
+  </li>
+  <li>returns <strong>newArray</strong> (array): the elements of all given arrays in a single
+    array, without duplicates, in any order
+  </li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArrayUnionDistinct_1
+  @EXAMPLE_AQL{aqlArrayUnionDistinct_1}
+  RETURN UNION_DISTINCT(
+  [ 1, 2, 3 ],
+  [ 1, 2 ]
+  )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayUnionDistinct_1</p></body>
+</html>

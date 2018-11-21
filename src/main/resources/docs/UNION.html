@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UNION</title>
+</head>
+<body>
+<h2>UNION()</h2>
+<p><code>UNION(array1, array2, ... arrayN) → newArray</code></p>
+<p>Return the union of all arrays specified.</p>
+<ul>
+  <li><strong>arrays</strong> (array, <em>repeatable</em>): an arbitrary number of arrays as multiple
+    arguments (at least 2)
+  </li>
+  <li>returns <strong>newArray</strong> (array): all array elements combined in a single array,
+    in any order
+  </li>
+</ul>
+<p><strong>Examples</strong></p>
+<p>@startDocuBlockInline aqlArrayUnion_1
+  @EXAMPLE_AQL{aqlArrayUnion_1}
+  RETURN UNION(
+  [ 1, 2, 3 ],
+  [ 1, 2 ]
+  )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayUnion_1</p>
+<p>Note: No duplicates will be removed. In order to remove duplicates, please use
+  either <a href="#uniondistinct">UNION_DISTINCT()</a>
+  or apply <a href="#unique">UNIQUE()</a> on the
+  result of <em>UNION()</em>:</p>
+<p>@startDocuBlockInline aqlArrayUnion_2
+  @EXAMPLE_AQL{aqlArrayUnion_2}
+  RETURN UNIQUE(
+  UNION(
+  [ 1, 2, 3 ],
+  [ 1, 2 ]
+  )
+  )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayUnion_2</p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FIND_FIRST</title>
+</head>
+<body>
+<h2>FIND_FIRST()</h2>
+<p><code>FIND_FIRST(text, search, start, end) → position</code></p>
+<p>Return the position of the first occurrence of the string <em>search</em> inside the
+  string <em>text</em>. Positions start at 0.</p>
+<ul>
+  <li><strong>text</strong> (string): the haystack</li>
+  <li><strong>search</strong> (string): the needle</li>
+  <li><strong>start</strong> (number, <em>optional</em>): limit the search to a subset of the text,
+    beginning at <em>start</em></li>
+  <li><strong>end</strong> (number, <em>optional</em>): limit the search to a subset of the text,
+    ending at <em>end</em></li>
+  <li>returns <strong>position</strong> (number): the character position of the match. If <em>search</em>
+    is not contained in <em>text</em>, -1 is returned. If <strong>search</strong> is empty,
+    <strong>start</strong> is returned.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">FIND_FIRST</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ba<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> 3</span>
+<span class="pl-en">FIND_FIRST</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ba<span class="pl-pds">"</span></span>, <span class="pl-c1">4</span>) <span class="pl-c"><span class="pl-c">//</span> 6</span>
+<span class="pl-en">FIND_FIRST</span>(<span class="pl-s"><span class="pl-pds">"</span>foobarbaz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ba<span class="pl-pds">"</span></span>, <span class="pl-c1">0</span>, <span class="pl-c1">3</span>) <span class="pl-c"><span class="pl-c">//</span> -1</span></pre>
+</div>
+</body>
+</html>

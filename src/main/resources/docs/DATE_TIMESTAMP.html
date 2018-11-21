@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DATE_TIMESTAMP</title>
+</head>
+<body>
+<h3>DATE_TIMESTAMP()</h3>
+<p><code>DATE_TIMESTAMP(date) → timestamp</code></p>
+<p>Create a timestamp value from <em>date</em>. The return value has millisecond precision.
+  To convert the return value to seconds, divide it by 1000.</p>
+<ul>
+  <li><strong>date</strong> (number|string): numeric timestamp or ISO 8601 date time string</li>
+  <li>returns <strong>timestamp</strong> (number): numeric timestamp</li>
+</ul>
+<p><code>DATE_TIMESTAMP(year, month, day, hour, minute, second, millisecond) → timestamp</code></p>
+<p>Create a timestamp value, but allows to specify the individual date components
+  separately. All parameters after <em>day</em> are optional.</p>
+<ul>
+  <li><strong>year</strong> (number): typically in the range 0..9999, e.g. <em>2017</em></li>
+  <li><strong>month</strong> (number): 1..12 for January through December</li>
+  <li><strong>day</strong> (number): 1..31 (upper bound depends on number of days in month)</li>
+  <li><strong>hour</strong> (number, <em>optional</em>): 0..23</li>
+  <li><strong>minute</strong> (number, <em>optional</em>): 0..59</li>
+  <li><strong>second</strong> (number, <em>optional</em>): 0..59</li>
+  <li><strong>milliseconds</strong> (number, <em>optional</em>): 0..999</li>
+  <li>returns <strong>timestamp</strong> (number): numeric timestamp</li>
+</ul>
+<p>Negative values are not allowed, result in <em>null</em> and cause a warning.
+  Values greater than the upper range bound overflow to the larger components
+  (e.g. an hour of 26 is automatically turned into an additional day and two hours):</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">DATE_TIMESTAMP</span>(<span class="pl-c1">2016</span>, <span class="pl-c1">12</span>, <span class="pl-k">-</span><span class="pl-c1">1</span>) <span class="pl-c"><span class="pl-c">//</span> returns null and issues a warning</span>
+<span class="pl-en">DATE_TIMESTAMP</span>(<span class="pl-c1">2016</span>, <span class="pl-c1">2</span>, <span class="pl-c1">32</span>) <span class="pl-c"><span class="pl-c">//</span> returns 1456963200000, which is March 3rd, 2016</span>
+<span class="pl-en">DATE_TIMESTAMP</span>(<span class="pl-c1">1970</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">26</span>) <span class="pl-c"><span class="pl-c">//</span> returns 93600000, which is January 2nd, 1970, at 2 a.m.</span></pre>
+</div>
+</body>
+</html>

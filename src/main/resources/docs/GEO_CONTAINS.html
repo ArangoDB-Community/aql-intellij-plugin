@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GEO_CONTAINS</title>
+</head>
+<body>
+<h3>GEO_CONTAINS()</h3>
+<p><code>GEO_CONTAINS(geoJsonA, geoJsonB) → bool</code></p>
+<p>Checks whether the
+  <a href="#geojson">GeoJSON object</a>
+  <code>geoJsonA</code>
+  fully contains <code>geoJsonB</code> (Every point in B is also in A). The object
+  <code>geoJsonA</code> has to be of type
+  <code>Polygon</code> or <code>MultiPolygon</code>, other types are not supported because containment is ill defined.
+  This function can be <strong>optimized</strong> via a S2 based geospatial index.</p>
+<ul>
+  <li><strong>geoJsonA</strong> (object): first GeoJSON object or coordinate array (in longitude, latitude order)</li>
+  <li><strong>geoJsonB</strong> (object): second GeoJSON object or coordinate array (in longitude, latitude order)</li>
+  <li>returns <strong>bool</strong> (bool): true when every point in B is also contained in A, false otherwise</li>
+</ul>
+</body>
+</html>

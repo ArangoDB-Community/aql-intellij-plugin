@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IS_SAME_COLLECTION</title>
+</head>
+<body>
+<h2>IS_SAME_COLLECTION()</h2>
+<p><code>IS_SAME_COLLECTION(collectionName, documentHandle) → bool</code></p>
+<p>collection id as the collection specified in <em>collection</em>. <em>document</em> can either be
+  a
+  <a href="#document-handle">document handle</a> string, or a document with
+  an <em>_id</em> attribute. The function does not validate whether the collection actually
+  contains the specified document, but only compares the name of the specified collection
+  with the collection name part of the specified document.
+  If <em>document</em> is neither an object with an <em>id</em> attribute nor a <em>string</em> value,
+  the function will return <em>null</em> and raise a warning.</p>
+<ul>
+  <li><strong>collectionName</strong> (string): the name of a collection as string</li>
+  <li><strong>documentHandle</strong> (string|object): a document identifier string (e.g. <em>_users/1234</em>)
+    or a regular document from a collection. Passing either a non-string or a non-document
+    or a document without an <em>_id</em> attribute will result in an error.
+  </li>
+  <li>returns <strong>bool</strong> (bool): return <em>true</em> if the collection of
+    <em>documentHandle</em> is the same
+    as <em>collectionName</em>, otherwise <em>false</em></li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">IS_SAME_COLLECTION</span>( <span class="pl-s"><span class="pl-pds">"</span>_users<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>_users/my-user<span class="pl-pds">"</span></span> )
+<span class="pl-en">IS_SAME_COLLECTION</span>( <span class="pl-s"><span class="pl-pds">"</span>_users<span class="pl-pds">"</span></span>, { _id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>_users/my-user<span class="pl-pds">"</span></span> } )
+
+<span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">IS_SAME_COLLECTION</span>( <span class="pl-s"><span class="pl-pds">"</span>_users<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>foobar/baz<span class="pl-pds">"</span></span>)
+<span class="pl-en">IS_SAME_COLLECTION</span>( <span class="pl-s"><span class="pl-pds">"</span>_users<span class="pl-pds">"</span></span>, { _id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>something/else<span class="pl-pds">"</span></span> } )</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RTRIM</title>
+</head>
+<body>
+<h2>TRIM()</h2>
+<p><code>RTRIM(value, chars) → strippedString</code></p>
+<p>Return the string <em>value</em> with whitespace stripped from the end only.</p>
+<ul>
+  <li><strong>value</strong> (string): a string</li>
+  <li><strong>chars</strong> (string, <em>optional</em>): override the characters that should
+    be removed from the string. It defaults to <code>\r\n \t</code> (i.e. <code>0x0d</code>, <code>0x0a</code>,
+    <code>0x20</code> and <code>0x09</code>).
+  </li>
+  <li>returns <strong>strippedString</strong> (string): <em>value</em> without <em>chars</em> at the
+    right-hand side
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">RTRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>foo bar<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "foo bar"</span>
+<span class="pl-en">RTRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>  foo bar  <span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "  foo bar"</span>
+<span class="pl-en">RTRIM</span>(<span class="pl-s"><span class="pl-pds">"</span>--==[foo-bar]==--<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>-=[]<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "--==[foo-bar"</span></pre>
+</div>
+</body>
+</html>

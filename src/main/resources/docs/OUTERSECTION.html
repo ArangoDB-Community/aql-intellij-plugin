@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OUTERSECTION</title>
+</head>
+<body>
+<h2>OUTERSECTION()</h2>
+<p><code>OUTERSECTION(array1, array2, ... arrayN) → newArray</code></p>
+<p>Return the values that occur only once across all arrays specified.</p>
+<ul>
+  <li><strong>arrays</strong> (array, <em>repeatable</em>): an arbitrary number of arrays as multiple arguments
+    (at least 2)
+  </li>
+  <li>returns <strong>newArray</strong> (array): a single array with only the elements that exist only once
+    across all provided arrays. The element order is random.
+  </li>
+</ul>
+<p><strong>Example</strong></p>
+<p>@startDocuBlockInline aqlArrayOutersection_1
+  @EXAMPLE_AQL{aqlArrayOutersection_1}
+  RETURN OUTERSECTION( [ 1, 2, 3 ], [ 2, 3, 4 ], [ 3, 4, 5 ] )
+  @END_EXAMPLE_AQL
+  @endDocuBlock aqlArrayOutersection_1</p>
+</body>
+</html>

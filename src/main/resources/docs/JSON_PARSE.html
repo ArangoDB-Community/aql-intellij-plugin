@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON_PARSE</title>
+</head>
+<body>
+<h2>JSON_PARSE()</h2>
+<p><code>JSON_PARSE(text) → value</code></p>
+<p>Return an AQL value described by the JSON-encoded input string.</p>
+<ul>
+  <li><strong>text</strong> (string): the string to parse as JSON</li>
+  <li>returns <strong>value</strong> (mixed): the value corresponding to the given JSON text.
+    For input values that are no valid JSON strings, the function will return <em>null</em>.
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">JSON_PARSE</span>(<span class="pl-s"><span class="pl-pds">"</span>123<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> 123</span>
+<span class="pl-en">JSON_PARSE</span>(<span class="pl-s"><span class="pl-pds">"</span>[ true, false, 2 ]<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> [ true, false, 2 ]</span>
+<span class="pl-en">JSON_PARSE</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\\\"</span>abc<span class="pl-cce">\\\"</span><span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> "abc"</span>
+<span class="pl-en">JSON_PARSE</span>(<span class="pl-s"><span class="pl-pds">"</span>{<span class="pl-cce">\\\"</span>a<span class="pl-cce">\\\"</span>: 1}<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> { a : 1 }</span>
+<span class="pl-en">JSON_PARSE</span>(<span class="pl-s"><span class="pl-pds">"</span>abc<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> null</span></pre>
+</div>
+</body>
+</html>

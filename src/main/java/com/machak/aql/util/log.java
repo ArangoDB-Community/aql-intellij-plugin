@@ -3,9 +3,11 @@ package com.machak.aql.util;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.notification.Notifications;
+import com.intellij.openapi.diagnostic.Logger;
 
 public final class log {
 
+    private static final Logger log = Logger.getInstance("#com.machak.aql.util.log");
     public static final String DISPLAY_ID = "AQL";
 
     private log() {
@@ -42,6 +44,19 @@ public final class log {
     public static void warm(final String title, final String message) {
         notify(new Notification(DISPLAY_ID, DISPLAY_ID, message, NotificationType.WARNING));
     }
+
+    public static void debug(final String message) {
+        log.warn(message);
+    }
+
+    public static void debug(final String message, final Throwable e) {
+        log.warn(message, e);
+    }
+
+    public static void debug(final String ignore, final String message) {
+        log.warn(message);
+    }
+
 
     private static void notify(final Notification notification) {
         Notifications.Bus.notify(notification);

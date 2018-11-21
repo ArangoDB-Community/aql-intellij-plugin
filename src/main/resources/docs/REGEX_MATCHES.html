@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REGEX_MATCHES</title>
+</head>
+<body>
+<h2>REGEX_MATCHES()</h2>
+<p><code>REGEX_MATCHES(text, regex, caseInsensitive) → stringArray</code></p>
+<p>Return the matches in the given string <em>text</em>, using the <em>regex</em>.</p>
+<ul>
+  <li><strong>text</strong> (string): the string to search in</li>
+  <li><strong>regex</strong> (string): a regular expression to use for matching the <em>text</em></li>
+  <li>returns <strong>stringArray</strong> (array): an array of strings containing the matches</li>
+</ul>
+<p>The regular expression may consist of literal characters and the following
+  characters and sequences:</p>
+<ul>
+  <li><code>.</code> – the dot matches any single character except line terminators.
+    To include line terminators, use <code>[\s\S]</code> instead to simulate <code>.</code> with <em>DOTALL</em> flag.
+  </li>
+  <li><code>\d</code> – matches a single digit, equivalent to <code>[0-9]</code></li>
+  <li><code>\s</code> – matches a single whitespace character</li>
+  <li><code>\S</code> – matches a single non-whitespace character</li>
+  <li><code>\t</code> – matches a tab character</li>
+  <li><code>\r</code> – matches a carriage return</li>
+  <li><code>\n</code> – matches a line-feed character</li>
+  <li><code>[xyz]</code> – set of characters. Matches any of the enclosed characters
+    (here: <em>x</em>, <em>y</em> or <em>z</em>)
+  </li>
+  <li><code>[^xyz]</code> – negated set of characters. Matches any other character than the
+    enclosed ones (i.e. anything but <em>x</em>, <em>y</em> or <em>z</em> in this case)
+  </li>
+  <li><code>[x-z]</code> – range of characters. Matches any of the characters in the
+    specified range, e.g. <code>[0-9A-F]</code> to match any character in
+    <em>0123456789ABCDEF</em></li>
+  <li><code>[^x-z]</code> – negated range of characters. Matches any other character than the
+    ones specified in the range
+  </li>
+  <li><code>(xyz)</code> – defines and matches a pattern group</li>
+  <li><code>(x|y)</code> – matches either <em>x</em> or <em>y</em></li>
+  <li><code>^</code> – matches the beginning of the string (e.g. <code>^xyz</code>)</li>
+  <li><code>$</code> – matches the end of the string (e.g. <code>xyz$</code>)</li>
+</ul>
+<p>Note that the characters <code>.</code>, <code>*</code>, <code>?</code>, <code>[</code>, <code>]</code>,
+  <code>(</code>, <code>)</code>, <code>{</code>, <code>}</code>, <code>^</code>,
+  and <code>$</code> have a special meaning in regular expressions and may need to be
+  escaped using a backslash, which requires escaping itself (<code>\\</code>). A literal
+  backslash needs to be escaped using another escaped backslash, i.e. <code>\\\\</code>.
+  In arangosh, the amount of backslashes needs to be doubled.</p>
+<p>Characters and sequences may optionally be repeated using the following
+  quantifiers:</p>
+<ul>
+  <li><code>x*</code> – matches zero or more occurrences of <em>x</em></li>
+  <li><code>x+</code> – matches one or more occurrences of <em>x</em></li>
+  <li><code>x?</code> – matches one or zero occurrences of <em>x</em></li>
+  <li><code>x{y}</code> – matches exactly <em>y</em> occurrences of <em>x</em></li>
+  <li><code>x{y,z}</code> – matches between <em>y</em> and <em>z</em> occurrences of <em>x</em></li>
+  <li><code>x{y,}</code> – matches at least <em>y</em> occurences of <em>x</em></li>
+</ul>
+<p>Note that <code>xyz+</code> matches <em>xyzzz</em>, but if you want to match <em>xyzxyz</em> instead,
+  you need to define a pattern group by wrapping the subexpression in parentheses
+  and place the quantifier right behind it: <code>(xyz)+</code>.</p>
+<p>If the regular expression in <em>regex</em> is invalid, a warning will be raised
+  and the function will return <em>null</em>.</p>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">REGEX_MATCHES</span>(<span class="pl-s"><span class="pl-pds">"</span>My-us3r_n4m3<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>^[a-z0-9_-]{3,16}$<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">//</span> ["My-us3r_n4m3"]</span>
+<span class="pl-en">REGEX_MATCHES</span>(<span class="pl-s"><span class="pl-pds">"</span>#4d82h4<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>^#?([a-f0-9]{6}|[a-f0-9]{3})$<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">//</span> null</span>
+<span class="pl-en">REGEX_MATCHES</span>(<span class="pl-s"><span class="pl-pds">"</span>john@doe.com<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>^([a-z0-9_<span class="pl-cce">\.</span>-]+)@([<span class="pl-cce">\d</span>a-z-]+)<span class="pl-cce">\.</span>([a-z<span class="pl-cce">\.</span>]{2,6})$<span class="pl-pds">"</span></span>, <span class="pl-c1">false</span>) <span class="pl-c"><span class="pl-c">//</span> ["john@doe.com", "john", "doe", "com"]</span></pre>
+</div>
+<h2><a id="user-content-regex_split" class="anchor" aria-hidden="true" href="#regex_split">
+  <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"></svg>
+</a></h2>
+</body>
+</html>

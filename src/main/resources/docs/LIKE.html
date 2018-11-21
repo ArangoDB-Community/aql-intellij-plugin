@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LIKE</title>
+</head>
+<body>
+<h2>LIKE()</h2>
+<p><code>LIKE(text, search, caseInsensitive) → bool</code></p>
+<p>Check whether the pattern <em>search</em> is contained in the string <em>text</em>,
+  using wildcard matching.</p>
+<ul>
+  <li><strong>text</strong> (string): the string to search in</li>
+  <li><strong>search</strong> (string): a search pattern that can contain the wildcard characters
+    <code>%</code> (meaning any sequence of characters, including none) and <code>_</code> (any single
+    character). Literal <em>%</em> and <em>:</em> must be escaped with two backslashes (four
+    in arangosh).
+    <em>search</em> cannot be a variable or a document attribute. The actual value must
+    be present at query parse time already.
+  </li>
+  <li><strong>caseInsensitive</strong> (bool, <em>optional</em>): if set to <em>true</em>, the matching will be
+    case-insensitive. The default is <em>false</em>.
+  </li>
+  <li>returns <strong>bool</strong> (bool): <em>true</em> if the pattern is contained in <em>text</em>,
+    and <em>false</em> otherwise
+  </li>
+</ul>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>cart<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ca_t<span class="pl-pds">"</span></span>)   <span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>carrot<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ca_t<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>carrot<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ca%t<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> true</span>
+
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>foo bar baz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>)   <span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>foo bar baz<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>%bar%<span class="pl-pds">"</span></span>) <span class="pl-c"><span class="pl-c">//</span> true</span>
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>bar<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>%bar%<span class="pl-pds">"</span></span>)         <span class="pl-c"><span class="pl-c">//</span> true</span>
+
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>FoO bAr BaZ<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>fOo%bAz<span class="pl-pds">"</span></span>)       <span class="pl-c"><span class="pl-c">//</span> false</span>
+<span class="pl-en">LIKE</span>(<span class="pl-s"><span class="pl-pds">"</span>FoO bAr BaZ<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>fOo%bAz<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>) <span class="pl-c"><span class="pl-c">//</span> true</span></pre>
+</div>
+</body>
+</html>
