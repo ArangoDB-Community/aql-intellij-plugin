@@ -8,5 +8,6 @@ public class AqlCodeCompletionContributor extends CompletionContributor {
     public AqlCodeCompletionContributor() {
         extend(CompletionType.BASIC, AqlKeywordCompletionProvider.PATTERN, new AqlKeywordCompletionProvider());
         extend(CompletionType.BASIC, AqlKeywordCompletionProvider.PATTERN, new AqlDatabaseCompletionProvider());
+        extend(CompletionType.BASIC, AqlKeywordCompletionProvider.PATTERN, new AqlContextCompletionProvider());
     }
 }

@@ -42,7 +42,7 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
             if (elementType == null) {
                 return ResolveResult.EMPTY_ARRAY;
             }
-            return asArray(findAll(namedElement.getProject(), elementType));
+            return asArray(findAll(namedElement.getProject()));
         }
         return ResolveResult.EMPTY_ARRAY;
 
@@ -62,35 +62,35 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
         return myElement;
     }
 
-    public <T extends AqlNamedElement> Set<T> findAll(final Project project, final IElementType elementType) {
-        final Set<T> result = findInjected(project, elementType);
+    public <T extends AqlNamedElement> Set<T> findAll(final Project project) {
+        final Set<T> result = findInjected(project);
         final GlobalSearchScope scope = GlobalSearchScope.allScope(project);
         final Collection<VirtualFile> virtualFiles = FileTypeIndex.getFiles(AqlFileType.INSTANCE, scope);
         for (VirtualFile virtualFile : virtualFiles) {
             final AqlFile file = (AqlFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (file != null) {
-                final Set<T> found = processFile(file, elementType);
+                final Set<T> found = processFile(file);
                 result.addAll(found);
             }
         }
         return result;
     }
 
-    private <T extends AqlNamedElement> Set<T> findInjected(final Project project, final IElementType elementType) {
+    private <T extends AqlNamedElement> Set<T> findInjected(final Project project) {
         // TODO find injected references
         return new HashSet<>();
     }
 
 
     @SuppressWarnings("unchecked")
-    public <T extends PsiElement> Set<T> processFile(final AqlFile file, final IElementType type) {
+    public <T extends PsiElement> Set<T> processFile(final AqlFile file) {
         final ASTNode rootNode = file.getNode();
         final Set<ASTNode> nodes = new HashSet<>();
-        populateASTNodes(nodes, rootNode, type);
+        populateASTNodes(nodes, rootNode);
         return nodes.stream().map(node -> (T) node.getPsi()).collect(Collectors.toSet());
     }
 
-    public void populateASTNodes(final Set<ASTNode> nodes, ASTNode rootNode, IElementType type) {
+    public void populateASTNodes(final Set<ASTNode> nodes, ASTNode rootNode) {
         final PsiElement psi = rootNode.getPsi();
         if (psi instanceof AqlNamedElement) {
             final AqlNamedElement node = (AqlNamedElement) psi;
@@ -104,7 +104,7 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
         }
         ASTNode childNode = rootNode.getFirstChildNode();
         while (childNode != null) {
-            populateASTNodes(nodes, childNode, type);
+            populateASTNodes(nodes, childNode);
             childNode = childNode.getTreeNext();
         }
     }
