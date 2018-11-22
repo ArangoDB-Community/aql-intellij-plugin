@@ -1061,7 +1061,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // T_AT + PropertyName
+    // T_AT  PropertyName
     public static boolean ParameterVariable(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ParameterVariable")) {
             return false;
@@ -1071,30 +1071,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         boolean r;
         Marker m = enter_section_(b);
-        r = ParameterVariable_0(b, l + 1);
+        r = consumeToken(b, T_AT);
         r = r && PropertyName(b, l + 1);
         exit_section_(b, m, PARAMETER_VARIABLE, r);
-        return r;
-    }
-
-    // T_AT +
-    private static boolean ParameterVariable_0(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "ParameterVariable_0")) {
-            return false;
-        }
-        boolean r;
-        Marker m = enter_section_(b);
-        r = consumeToken(b, T_AT);
-        while (r) {
-            int c = current_position_(b);
-            if (!consumeToken(b, T_AT)) {
-                break;
-            }
-            if (!empty_element_parsed_guard_(b, "ParameterVariable_0", c)) {
-                break;
-            }
-        }
-        exit_section_(b, m, null, r);
         return r;
     }
 

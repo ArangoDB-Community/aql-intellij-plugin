@@ -8,8 +8,11 @@ import com.machak.aql.grammar.psi.AqlMixinType;
 import com.machak.aql.grammar.psi.AqlNamedElement;
 import com.machak.aql.lang.psi.*;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AqlPsiReferenceContributor extends PsiReferenceContributor {
+    private static final Logger log = LoggerFactory.getLogger(AqlPsiReferenceContributor.class);
     public static final PsiReference[] EMPTY_REF_ARRAY = new PsiReference[0];
 
     @Override
@@ -37,8 +40,6 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
     private PsiReference[] creteReference(final AqlNamedElement identifier, final TextRange rangeInElement) {
         if (identifier.getAqlType() == AqlMixinType.FUNCTION) {
             return new PsiReference[]{new AqlFunctionReference(identifier, rangeInElement)};
-        } else if (identifier.getAqlType() == AqlMixinType.KEYWORD) {
-            return new PsiReference[]{new AqlKeywordReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.VAR_PARAMETER) {
             return new PsiReference[]{new AqlPropertyParameterReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.VAR_PLACEHOLDER) {
@@ -47,7 +48,10 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
             return new PsiReference[]{new AqlPropertyLookupReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.ID) {
             return new PsiReference[]{new AqlPropertyIdReference(identifier, rangeInElement)};
+        } else if (identifier.getAqlType() == AqlMixinType.KEYWORD) {
+            return new PsiReference[]{new AqlKeywordReference(identifier, rangeInElement)};
         }
+        log.info("identifier.getAqlType() {}", identifier.getAqlType());
         return EMPTY_REF_ARRAY;
     }
 

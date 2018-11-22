@@ -34,12 +34,12 @@ public class AqlPropertyNameImpl extends AqlIdMixin implements AqlPropertyName {
     return findNotNullChildByType(ID);
   }
 
-    public String getName() {
-        return AqlPsiUtil.getName(this);
-    }
+  public String getName() {
+    return AqlPsiUtil.getName(this);
+  }
 
-    public AqlNamedElement setName(String newName) {
-        return AqlPsiUtil.setName(this, newName);
-    }
+  public AqlNamedElement setName(String newName) {
+    return AqlPsiUtil.setName(this, newName);
+  }
 
 }

@@ -662,7 +662,7 @@ ObjectExpression ::=  PropertyName  (DOT PropertyLookup)* {
 }
 
 
-ParameterVariable ::= T_AT + PropertyName {
+ParameterVariable ::= T_AT  PropertyName {
    methods=[ getName setName]
    mixin="com.machak.aql.grammar.psi.impl.AqParameterVariableMixin"
 }

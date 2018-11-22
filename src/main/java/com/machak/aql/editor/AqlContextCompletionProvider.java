@@ -13,6 +13,7 @@ import com.machak.aql.grammar.generated.psi.AqlPropertyName;
 import com.machak.aql.util.Icons;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,11 +31,22 @@ public class AqlContextCompletionProvider extends CompletionProvider<CompletionP
         final PsiElement[] psiElements = PsiTreeUtil.collectElements(containingFile,
                 psiElement -> psiElement instanceof AqlPropertyName);
         final Set<PsiElement> set = new HashSet<>(Arrays.asList(psiElements));
-        completionResultSet.addAllElements(set.stream().map(e -> LookupElementBuilder
-                .create(((AqlPropertyName) e).getName())
-                .withCaseSensitivity(true)
-                .withIcon(Icons.ICON_ARANGO_SMALL)
-                .bold()).collect(Collectors.toSet()));
+        completionResultSet.addAllElements(set.stream()
+                .map(e -> {
+                            final AqlPropertyName property = (AqlPropertyName) e;
+                            final Icon icon = fetchIcon(property);
+                            return LookupElementBuilder
+                                    .create(property.getName())
+                                    .withCaseSensitivity(true)
+                                    .withIcon(icon)
+                                    .bold();
+                        }
+                ).collect(Collectors.toSet()));
 
+    }
+
+    private Icon fetchIcon(final AqlPropertyName property) {
+        // TODO change icons for different property types...
+        return Icons.ICON_ARANGO_SMALL;
     }
 }

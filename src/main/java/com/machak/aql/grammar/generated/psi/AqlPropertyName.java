@@ -10,8 +10,8 @@ public interface AqlPropertyName extends PsiElement {
   @NotNull
   PsiElement getId();
 
-    String getName();
+  String getName();
 
-    AqlNamedElement setName(String newName);
+  AqlNamedElement setName(String newName);
 
 }
