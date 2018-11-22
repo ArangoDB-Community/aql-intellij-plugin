@@ -275,17 +275,17 @@ T_RANGE = ".."
 T_COMMA = ","
 T_OPEN = "("
 T_CLOSE = ")"
-//T_OBJECT_OPEN = "{"
-//T_OBJECT_CLOSE = "}"
-//T_ARRAY_OPEN = "["
-//T_ARRAY_CLOSE = "]"
+T_OBJECT_OPEN = "{"
+T_OBJECT_CLOSE = "}"
+T_ARRAY_OPEN = "["
+T_ARRAY_CLOSE = "]"
 
 T_NONE = "none"
     // my
     SINGLE_QUOTE="'"
     DOUBLE_QUOTE="\""
     DOLLAR="$"
-    OBJECT_START="${"
+    T_OBJECT_START="${"
     NUMBER_INTEGER="regexp:\d+"
     SPACE='regexp:\s+'
     B_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
@@ -564,10 +564,12 @@ OperatorStatements ::= T_NULL
                       | T_OPEN
                        | T_CLOSE
                         | T_OBJECT_OPEN
-                       | T_OBJECT_CLOSE
+
                        | T_ARRAY_OPEN
                        | T_ARRAY_CLOSE
-                       //| DOT
+                       | T_OBJECT_START
+                       | T_OBJECT_CLOSE
+                       | DOT
 
 Statement ::= NamedKeywordStatements
               | OperatorStatements
@@ -621,7 +623,7 @@ JsonType::=  "{" (ExpressionType ":" ComplexJsonProperty) ? ("," ExpressionType 
 
 
 
-ArrayType ::= '[' ExpressionArray* ']'
+ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
 
 private ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
@@ -638,27 +640,34 @@ BooleanType ::= T_TRUE | T_FALSE
 //LimitOffset ::= IntegerType "," IntegerType
 
 
-VariablePlaceHolder ::=  ("${" ObjectExpression "}"){
+VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
                    methods=[ getName setName]
-                   mixin="com.machak.aql.grammar.psi.impl.AqlVariablePlaceholderMixin"
+                   mixin="com.machak.aql.grammar.psi.impl.AqPlaceholderVariableMixin"
 }
 
 
 
-/*PropertyLookup ::=  "." ( PropertyName | SystemProperty) {
+
+
+PropertyLookup ::=   PropertyName  | SystemProperty
+{
                    methods=[ getName setName]
                    mixin="com.machak.aql.grammar.psi.impl.AqlPropertyLookupMixin"
-}*/
+}
 
-private all_props ::=   PropertyName  | SystemProperty
-ObjectExpression ::=  PropertyName  ('.' all_props)*
 
-ParameterVariable ::= '@' + PropertyName
-/*{
-    pin = 2;
-}*/
+ObjectExpression ::=  PropertyName  (DOT PropertyLookup)* {
+                   methods=[ getName setName]
+                   mixin="com.machak.aql.grammar.psi.impl.AqlObjectExpressionMixin"
+}
 
-Sequence ::= IntegerType ".." IntegerType
+
+ParameterVariable ::= T_AT + PropertyName {
+   methods=[ getName setName]
+   mixin="com.machak.aql.grammar.psi.impl.AqParameterVariableMixin"
+}
+
+Sequence ::= IntegerType T_RANGE IntegerType
 
 SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
 

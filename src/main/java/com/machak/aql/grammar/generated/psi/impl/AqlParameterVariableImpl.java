@@ -1,15 +1,17 @@
 // This is a generated file. Not intended for manual editing.
 package com.machak.aql.grammar.generated.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
+import com.machak.aql.grammar.generated.AqlPsiUtil;
 import com.machak.aql.grammar.generated.psi.AqlParameterVariable;
 import com.machak.aql.grammar.generated.psi.AqlPropertyName;
 import com.machak.aql.grammar.generated.psi.AqlVisitor;
+import com.machak.aql.grammar.psi.AqlNamedElement;
+import com.machak.aql.grammar.psi.impl.AqParameterVariableMixin;
 import org.jetbrains.annotations.NotNull;
 
-public class AqlParameterVariableImpl extends ASTWrapperPsiElement implements AqlParameterVariable {
+public class AqlParameterVariableImpl extends AqParameterVariableMixin implements AqlParameterVariable {
 
     public AqlParameterVariableImpl(@NotNull ASTNode node) {
         super(node);
@@ -31,6 +33,14 @@ public class AqlParameterVariableImpl extends ASTWrapperPsiElement implements Aq
     @NotNull
     public AqlPropertyName getPropertyName() {
         return findNotNullChildByClass(AqlPropertyName.class);
+    }
+
+    public String getName() {
+        return AqlPsiUtil.getName(this);
+    }
+
+    public AqlNamedElement setName(String newName) {
+        return AqlPsiUtil.setName(this, newName);
     }
 
 }

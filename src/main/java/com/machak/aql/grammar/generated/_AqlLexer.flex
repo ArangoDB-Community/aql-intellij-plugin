@@ -291,16 +291,16 @@ ID=[:letter:][a-zA-Z_0-9]*
   ","                           { return T_COMMA; }
   "("                           { return T_OPEN; }
   ")"                           { return T_CLOSE; }
+  "{"                           { return T_OBJECT_OPEN; }
+  "}"                           { return T_OBJECT_CLOSE; }
+  "["                           { return T_ARRAY_OPEN; }
+  "]"                           { return T_ARRAY_CLOSE; }
   "none"                        { return T_NONE; }
   "'"                           { return SINGLE_QUOTE; }
   "\""                          { return DOUBLE_QUOTE; }
   "$"                           { return DOLLAR; }
-  "${"                          { return OBJECT_START; }
+  "${"                          { return T_OBJECT_START; }
   "T_NIN"                       { return T_NIN; }
-  "T_OBJECT_OPEN"               { return T_OBJECT_OPEN; }
-  "T_OBJECT_CLOSE"              { return T_OBJECT_CLOSE; }
-  "T_ARRAY_OPEN"                { return T_ARRAY_OPEN; }
-  "T_ARRAY_CLOSE"               { return T_ARRAY_CLOSE; }
 
   {T_SEARCH}                    { return T_SEARCH; }
   {T_SHORTEST_PATH}             { return T_SHORTEST_PATH; }

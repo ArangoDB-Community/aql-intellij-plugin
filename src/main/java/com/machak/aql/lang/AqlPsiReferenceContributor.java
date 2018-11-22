@@ -6,8 +6,7 @@ import com.intellij.psi.*;
 import com.intellij.util.ProcessingContext;
 import com.machak.aql.grammar.psi.AqlMixinType;
 import com.machak.aql.grammar.psi.AqlNamedElement;
-import com.machak.aql.lang.psi.AqlFunctionReference;
-import com.machak.aql.lang.psi.AqlKeywordReference;
+import com.machak.aql.lang.psi.*;
 import org.jetbrains.annotations.NotNull;
 
 public class AqlPsiReferenceContributor extends PsiReferenceContributor {
@@ -40,6 +39,14 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
             return new PsiReference[]{new AqlFunctionReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.KEYWORD) {
             return new PsiReference[]{new AqlKeywordReference(identifier, rangeInElement)};
+        } else if (identifier.getAqlType() == AqlMixinType.VAR_PARAMETER) {
+            return new PsiReference[]{new AqlPropertyParameterReference(identifier, rangeInElement)};
+        } else if (identifier.getAqlType() == AqlMixinType.VAR_PLACEHOLDER) {
+            return new PsiReference[]{new AqlPropertyParameterReference(identifier, rangeInElement)};
+        } else if (identifier.getAqlType() == AqlMixinType.PROPERTY_LOOKUP) {
+            return new PsiReference[]{new AqlPropertyLookupReference(identifier, rangeInElement)};
+        } else if (identifier.getAqlType() == AqlMixinType.ID) {
+            return new PsiReference[]{new AqlPropertyIdReference(identifier, rangeInElement)};
         }
         return EMPTY_REF_ARRAY;
     }

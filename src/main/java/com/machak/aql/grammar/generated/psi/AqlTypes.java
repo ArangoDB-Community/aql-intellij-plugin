@@ -27,6 +27,7 @@ public interface AqlTypes {
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
     IElementType PARAMETER_VARIABLE = new AqlElementType("PARAMETER_VARIABLE");
+    IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
@@ -235,7 +236,6 @@ public interface AqlTypes {
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
-  IElementType OBJECT_START = new AqlTokenType("${");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
   IElementType TEXT_SINGLE = new AqlTokenType("TEXT_SINGLE");
@@ -243,8 +243,8 @@ public interface AqlTypes {
   IElementType T_ALL = new AqlTokenType("T_ALL");
   IElementType T_AND = new AqlTokenType("T_AND");
   IElementType T_ANY = new AqlTokenType("T_ANY");
-    IElementType T_ARRAY_CLOSE = new AqlTokenType("T_ARRAY_CLOSE");
-    IElementType T_ARRAY_OPEN = new AqlTokenType("T_ARRAY_OPEN");
+    IElementType T_ARRAY_CLOSE = new AqlTokenType("]");
+    IElementType T_ARRAY_OPEN = new AqlTokenType("[");
   IElementType T_ASC = new AqlTokenType("T_ASC");
   IElementType T_AT = new AqlTokenType("@");
   IElementType T_CLOSE = new AqlTokenType(")");
@@ -281,8 +281,9 @@ public interface AqlTypes {
   IElementType T_NONE = new AqlTokenType("none");
   IElementType T_NOT = new AqlTokenType("not");
   IElementType T_NULL = new AqlTokenType("T_NULL");
-    IElementType T_OBJECT_CLOSE = new AqlTokenType("T_OBJECT_CLOSE");
-    IElementType T_OBJECT_OPEN = new AqlTokenType("T_OBJECT_OPEN");
+    IElementType T_OBJECT_CLOSE = new AqlTokenType("}");
+    IElementType T_OBJECT_OPEN = new AqlTokenType("{");
+    IElementType T_OBJECT_START = new AqlTokenType("${");
   IElementType T_OPEN = new AqlTokenType("(");
   IElementType T_OR = new AqlTokenType("||");
   IElementType T_OUTBOUND = new AqlTokenType("T_OUTBOUND");
@@ -343,6 +344,8 @@ public interface AqlTypes {
             return new AqlOperatorStatementsImpl(node);
         } else if (type == PARAMETER_VARIABLE) {
             return new AqlParameterVariableImpl(node);
+        } else if (type == PROPERTY_LOOKUP) {
+            return new AqlPropertyLookupImpl(node);
         } else if (type == PROPERTY_NAME) {
             return new AqlPropertyNameImpl(node);
         } else if (type == QUERY_ITEM) {

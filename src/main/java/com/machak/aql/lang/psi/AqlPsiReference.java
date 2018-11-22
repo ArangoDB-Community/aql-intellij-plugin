@@ -32,6 +32,7 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
         super(element, rangeInElement);
     }
 
+
     @NotNull
     @Override
     public ResolveResult[] multiResolve(final boolean incompleteCode) {
@@ -47,7 +48,6 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
         return ResolveResult.EMPTY_ARRAY;
 
     }
-
 
     @Nullable
     @Override

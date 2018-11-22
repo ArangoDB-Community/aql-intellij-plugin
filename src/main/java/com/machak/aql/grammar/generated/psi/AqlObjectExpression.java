@@ -2,6 +2,7 @@
 package com.machak.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
+import com.machak.aql.grammar.psi.AqlNamedElement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -9,9 +10,13 @@ import java.util.List;
 public interface AqlObjectExpression extends PsiElement {
 
   @NotNull
-  List<AqlPropertyName> getPropertyNameList();
+  List<AqlPropertyLookup> getPropertyLookupList();
 
     @NotNull
-    List<AqlSystemProperty> getSystemPropertyList();
+    AqlPropertyName getPropertyName();
+
+    String getName();
+
+    AqlNamedElement setName(String newName);
 
 }

@@ -4,21 +4,23 @@ package com.machak.aql.grammar.generated.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.machak.aql.grammar.generated.AqlPsiUtil;
-import com.machak.aql.grammar.generated.psi.AqlObjectExpression;
-import com.machak.aql.grammar.generated.psi.AqlVariablePlaceHolder;
+import com.machak.aql.grammar.generated.psi.AqlPropertyLookup;
+import com.machak.aql.grammar.generated.psi.AqlPropertyName;
+import com.machak.aql.grammar.generated.psi.AqlSystemProperty;
 import com.machak.aql.grammar.generated.psi.AqlVisitor;
 import com.machak.aql.grammar.psi.AqlNamedElement;
-import com.machak.aql.grammar.psi.impl.AqPlaceholderVariableMixin;
+import com.machak.aql.grammar.psi.impl.AqlPropertyLookupMixin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class AqlVariablePlaceHolderImpl extends AqPlaceholderVariableMixin implements AqlVariablePlaceHolder {
+public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements AqlPropertyLookup {
 
-    public AqlVariablePlaceHolderImpl(@NotNull ASTNode node) {
+    public AqlPropertyLookupImpl(@NotNull ASTNode node) {
         super(node);
     }
 
     public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitVariablePlaceHolder(this);
+        visitor.visitPropertyLookup(this);
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
@@ -30,9 +32,15 @@ public class AqlVariablePlaceHolderImpl extends AqPlaceholderVariableMixin imple
     }
 
     @Override
-    @NotNull
-    public AqlObjectExpression getObjectExpression() {
-        return findNotNullChildByClass(AqlObjectExpression.class);
+    @Nullable
+    public AqlPropertyName getPropertyName() {
+        return findChildByClass(AqlPropertyName.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlSystemProperty getSystemProperty() {
+        return findChildByClass(AqlSystemProperty.class);
     }
 
     public String getName() {

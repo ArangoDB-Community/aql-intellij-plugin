@@ -57,6 +57,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = OperatorStatements(b, 0);
       } else if (t == PARAMETER_VARIABLE) {
           r = ParameterVariable(b, 0);
+      } else if (t == PROPERTY_LOOKUP) {
+          r = PropertyLookup(b, 0);
       } else if (t == PROPERTY_NAME) {
           r = PropertyName(b, 0);
       } else if (t == QUERY_ITEM) {
@@ -82,17 +84,20 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // '[' ExpressionArray* ']'
+    // T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
     public static boolean ArrayType(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ArrayType")) {
             return false;
         }
+        if (!nextTokenIs(b, T_ARRAY_OPEN)) {
+            return false;
+        }
         boolean r;
-        Marker m = enter_section_(b, l, _NONE_, ARRAY_TYPE, "<array type>");
-        r = consumeToken(b, "[");
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_ARRAY_OPEN);
         r = r && ArrayType_1(b, l + 1);
-        r = r && consumeToken(b, "]");
-        exit_section_(b, l, m, r, false, null);
+        r = r && consumeToken(b, T_ARRAY_CLOSE);
+        exit_section_(b, m, ARRAY_TYPE, r);
         return r;
     }
 
@@ -319,14 +324,17 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!recursion_guard_(b, l, "JsonType")) {
             return false;
         }
+        if (!nextTokenIs(b, T_OBJECT_OPEN)) {
+            return false;
+        }
         boolean r;
-        Marker m = enter_section_(b, l, _NONE_, JSON_TYPE, "<json type>");
-        r = consumeToken(b, "{");
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_OBJECT_OPEN);
         r = r && JsonType_1(b, l + 1);
         r = r && JsonType_2(b, l + 1);
-        r = r && consumeToken(b, "}");
+        r = r && consumeToken(b, T_OBJECT_CLOSE);
         r = r && JsonType_4(b, l + 1);
-        exit_section_(b, l, m, r, false, null);
+        exit_section_(b, m, JSON_TYPE, r);
         return r;
     }
 
@@ -918,7 +926,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
   /* ********************************************************** */
-  // PropertyName  ('.' all_props)*
+  // PropertyName  (DOT PropertyLookup)*
   public static boolean ObjectExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression")) return false;
       if (!nextTokenIs(b, ID)) {
@@ -932,7 +940,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-    // ('.' all_props)*
+    // (DOT PropertyLookup)*
     private static boolean ObjectExpression_1(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ObjectExpression_1")) {
             return false;
@@ -949,7 +957,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return true;
     }
 
-    // '.' all_props
+    // DOT PropertyLookup
     private static boolean ObjectExpression_1_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ObjectExpression_1_0")) {
             return false;
@@ -957,7 +965,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
         r = consumeToken(b, DOT);
-        r = r && all_props(b, l + 1);
+        r = r && PropertyLookup(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -996,9 +1004,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                       | T_OPEN
   //                        | T_CLOSE
   //                         | T_OBJECT_OPEN
-  //                        | T_OBJECT_CLOSE
   //                        | T_ARRAY_OPEN
   //                        | T_ARRAY_CLOSE
+  //                        | T_OBJECT_START
+  //                        | T_OBJECT_CLOSE
+  //                        | DOT
   public static boolean OperatorStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperatorStatements")) return false;
     boolean r;
@@ -1035,15 +1045,23 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_OPEN);
     if (!r) r = consumeToken(b, T_CLOSE);
     if (!r) r = consumeToken(b, T_OBJECT_OPEN);
-    if (!r) r = consumeToken(b, T_OBJECT_CLOSE);
     if (!r) r = consumeToken(b, T_ARRAY_OPEN);
     if (!r) r = consumeToken(b, T_ARRAY_CLOSE);
+      if (!r) {
+          r = consumeToken(b, T_OBJECT_START);
+      }
+      if (!r) {
+          r = consumeToken(b, T_OBJECT_CLOSE);
+      }
+      if (!r) {
+          r = consumeToken(b, DOT);
+      }
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
     /* ********************************************************** */
-    // '@' + PropertyName
+    // T_AT + PropertyName
     public static boolean ParameterVariable(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ParameterVariable")) {
             return false;
@@ -1059,7 +1077,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // '@' +
+    // T_AT +
     private static boolean ParameterVariable_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ParameterVariable_0")) {
             return false;
@@ -1077,6 +1095,22 @@ public class AqlParser implements PsiParser, LightPsiParser {
             }
         }
         exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // PropertyName  | SystemProperty
+    public static boolean PropertyLookup(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "PropertyLookup")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, PROPERTY_LOOKUP, "<property lookup>");
+        r = PropertyName(b, l + 1);
+        if (!r) {
+            r = SystemProperty(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
         return r;
     }
 
@@ -1116,7 +1150,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IntegerType ".." IntegerType
+  // IntegerType T_RANGE IntegerType
   public static boolean Sequence(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Sequence")) return false;
     if (!nextTokenIs(b, NUMBER_INTEGER)) return false;
@@ -1212,34 +1246,20 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // "${" ObjectExpression "}"
+    // T_OBJECT_START ObjectExpression T_OBJECT_CLOSE
     public static boolean VariablePlaceHolder(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "VariablePlaceHolder")) {
             return false;
         }
-        if (!nextTokenIs(b, OBJECT_START)) {
+        if (!nextTokenIs(b, T_OBJECT_START)) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b);
-        r = consumeToken(b, OBJECT_START);
+        r = consumeToken(b, T_OBJECT_START);
         r = r && ObjectExpression(b, l + 1);
-        r = r && consumeToken(b, "}");
+        r = r && consumeToken(b, T_OBJECT_CLOSE);
         exit_section_(b, m, VARIABLE_PLACE_HOLDER, r);
-        return r;
-    }
-
-    /* ********************************************************** */
-    // PropertyName  | SystemProperty
-    static boolean all_props(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "all_props")) {
-            return false;
-        }
-        boolean r;
-        r = PropertyName(b, l + 1);
-        if (!r) {
-            r = SystemProperty(b, l + 1);
-        }
         return r;
     }
 
