@@ -13,12 +13,20 @@ import org.jetbrains.annotations.NotNull;
 public class AqlSyntaxHighlighterAnnotator implements Annotator {
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element instanceof AqlPropertyKeyName) {
-            annotate(element, holder, AqlSyntaxColors.VARIABLE);
+        if (element instanceof AqlPropertyLookup) {
+            annotate(element, holder, AqlSyntaxColors.PROPERTY_LOOKUP);
+        } else if (element instanceof AqlKeywordFunctions) {
+            annotate(element, holder, AqlSyntaxColors.FUNCTION);
+        } else if (element instanceof AqlIntegerType) {
+            annotate(element, holder, AqlSyntaxColors.NUMBER);
+        } else if (element instanceof AqlParameterVariable) {
+            annotate(element, holder, AqlSyntaxColors.PARAMETER_VARIABLE);
         } else if (element instanceof AqlKeywordStatements) {
             annotate(element, holder, AqlSyntaxColors.KEYWORD);
+        } else if (element instanceof AqlVariablePlaceHolder) {
+            annotate(element, holder, AqlSyntaxColors.VARIABLE_PLACE_HOLDER);
         } else if (element instanceof AqlPropertyName) {
-            annotate(element, holder, AqlSyntaxColors.VARIABLE);
+            annotate(element, holder, AqlSyntaxColors.PROPERTY_NAME);
         } else if (element instanceof AqlLineComment) {
             annotate(element, holder, AqlSyntaxColors.LINE_COMMENT);
         } else if (element instanceof AqlBlockComment) {

@@ -9,7 +9,11 @@ public final class AqlSyntaxColors {
     public static final TextAttributesKey LINE_COMMENT = createTextAttributesKey("AQL_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey BLOCK_COMMENT = createTextAttributesKey("AQL_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
     public static final TextAttributesKey KEYWORD = createTextAttributesKey("AQL_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
-    public static final TextAttributesKey VARIABLE = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
+    public static final TextAttributesKey PROPERTY_LOOKUP = createTextAttributesKey("AQL_KEYWORD", DefaultLanguageHighlighterColors.METADATA);
+    public static final TextAttributesKey PROPERTY_NAME = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
+    public static final TextAttributesKey SYSTEM_PROPERTY = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.GLOBAL_VARIABLE);
+    public static final TextAttributesKey PARAMETER_VARIABLE = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+    public static final TextAttributesKey VARIABLE_PLACE_HOLDER = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.PARAMETER);
     public static final TextAttributesKey FUNCTION = createTextAttributesKey("AQL_FUNCTION", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
     public static final TextAttributesKey STRING = createTextAttributesKey("AQL_STRING", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey NUMBER = createTextAttributesKey("AQL_NUMBER", DefaultLanguageHighlighterColors.NUMBER);
