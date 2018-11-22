@@ -26,6 +26,7 @@ public interface AqlTypes {
     IElementType NAMED_KEYWORD_STATEMENTS = new AqlElementType("NAMED_KEYWORD_STATEMENTS");
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
+    IElementType PARAMETER_VARIABLE = new AqlElementType("PARAMETER_VARIABLE");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
@@ -312,7 +313,7 @@ public interface AqlTypes {
             return new AqlArrayTypeImpl(node);
         } else if (type == BLOCK_COMMENT) {
         return new AqlBlockCommentImpl(node);
-      } else if (type == BOOLEAN_TYPE) {
+        } else if (type == BOOLEAN_TYPE) {
             return new AqlBooleanTypeImpl(node);
         } else if (type == COMMENT) {
             return new AqlCommentImpl(node);
@@ -340,6 +341,8 @@ public interface AqlTypes {
             return new AqlObjectExpressionImpl(node);
         } else if (type == OPERATOR_STATEMENTS) {
             return new AqlOperatorStatementsImpl(node);
+        } else if (type == PARAMETER_VARIABLE) {
+            return new AqlParameterVariableImpl(node);
         } else if (type == PROPERTY_NAME) {
             return new AqlPropertyNameImpl(node);
         } else if (type == QUERY_ITEM) {

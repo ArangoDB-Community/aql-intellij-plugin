@@ -71,6 +71,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+    public void visitParameterVariable(@NotNull AqlParameterVariable o) {
+        visitPsiElement(o);
+    }
+
   public void visitPropertyName(@NotNull AqlPropertyName o) {
     visitPsiElement(o);
   }

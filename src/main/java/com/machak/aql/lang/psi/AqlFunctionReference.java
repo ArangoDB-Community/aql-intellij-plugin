@@ -3,7 +3,6 @@ package com.machak.aql.lang.psi;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
-import com.machak.aql.grammar.generated.psi.AqlTypes;
 import com.machak.aql.util.Icons;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +18,7 @@ public class AqlFunctionReference extends AqlPsiReference {
     @Override
     public Object[] getVariants() {
 
-        return findAll(myElement.getProject(), AqlTypes.NAMED_KEYWORD_FUNCTIONS).stream()
+        return findAll(myElement.getProject()).stream()
                 .map(name -> LookupElementBuilder
                         .create(name)
                         .withIcon(Icons.ICON_FUNCTION)

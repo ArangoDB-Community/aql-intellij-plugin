@@ -27,7 +27,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = ArrayType(b, 0);
       } else if (t == BLOCK_COMMENT) {
       r = BlockComment(b, 0);
-    } else if (t == BOOLEAN_TYPE) {
+      } else if (t == BOOLEAN_TYPE) {
           r = BooleanType(b, 0);
       } else if (t == COMMENT) {
           r = Comment(b, 0);
@@ -55,6 +55,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = ObjectExpression(b, 0);
       } else if (t == OPERATOR_STATEMENTS) {
           r = OperatorStatements(b, 0);
+      } else if (t == PARAMETER_VARIABLE) {
+          r = ParameterVariable(b, 0);
       } else if (t == PROPERTY_NAME) {
           r = PropertyName(b, 0);
       } else if (t == QUERY_ITEM) {
@@ -223,6 +225,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     //                 | BooleanType
     //                 | VariablePlaceHolder
     //                 | FunctionExpression
+    //                 | ParameterVariable
     //                 | SystemProperty
     //                 | PropertyName
     public static boolean ExpressionType(PsiBuilder b, int l) {
@@ -249,6 +252,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = FunctionExpression(b, l + 1);
+        }
+        if (!r) {
+            r = ParameterVariable(b, l + 1);
         }
         if (!r) {
             r = SystemProperty(b, l + 1);
@@ -1035,6 +1041,44 @@ public class AqlParser implements PsiParser, LightPsiParser {
     exit_section_(b, l, m, r, false, null);
     return r;
   }
+
+    /* ********************************************************** */
+    // '@' + PropertyName
+    public static boolean ParameterVariable(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ParameterVariable")) {
+            return false;
+        }
+        if (!nextTokenIs(b, T_AT)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = ParameterVariable_0(b, l + 1);
+        r = r && PropertyName(b, l + 1);
+        exit_section_(b, m, PARAMETER_VARIABLE, r);
+        return r;
+    }
+
+    // '@' +
+    private static boolean ParameterVariable_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ParameterVariable_0")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_AT);
+        while (r) {
+            int c = current_position_(b);
+            if (!consumeToken(b, T_AT)) {
+                break;
+            }
+            if (!empty_element_parsed_guard_(b, "ParameterVariable_0", c)) {
+                break;
+            }
+        }
+        exit_section_(b, m, null, r);
+        return r;
+    }
 
   /* ********************************************************** */
   // (ID)

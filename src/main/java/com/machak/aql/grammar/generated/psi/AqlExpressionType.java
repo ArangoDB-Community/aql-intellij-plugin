@@ -22,6 +22,9 @@ public interface AqlExpressionType extends PsiElement {
     AqlObjectExpression getObjectExpression();
 
     @Nullable
+    AqlParameterVariable getParameterVariable();
+
+    @Nullable
     AqlPropertyName getPropertyName();
 
     @Nullable

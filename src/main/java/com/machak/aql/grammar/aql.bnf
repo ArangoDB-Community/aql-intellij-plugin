@@ -606,6 +606,7 @@ ExpressionType ::= ObjectExpression
                 | BooleanType
                 | VariablePlaceHolder
                 | FunctionExpression
+                | ParameterVariable
                 | SystemProperty
                 | PropertyName
 
@@ -651,6 +652,8 @@ VariablePlaceHolder ::=  ("${" ObjectExpression "}"){
 
 private all_props ::=   PropertyName  | SystemProperty
 ObjectExpression ::=  PropertyName  ('.' all_props)*
+
+ParameterVariable ::= '@' + PropertyName
 /*{
     pin = 2;
 }*/

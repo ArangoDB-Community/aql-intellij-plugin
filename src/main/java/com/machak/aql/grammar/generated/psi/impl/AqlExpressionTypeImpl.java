@@ -58,6 +58,12 @@ public class AqlExpressionTypeImpl extends ASTWrapperPsiElement implements AqlEx
 
     @Override
     @Nullable
+    public AqlParameterVariable getParameterVariable() {
+        return findChildByClass(AqlParameterVariable.class);
+    }
+
+    @Override
+    @Nullable
     public AqlPropertyName getPropertyName() {
         return findChildByClass(AqlPropertyName.class);
     }
