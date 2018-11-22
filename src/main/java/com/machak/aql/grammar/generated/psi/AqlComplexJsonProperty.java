@@ -3,15 +3,16 @@ package com.machak.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public interface AqlObjectExpression extends PsiElement {
+public interface AqlComplexJsonProperty extends PsiElement {
 
-  @NotNull
-  List<AqlPropertyName> getPropertyNameList();
+    @Nullable
+    AqlArrayType getArrayType();
 
     @NotNull
-    List<AqlSystemProperty> getSystemPropertyList();
+    List<AqlExpressionType> getExpressionTypeList();
 
 }

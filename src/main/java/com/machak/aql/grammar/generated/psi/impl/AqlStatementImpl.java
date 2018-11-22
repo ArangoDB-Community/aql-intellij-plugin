@@ -25,56 +25,56 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
   @Override
   @Nullable
+  public AqlArrayType getArrayType() {
+      return findChildByClass(AqlArrayType.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlBooleanType getBooleanType() {
+      return findChildByClass(AqlBooleanType.class);
+  }
+
+  @Override
+  @Nullable
   public AqlComment getComment() {
-    return findChildByClass(AqlComment.class);
+      return findChildByClass(AqlComment.class);
   }
 
   @Override
   @Nullable
-  public AqlIntegerType getIntegerType() {
-    return findChildByClass(AqlIntegerType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlLimitOffset getLimitOffset() {
-    return findChildByClass(AqlLimitOffset.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlNamedKeywordFunctions getNamedKeywordFunctions() {
-    return findChildByClass(AqlNamedKeywordFunctions.class);
+  public AqlExpressionType getExpressionType() {
+      return findChildByClass(AqlExpressionType.class);
   }
 
     @Override
     @Nullable
-    public AqlNamedKeywordStatements getNamedKeywordStatements() {
-        return findChildByClass(AqlNamedKeywordStatements.class);
+    public AqlFunctionExpression getFunctionExpression() {
+        return findChildByClass(AqlFunctionExpression.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlIntegerType getIntegerType() {
+        return findChildByClass(AqlIntegerType.class);
     }
 
   @Override
   @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
+  public AqlJsonType getJsonType() {
+      return findChildByClass(AqlJsonType.class);
   }
 
   @Override
   @Nullable
-  public AqlObjectVariable getObjectVariable() {
-    return findChildByClass(AqlObjectVariable.class);
+  public AqlNamedKeywordStatements getNamedKeywordStatements() {
+      return findChildByClass(AqlNamedKeywordStatements.class);
   }
 
   @Override
   @Nullable
   public AqlOperatorStatements getOperatorStatements() {
     return findChildByClass(AqlOperatorStatements.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
   }
 
   @Override
@@ -88,5 +88,11 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   public AqlStringType getStringType() {
     return findChildByClass(AqlStringType.class);
   }
+
+    @Override
+    @Nullable
+    public AqlVariablePlaceHolder getVariablePlaceHolder() {
+        return findChildByClass(AqlVariablePlaceHolder.class);
+    }
 
 }

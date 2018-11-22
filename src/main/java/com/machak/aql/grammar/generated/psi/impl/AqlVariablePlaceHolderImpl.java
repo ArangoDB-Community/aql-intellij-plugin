@@ -4,21 +4,21 @@ package com.machak.aql.grammar.generated.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.machak.aql.grammar.generated.AqlPsiUtil;
-import com.machak.aql.grammar.generated.psi.AqlKeywordStatements;
-import com.machak.aql.grammar.generated.psi.AqlNamedKeywordStatements;
+import com.machak.aql.grammar.generated.psi.AqlObjectExpression;
+import com.machak.aql.grammar.generated.psi.AqlVariablePlaceHolder;
 import com.machak.aql.grammar.generated.psi.AqlVisitor;
 import com.machak.aql.grammar.psi.AqlNamedElement;
-import com.machak.aql.grammar.psi.impl.AqlKeywordMixin;
+import com.machak.aql.grammar.psi.impl.AqlVariablePlaceholderMixin;
 import org.jetbrains.annotations.NotNull;
 
-public class AqlNamedKeywordStatementsImpl extends AqlKeywordMixin implements AqlNamedKeywordStatements {
+public class AqlVariablePlaceHolderImpl extends AqlVariablePlaceholderMixin implements AqlVariablePlaceHolder {
 
-    public AqlNamedKeywordStatementsImpl(@NotNull ASTNode node) {
+    public AqlVariablePlaceHolderImpl(@NotNull ASTNode node) {
         super(node);
     }
 
     public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitNamedKeywordStatements(this);
+        visitor.visitVariablePlaceHolder(this);
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
@@ -31,8 +31,8 @@ public class AqlNamedKeywordStatementsImpl extends AqlKeywordMixin implements Aq
 
     @Override
     @NotNull
-    public AqlKeywordStatements getKeywordStatements() {
-        return findNotNullChildByClass(AqlKeywordStatements.class);
+    public AqlObjectExpression getObjectExpression() {
+        return findNotNullChildByClass(AqlObjectExpression.class);
     }
 
     public String getName() {

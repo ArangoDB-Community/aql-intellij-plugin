@@ -248,7 +248,7 @@ F_STDDEV_SAMPLE=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp]
 F_COUNT_DISTINCT=([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 NUMBER_INTEGER=[0-9]+
 SPACE=[ \t\n\x0B\f\r]+
-B_COMMENT="/"\*(.|\n)*\*"/"
+B_COMMENT="/"\*([^*]|\*+[^*/])*(\*+"/")?
 L_COMMENT="//".*
 TEXT_SINGLE='(''|[^']*)'
 TEXT_DOUBLE=\".*\"
@@ -258,6 +258,7 @@ ID=[:letter:][a-zA-Z_0-9]*
 <YYINITIAL> {
   {WHITE_SPACE}                 { return WHITE_SPACE; }
 
+  "."                           { return DOT; }
   "_key"                        { return T_KEY; }
   "_id"                         { return T_ID; }
   "_from"                       { return T_SYS_FROM; }
@@ -290,16 +291,16 @@ ID=[:letter:][a-zA-Z_0-9]*
   ","                           { return T_COMMA; }
   "("                           { return T_OPEN; }
   ")"                           { return T_CLOSE; }
-  "{"                           { return T_OBJECT_OPEN; }
-  "}"                           { return T_OBJECT_CLOSE; }
-  "["                           { return T_ARRAY_OPEN; }
-  "]"                           { return T_ARRAY_CLOSE; }
   "none"                        { return T_NONE; }
   "'"                           { return SINGLE_QUOTE; }
   "\""                          { return DOUBLE_QUOTE; }
   "$"                           { return DOLLAR; }
   "${"                          { return OBJECT_START; }
   "T_NIN"                       { return T_NIN; }
+  "T_OBJECT_OPEN"               { return T_OBJECT_OPEN; }
+  "T_OBJECT_CLOSE"              { return T_OBJECT_CLOSE; }
+  "T_ARRAY_OPEN"                { return T_ARRAY_OPEN; }
+  "T_ARRAY_CLOSE"               { return T_ARRAY_CLOSE; }
 
   {T_SEARCH}                    { return T_SEARCH; }
   {T_SHORTEST_PATH}             { return T_SHORTEST_PATH; }

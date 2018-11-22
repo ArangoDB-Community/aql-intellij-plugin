@@ -1,5 +1,5 @@
 package com.machak.aql.grammar.psi;
 
 public enum AqlMixinType {
-    FUNCTION, KEYWORD
+    FUNCTION, KEYWORD, ID, PROPERTY_LOOKUP, PLACEHOLDER
 }

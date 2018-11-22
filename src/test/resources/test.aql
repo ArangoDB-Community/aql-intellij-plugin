@@ -1,0 +1,56 @@
+/* ccc*/
+
+// test
+
+LET isNotify = (FOR doc IN config
+			FILTER doc.id=='notify'
+			RETURN doc.value)
+		LET promotionsBefore = (
+				FOR doc1 IN promotions
+					FILTER doc1.watched ANY == ${userId} && doc1.active==true && doc1.weekdays ANY == ${weekday}
+					&& doc1.startdate <= ${myData} && doc1.finishdate >= ${myData}
+					RETURN doc1.id_beonit)
+		LET beaconsBefore = (
+				FOR doc1 IN accesspoints
+				    FILTER POSITION(doc1.users, ${userId}) && doc1.startdate <= ${myData} && doc1.finishdate >= ${myData}
+			RETURN doc1.id_beonit)
+		LET apList = (
+					FOR doc IN accesspoints
+					FILTER doc.accesspoint_id == ${minor} && doc.type == "beacon"
+					RETURN doc.id_beonit)
+	    LET apUpdate = (
+	        FOR doc IN accesspoints
+		        FOR ap IN apList
+			        FILTER doc.id_beonit == ap && doc.startdate <= ${myData} && doc.finishdate >= ${myData}
+			            UPDATE
+		                doc WITH {'users':PUSH(doc.users, ${userId},true)} IN accesspoints
+		                    RETURN NEW.id_beonit)
+		LET promotionsList = (
+		    FOR doc IN promotions
+		     FOR acp IN doc.accesspoints
+		        FILTER acp IN apList && doc.id_beonit != NULL
+		          RETURN doc.id_beonit)
+		LET promotionsUpdate = (FOR doc IN promotions
+		   FOR pl IN promotionsList
+			FILTER doc.id_beonit==pl && doc.active==true && doc.weekdays ANY == ${weekday} && doc.startdate <= ${myData} && doc.finishdate >= ${myData}
+			UPDATE
+		doc WITH {'watched':PUSH(doc.watched, ${userId},true)} IN promotions
+		RETURN NEW.id_beonit)
+		INSERT ${req.body} INTO tracking
+		RETURN {'notificationsActive': isNotify[0],'unchangedPromotions': promotionsUpdate ALL IN promotionsBefore, 'unchangedBeacons': apUpdate ALL IN beaconsBefore}
+
+
+
+
+
+
+
+FOR meetup IN meetups
+  FILTER 'NOSQL' IN meetup.topics
+  FOR city IN OUTBOUND meetup held_in
+    FOR programmer IN INBOUND city lives_in
+      FILTER programmer.notify
+      FOR cname IN city_names
+        FILTER cname.city == city._key AND cname.lang == programmer.lang
+        INSERT { email: programmer.email, meetup: meetup._key, city: cname.name }
+        INTO invitations

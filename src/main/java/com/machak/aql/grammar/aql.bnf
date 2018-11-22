@@ -239,6 +239,8 @@ F_IS_OBJECT = "regexp:([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])"
 F_STDDEV_SAMPLE = "regexp:([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])"
 F_COUNT_DISTINCT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
 
+
+DOT = "."
 T_KEY = "_key"
 T_ID = "_id"
 T_SYS_FROM = "_from"
@@ -273,10 +275,10 @@ T_RANGE = ".."
 T_COMMA = ","
 T_OPEN = "("
 T_CLOSE = ")"
-T_OBJECT_OPEN = "{"
-T_OBJECT_CLOSE = "}"
-T_ARRAY_OPEN = "["
-T_ARRAY_CLOSE = "]"
+//T_OBJECT_OPEN = "{"
+//T_OBJECT_CLOSE = "}"
+//T_ARRAY_OPEN = "["
+//T_ARRAY_CLOSE = "]"
 
 T_NONE = "none"
     // my
@@ -286,7 +288,7 @@ T_NONE = "none"
     OBJECT_START="${"
     NUMBER_INTEGER="regexp:\d+"
     SPACE='regexp:\s+'
-    B_COMMENT="regexp:/\*(.|\n)*\*/"
+    B_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
     L_COMMENT='regexp://.*'
     TEXT_SINGLE ="regexp:'(''|[^']*)'"
     TEXT_DOUBLE ="regexp:\".*\""
@@ -303,6 +305,7 @@ private statement_recover::= !(
                         Statement
                     )
 
+//private operator ::= '<' !'<' | '<=' | '>' !'>' | '>=' { consumeTokenMethod = 'consumeTokenFast' }
 
 KeywordFunctions ::=  F_SUBSTITUTE
                         | F_MD5
@@ -556,25 +559,30 @@ OperatorStatements ::= T_NULL
                        | T_COLON
                        | T_SCOPE
                        | T_RANGE
-                       | T_COMMA
-                       | T_OPEN
+                       // TODO remove
+                      | T_COMMA
+                      | T_OPEN
                        | T_CLOSE
-                       | T_OBJECT_OPEN
+                        | T_OBJECT_OPEN
                        | T_OBJECT_CLOSE
                        | T_ARRAY_OPEN
                        | T_ARRAY_CLOSE
+                       //| DOT
 
-Statement ::= (NamedKeywordStatements)
-              | (NamedKeywordFunctions)
-              | (OperatorStatements)
-              | (PropertyName)
-              | (ObjectVariable)
-              | (Sequence)
-              | (StringType)
-              | (IntegerType)
-              | (LimitOffset)
-              | (ObjectExpression)
-              | (Comment)
+Statement ::= NamedKeywordStatements
+              | OperatorStatements
+              | Sequence
+              | StringType
+              | ArrayType
+              | JsonType
+              | IntegerType
+              | BooleanType
+              | VariablePlaceHolder
+              | FunctionExpression
+              | ExpressionType
+              | Comment
+
+
 
 NamedKeywordFunctions ::= KeywordFunctions {
   methods=[
@@ -591,14 +599,74 @@ NamedKeywordStatements ::= KeywordStatements {
   mixin="com.machak.aql.grammar.psi.impl.AqlKeywordMixin"
 }
 
-ObjectExpression ::=  (PropertyLookup)+
-ObjectVariable ::=  OBJECT_START PropertyName | ObjectExpression T_OBJECT_CLOSE
+ExpressionType ::= ObjectExpression
+                | ArrayType
+                | StringType
+                | IntegerType
+                | BooleanType
+                | VariablePlaceHolder
+                | FunctionExpression
+                | SystemProperty
+                | PropertyName
+
+// foo, bar, 'test'
+//ExpressionArray ::= ExpressionType (',' ExpressionType)*
+
+// object notation...{foo:bar}
+ComplexJsonProperty ::= (ExpressionArray | ArrayType)
+JsonType::=  "{" (ExpressionType ":" ComplexJsonProperty) ? ("," ExpressionType ":" ExpressionArray | ArrayType | NamedKeywordStatements | ObjectExpression  )*  "}" {
+//pin=2
+}
+
+
+
+ArrayType ::= '[' ExpressionArray* ']'
+
+private ExpressionArray ::= ExpressionType (',' ExpressionType)*
+
+FunctionExpression ::=  (NamedKeywordFunctions "(" ExpressionArray* ")")
+
+
+
+
+
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
-Sequence ::= IntegerType ".." IntegerType
-LimitOffset ::= IntegerType "," IntegerType
-PropertyLookup ::= ("." PropertyName) | ("." SystemProperty)
-SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
-PropertyName ::= ID
+BooleanType ::= T_TRUE | T_FALSE
+// overlap by array types
+//LimitOffset ::= IntegerType "," IntegerType
 
+
+VariablePlaceHolder ::=  ("${" ObjectExpression "}"){
+                   methods=[ getName setName]
+                   mixin="com.machak.aql.grammar.psi.impl.AqlVariablePlaceholderMixin"
+}
+
+
+
+/*PropertyLookup ::=  "." ( PropertyName | SystemProperty) {
+                   methods=[ getName setName]
+                   mixin="com.machak.aql.grammar.psi.impl.AqlPropertyLookupMixin"
+}*/
+
+private all_props ::=   PropertyName  | SystemProperty
+ObjectExpression ::=  PropertyName  ('.' all_props)*
+/*{
+    pin = 2;
+}*/
+
+Sequence ::= IntegerType ".." IntegerType
+
+SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
+
+PropertyName ::= (ID) {
+                   methods=[ getName setName]
+                   mixin="com.machak.aql.grammar.psi.impl.AqlIdMixin"
+}
+
+// recover states
+//private not_bracket_or_next_value ::= !(']' | ExpressionType)
+//private not_property_lookup ::= !(PropertyLookup)
+//private not_comma_or_next_value ::=   !(',' | ExpressionType)
+//private not_brace_or_next_value ::=  !('}'  | ExpressionType)
 

@@ -4,7 +4,7 @@ package com.machak.aql.grammar.generated.psi;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
-public interface AqlStatement extends PsiElement {
+public interface AqlExpressionType extends PsiElement {
 
     @Nullable
     AqlArrayType getArrayType();
@@ -12,32 +12,23 @@ public interface AqlStatement extends PsiElement {
     @Nullable
     AqlBooleanType getBooleanType();
 
-  @Nullable
-  AqlComment getComment();
-
-  @Nullable
-  AqlExpressionType getExpressionType();
-
     @Nullable
     AqlFunctionExpression getFunctionExpression();
 
-  @Nullable
-  AqlIntegerType getIntegerType();
-
-  @Nullable
-  AqlJsonType getJsonType();
+    @Nullable
+    AqlIntegerType getIntegerType();
 
     @Nullable
-    AqlNamedKeywordStatements getNamedKeywordStatements();
+    AqlObjectExpression getObjectExpression();
 
-  @Nullable
-  AqlOperatorStatements getOperatorStatements();
+    @Nullable
+    AqlPropertyName getPropertyName();
 
-  @Nullable
-  AqlSequence getSequence();
+    @Nullable
+    AqlStringType getStringType();
 
-  @Nullable
-  AqlStringType getStringType();
+    @Nullable
+    AqlSystemProperty getSystemProperty();
 
     @Nullable
     AqlVariablePlaceHolder getVariablePlaceHolder();

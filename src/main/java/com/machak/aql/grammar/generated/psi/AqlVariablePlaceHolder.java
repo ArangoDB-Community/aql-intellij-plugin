@@ -3,15 +3,12 @@ package com.machak.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
 import com.machak.aql.grammar.psi.AqlNamedElement;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
-public interface AqlPropertyLookup extends PsiElement {
+public interface AqlVariablePlaceHolder extends PsiElement {
 
-  @Nullable
-  AqlPropertyName getPropertyName();
-
-  @Nullable
-  AqlSystemProperty getSystemProperty();
+    @NotNull
+    AqlObjectExpression getObjectExpression();
 
     String getName();
 

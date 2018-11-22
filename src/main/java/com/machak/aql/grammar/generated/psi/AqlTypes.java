@@ -10,28 +10,33 @@ import com.machak.aql.grammar.generated.psi.impl.*;
 
 public interface AqlTypes {
 
+    IElementType ARRAY_TYPE = new AqlElementType("ARRAY_TYPE");
   IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
+    IElementType BOOLEAN_TYPE = new AqlElementType("BOOLEAN_TYPE");
   IElementType COMMENT = new AqlElementType("COMMENT");
+    IElementType COMPLEX_JSON_PROPERTY = new AqlElementType("COMPLEX_JSON_PROPERTY");
+    IElementType EXPRESSION_TYPE = new AqlElementType("EXPRESSION_TYPE");
+    IElementType FUNCTION_EXPRESSION = new AqlElementType("FUNCTION_EXPRESSION");
   IElementType INTEGER_TYPE = new AqlElementType("INTEGER_TYPE");
+    IElementType JSON_TYPE = new AqlElementType("JSON_TYPE");
   IElementType KEYWORD_FUNCTIONS = new AqlElementType("KEYWORD_FUNCTIONS");
   IElementType KEYWORD_STATEMENTS = new AqlElementType("KEYWORD_STATEMENTS");
-  IElementType LIMIT_OFFSET = new AqlElementType("LIMIT_OFFSET");
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
   IElementType NAMED_KEYWORD_FUNCTIONS = new AqlElementType("NAMED_KEYWORD_FUNCTIONS");
     IElementType NAMED_KEYWORD_STATEMENTS = new AqlElementType("NAMED_KEYWORD_STATEMENTS");
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
-  IElementType OBJECT_VARIABLE = new AqlElementType("OBJECT_VARIABLE");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
-  IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
   IElementType STRING_TYPE = new AqlElementType("STRING_TYPE");
   IElementType SYSTEM_PROPERTY = new AqlElementType("SYSTEM_PROPERTY");
+    IElementType VARIABLE_PLACE_HOLDER = new AqlElementType("VARIABLE_PLACE_HOLDER");
 
   IElementType B_COMMENT = new AqlTokenType("B_COMMENT");
   IElementType DOLLAR = new AqlTokenType("$");
+    IElementType DOT = new AqlTokenType(".");
   IElementType DOUBLE_QUOTE = new AqlTokenType("\"");
   IElementType F_ABS = new AqlTokenType("F_ABS");
   IElementType F_ACOS = new AqlTokenType("F_ACOS");
@@ -237,8 +242,8 @@ public interface AqlTypes {
   IElementType T_ALL = new AqlTokenType("T_ALL");
   IElementType T_AND = new AqlTokenType("T_AND");
   IElementType T_ANY = new AqlTokenType("T_ANY");
-  IElementType T_ARRAY_CLOSE = new AqlTokenType("]");
-  IElementType T_ARRAY_OPEN = new AqlTokenType("[");
+    IElementType T_ARRAY_CLOSE = new AqlTokenType("T_ARRAY_CLOSE");
+    IElementType T_ARRAY_OPEN = new AqlTokenType("T_ARRAY_OPEN");
   IElementType T_ASC = new AqlTokenType("T_ASC");
   IElementType T_AT = new AqlTokenType("@");
   IElementType T_CLOSE = new AqlTokenType(")");
@@ -275,8 +280,8 @@ public interface AqlTypes {
   IElementType T_NONE = new AqlTokenType("none");
   IElementType T_NOT = new AqlTokenType("not");
   IElementType T_NULL = new AqlTokenType("T_NULL");
-  IElementType T_OBJECT_CLOSE = new AqlTokenType("}");
-  IElementType T_OBJECT_OPEN = new AqlTokenType("{");
+    IElementType T_OBJECT_CLOSE = new AqlTokenType("T_OBJECT_CLOSE");
+    IElementType T_OBJECT_OPEN = new AqlTokenType("T_OBJECT_OPEN");
   IElementType T_OPEN = new AqlTokenType("(");
   IElementType T_OR = new AqlTokenType("||");
   IElementType T_OUTBOUND = new AqlTokenType("T_OUTBOUND");
@@ -303,52 +308,53 @@ public interface AqlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == BLOCK_COMMENT) {
+        if (type == ARRAY_TYPE) {
+            return new AqlArrayTypeImpl(node);
+        } else if (type == BLOCK_COMMENT) {
         return new AqlBlockCommentImpl(node);
-      }
-      else if (type == COMMENT) {
-        return new AqlCommentImpl(node);
-      }
-      else if (type == INTEGER_TYPE) {
-        return new AqlIntegerTypeImpl(node);
-      }
-      else if (type == KEYWORD_FUNCTIONS) {
-        return new AqlKeywordFunctionsImpl(node);
-      }
-      else if (type == KEYWORD_STATEMENTS) {
-        return new AqlKeywordStatementsImpl(node);
-      }
-      else if (type == LIMIT_OFFSET) {
-        return new AqlLimitOffsetImpl(node);
-      }
-      else if (type == LINE_COMMENT) {
-        return new AqlLineCommentImpl(node);
-      }
-      else if (type == NAMED_KEYWORD_FUNCTIONS) {
-        return new AqlNamedKeywordFunctionsImpl(node);
-      } else if (type == NAMED_KEYWORD_STATEMENTS) {
-          return new AqlNamedKeywordStatementsImpl(node);
-      } else if (type == OBJECT_EXPRESSION) {
-          return new AqlObjectExpressionImpl(node);
-      } else if (type == OBJECT_VARIABLE) {
-          return new AqlObjectVariableImpl(node);
-      } else if (type == OPERATOR_STATEMENTS) {
-          return new AqlOperatorStatementsImpl(node);
-      } else if (type == PROPERTY_LOOKUP) {
-          return new AqlPropertyLookupImpl(node);
-      } else if (type == PROPERTY_NAME) {
-          return new AqlPropertyNameImpl(node);
-      } else if (type == QUERY_ITEM) {
-          return new AqlQueryItemImpl(node);
-      } else if (type == SEQUENCE) {
-          return new AqlSequenceImpl(node);
-      } else if (type == STATEMENT) {
-          return new AqlStatementImpl(node);
-      } else if (type == STRING_TYPE) {
-          return new AqlStringTypeImpl(node);
-      } else if (type == SYSTEM_PROPERTY) {
-          return new AqlSystemPropertyImpl(node);
-      }
+      } else if (type == BOOLEAN_TYPE) {
+            return new AqlBooleanTypeImpl(node);
+        } else if (type == COMMENT) {
+            return new AqlCommentImpl(node);
+        } else if (type == COMPLEX_JSON_PROPERTY) {
+            return new AqlComplexJsonPropertyImpl(node);
+        } else if (type == EXPRESSION_TYPE) {
+            return new AqlExpressionTypeImpl(node);
+        } else if (type == FUNCTION_EXPRESSION) {
+            return new AqlFunctionExpressionImpl(node);
+        } else if (type == INTEGER_TYPE) {
+            return new AqlIntegerTypeImpl(node);
+        } else if (type == JSON_TYPE) {
+            return new AqlJsonTypeImpl(node);
+        } else if (type == KEYWORD_FUNCTIONS) {
+            return new AqlKeywordFunctionsImpl(node);
+        } else if (type == KEYWORD_STATEMENTS) {
+            return new AqlKeywordStatementsImpl(node);
+        } else if (type == LINE_COMMENT) {
+            return new AqlLineCommentImpl(node);
+        } else if (type == NAMED_KEYWORD_FUNCTIONS) {
+            return new AqlNamedKeywordFunctionsImpl(node);
+        } else if (type == NAMED_KEYWORD_STATEMENTS) {
+            return new AqlNamedKeywordStatementsImpl(node);
+        } else if (type == OBJECT_EXPRESSION) {
+            return new AqlObjectExpressionImpl(node);
+        } else if (type == OPERATOR_STATEMENTS) {
+            return new AqlOperatorStatementsImpl(node);
+        } else if (type == PROPERTY_NAME) {
+            return new AqlPropertyNameImpl(node);
+        } else if (type == QUERY_ITEM) {
+            return new AqlQueryItemImpl(node);
+        } else if (type == SEQUENCE) {
+            return new AqlSequenceImpl(node);
+        } else if (type == STATEMENT) {
+            return new AqlStatementImpl(node);
+        } else if (type == STRING_TYPE) {
+            return new AqlStringTypeImpl(node);
+        } else if (type == SYSTEM_PROPERTY) {
+            return new AqlSystemPropertyImpl(node);
+        } else if (type == VARIABLE_PLACE_HOLDER) {
+            return new AqlVariablePlaceHolderImpl(node);
+        }
       throw new AssertionError("Unknown element type: " + type);
     }
   }

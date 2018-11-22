@@ -6,12 +6,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public interface AqlObjectExpression extends PsiElement {
-
-  @NotNull
-  List<AqlPropertyName> getPropertyNameList();
+public interface AqlFunctionExpression extends PsiElement {
 
     @NotNull
-    List<AqlSystemProperty> getSystemPropertyList();
+    List<AqlExpressionType> getExpressionTypeList();
+
+    @NotNull
+    AqlNamedKeywordFunctions getNamedKeywordFunctions();
 
 }
