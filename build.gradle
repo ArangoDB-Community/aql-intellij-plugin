@@ -7,7 +7,7 @@ apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 
-group 'com.machak'
+group 'com.arangodb'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8

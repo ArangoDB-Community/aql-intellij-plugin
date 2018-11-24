@@ -1,8 +1,8 @@
 <idea-plugin>
-  <id>com.machak.aql</id>
+  <id>com.arangodb.intellij.aql</id>
   <name>AQL</name>
   <version>1.0</version>
-  <vendor email="em@machak.com" url="https://www.machak.com">machak</vendor>
+  <vendor email="marijan@apache.org" url="https://www.machak.com">machak</vendor>
 
   <description><![CDATA[
       AQL (ArangoDB) language plugin (file support, syntax highlighting and autocompletion)
@@ -29,55 +29,54 @@
       // Language setup
       //############################################
     -->
-    <fileTypeFactory implementation="com.machak.aql.file.AqlFileTypeFactory"/>
-    <lang.parserDefinition language="AQL" implementationClass="com.machak.aql.lang.AqlParserDefinition"/>
+    <fileTypeFactory implementation="com.arangodb.intellij.aql.file.AqlFileTypeFactory"/>
+    <lang.parserDefinition language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlParserDefinition"/>
     <internalFileTemplate name="templates.AQL Template"/>
-    <colorSettingsPage implementation="com.machak.aql.settings.AqlColorSettingsPage"/>
+    <colorSettingsPage implementation="com.arangodb.intellij.aql.settings.AqlColorSettingsPage"/>
     <additionalTextAttributes scheme="Default" file="colors/AQLDefault.xml"/>
-    <psi.referenceContributor implementation="com.machak.aql.lang.AqlPsiReferenceContributor"/>
-    <lang.findUsagesProvider language="AQL" implementationClass="com.machak.aql.lang.AqlFindUsagesProvider"/>
-    <lang.documentationProvider language="AQL" implementationClass="com.machak.aql.lang.AqlDocumentationProvider"/>
-    <lang.syntaxHighlighterFactory language="AQL" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterFactory"/>
-    <lang.ast.factory language="AQL" implementationClass="com.machak.aql.lang.psi.AqlASTFactory"/>
+    <psi.referenceContributor implementation="com.arangodb.intellij.aql.lang.AqlPsiReferenceContributor"/>
+    <lang.findUsagesProvider language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlFindUsagesProvider"/>
+    <lang.documentationProvider language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlDocumentationProvider"/>
+    <lang.syntaxHighlighterFactory language="AQL" implementationClass="com.arangodb.intellij.aql.syntax.AqlSyntaxHighlighterFactory"/>
+    <lang.ast.factory language="AQL" implementationClass="com.arangodb.intellij.aql.lang.psi.AqlASTFactory"/>
     <!--
     <codeStyleSettingsProvider implementation="com.simpleplugin.SimpleCodeStyleSettingsProvider"/>
     <langCodeStyleSettingsProvider implementation="com.simpleplugin.SimpleLanguageCodeStyleSettingsProvider"/>
     -->
-    <codeStyleSettingsProvider implementation="com.machak.aql.syntax.AqlCodeStyleSettingsProvider"/>
-    <langCodeStyleSettingsProvider implementation="com.machak.aql.syntax.AqlLanguageCodeStyleSettingsProvider"/>
-    <annotator language="AQL" implementationClass="com.machak.aql.syntax.AqlSyntaxHighlighterAnnotator"/>
-    <lang.commenter language="AQL" implementationClass="com.machak.aql.syntax.AqlCommenter"/>
-    <completion.contributor language="AQL" implementationClass="com.machak.aql.editor.AqlCodeCompletionContributor"/>
+    <codeStyleSettingsProvider implementation="com.arangodb.intellij.aql.syntax.AqlCodeStyleSettingsProvider"/>
+    <langCodeStyleSettingsProvider implementation="com.arangodb.intellij.aql.syntax.AqlLanguageCodeStyleSettingsProvider"/>
+    <annotator language="AQL" implementationClass="com.arangodb.intellij.aql.syntax.AqlSyntaxHighlighterAnnotator"/>
+    <lang.commenter language="AQL" implementationClass="com.arangodb.intellij.aql.syntax.AqlCommenter"/>
+    <completion.contributor language="AQL" implementationClass="com.arangodb.intellij.aql.editor.AqlCodeCompletionContributor"/>
     <!--
       //############################################
       // Services
       //############################################
     -->
-    <projectService serviceInterface="com.machak.aql.db.AqlDatabaseService" serviceImplementation="com.machak.aql.db.AqlDatabaseServiceImpl"/>
-    <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.machak.aql.window.DataWindowFactory" icon="/icons/toolbarArangoDB.png"/>
-    <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.machak.aql.window.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
-    <annotator language="AQL" implementationClass="com.machak.aql.editor.AqlAnnotator"/>
+    <projectService serviceInterface="com.arangodb.intellij.aql.db.AqlDatabaseService" serviceImplementation="com.arangodb.intellij.aql.db.AqlDatabaseServiceImpl"/>
+    <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.arangodb.intellij.aql.window.DataWindowFactory" icon="/icons/toolbarArangoDB.png"/>
+    <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.arangodb.intellij.aql.window.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
+    <annotator language="AQL" implementationClass="com.arangodb.intellij.aql.editor.AqlAnnotator"/>
   </extensions>
 
   <actions>
-      <action id="com.machak.aql.actions.AqlExecuteQueryAction" class="com.machak.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
+    <action id="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" class="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
         <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
       </action>
-    <action id="aql.NewAqlFile" class="com.machak.aql.file.AqlFileTemplateAction"
+    <action id="aql.NewAqlFile" class="com.arangodb.intellij.aql.file.AqlFileTemplateAction"
             text="AQL File" description="Create new AQL file">
       <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
     </action>
 
-    <!-- com.machak.aql.actions.ActionBusEvent.ACTION_CONSOLE-->
     <group id="AQL.Action.Console" text="AQL Console">
       <action id="AQL.Action.Console.ExecuteQuery"
-              class="com.machak.aql.actions.AqlExecuteQueryAction"
+              class="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction"
               text="Execute AQL query"
               icon="/toolwindows/toolWindowRun.png"
               description="Execute AQL query">
       </action>
       <action id="AQL.Action.Console.Clean"
-              class="com.machak.aql.actions.AqlEmptyLogAction"
+              class="com.arangodb.intellij.aql.actions.AqlEmptyLogAction"
               text="Clear"
               icon="/actions/refresh.png"
               description="Clear">
@@ -88,12 +87,12 @@
 
   <application-components>
     <component>
-      <implementation-class>com.machak.aql.window.DataWindowState</implementation-class>
+      <implementation-class>com.arangodb.intellij.aql.window.DataWindowState</implementation-class>
     </component>
   </application-components>
   <project-components>
     <component>
-      <implementation-class>com.machak.aql.window.DataWindowState</implementation-class>
+      <implementation-class>com.arangodb.intellij.aql.window.DataWindowState</implementation-class>
     </component>
   </project-components>
 </idea-plugin>
