@@ -1,6 +1,7 @@
 package com.machak.aql.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import com.machak.aql.util.AqlConst;
 import com.machak.aql.util.Icons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,19 +20,19 @@ public class AqlFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getName() {
-        return "Simple file";
+        return AqlConst.AQL_FILE_NAME;
     }
 
     @NotNull
     @Override
     public String getDescription() {
-        return "AQL language file";
+        return AqlConst.AQL_FILE_DESCRIPTION;
     }
 
     @NotNull
     @Override
     public String getDefaultExtension() {
-        return "aql";
+        return AqlConst.AQL_FILE_EXTENSION;
     }
 
     @Nullable

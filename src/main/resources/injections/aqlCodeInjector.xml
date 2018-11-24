@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="LanguageInjectionConfiguration">
-  <injection language="aql" injector-id="java">
+  <injection language="AQL" injector-id="java">
     <display-name>ArangoDB AQL Spring Data Query Injection</display-name>
     <place>
       <![CDATA[

@@ -5,9 +5,9 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import com.machak.aql.lang.AqlLanguage;
 import com.machak.aql.lang.AqlSyntaxColors;
 import com.machak.aql.lang.AqlSyntaxHighlighter;
+import com.machak.aql.util.AqlConst;
 import com.machak.aql.util.Icons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -117,6 +117,6 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDisplayName() {
-        return AqlLanguage.ID;
+        return AqlConst.AQL_LANGUAGE_ID;
     }
 }

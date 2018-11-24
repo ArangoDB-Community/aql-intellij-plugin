@@ -1,11 +1,11 @@
 package com.machak.aql.window;
 
+import com.intellij.execution.ui.layout.impl.JBRunnerTabs;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.util.ui.JBEmptyBorder;
 import com.intellij.util.ui.JBUI;
 import com.machak.aql.actions.ActionBusEvent;
@@ -18,7 +18,7 @@ public class ConsoleWindow implements Disposable {
     public static final String WINDOW_ID = "ArangoDB Console";
 
     private JPanel panel;
-    private JBTabbedPane tabbedPane;
+    private JBRunnerTabs JBRunnerTabs1;
 
     private final Project project;
 

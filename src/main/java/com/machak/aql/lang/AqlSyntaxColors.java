@@ -9,6 +9,8 @@ public final class AqlSyntaxColors {
     public static final TextAttributesKey LINE_COMMENT = createTextAttributesKey("AQL_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
     public static final TextAttributesKey BLOCK_COMMENT = createTextAttributesKey("AQL_BLOCK_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT);
     public static final TextAttributesKey KEYWORD = createTextAttributesKey("AQL_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD);
+
+    //
     public static final TextAttributesKey PROPERTY_LOOKUP = createTextAttributesKey("AQL_KEYWORD", DefaultLanguageHighlighterColors.METADATA);
     public static final TextAttributesKey PROPERTY_NAME = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
     public static final TextAttributesKey SYSTEM_PROPERTY = createTextAttributesKey("AQL_VARIABLE", DefaultLanguageHighlighterColors.GLOBAL_VARIABLE);

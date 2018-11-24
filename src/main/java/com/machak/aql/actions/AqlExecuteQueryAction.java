@@ -15,7 +15,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.util.messages.MessageBus;
 import com.machak.aql.db.AqlDatabaseService;
 import com.machak.aql.exc.AqlPluginException;
-import com.machak.aql.lang.AqlLanguage;
+import com.machak.aql.util.AqlConst;
 import com.machak.aql.util.log;
 import com.machak.aql.window.ArangoDbDataSource;
 import com.machak.aql.window.ConsoleWindow;
@@ -39,7 +39,7 @@ public class AqlExecuteQueryAction extends AnAction {
             return;
         }
         final String id = psiFile.getLanguage().getID();
-        if (!AqlLanguage.ID.equals(id)) {
+        if (!AqlConst.AQL_LANGUAGE_ID.equals(id)) {
             return;
         }
         // TODO remove this....(see below)

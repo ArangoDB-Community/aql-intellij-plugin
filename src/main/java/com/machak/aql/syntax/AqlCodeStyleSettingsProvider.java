@@ -9,6 +9,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
 import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
 import com.machak.aql.lang.AqlLanguage;
+import com.machak.aql.util.AqlConst;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,14 +23,14 @@ public class AqlCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     @Nullable
     @Override
     public String getConfigurableDisplayName() {
-        return AqlLanguage.ID;
+        return AqlConst.AQL_LANGUAGE_ID;
     }
 
 
     @NotNull
     @Override
     public Configurable createSettingsPage(final CodeStyleSettings settings, final CodeStyleSettings originalSettings) {
-        return new CodeStyleAbstractConfigurable(settings, originalSettings, AqlLanguage.ID) {
+        return new CodeStyleAbstractConfigurable(settings, originalSettings, AqlConst.AQL_LANGUAGE_ID) {
             @Override
             protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
                 return new SimpleCodeStyleMainPanel(getCurrentSettings(), settings);
