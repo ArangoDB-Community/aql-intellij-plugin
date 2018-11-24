@@ -1,6 +1,9 @@
 <idea-plugin>
   <id>com.arangodb.intellij.aql</id>
   <name>AQL</name>
+  <!--
+    note: version is managed by gradle plugin
+  -->
   <version>1.0</version>
   <vendor email="marijan@apache.org" url="https://www.machak.com">machak</vendor>
 
@@ -9,7 +12,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-     1.0 initial release (basic coloring, autocompletion)
+     1.0.0 initial release (basic coloring, autocompletion)
     ]]>
   </change-notes>
 
