@@ -17,6 +17,8 @@ public interface AqlTypes {
   IElementType COMPLEX_JSON_PROPERTY = new AqlElementType("COMPLEX_JSON_PROPERTY");
   IElementType EXPRESSION_TYPE = new AqlElementType("EXPRESSION_TYPE");
   IElementType FUNCTION_EXPRESSION = new AqlElementType("FUNCTION_EXPRESSION");
+    IElementType FUN_ABS = new AqlElementType("FUN_ABS");
+    IElementType FUN_CONCAT_SEPARATOR = new AqlElementType("FUN_CONCAT_SEPARATOR");
   IElementType INTEGER_TYPE = new AqlElementType("INTEGER_TYPE");
   IElementType JSON_TYPE = new AqlElementType("JSON_TYPE");
   IElementType KEYWORD_FUNCTIONS = new AqlElementType("KEYWORD_FUNCTIONS");
@@ -324,6 +326,10 @@ public interface AqlTypes {
         return new AqlExpressionTypeImpl(node);
       } else if (type == FUNCTION_EXPRESSION) {
         return new AqlFunctionExpressionImpl(node);
+      } else if (type == FUN_ABS) {
+          return new AqlFunAbsImpl(node);
+      } else if (type == FUN_CONCAT_SEPARATOR) {
+          return new AqlFunConcatSeparatorImpl(node);
       } else if (type == INTEGER_TYPE) {
         return new AqlIntegerTypeImpl(node);
       } else if (type == JSON_TYPE) {

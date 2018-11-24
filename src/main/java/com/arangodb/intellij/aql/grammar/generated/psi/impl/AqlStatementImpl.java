@@ -49,6 +49,18 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
     @Override
     @Nullable
+    public AqlFunAbs getFunAbs() {
+        return findChildByClass(AqlFunAbs.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunConcatSeparator getFunConcatSeparator() {
+        return findChildByClass(AqlFunConcatSeparator.class);
+    }
+
+    @Override
+    @Nullable
     public AqlFunctionExpression getFunctionExpression() {
         return findChildByClass(AqlFunctionExpression.class);
     }

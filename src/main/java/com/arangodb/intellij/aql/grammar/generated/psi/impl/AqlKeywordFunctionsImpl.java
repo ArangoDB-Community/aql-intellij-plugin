@@ -29,12 +29,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFAbs() {
-    return findChildByType(F_ABS);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFAcos() {
     return findChildByType(F_ACOS);
   }
@@ -145,12 +139,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFConcat() {
     return findChildByType(F_CONCAT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFConcatSeparator() {
-    return findChildByType(F_CONCAT_SEPARATOR);
   }
 
   @Override

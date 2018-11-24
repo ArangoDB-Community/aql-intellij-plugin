@@ -19,6 +19,12 @@ public interface AqlStatement extends PsiElement {
   AqlExpressionType getExpressionType();
 
     @Nullable
+    AqlFunAbs getFunAbs();
+
+    @Nullable
+    AqlFunConcatSeparator getFunConcatSeparator();
+
+    @Nullable
     AqlFunctionExpression getFunctionExpression();
 
   @Nullable

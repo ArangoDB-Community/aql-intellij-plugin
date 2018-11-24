@@ -31,6 +31,14 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunAbs(@NotNull AqlFunAbs o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunConcatSeparator(@NotNull AqlFunConcatSeparator o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunctionExpression(@NotNull AqlFunctionExpression o) {
         visitPsiElement(o);
     }

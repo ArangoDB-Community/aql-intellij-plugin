@@ -7,9 +7,6 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlKeywordFunctions extends PsiElement {
 
   @Nullable
-  PsiElement getFAbs();
-
-  @Nullable
   PsiElement getFAcos();
 
   @Nullable
@@ -65,9 +62,6 @@ public interface AqlKeywordFunctions extends PsiElement {
 
   @Nullable
   PsiElement getFConcat();
-
-  @Nullable
-  PsiElement getFConcatSeparator();
 
   @Nullable
   PsiElement getFContains();

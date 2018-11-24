@@ -291,7 +291,8 @@ T_NONE = "none"
     B_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
     L_COMMENT='regexp://.*'
     TEXT_SINGLE ="regexp:'(''|[^']*)'"
-    TEXT_DOUBLE ="regexp:\".*\""
+    //TEXT_DOUBLE ="regexp:\"([^\"\\]|\\.)*\")"
+    TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
     ID='regexp:\p{Alpha}\w*'
 ]
     
@@ -331,7 +332,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DATE_DAYOFYEAR
                         | F_LAST
                         | F_VALUES
-                        | F_CONCAT_SEPARATOR
                         | F_DATE_DAY
                         | F_STDDEV
                         | F_DATE_DAYS_IN_MONTH
@@ -397,7 +397,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_TRANSLATE
                         | F_GEO_LINESTRING
                         | F_APPLY
-                        | F_ABS
                         | F_EXP2
                         | F_DATE_SECOND
                         | F_BM25
@@ -500,6 +499,8 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_GEO_MULTIPOINT
                         | F_SLICE
                         | F_ASIN
+                        //
+
 
 
 KeywordStatements ::=    T_SHORTEST_PATH
@@ -582,6 +583,10 @@ Statement ::= NamedKeywordStatements
               | VariablePlaceHolder
               | FunctionExpression
               | ExpressionType
+              // functions
+              | FunAbs
+              | FunConcatSeparator
+
               | Comment
 
 
@@ -627,11 +632,21 @@ ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
 
 private ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
-FunctionExpression ::=  (NamedKeywordFunctions "(" ExpressionArray* ")")
+FunctionExpression ::=  (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE)
 
+//############################################
+// FUNCTIONS  (more strict error checking)
+//############################################
 
+private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
+private number_argument::= (IntegerType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
+FunAbs ::=  (F_ABS "(" number_argument ")"){
+pin = 1
+}
 
-
+FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){
+pin = 2
+}
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
@@ -641,6 +656,7 @@ BooleanType ::= T_TRUE | T_FALSE
 
 
 VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
+                    pin=2
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqPlaceholderVariableMixin"
 }
@@ -657,6 +673,7 @@ PropertyLookup ::=   PropertyName  | SystemProperty
 
 
 ObjectExpression ::=  PropertyName  (DOT PropertyLookup)* {
+                   pin= 2;
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlObjectExpressionMixin"
 }

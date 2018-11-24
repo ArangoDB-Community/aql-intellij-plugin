@@ -251,7 +251,7 @@ SPACE=[ \t\n\x0B\f\r]+
 B_COMMENT="/"\*([^*]|\*+[^*/])*(\*+"/")?
 L_COMMENT="//".*
 TEXT_SINGLE='(''|[^']*)'
-TEXT_DOUBLE=\".*\"
+TEXT_DOUBLE=\"([^\\\"\r\n]|\\[^\r\n])*\"?
 ID=[:letter:][a-zA-Z_0-9]*
 
 %%
