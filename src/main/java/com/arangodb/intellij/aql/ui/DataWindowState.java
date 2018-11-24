@@ -1,4 +1,4 @@
-package com.arangodb.intellij.aql.window;
+package com.arangodb.intellij.aql.ui;
 
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ProjectComponent;

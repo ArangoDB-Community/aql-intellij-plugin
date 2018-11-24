@@ -1,4 +1,4 @@
-package com.arangodb.intellij.aql.window;
+package com.arangodb.intellij.aql.ui.windows;
 
 import com.arangodb.intellij.aql.actions.ActionBusEvent;
 import com.arangodb.intellij.aql.actions.ActionEventData;
@@ -14,7 +14,7 @@ import com.intellij.util.ui.JBUI;
 
 import javax.swing.*;
 
-public class ConsoleWindow implements Disposable {
+public class AqlConsoleWindow implements Disposable {
     public static final String WINDOW_ID = "ArangoDB Console";
 
     private JPanel panel;
@@ -23,7 +23,7 @@ public class ConsoleWindow implements Disposable {
     private final Project project;
 
 
-    public ConsoleWindow(final Project project, final ToolWindow toolWindow) {
+    public AqlConsoleWindow(final Project project, final ToolWindow toolWindow) {
         this.project = project;
 
 

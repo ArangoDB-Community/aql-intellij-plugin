@@ -1,8 +1,8 @@
-package com.arangodb.intellij.aql.window.panel;
+package com.arangodb.intellij.aql.ui.panels;
 
 import com.arangodb.intellij.aql.actions.ActionEventData;
+import com.arangodb.intellij.aql.ui.MessageView;
 import com.arangodb.intellij.aql.util.AqlUtils;
-import com.arangodb.intellij.aql.window.MessageView;
 import com.intellij.json.JsonFileType;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.Application;

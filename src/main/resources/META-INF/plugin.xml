@@ -57,9 +57,12 @@
       //############################################
     -->
     <projectService serviceInterface="com.arangodb.intellij.aql.db.AqlDatabaseService" serviceImplementation="com.arangodb.intellij.aql.db.AqlDatabaseServiceImpl"/>
-    <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.arangodb.intellij.aql.window.DataWindowFactory" icon="/icons/toolbarArangoDB.png"/>
-    <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.arangodb.intellij.aql.window.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
+    <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.arangodb.intellij.aql.ui.ServerWindowFactory" icon="/icons/toolbarArangoDB.png"/>
+    <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.arangodb.intellij.aql.ui.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
     <annotator language="AQL" implementationClass="com.arangodb.intellij.aql.editor.AqlAnnotator"/>
+    <intentionAction>
+      <className>com.arangodb.intellij.aql.intentions.AqlCreateConnectionIntention</className>
+    </intentionAction>
   </extensions>
 
   <actions>
@@ -90,12 +93,12 @@
 
   <application-components>
     <component>
-      <implementation-class>com.arangodb.intellij.aql.window.DataWindowState</implementation-class>
+      <implementation-class>com.arangodb.intellij.aql.ui.DataWindowState</implementation-class>
     </component>
   </application-components>
   <project-components>
     <component>
-      <implementation-class>com.arangodb.intellij.aql.window.DataWindowState</implementation-class>
+      <implementation-class>com.arangodb.intellij.aql.ui.DataWindowState</implementation-class>
     </component>
   </project-components>
 </idea-plugin>

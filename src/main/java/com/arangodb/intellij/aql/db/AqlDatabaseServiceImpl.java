@@ -1,6 +1,7 @@
 package com.arangodb.intellij.aql.db;
 
 import com.arangodb.ArangoDB;
+import com.arangodb.ArangoDBException;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.Protocol;
 import com.arangodb.entity.CollectionEntity;
@@ -8,11 +9,11 @@ import com.arangodb.entity.CollectionType;
 import com.arangodb.entity.GraphEntity;
 import com.arangodb.entity.ViewEntity;
 import com.arangodb.intellij.aql.editor.AqlKeywordElement;
-import com.arangodb.intellij.aql.exc.AqlPluginException;
+import com.arangodb.intellij.aql.exc.AqlDataSourceException;
+import com.arangodb.intellij.aql.ui.ArangoDbDataSource;
 import com.arangodb.intellij.aql.util.DataSourceWindowCallback;
 import com.arangodb.intellij.aql.util.Icons;
 import com.arangodb.intellij.aql.util.log;
-import com.arangodb.intellij.aql.window.ArangoDbDataSource;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.intellij.codeInsight.lookup.LookupElement;
@@ -104,13 +105,21 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
             }
             collectionsCache.put(KEY_GRAPHS, graphSet);
             log.info("Successfully refreshed ArangoDB database:", settings.getDatabase());
-        } catch (AqlPluginException e) {
+        } catch (ArangoDBException e) {
+            final int errorNum = e.getErrorNum() == null ? -1 : e.getErrorNum();
+            if (errorNum != 11) {
+                popupFix(e.getErrorMessage(), project);
+                return;
+            }
+            log.error("Invalid ArangoDB datasource", e.getMessage());
+        } catch (AqlDataSourceException e) {
             log.error("Invalid ArangoDB datasource", e.getMessage());
         }
     }
 
+
     @Override
-    public ArangoDatabase getDatabase(final ArangoDbDataSource settings, final Project project) throws AqlPluginException {
+    public ArangoDatabase getDatabase(final ArangoDbDataSource settings, final Project project) throws AqlDataSourceException {
         try {
             final String user = settings.getUser();
             final String database = settings.getDatabase();
@@ -125,15 +134,20 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
                     .password(settings.getPassword())
                     .build().db(database);
         } catch (Exception e) {
-            throw new AqlPluginException(e);
+            throw new AqlDataSourceException(e);
         }
     }
 
-    private void checkEmpty(final String name, final Project project, final String user) throws AqlPluginException {
+    private void checkEmpty(final String name, final Project project, final String user) throws AqlDataSourceException {
         if (user == null || user.trim().isEmpty()) {
             final String message = "No " + name + " set for ArangoDB data source";
-            log.errorAction(message, "Fix ArangoDB data source", new DataSourceWindowCallback(project));
-            throw new AqlPluginException(message);
+            popupFix(message, project);
+            throw new AqlDataSourceException(message);
         }
+    }
+
+
+    private void popupFix(final String message, final Project project) {
+        log.errorAction(message, "Fix ArangoDB data source", new DataSourceWindowCallback(project));
     }
 }

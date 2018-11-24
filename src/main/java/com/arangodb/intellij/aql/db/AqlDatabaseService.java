@@ -1,8 +1,8 @@
 package com.arangodb.intellij.aql.db;
 
 import com.arangodb.ArangoDatabase;
-import com.arangodb.intellij.aql.exc.AqlPluginException;
-import com.arangodb.intellij.aql.window.ArangoDbDataSource;
+import com.arangodb.intellij.aql.exc.AqlDataSourceException;
+import com.arangodb.intellij.aql.ui.ArangoDbDataSource;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.openapi.project.Project;
 
@@ -20,5 +20,5 @@ public interface AqlDatabaseService {
 
     Collection<LookupElement> getAll();
 
-    ArangoDatabase getDatabase(final ArangoDbDataSource settings, final Project project) throws AqlPluginException;
+    ArangoDatabase getDatabase(final ArangoDbDataSource settings, final Project project) throws AqlDataSourceException;
 }

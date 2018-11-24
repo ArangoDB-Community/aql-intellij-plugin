@@ -7,6 +7,8 @@ import javax.swing.*;
 public final class Icons {
 
 
+    public static final Icon ICON_ERROR = IconLoader.getIcon("/icons/error.png");
+
     public static final Icon ICON_ARANGO = IconLoader.getIcon("/icons/aql.png");
 
     public static final Icon ICON_ARANGO_SMALL = IconLoader.getIcon("/icons/aql-small.png");

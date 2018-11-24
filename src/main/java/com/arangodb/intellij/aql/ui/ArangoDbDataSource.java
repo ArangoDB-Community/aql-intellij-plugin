@@ -1,4 +1,4 @@
-package com.arangodb.intellij.aql.window;
+package com.arangodb.intellij.aql.ui;
 
 public class ArangoDbDataSource {
 
