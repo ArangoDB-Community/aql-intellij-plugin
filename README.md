@@ -1,3 +1,6 @@
+
+![ArangoDB](img/arangodb.png)
+
 #  AQL (ArangoDB) language support plugin for Intellij IDEA 18.x IDE
 (might work in other Intellij products, I compiled it with 2017 version,  but have not tested it)
 
