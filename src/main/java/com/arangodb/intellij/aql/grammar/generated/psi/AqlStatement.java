@@ -28,13 +28,13 @@ public interface AqlStatement extends PsiElement {
     AqlFunctionExpression getFunctionExpression();
 
   @Nullable
-  AqlIntegerType getIntegerType();
-
-  @Nullable
   AqlJsonType getJsonType();
 
     @Nullable
     AqlNamedKeywordStatements getNamedKeywordStatements();
+
+    @Nullable
+    AqlNumberType getNumberType();
 
   @Nullable
   AqlOperatorStatements getOperatorStatements();

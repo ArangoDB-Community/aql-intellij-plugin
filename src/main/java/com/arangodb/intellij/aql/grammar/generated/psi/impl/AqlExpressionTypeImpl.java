@@ -46,8 +46,8 @@ public class AqlExpressionTypeImpl extends ASTWrapperPsiElement implements AqlEx
 
     @Override
     @Nullable
-    public AqlIntegerType getIntegerType() {
-        return findChildByClass(AqlIntegerType.class);
+    public AqlNumberType getNumberType() {
+        return findChildByClass(AqlNumberType.class);
     }
 
     @Override

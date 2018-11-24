@@ -23,7 +23,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-      if (t == ARRAY_TYPE) {
+      if (t == ANY_INTEGER) {
+          r = AnyInteger(b, 0);
+      } else if (t == ARRAY_TYPE) {
           r = ArrayType(b, 0);
       } else if (t == BLOCK_COMMENT) {
       r = BlockComment(b, 0);
@@ -33,6 +35,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = Comment(b, 0);
       } else if (t == COMPLEX_JSON_PROPERTY) {
           r = ComplexJsonProperty(b, 0);
+      } else if (t == DOUBLE_TYPE) {
+          r = DoubleType(b, 0);
       } else if (t == EXPRESSION_TYPE) {
           r = ExpressionType(b, 0);
       } else if (t == FUN_ABS) {
@@ -55,6 +59,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = NamedKeywordFunctions(b, 0);
       } else if (t == NAMED_KEYWORD_STATEMENTS) {
           r = NamedKeywordStatements(b, 0);
+      } else if (t == NUMBER_TYPE) {
+          r = NumberType(b, 0);
       } else if (t == OBJECT_EXPRESSION) {
           r = ObjectExpression(b, 0);
       } else if (t == OPERATOR_STATEMENTS) {
@@ -67,8 +73,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = PropertyName(b, 0);
       } else if (t == QUERY_ITEM) {
           r = QueryItem(b, 0);
+      } else if (t == SCIENTIFIC_NUMBER) {
+          r = ScientificNumber(b, 0);
       } else if (t == SEQUENCE) {
           r = Sequence(b, 0);
+      } else if (t == SIGNED_INTEGER) {
+          r = SignedInteger(b, 0);
       } else if (t == STATEMENT) {
           r = Statement(b, 0);
       } else if (t == STRING_TYPE) {
@@ -86,6 +96,49 @@ public class AqlParser implements PsiParser, LightPsiParser {
   protected boolean parse_root_(IElementType t, PsiBuilder b, int l) {
     return aql(b, l + 1);
   }
+
+    /* ********************************************************** */
+    // SignedInteger | IntegerType
+    public static boolean AnyInteger(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "AnyInteger")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, ANY_INTEGER, "<any integer>");
+        r = SignedInteger(b, l + 1);
+        if (!r) {
+            r = IntegerType(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // T_PLUS
+    //                     | T_MINUS
+    //                     | T_TIMES
+    //                     | T_DIV
+    //                     | T_MOD
+    static boolean ArithmeticOperators(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ArithmeticOperators")) {
+            return false;
+        }
+        boolean r;
+        r = consumeToken(b, T_PLUS);
+        if (!r) {
+            r = consumeToken(b, T_MINUS);
+        }
+        if (!r) {
+            r = consumeToken(b, T_TIMES);
+        }
+        if (!r) {
+            r = consumeToken(b, T_DIV);
+        }
+        if (!r) {
+            r = consumeToken(b, T_MOD);
+        }
+        return r;
+    }
 
     /* ********************************************************** */
     // T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
@@ -183,6 +236,48 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // NUMBER_DOUBLE | (T_PLUS | T_MINUS) NUMBER_DOUBLE
+    public static boolean DoubleType(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "DoubleType")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, DOUBLE_TYPE, "<double type>");
+        r = consumeToken(b, NUMBER_DOUBLE);
+        if (!r) {
+            r = DoubleType_1(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // (T_PLUS | T_MINUS) NUMBER_DOUBLE
+    private static boolean DoubleType_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "DoubleType_1")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = DoubleType_1_0(b, l + 1);
+        r = r && consumeToken(b, NUMBER_DOUBLE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // T_PLUS | T_MINUS
+    private static boolean DoubleType_1_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "DoubleType_1_0")) {
+            return false;
+        }
+        boolean r;
+        r = consumeToken(b, T_PLUS);
+        if (!r) {
+            r = consumeToken(b, T_MINUS);
+        }
+        return r;
+    }
+
+    /* ********************************************************** */
     // ExpressionType (',' ExpressionType)*
     static boolean ExpressionArray(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ExpressionArray")) {
@@ -228,14 +323,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
     /* ********************************************************** */
     // ObjectExpression
+    //                 | NumberType
     //                 | ArrayType
     //                 | StringType
-    //                 | IntegerType
     //                 | BooleanType
     //                 | VariablePlaceHolder
     //                 | FunctionExpression
     //                 | ParameterVariable
     //                 | SystemProperty
+    //                 | ArithmeticOperators
     //                 | PropertyName
     public static boolean ExpressionType(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ExpressionType")) {
@@ -245,13 +341,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
         Marker m = enter_section_(b, l, _NONE_, EXPRESSION_TYPE, "<expression type>");
         r = ObjectExpression(b, l + 1);
         if (!r) {
+            r = NumberType(b, l + 1);
+        }
+        if (!r) {
             r = ArrayType(b, l + 1);
         }
         if (!r) {
             r = StringType(b, l + 1);
-        }
-        if (!r) {
-            r = IntegerType(b, l + 1);
         }
         if (!r) {
             r = BooleanType(b, l + 1);
@@ -267,6 +363,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         if (!r) {
             r = SystemProperty(b, l + 1);
+        }
+        if (!r) {
+            r = ArithmeticOperators(b, l + 1);
         }
         if (!r) {
             r = PropertyName(b, l + 1);
@@ -286,8 +385,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
         }
         boolean r, p;
         Marker m = enter_section_(b, l, _NONE_, FUN_ABS, null);
-        r = consumeTokens(b, 1, F_ABS, T_OPEN);
-        p = r; // pin = 1
+        r = consumeTokens(b, 2, F_ABS, T_OPEN);
+        p = r; // pin = 2
         r = r && report_error_(b, number_argument(b, l + 1));
         r = p && consumeToken(b, T_CLOSE) && r;
         exit_section_(b, l, m, r, p, null);
@@ -342,14 +441,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!recursion_guard_(b, l, "FunctionExpression")) {
             return false;
         }
-        boolean r;
+        boolean r, p;
         Marker m = enter_section_(b, l, _NONE_, FUNCTION_EXPRESSION, "<function expression>");
         r = NamedKeywordFunctions(b, l + 1);
         r = r && consumeToken(b, T_OPEN);
         r = r && FunctionExpression_2(b, l + 1);
+        p = r; // pin = 3
         r = r && consumeToken(b, T_CLOSE);
-        exit_section_(b, l, m, r, false, null);
-        return r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
     }
 
     // ExpressionArray*
@@ -986,8 +1086,30 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
+    /* ********************************************************** */
+    // ScientificNumber | SignedInteger | IntegerType | DoubleType
+    public static boolean NumberType(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "NumberType")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, NUMBER_TYPE, "<number type>");
+        r = ScientificNumber(b, l + 1);
+        if (!r) {
+            r = SignedInteger(b, l + 1);
+        }
+        if (!r) {
+            r = IntegerType(b, l + 1);
+        }
+        if (!r) {
+            r = DoubleType(b, l + 1);
+        }
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
   /* ********************************************************** */
-  // PropertyName  (DOT PropertyLookup)*
+  // PropertyName (DOT PropertyLookup)*
   public static boolean ObjectExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression")) return false;
       if (!nextTokenIs(b, ID)) {
@@ -1051,11 +1173,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                        | T_LE
   //                        | T_GE
   //                        | T_LIKE
-  //                        | T_PLUS
-  //                        | T_MINUS
-  //                        | T_TIMES
-  //                        | T_DIV
-  //                        | T_MOD
   //                        | T_QUESTION
   //                        | T_COLON
   //                        | T_SCOPE
@@ -1093,11 +1210,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_LE);
     if (!r) r = consumeToken(b, T_GE);
     if (!r) r = consumeToken(b, T_LIKE);
-    if (!r) r = consumeToken(b, T_PLUS);
-    if (!r) r = consumeToken(b, T_MINUS);
-    if (!r) r = consumeToken(b, T_TIMES);
-    if (!r) r = consumeToken(b, T_DIV);
-    if (!r) r = consumeToken(b, T_MOD);
     if (!r) r = consumeToken(b, T_QUESTION);
     if (!r) r = consumeToken(b, T_COLON);
     if (!r) r = consumeToken(b, T_SCOPE);
@@ -1139,7 +1251,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // PropertyName  | SystemProperty
+    // PropertyName | SystemProperty
     public static boolean PropertyLookup(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "PropertyLookup")) {
             return false;
@@ -1155,7 +1267,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
   /* ********************************************************** */
-  // (ID)
+  // ID
   public static boolean PropertyName(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PropertyName")) return false;
     if (!nextTokenIs(b, ID)) return false;
@@ -1189,6 +1301,35 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+    /* ********************************************************** */
+    // (DoubleType | AnyInteger) EXPONENT_INDICATOR  AnyInteger
+    public static boolean ScientificNumber(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ScientificNumber")) {
+            return false;
+        }
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, SCIENTIFIC_NUMBER, "<scientific number>");
+        r = ScientificNumber_0(b, l + 1);
+        r = r && consumeToken(b, EXPONENT_INDICATOR);
+        p = r; // pin = 2
+        r = r && AnyInteger(b, l + 1);
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // DoubleType | AnyInteger
+    private static boolean ScientificNumber_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ScientificNumber_0")) {
+            return false;
+        }
+        boolean r;
+        r = DoubleType(b, l + 1);
+        if (!r) {
+            r = AnyInteger(b, l + 1);
+        }
+        return r;
+    }
+
   /* ********************************************************** */
   // IntegerType T_RANGE IntegerType
   public static boolean Sequence(PsiBuilder b, int l) {
@@ -1203,6 +1344,36 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+    /* ********************************************************** */
+    // (T_PLUS | T_MINUS) IntegerType
+    public static boolean SignedInteger(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "SignedInteger")) {
+            return false;
+        }
+        if (!nextTokenIs(b, "<signed integer>", T_MINUS, T_PLUS)) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, SIGNED_INTEGER, "<signed integer>");
+        r = SignedInteger_0(b, l + 1);
+        r = r && IntegerType(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // T_PLUS | T_MINUS
+    private static boolean SignedInteger_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "SignedInteger_0")) {
+            return false;
+        }
+        boolean r;
+        r = consumeToken(b, T_PLUS);
+        if (!r) {
+            r = consumeToken(b, T_MINUS);
+        }
+        return r;
+    }
+
   /* ********************************************************** */
   // NamedKeywordStatements
   //               | OperatorStatements
@@ -1210,7 +1381,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | StringType
   //               | ArrayType
   //               | JsonType
-  //               | IntegerType
+  //               | NumberType
   //               | BooleanType
   //               | VariablePlaceHolder
   //               | FunctionExpression
@@ -1240,7 +1411,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = JsonType(b, l + 1);
       }
       if (!r) {
-          r = IntegerType(b, l + 1);
+          r = NumberType(b, l + 1);
       }
       if (!r) {
           r = BooleanType(b, l + 1);
@@ -1326,13 +1497,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // IntegerType | ObjectExpression | ParameterVariable | VariablePlaceHolder
+    // NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder
     static boolean number_argument(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "number_argument")) {
             return false;
         }
         boolean r;
-        r = IntegerType(b, l + 1);
+        r = NumberType(b, l + 1);
         if (!r) {
             r = ObjectExpression(b, l + 1);
         }

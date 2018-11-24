@@ -7,6 +7,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlVisitor extends PsiElementVisitor {
 
+    public void visitAnyInteger(@NotNull AqlAnyInteger o) {
+        visitPsiElement(o);
+    }
+
     public void visitArrayType(@NotNull AqlArrayType o) {
         visitPsiElement(o);
     }
@@ -24,6 +28,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
     public void visitComplexJsonProperty(@NotNull AqlComplexJsonProperty o) {
+        visitPsiElement(o);
+    }
+
+    public void visitDoubleType(@NotNull AqlDoubleType o) {
         visitPsiElement(o);
     }
 
@@ -71,6 +79,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitNumberType(@NotNull AqlNumberType o) {
+        visitPsiElement(o);
+    }
+
   public void visitObjectExpression(@NotNull AqlObjectExpression o) {
     visitPsiElement(o);
   }
@@ -95,9 +107,17 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+    public void visitScientificNumber(@NotNull AqlScientificNumber o) {
+        visitPsiElement(o);
+    }
+
   public void visitSequence(@NotNull AqlSequence o) {
     visitPsiElement(o);
   }
+
+    public void visitSignedInteger(@NotNull AqlSignedInteger o) {
+        visitPsiElement(o);
+    }
 
   public void visitStatement(@NotNull AqlStatement o) {
     visitPsiElement(o);

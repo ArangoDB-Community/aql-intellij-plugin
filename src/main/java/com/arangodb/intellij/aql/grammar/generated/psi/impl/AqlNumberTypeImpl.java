@@ -4,21 +4,18 @@ package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+public class AqlNumberTypeImpl extends ASTWrapperPsiElement implements AqlNumberType {
 
-public class AqlFunAbsImpl extends ASTWrapperPsiElement implements AqlFunAbs {
-
-    public AqlFunAbsImpl(@NotNull ASTNode node) {
+    public AqlNumberTypeImpl(@NotNull ASTNode node) {
         super(node);
     }
 
     public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunAbs(this);
+        visitor.visitNumberType(this);
     }
 
     public void accept(@NotNull PsiElementVisitor visitor) {
@@ -31,32 +28,26 @@ public class AqlFunAbsImpl extends ASTWrapperPsiElement implements AqlFunAbs {
 
     @Override
     @Nullable
-    public AqlNumberType getNumberType() {
-        return findChildByClass(AqlNumberType.class);
+    public AqlDoubleType getDoubleType() {
+        return findChildByClass(AqlDoubleType.class);
     }
 
     @Override
     @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
+    public AqlIntegerType getIntegerType() {
+        return findChildByClass(AqlIntegerType.class);
     }
 
     @Override
     @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
+    public AqlScientificNumber getScientificNumber() {
+        return findChildByClass(AqlScientificNumber.class);
     }
 
     @Override
     @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
-
-    @Override
-    @NotNull
-    public PsiElement getFAbs() {
-        return findNotNullChildByType(F_ABS);
+    public AqlSignedInteger getSignedInteger() {
+        return findChildByClass(AqlSignedInteger.class);
     }
 
 }

@@ -10,11 +10,13 @@ import com.intellij.psi.tree.IElementType;
 
 public interface AqlTypes {
 
+    IElementType ANY_INTEGER = new AqlElementType("ANY_INTEGER");
   IElementType ARRAY_TYPE = new AqlElementType("ARRAY_TYPE");
   IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
   IElementType BOOLEAN_TYPE = new AqlElementType("BOOLEAN_TYPE");
   IElementType COMMENT = new AqlElementType("COMMENT");
   IElementType COMPLEX_JSON_PROPERTY = new AqlElementType("COMPLEX_JSON_PROPERTY");
+    IElementType DOUBLE_TYPE = new AqlElementType("DOUBLE_TYPE");
   IElementType EXPRESSION_TYPE = new AqlElementType("EXPRESSION_TYPE");
   IElementType FUNCTION_EXPRESSION = new AqlElementType("FUNCTION_EXPRESSION");
     IElementType FUN_ABS = new AqlElementType("FUN_ABS");
@@ -26,13 +28,16 @@ public interface AqlTypes {
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
   IElementType NAMED_KEYWORD_FUNCTIONS = new AqlElementType("NAMED_KEYWORD_FUNCTIONS");
   IElementType NAMED_KEYWORD_STATEMENTS = new AqlElementType("NAMED_KEYWORD_STATEMENTS");
+    IElementType NUMBER_TYPE = new AqlElementType("NUMBER_TYPE");
   IElementType OBJECT_EXPRESSION = new AqlElementType("OBJECT_EXPRESSION");
   IElementType OPERATOR_STATEMENTS = new AqlElementType("OPERATOR_STATEMENTS");
   IElementType PARAMETER_VARIABLE = new AqlElementType("PARAMETER_VARIABLE");
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
+    IElementType SCIENTIFIC_NUMBER = new AqlElementType("SCIENTIFIC_NUMBER");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
+    IElementType SIGNED_INTEGER = new AqlElementType("SIGNED_INTEGER");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
   IElementType STRING_TYPE = new AqlElementType("STRING_TYPE");
   IElementType SYSTEM_PROPERTY = new AqlElementType("SYSTEM_PROPERTY");
@@ -42,6 +47,7 @@ public interface AqlTypes {
   IElementType DOLLAR = new AqlTokenType("$");
   IElementType DOT = new AqlTokenType(".");
   IElementType DOUBLE_QUOTE = new AqlTokenType("\"");
+    IElementType EXPONENT_INDICATOR = new AqlTokenType("EXPONENT_INDICATOR");
   IElementType F_ABS = new AqlTokenType("F_ABS");
   IElementType F_ACOS = new AqlTokenType("F_ACOS");
   IElementType F_ANALYZER = new AqlTokenType("F_ANALYZER");
@@ -237,6 +243,7 @@ public interface AqlTypes {
   IElementType F_ZIP = new AqlTokenType("F_ZIP");
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
+    IElementType NUMBER_DOUBLE = new AqlTokenType("NUMBER_DOUBLE");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
@@ -312,59 +319,69 @@ public interface AqlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ARRAY_TYPE) {
+        if (type == ANY_INTEGER) {
+            return new AqlAnyIntegerImpl(node);
+        } else if (type == ARRAY_TYPE) {
         return new AqlArrayTypeImpl(node);
-      } else if (type == BLOCK_COMMENT) {
+        } else if (type == BLOCK_COMMENT) {
         return new AqlBlockCommentImpl(node);
-      } else if (type == BOOLEAN_TYPE) {
+        } else if (type == BOOLEAN_TYPE) {
         return new AqlBooleanTypeImpl(node);
-      } else if (type == COMMENT) {
+        } else if (type == COMMENT) {
         return new AqlCommentImpl(node);
-      } else if (type == COMPLEX_JSON_PROPERTY) {
+        } else if (type == COMPLEX_JSON_PROPERTY) {
         return new AqlComplexJsonPropertyImpl(node);
-      } else if (type == EXPRESSION_TYPE) {
+        } else if (type == DOUBLE_TYPE) {
+            return new AqlDoubleTypeImpl(node);
+        } else if (type == EXPRESSION_TYPE) {
         return new AqlExpressionTypeImpl(node);
-      } else if (type == FUNCTION_EXPRESSION) {
+        } else if (type == FUNCTION_EXPRESSION) {
         return new AqlFunctionExpressionImpl(node);
-      } else if (type == FUN_ABS) {
-          return new AqlFunAbsImpl(node);
-      } else if (type == FUN_CONCAT_SEPARATOR) {
-          return new AqlFunConcatSeparatorImpl(node);
-      } else if (type == INTEGER_TYPE) {
+        } else if (type == FUN_ABS) {
+            return new AqlFunAbsImpl(node);
+        } else if (type == FUN_CONCAT_SEPARATOR) {
+            return new AqlFunConcatSeparatorImpl(node);
+        } else if (type == INTEGER_TYPE) {
         return new AqlIntegerTypeImpl(node);
-      } else if (type == JSON_TYPE) {
+        } else if (type == JSON_TYPE) {
         return new AqlJsonTypeImpl(node);
-      } else if (type == KEYWORD_FUNCTIONS) {
+        } else if (type == KEYWORD_FUNCTIONS) {
         return new AqlKeywordFunctionsImpl(node);
-      } else if (type == KEYWORD_STATEMENTS) {
+        } else if (type == KEYWORD_STATEMENTS) {
         return new AqlKeywordStatementsImpl(node);
-      } else if (type == LINE_COMMENT) {
+        } else if (type == LINE_COMMENT) {
         return new AqlLineCommentImpl(node);
-      } else if (type == NAMED_KEYWORD_FUNCTIONS) {
+        } else if (type == NAMED_KEYWORD_FUNCTIONS) {
         return new AqlNamedKeywordFunctionsImpl(node);
-      } else if (type == NAMED_KEYWORD_STATEMENTS) {
+        } else if (type == NAMED_KEYWORD_STATEMENTS) {
         return new AqlNamedKeywordStatementsImpl(node);
-      } else if (type == OBJECT_EXPRESSION) {
+        } else if (type == NUMBER_TYPE) {
+            return new AqlNumberTypeImpl(node);
+        } else if (type == OBJECT_EXPRESSION) {
         return new AqlObjectExpressionImpl(node);
-      } else if (type == OPERATOR_STATEMENTS) {
+        } else if (type == OPERATOR_STATEMENTS) {
         return new AqlOperatorStatementsImpl(node);
-      } else if (type == PARAMETER_VARIABLE) {
+        } else if (type == PARAMETER_VARIABLE) {
         return new AqlParameterVariableImpl(node);
-      } else if (type == PROPERTY_LOOKUP) {
+        } else if (type == PROPERTY_LOOKUP) {
         return new AqlPropertyLookupImpl(node);
-      } else if (type == PROPERTY_NAME) {
+        } else if (type == PROPERTY_NAME) {
         return new AqlPropertyNameImpl(node);
-      } else if (type == QUERY_ITEM) {
+        } else if (type == QUERY_ITEM) {
         return new AqlQueryItemImpl(node);
-      } else if (type == SEQUENCE) {
+        } else if (type == SCIENTIFIC_NUMBER) {
+            return new AqlScientificNumberImpl(node);
+        } else if (type == SEQUENCE) {
         return new AqlSequenceImpl(node);
-      } else if (type == STATEMENT) {
+        } else if (type == SIGNED_INTEGER) {
+            return new AqlSignedIntegerImpl(node);
+        } else if (type == STATEMENT) {
         return new AqlStatementImpl(node);
-      } else if (type == STRING_TYPE) {
+        } else if (type == STRING_TYPE) {
         return new AqlStringTypeImpl(node);
-      } else if (type == SYSTEM_PROPERTY) {
+        } else if (type == SYSTEM_PROPERTY) {
         return new AqlSystemPropertyImpl(node);
-      } else if (type == VARIABLE_PLACE_HOLDER) {
+        } else if (type == VARIABLE_PLACE_HOLDER) {
         return new AqlVariablePlaceHolderImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);

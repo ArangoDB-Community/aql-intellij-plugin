@@ -16,7 +16,7 @@ public interface AqlExpressionType extends PsiElement {
     AqlFunctionExpression getFunctionExpression();
 
     @Nullable
-    AqlIntegerType getIntegerType();
+    AqlNumberType getNumberType();
 
     @Nullable
     AqlObjectExpression getObjectExpression();

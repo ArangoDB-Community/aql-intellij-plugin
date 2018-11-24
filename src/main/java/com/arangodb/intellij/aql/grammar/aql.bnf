@@ -287,13 +287,16 @@ T_NONE = "none"
     DOLLAR="$"
     T_OBJECT_START="${"
     NUMBER_INTEGER="regexp:\d+"
+    NUMBER_DOUBLE="regexp:\d+\.\d+"
+    EXPONENT_INDICATOR="regexp:([Ee])"
+
     SPACE='regexp:\s+'
     B_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
     L_COMMENT='regexp://.*'
     TEXT_SINGLE ="regexp:'(''|[^']*)'"
     //TEXT_DOUBLE ="regexp:\"([^\"\\]|\\.)*\")"
     TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
-    ID='regexp:\p{Alpha}\w*'
+    ID='regexp:[a-zA-Z_][a-zA-Z0-9_-]*'
 ]
     
 }
@@ -307,6 +310,13 @@ private statement_recover::= !(
                     )
 
 //private operator ::= '<' !'<' | '<=' | '>' !'>' | '>=' { consumeTokenMethod = 'consumeTokenFast' }
+/* */
+
+private ArithmeticOperators ::=  T_PLUS
+                    | T_MINUS
+                    | T_TIMES
+                    | T_DIV
+                    | T_MOD
 
 KeywordFunctions ::=  F_SUBSTITUTE
                         | F_MD5
@@ -499,7 +509,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_GEO_MULTIPOINT
                         | F_SLICE
                         | F_ASIN
-                        //
 
 
 
@@ -551,11 +560,6 @@ OperatorStatements ::= T_NULL
                        | T_LE
                        | T_GE
                        | T_LIKE
-                       | T_PLUS
-                       | T_MINUS
-                       | T_TIMES
-                       | T_DIV
-                       | T_MOD
                        | T_QUESTION
                        | T_COLON
                        | T_SCOPE
@@ -578,7 +582,7 @@ Statement ::= NamedKeywordStatements
               | StringType
               | ArrayType
               | JsonType
-              | IntegerType
+              | NumberType
               | BooleanType
               | VariablePlaceHolder
               | FunctionExpression
@@ -607,14 +611,15 @@ NamedKeywordStatements ::= KeywordStatements {
 }
 
 ExpressionType ::= ObjectExpression
+                | NumberType
                 | ArrayType
                 | StringType
-                | IntegerType
                 | BooleanType
                 | VariablePlaceHolder
                 | FunctionExpression
                 | ParameterVariable
                 | SystemProperty
+                | ArithmeticOperators
                 | PropertyName
 
 // foo, bar, 'test'
@@ -632,16 +637,18 @@ ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
 
 private ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
-FunctionExpression ::=  (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE)
+FunctionExpression ::=  (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE){
+pin = 3
+}
 
 //############################################
 // FUNCTIONS  (more strict error checking)
 //############################################
 
 private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
-private number_argument::= (IntegerType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
+private number_argument::= (NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
 FunAbs ::=  (F_ABS "(" number_argument ")"){
-pin = 1
+pin = 2
 }
 
 FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){
@@ -650,6 +657,15 @@ pin = 2
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
+SignedInteger ::= ((T_PLUS | T_MINUS) IntegerType)
+AnyInteger::= SignedInteger | IntegerType
+ScientificNumber ::= ((DoubleType | AnyInteger) EXPONENT_INDICATOR  AnyInteger){
+    pin=2
+}
+DoubleType ::= NUMBER_DOUBLE | (T_PLUS | T_MINUS) NUMBER_DOUBLE
+
+NumberType ::= ScientificNumber | SignedInteger | IntegerType | DoubleType
+
 BooleanType ::= T_TRUE | T_FALSE
 // overlap by array types
 //LimitOffset ::= IntegerType "," IntegerType
@@ -665,14 +681,14 @@ VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
 
 
 
-PropertyLookup ::=   PropertyName  | SystemProperty
+PropertyLookup ::=   PropertyName | SystemProperty
 {
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlPropertyLookupMixin"
 }
 
 
-ObjectExpression ::=  PropertyName  (DOT PropertyLookup)* {
+ObjectExpression ::=  PropertyName (DOT PropertyLookup)* {
                    pin= 2;
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlObjectExpressionMixin"
@@ -688,7 +704,7 @@ Sequence ::= IntegerType T_RANGE IntegerType
 
 SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
 
-PropertyName ::= (ID) {
+PropertyName ::= ID {
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlIdMixin"
 }

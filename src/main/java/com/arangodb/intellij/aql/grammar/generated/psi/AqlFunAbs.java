@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlFunAbs extends PsiElement {
 
     @Nullable
-    AqlIntegerType getIntegerType();
+    AqlNumberType getNumberType();
 
     @Nullable
     AqlObjectExpression getObjectExpression();

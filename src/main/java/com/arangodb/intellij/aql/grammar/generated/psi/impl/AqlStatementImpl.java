@@ -65,12 +65,6 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
         return findChildByClass(AqlFunctionExpression.class);
     }
 
-    @Override
-    @Nullable
-    public AqlIntegerType getIntegerType() {
-        return findChildByClass(AqlIntegerType.class);
-    }
-
   @Override
   @Nullable
   public AqlJsonType getJsonType() {
@@ -82,6 +76,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   public AqlNamedKeywordStatements getNamedKeywordStatements() {
       return findChildByClass(AqlNamedKeywordStatements.class);
   }
+
+    @Override
+    @Nullable
+    public AqlNumberType getNumberType() {
+        return findChildByClass(AqlNumberType.class);
+    }
 
   @Override
   @Nullable
