@@ -58,7 +58,7 @@ public class AqlServerToolWindow implements Disposable {
                                 return (userObject instanceof AqlNodeModel && ((AqlNodeModel) userObject).getType() == AqlNodeModel.Type.DATABASE);
                             });
                     if (selectedNodes.length == 0) {
-                        log.error("Please select one database node");
+                        log.error("Please select a database node");
                         return;
                     }
                     if (selectedNodes.length > 1) {
