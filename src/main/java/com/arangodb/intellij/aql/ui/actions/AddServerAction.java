@@ -12,7 +12,7 @@ public class AddServerAction extends AnActionButton {
     private final Project project;
 
     public AddServerAction(final Project project) {
-        super("Add Server", "Add ArangoDB server instance", Icons.ICON_DATABASE);
+        super("Add Server", "Add ArangoDB server instance", Icons.ICON_ARANGO_SMALL);
         this.project = project;
     }
 

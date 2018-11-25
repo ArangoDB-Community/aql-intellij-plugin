@@ -99,4 +99,13 @@ public class AqlServerDialog extends DialogWrapper {
     public ArangoDbServer getData() {
         return buildState();
     }
+
+    public void setData(final ArangoDbServer server) {
+        serverNameText.setText(server.getName());
+        passwordText.setText(server.getPassword());
+        userText.setText(server.getUser());
+        hostText.setText(server.getHost());
+        portSpinner.setNumber(server.getPort());
+
+    }
 }

@@ -1,18 +1,26 @@
 package com.arangodb.intellij.aql.actions;
 
 import com.arangodb.ArangoCursor;
+import com.arangodb.entity.CollectionEntity;
+import com.arangodb.entity.CollectionType;
+import com.arangodb.entity.GraphEntity;
+import com.arangodb.entity.ViewEntity;
 import com.arangodb.intellij.aql.db.AqlDatabaseService;
 import com.arangodb.intellij.aql.exc.AqlDataSourceException;
+import com.arangodb.intellij.aql.model.ArangoDbDatabase;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.arangodb.intellij.aql.ui.DataWindowState;
 import com.arangodb.intellij.aql.ui.dialogs.AqlServerDialog;
+import com.arangodb.intellij.aql.ui.renderers.AqlNodeModel;
+import com.arangodb.intellij.aql.util.log;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.ui.CheckedTreeNode;
 import com.intellij.util.messages.MessageBus;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import javax.swing.tree.DefaultTreeModel;
+import java.util.*;
 
 /**
  * Wrapper for all components data exchange/services.
@@ -44,7 +52,7 @@ public final class AqlDataService {
         final ArangoDbServer state = component.getState();
         try {
 
-            final ArangoCursor<String> cursor = service.getDatabase(state, project).query(query, bindVars, String.class);
+            final ArangoCursor<String> cursor = service.getActiveDatabase(state, project).query(query, bindVars, String.class);
             final List<String> strings = cursor.asListRemaining();
             final StringBuilder builder = new StringBuilder();
             for (String serializable : strings) {
@@ -62,7 +70,7 @@ public final class AqlDataService {
 
 
     public ArangoDbServer server() {
-        return service.getServer();
+        return service.getServer(project);
     }
 
     public AqlDataService refreshSchema() {
@@ -79,6 +87,8 @@ public final class AqlDataService {
 
     public void showServerDialog() {
         final AqlServerDialog dialog = new AqlServerDialog(project);
+        final ArangoDbServer state = stateComponent.getState();
+        dialog.setData(state);
         final boolean ok = dialog.showAndGet();
         if (ok) {
             final ActionResponse actionResponse = testServerConnection(dialog.getData());
@@ -95,9 +105,59 @@ public final class AqlDataService {
         try {
             service.checkServerConnection(buildState, project);
         } catch (AqlDataSourceException e) {
-            return new ActionResponse(e.getMessage(), ActionResponse.Type.ERROR);
+            return ActionResponse.error(e.getMessage());
         }
-        return new ActionResponse("OK");
+        return ActionResponse.info("OK");
+    }
+
+    public void sendResponse(final ActionResponse response) {
+        // TODO add balloon action
+        if (response.isError()) {
+            log.error(response.getMessage());
+        } else {
+            log.info(response.getMessage());
+        }
+
+    }
+
+    public DefaultTreeModel populateTree(@NotNull final ArangoDbServer server) {
+        final AqlNodeModel userObject = new AqlNodeModel(server.getName(), server.getHost(), AqlNodeModel.Type.SERVER);
+        final CheckedTreeNode root = new CheckedTreeNode(userObject);
+        root.setChecked(true);
+        final ArangoDbDatabase selectedDatabase = server.getSelectedDatabase() != null ? server.getSelectedDatabase() : new ArangoDbDatabase();
+        final Set<ArangoDbDatabase> databases = server.getDatabases();
+        for (ArangoDbDatabase database : databases) {
+            final CheckedTreeNode databaseNode = new CheckedTreeNode();
+            final AqlNodeModel databaseObject = new AqlNodeModel(database.getName(), database.getName(), AqlNodeModel.Type.DATABASE);
+            if (selectedDatabase.equals(database)) {
+                databaseObject.setSelected(true);
+            }
+            databaseNode.setUserObject(databaseObject);
+            root.add(databaseNode);
+            //  views:
+            final Collection<ViewEntity> views = database.getViews();
+            for (ViewEntity entity : views) {
+                final CheckedTreeNode entityNode = new CheckedTreeNode();
+                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.VIEW));
+                databaseNode.add(entityNode);
+            }
+            final Collection<CollectionEntity> collections = database.getCollections();
+            for (CollectionEntity entity : collections) {
+                final CheckedTreeNode entityNode = new CheckedTreeNode();
+                final AqlNodeModel.Type collection = entity.getType() == CollectionType.EDGES ? AqlNodeModel.Type.EDGE : AqlNodeModel.Type.COLLECTION;
+                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), collection));
+                databaseNode.add(entityNode);
+            }
+            final Collection<GraphEntity> graphs = database.getGraphs();
+            for (GraphEntity entity : graphs) {
+                final CheckedTreeNode entityNode = new CheckedTreeNode();
+                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.GRAPH));
+                databaseNode.add(entityNode);
+            }
+
+
+        }
+        return new DefaultTreeModel(root);
     }
 }
 

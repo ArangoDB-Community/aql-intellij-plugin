@@ -8,10 +8,13 @@ import com.arangodb.entity.CollectionEntity;
 import com.arangodb.entity.CollectionType;
 import com.arangodb.entity.GraphEntity;
 import com.arangodb.entity.ViewEntity;
+import com.arangodb.intellij.aql.actions.ActionResponse;
+import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.editor.AqlKeywordElement;
 import com.arangodb.intellij.aql.exc.AqlDataSourceException;
 import com.arangodb.intellij.aql.model.ArangoDbDatabase;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
+import com.arangodb.intellij.aql.ui.DataWindowState;
 import com.arangodb.intellij.aql.util.DataSourceWindowCallback;
 import com.arangodb.intellij.aql.util.Icons;
 import com.arangodb.intellij.aql.util.log;
@@ -20,7 +23,6 @@ import com.google.common.cache.CacheBuilder;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.Collection;
@@ -77,7 +79,7 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
         try {
             // always cleanup cache
             collectionsCache.cleanUp();
-            final ArangoDatabase db = getDatabase(settings, project);
+            final ArangoDatabase db = getActiveDatabase(settings, project);
             final Collection<CollectionEntity> collections = db.getCollections();
             final Collection<ViewEntity> views = db.getViews();
             final Collection<GraphEntity> graphs = db.getGraphs();
@@ -120,16 +122,52 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
     }
 
 
-    @Nullable
+    @NotNull
     @Override
-    public ArangoDbServer getServer() {
-        // TODO implement
-        ArangoDbServer server = new ArangoDbServer();
-        server.setName("Server name");
-        final ArangoDbDatabase database = new ArangoDbDatabase("test");
-        server.addDatabase(database);
-        server.setSelectedDatabase(database);
+    public ArangoDbServer getServer(final Project project) {
+
+        final DataWindowState stateComponent = project.getComponent(DataWindowState.class);
+        final ArangoDbServer server = stateComponent.getState();
+        final AqlDataService service = AqlDataService.with(project);
+        final ActionResponse response = service.testServerConnection(server);
+        if (response.isError()) {
+            service.sendResponse(response);
+            return server;
+        }
+        try {
+            // remove existing
+            final String selectedDatabaseName = server.getSelectedDatabaseName();
+            server.setDatabases(new HashSet<>());
+            server.setSelectedDatabase(null);
+            final Collection<String> databases = getDatabase(server).getAccessibleDatabases();
+            for (final String d : databases) {
+                final ArangoDbDatabase arangoDbDatabase = new ArangoDbDatabase(d);
+                populateSchema(server, arangoDbDatabase);
+                server.addDatabase(arangoDbDatabase);
+                if (selectedDatabaseName.equals(d)) {
+                    server.setSelectedDatabase(arangoDbDatabase);
+                }
+                // always select one database
+                if (server.getSelectedDatabase() == null) {
+                    server.setSelectedDatabase(arangoDbDatabase);
+                }
+
+            }
+
+        } catch (AqlDataSourceException e) {
+            service.sendResponse(ActionResponse.error(e.getMessage()));
+        }
         return server;
+    }
+
+    private void populateSchema(final ArangoDbServer server, final ArangoDbDatabase database) {
+        final ArangoDatabase db = getDatabaseForName(server, database.getName());
+        final Collection<CollectionEntity> collections = db.getCollections();
+        final Collection<ViewEntity> views = db.getViews();
+        final Collection<GraphEntity> graphs = db.getGraphs();
+        database.setCollections(collections);
+        database.setViews(views);
+        database.setGraphs(graphs);
     }
 
 
@@ -153,24 +191,45 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
     }
 
     @Override
-    public ArangoDatabase getDatabase(final ArangoDbServer settings, final Project project) throws AqlDataSourceException {
+    public ArangoDatabase getDatabase(final ArangoDbServer settings) throws AqlDataSourceException {
+        try {
+            final String user = settings.getUser();
+            return new ArangoDB
+                    .Builder()
+                    .host(settings.getHost(), settings.getPort())
+                    .user(user)
+                    .useProtocol(Protocol.HTTP_JSON)
+                    .password(settings.getPassword())
+                    .build().db();
+        } catch (Exception e) {
+            throw new AqlDataSourceException(e);
+        }
+    }
+
+    @Override
+    public ArangoDatabase getActiveDatabase(final ArangoDbServer settings, final Project project) throws AqlDataSourceException {
         try {
             final String user = settings.getUser();
             final ArangoDbDatabase selectedDatabase = settings.getSelectedDatabase();
             final String database = selectedDatabase == null ? null : selectedDatabase.getName();
             checkEmpty("user", project, user);
             checkEmpty("database", project, database);
-            return new ArangoDB
-                    .Builder()
-                    .host(settings.getHost(), settings.getPort())
-                    .user(user)
-                    // TODO...make configurable?
-                    .useProtocol(Protocol.HTTP_JSON)
-                    .password(settings.getPassword())
-                    .build().db(database);
+            return getDatabaseForName(settings, database);
         } catch (Exception e) {
             throw new AqlDataSourceException(e);
         }
+    }
+
+    private ArangoDatabase getDatabaseForName(final ArangoDbServer settings, final String database) {
+        return new ArangoDB
+                .Builder()
+                .host(settings.getHost(), settings.getPort())
+                .user(settings.getUser())
+                // TODO...make configurable?
+                .useProtocol(Protocol.HTTP_JSON)
+                .password(settings.getPassword())
+                .build()
+                .db(database);
     }
 
     private void checkEmpty(final String name, final Project project, final String value) throws AqlDataSourceException {

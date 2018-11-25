@@ -1,5 +1,8 @@
 package com.arangodb.intellij.aql.model;
 
+import com.intellij.util.xmlb.annotations.Transient;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,9 +14,12 @@ public class ArangoDbServer {
     private String host = "127.0.0.1";
     private String password;
     private String user;
+    @Transient
     private Set<ArangoDbDatabase> databases;
+    @Transient
     private ArangoDbDatabase selectedDatabase;
     private String name;
+    private String selectedDatabaseName;
 
 
     public ArangoDbServer() {
@@ -78,7 +84,11 @@ public class ArangoDbServer {
         databases.add(database);
     }
 
+    @NotNull
     public Set<ArangoDbDatabase> getDatabases() {
+        if (databases == null) {
+            databases = new HashSet<>();
+        }
         return databases;
     }
 
@@ -92,10 +102,19 @@ public class ArangoDbServer {
 
     public void setSelectedDatabase(final ArangoDbDatabase selectedDatabase) {
         this.selectedDatabase = selectedDatabase;
+        selectedDatabaseName = selectedDatabase == null ? "" : selectedDatabase.getName();
     }
 
+    public void setSelectedDatabaseName(final String selectedDatabaseName) {
+        this.selectedDatabaseName = selectedDatabaseName;
+    }
+
+    @NotNull
     public String getSelectedDatabaseName() {
-        return selectedDatabase == null ? "No database selected" : selectedDatabase.getName();
+        if (selectedDatabaseName == null) {
+            selectedDatabaseName = selectedDatabase == null ? "" : selectedDatabase.getName();
+        }
+        return selectedDatabaseName;
     }
 
     public String getName() {

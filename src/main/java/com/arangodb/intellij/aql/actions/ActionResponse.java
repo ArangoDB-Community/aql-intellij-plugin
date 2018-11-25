@@ -4,7 +4,7 @@ import com.arangodb.intellij.aql.util.Icons;
 
 import javax.swing.*;
 
-public class ActionResponse {
+public final class ActionResponse {
 
     public boolean isError() {
         return Type.ERROR == type;
@@ -21,12 +21,20 @@ public class ActionResponse {
     private final String message;
     private final Type type;
 
-    public ActionResponse(final String message) {
+    public static ActionResponse error(final String message) {
+        return new ActionResponse(message, Type.ERROR);
+    }
+
+    public static ActionResponse info(final String message) {
+        return new ActionResponse(message);
+    }
+
+    private ActionResponse(final String message) {
         this.message = message;
         this.type = Type.INFO;
     }
 
-    public ActionResponse(final String message, final Type type) {
+    private ActionResponse(final String message, final Type type) {
         this.message = message;
         this.type = type;
     }

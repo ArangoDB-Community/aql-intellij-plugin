@@ -5,7 +5,7 @@ import com.arangodb.intellij.aql.exc.AqlDataSourceException;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
@@ -23,8 +23,10 @@ public interface AqlDatabaseService {
 
     ArangoDatabase checkServerConnection(ArangoDbServer settings, Project project) throws AqlDataSourceException;
 
-    ArangoDatabase getDatabase(final ArangoDbServer settings, final Project project) throws AqlDataSourceException;
+    ArangoDatabase getDatabase(ArangoDbServer settings) throws AqlDataSourceException;
 
-    @Nullable
-    ArangoDbServer getServer();
+    ArangoDatabase getActiveDatabase(final ArangoDbServer settings, final Project project) throws AqlDataSourceException;
+
+    @NotNull
+    ArangoDbServer getServer(Project project);
 }
