@@ -78,13 +78,13 @@
       <action id="AQL.Action.Console.ExecuteQuery"
               class="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction"
               text="Execute AQL query"
-              icon="/toolwindows/toolWindowRun.png"
+              icon="/icons/run.svg"
               description="Execute AQL query">
       </action>
       <action id="AQL.Action.Console.Clean"
               class="com.arangodb.intellij.aql.actions.AqlEmptyLogAction"
               text="Clear"
-              icon="/actions/refresh.png"
+              icon="/icons/trash.svg"
               description="Clear">
       </action>
     </group>

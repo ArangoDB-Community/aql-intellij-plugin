@@ -29,7 +29,7 @@ public class AqlCreateConnectionIntention implements IntentionAction {
 
     @Override
     public boolean isAvailable(@NotNull final Project project, final Editor editor, final PsiFile psiFile) {
-        return psiFile.getLanguage().equals(AqlLanguage.AQL_LANGUAGE);
+        return psiFile.getLanguage().equals(AqlLanguage.AQL_LANGUAGE) && !AqlDataService.with(project).hasValidConnection();
     }
 
     @Override

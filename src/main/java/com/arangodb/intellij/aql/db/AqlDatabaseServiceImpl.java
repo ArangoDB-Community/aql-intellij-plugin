@@ -121,6 +121,15 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
         }
     }
 
+    @Override
+    public boolean isConnectionValid(final Project project) {
+        try {
+            checkServerConnection(getServer(project), project);
+        } catch (AqlDataSourceException ignore) {
+            return false;
+        }
+        return true;
+    }
 
     @NotNull
     @Override

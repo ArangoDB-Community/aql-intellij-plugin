@@ -1,6 +1,7 @@
 package com.arangodb.intellij.aql.actions;
 
 import com.arangodb.ArangoCursor;
+import com.arangodb.ArangoDBException;
 import com.arangodb.entity.CollectionEntity;
 import com.arangodb.entity.CollectionType;
 import com.arangodb.entity.GraphEntity;
@@ -51,6 +52,7 @@ public final class AqlDataService {
     public AqlDataService executeQuery(final String query, final Map<String, Object> bindVars) {
         final DataWindowState component = project.getComponent(DataWindowState.class);
         final ArangoDbServer state = component.getState();
+        final ActionBusEvent queryPlanEvent = messageBus.syncPublisher(ActionBusEvent.AQL_QUERY_RESULT);
         try {
 
             final ArangoCursor<String> cursor = service.getActiveDatabase(state, project).query(query, bindVars, String.class);
@@ -59,12 +61,12 @@ public final class AqlDataService {
             for (String serializable : strings) {
                 builder.append(serializable);
             }
-            final ActionBusEvent queryPlanEvent = messageBus.syncPublisher(ActionBusEvent.AQL_QUERY_RESULT);
+
             final ActionEventData data = new ActionEventData(ActionEventData.KEY_QUERY, query);
             data.set(ActionEventData.KEY_RESULT, builder.toString());
             queryPlanEvent.onEvent(data);
-        } catch (AqlDataSourceException ignore) {
-            // should be handled somewhere else
+        } catch (ArangoDBException | AqlDataSourceException e) {
+            queryPlanEvent.onEvent(new ActionEventData(ActionEventData.KEY_RESULT, e.getMessage()));
         }
         return this;
     }
@@ -177,6 +179,10 @@ public final class AqlDataService {
         state.setSelectedDatabase(new ArangoDbDatabase(name));
         log.info("New active database: " + name);
         return refreshSchema();
+    }
+
+    public boolean hasValidConnection() {
+        return service.isConnectionValid(project);
     }
 }
 

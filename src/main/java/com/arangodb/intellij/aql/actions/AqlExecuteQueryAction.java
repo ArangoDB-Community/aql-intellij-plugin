@@ -2,8 +2,6 @@ package com.arangodb.intellij.aql.actions;
 
 import com.arangodb.intellij.aql.ui.windows.AqlConsoleWindow;
 import com.arangodb.intellij.aql.util.AqlConst;
-import com.arangodb.intellij.aql.util.AqlUtils;
-import com.arangodb.intellij.aql.util.log;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
@@ -15,8 +13,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Set;
 
 public class AqlExecuteQueryAction extends AnAction {
 
@@ -44,10 +40,10 @@ public class AqlExecuteQueryAction extends AnAction {
 
         final Document document = editor.getDocument();
         final CharSequence charsSequence = extractText(editor, document);
-        final Set<String> names = AqlUtils.extractParameterNames(charsSequence, project);
+      /*  final Set<String> names = AqlUtils.extractParameterNames(charsSequence, project);
         for (String name : names) {
             log.info("name {}", name);
-        }
+        }*/
         AqlDataService.with(project).executeQuery(charsSequence.toString());
       /*  final String title = "";
         CommandProcessor.getInstance().executeCommand(project, () -> {

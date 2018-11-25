@@ -29,4 +29,6 @@ public interface AqlDatabaseService {
 
     @NotNull
     ArangoDbServer getServer(Project project);
+
+    boolean isConnectionValid(Project project);
 }
