@@ -42,7 +42,7 @@ T_OUTBOUND = "regexp:([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])"
 T_INBOUND = "regexp:([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])"
 T_ANY = "regexp:([Aa])([Nn])([Yy])"
 T_ALL = "regexp:([Aa])([Ll])([Ll])"
-T_NULL = "regexp:([Nn])([Uu])([Ll])([Ll])"
+T_NULL = "regexp:([n])([u])([l])([l])"
 T_AND = "regexp:([Aa])([Nn])([Dd])"
 // functions
 F_TFIDF = "regexp:([Tt])([Ff])([Ii])([Dd])([Ff])"
@@ -305,6 +305,7 @@ T_NONE = "none"
     TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
     // identifier
     NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
+    NUMBER_RANGE='regexp:^[1-9][0-9]?$|^100$'
     ID = 'regexp:[a-zA-Z_]\p{Alpha}\w*'
     SPACE='regexp:\s+'
 ]
@@ -346,7 +347,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_VARIANCE_SAMPLE
                         | F_UNSET
                         | F_JSON_PARSE
-                        | F_DEGREES
                         | F_GEO_MULTILINESTRING
                         | F_DATE_DAYOFYEAR
                         | F_LAST
@@ -370,7 +370,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_IS_OBJECT
                         | F_STARTS_WITH
                         | F_DATE_DAYOFWEEK
-                        | F_LOG10
                         | F_TFIDF
                         | F_DATE_ISO8601
                         | F_DATE_TRUNC
@@ -381,7 +380,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_LEVENSHTEIN_DISTANCE
                         | F_REMOVE_VALUE
                         | F_DATE_FORMAT
-                        | F_EXP
                         | F_RADIANS
                         | F_OUTERSECTION
                         | F_UNION
@@ -399,14 +397,12 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_GEO_EQUALS
                         | F_TRIM
                         | F_LEFT
-                        | F_PI
                         | F_NOT_NULL
                         | F_SUM
                         | F_VERSION
                         | F_POW
                         | F_SLEEP
                         | F_POP
-                        | F_MIN
                         | F_UUID
                         | F_TO_NUMBER
                         | F_FIND_FIRST
@@ -416,7 +412,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_TRANSLATE
                         | F_GEO_LINESTRING
                         | F_APPLY
-                        | F_EXP2
                         | F_DATE_SECOND
                         | F_BM25
                         | F_DATE_MONTH
@@ -438,7 +433,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_REGEX_TEST
                         | F_REMOVE_VALUES
                         | F_GEO_INTERSECTS
-                        | F_LOG2
                         | F_IS_DOCUMENT
                         | F_REGEX_REPLACE
                         | F_SORTED_UNIQUE
@@ -459,7 +453,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_ANALYZER
                         | F_PHRASE
                         | F_DATE_NOW
-                        | F_MEDIAN
                         | F_TO_ARRAY
                         | F_RIGHT
                         | F_RTRIM
@@ -472,7 +465,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_FULLTEXT
                         | F_UNIQUE
                         | F_IS_KEY
-                        | F_CEIL
                         | F_IS_ARRAY
                         | F_SHA512
                         | F_DATE_COMPARE
@@ -483,16 +475,12 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_COUNT_DISTINCT
                         | F_SHA1
                         | F_SQRT
-                        | F_LOG
                         | F_POSITION
                         | F_MERGE
                         | F_DATE_TIMESTAMP
                         | F_ENCODE_URI_COMPONENT
                         | F_CONTAINS
                         | F_FAIL
-                        | F_FLOOR
-                        | F_PERCENTILE
-                        | F_MAX
                         | F_EXISTS
                         | F_NTH
                         | F_TO_BOOL
@@ -549,10 +537,8 @@ KeywordStatements ::=    T_SHORTEST_PATH
 }*/
 
 
-OperatorStatements ::= T_NULL
-                       | T_TRUE
-                       | T_IS
-                       | T_FALSE
+OperatorStatements ::= 
+                        T_IS
                        | T_NOT
                        | T_AND
                        | T_LOGICAL_AND
@@ -606,6 +592,19 @@ Statement ::= NamedKeywordStatements
               | FunSin
               | FunAtan2
               | FunCos
+              | FunDegrees
+              | FunMin
+              | FunMedian
+              | FunLog10
+              | FunMax
+              | FunPercentile
+              | FunPi
+              | FunLog2
+              | FunLog
+              | FunFloor
+              | FunExp2
+              | FunExp
+              | FunCeil
               | FunConcatSeparator
 
               | Comment
@@ -627,6 +626,8 @@ NamedKeywordStatements ::= KeywordStatements {
   mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlKeywordMixin"
 }
 
+ReserverdWords ::= T_NULL
+
 ExpressionType ::= ObjectExpression
                 | NumberType
                 | ArrayType
@@ -637,6 +638,7 @@ ExpressionType ::= ObjectExpression
                 | ParameterVariable
                 | SystemProperty
                 | ArithmeticOperators
+                | ReserverdWords
                 | PropertyName
 
 // foo, bar, 'test'
@@ -662,9 +664,10 @@ pin = 3
 // FUNCTIONS  (more strict error checking)
 //############################################
 
+//private number_argument_array_and_null ::= (T_NULL | NumberType)  (',' T_NULL | NumberType)+
 private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
-private number_argument_array ::= NumberType (',' NumberType)+
+private number_argument_array ::= number_argument (',' number_argument)+
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
@@ -699,6 +702,48 @@ FunAvg ::=  (F_AVG "(" number_argument_array ")"){
 pin = 1
 }
 FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){
+pin = 1
+}
+
+FunCeil  ::=  (F_CEIL  "(" number_argument ")"){
+pin = 1
+}
+FunDegrees  ::=  (F_DEGREES  "(" number_argument ")"){
+pin = 1
+}
+FunExp  ::=  (F_EXP  "(" number_argument ")"){
+pin = 1
+}
+FunExp2  ::=  (F_EXP2  "(" number_argument ")"){
+pin = 1
+}
+FunFloor  ::=  (F_FLOOR  "(" number_argument ")"){
+pin = 1
+}
+FunLog  ::=  (F_LOG  "(" number_argument ")"){
+pin = 1
+}
+FunLog2  ::=  (F_LOG2  "(" number_argument ")"){
+pin = 1
+}
+FunLog10  ::=  (F_LOG10  "(" number_argument ")"){
+pin = 1
+}
+
+FunMax  ::=  (F_MAX  "(" number_argument_array ")"){
+pin = 1
+}
+FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")"){
+pin = 1
+}
+FunMin  ::=  (F_MIN  "(" number_argument_array ")"){
+pin = 1
+}
+FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," NUMBER_RANGE ("," StringType)? ")"){
+pin = 1
+}
+
+FunPi  ::=  (F_PI "(" ")"){
 pin = 1
 }
 
