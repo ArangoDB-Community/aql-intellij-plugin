@@ -23,8 +23,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-      if (t == ANY_INTEGER) {
-          r = AnyInteger(b, 0);
+      if (t == ANY_NUMBER) {
+          r = AnyNumber(b, 0);
       } else if (t == ARRAY_TYPE) {
           r = ArrayType(b, 0);
       } else if (t == BLOCK_COMMENT) {
@@ -35,8 +35,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = Comment(b, 0);
       } else if (t == COMPLEX_JSON_PROPERTY) {
           r = ComplexJsonProperty(b, 0);
-      } else if (t == DOUBLE_TYPE) {
-          r = DoubleType(b, 0);
       } else if (t == EXPRESSION_TYPE) {
           r = ExpressionType(b, 0);
       } else if (t == FUN_ABS) {
@@ -73,8 +71,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = PropertyName(b, 0);
       } else if (t == QUERY_ITEM) {
           r = QueryItem(b, 0);
-      } else if (t == SCIENTIFIC_NUMBER) {
-          r = ScientificNumber(b, 0);
       } else if (t == SEQUENCE) {
           r = Sequence(b, 0);
       } else if (t == SIGNED_INTEGER) {
@@ -98,18 +94,44 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // SignedInteger | IntegerType
-    public static boolean AnyInteger(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "AnyInteger")) {
+    // NUMBER | (T_PLUS | T_MINUS) NUMBER
+    public static boolean AnyNumber(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "AnyNumber")) {
             return false;
         }
         boolean r;
-        Marker m = enter_section_(b, l, _NONE_, ANY_INTEGER, "<any integer>");
-        r = SignedInteger(b, l + 1);
+        Marker m = enter_section_(b, l, _NONE_, ANY_NUMBER, "<any number>");
+        r = consumeToken(b, NUMBER);
         if (!r) {
-            r = IntegerType(b, l + 1);
+            r = AnyNumber_1(b, l + 1);
         }
         exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // (T_PLUS | T_MINUS) NUMBER
+    private static boolean AnyNumber_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "AnyNumber_1")) {
+            return false;
+        }
+        boolean r;
+        Marker m = enter_section_(b);
+        r = AnyNumber_1_0(b, l + 1);
+        r = r && consumeToken(b, NUMBER);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // T_PLUS | T_MINUS
+    private static boolean AnyNumber_1_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "AnyNumber_1_0")) {
+            return false;
+        }
+        boolean r;
+        r = consumeToken(b, T_PLUS);
+        if (!r) {
+            r = consumeToken(b, T_MINUS);
+        }
         return r;
     }
 
@@ -232,48 +254,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
             r = ArrayType(b, l + 1);
         }
         exit_section_(b, l, m, r, false, null);
-        return r;
-    }
-
-    /* ********************************************************** */
-    // NUMBER_DOUBLE | (T_PLUS | T_MINUS) NUMBER_DOUBLE
-    public static boolean DoubleType(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "DoubleType")) {
-            return false;
-        }
-        boolean r;
-        Marker m = enter_section_(b, l, _NONE_, DOUBLE_TYPE, "<double type>");
-        r = consumeToken(b, NUMBER_DOUBLE);
-        if (!r) {
-            r = DoubleType_1(b, l + 1);
-        }
-        exit_section_(b, l, m, r, false, null);
-        return r;
-    }
-
-    // (T_PLUS | T_MINUS) NUMBER_DOUBLE
-    private static boolean DoubleType_1(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "DoubleType_1")) {
-            return false;
-        }
-        boolean r;
-        Marker m = enter_section_(b);
-        r = DoubleType_1_0(b, l + 1);
-        r = r && consumeToken(b, NUMBER_DOUBLE);
-        exit_section_(b, m, null, r);
-        return r;
-    }
-
-    // T_PLUS | T_MINUS
-    private static boolean DoubleType_1_0(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "DoubleType_1_0")) {
-            return false;
-        }
-        boolean r;
-        r = consumeToken(b, T_PLUS);
-        if (!r) {
-            r = consumeToken(b, T_MINUS);
-        }
         return r;
     }
 
@@ -482,9 +462,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // "{" (ExpressionType ":" ComplexJsonProperty) ? ("," ExpressionType ":" ExpressionArray | ArrayType | NamedKeywordStatements | ObjectExpression  )*  "}" {
-    // //pin=2
-    // }
+    // "{" (ExpressionType ":" ComplexJsonProperty) ? ("," ExpressionType ":" ExpressionArray | ArrayType | NamedKeywordStatements | ObjectExpression  )*  "}"
     public static boolean JsonType(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "JsonType")) {
             return false;
@@ -492,15 +470,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!nextTokenIs(b, T_OBJECT_OPEN)) {
             return false;
         }
-        boolean r;
-        Marker m = enter_section_(b);
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, JSON_TYPE, null);
         r = consumeToken(b, T_OBJECT_OPEN);
         r = r && JsonType_1(b, l + 1);
-        r = r && JsonType_2(b, l + 1);
-        r = r && consumeToken(b, T_OBJECT_CLOSE);
-        r = r && JsonType_4(b, l + 1);
-        exit_section_(b, m, JSON_TYPE, r);
-        return r;
+        p = r; // pin = 2
+        r = r && report_error_(b, JsonType_2(b, l + 1));
+        r = p && consumeToken(b, T_OBJECT_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
     }
 
     // (ExpressionType ":" ComplexJsonProperty) ?
@@ -577,13 +555,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
         r = r && ExpressionArray(b, l + 1);
         exit_section_(b, m, null, r);
         return r;
-    }
-
-    // {
-    // //pin=2
-    // }
-    private static boolean JsonType_4(PsiBuilder b, int l) {
-        return true;
     }
 
   /* ********************************************************** */
@@ -1087,22 +1058,19 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // ScientificNumber | SignedInteger | IntegerType | DoubleType
+    // AnyNumber | SignedInteger | IntegerType
     public static boolean NumberType(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "NumberType")) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b, l, _NONE_, NUMBER_TYPE, "<number type>");
-        r = ScientificNumber(b, l + 1);
+        r = AnyNumber(b, l + 1);
         if (!r) {
             r = SignedInteger(b, l + 1);
         }
         if (!r) {
             r = IntegerType(b, l + 1);
-        }
-        if (!r) {
-            r = DoubleType(b, l + 1);
         }
         exit_section_(b, l, m, r, false, null);
         return r;
@@ -1156,7 +1124,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // T_NULL
   //                        | T_TRUE
-  //                        | T_AT
   //                        | T_IS
   //                        | T_FALSE
   //                        | T_NOT
@@ -1193,7 +1160,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, OPERATOR_STATEMENTS, "<operator statements>");
     r = consumeToken(b, T_NULL);
     if (!r) r = consumeToken(b, T_TRUE);
-    if (!r) r = consumeToken(b, T_AT);
     if (!r) r = consumeToken(b, T_IS);
     if (!r) r = consumeToken(b, T_FALSE);
     if (!r) r = consumeToken(b, T_NOT);
@@ -1234,17 +1200,17 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // T_AT  PropertyName
+    // N_AT  PropertyName
     public static boolean ParameterVariable(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "ParameterVariable")) {
             return false;
         }
-        if (!nextTokenIs(b, T_AT)) {
+        if (!nextTokenIs(b, N_AT)) {
             return false;
         }
         boolean r;
         Marker m = enter_section_(b);
-        r = consumeToken(b, T_AT);
+        r = consumeToken(b, N_AT);
         r = r && PropertyName(b, l + 1);
         exit_section_(b, m, PARAMETER_VARIABLE, r);
         return r;
@@ -1300,35 +1266,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     exit_section_(b, l, m, r, false, null);
     return r;
   }
-
-    /* ********************************************************** */
-    // (DoubleType | AnyInteger) EXPONENT_INDICATOR  AnyInteger
-    public static boolean ScientificNumber(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "ScientificNumber")) {
-            return false;
-        }
-        boolean r, p;
-        Marker m = enter_section_(b, l, _NONE_, SCIENTIFIC_NUMBER, "<scientific number>");
-        r = ScientificNumber_0(b, l + 1);
-        r = r && consumeToken(b, EXPONENT_INDICATOR);
-        p = r; // pin = 2
-        r = r && AnyInteger(b, l + 1);
-        exit_section_(b, l, m, r, p, null);
-        return r || p;
-    }
-
-    // DoubleType | AnyInteger
-    private static boolean ScientificNumber_0(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "ScientificNumber_0")) {
-            return false;
-        }
-        boolean r;
-        r = DoubleType(b, l + 1);
-        if (!r) {
-            r = AnyInteger(b, l + 1);
-        }
-        return r;
-    }
 
   /* ********************************************************** */
   // IntegerType T_RANGE IntegerType

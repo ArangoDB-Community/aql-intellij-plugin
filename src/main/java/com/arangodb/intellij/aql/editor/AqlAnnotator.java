@@ -24,11 +24,9 @@ public class AqlAnnotator implements Annotator {
             applyHighlighting(psiElement, annotationHolder, AqlSyntaxColors.BLOCK_COMMENT);
         } else if (psiElement instanceof AqlStringType) {
             applyHighlighting(psiElement, annotationHolder, AqlSyntaxColors.STRING);
-        } else if (psiElement instanceof AqlIntegerType) {
+        } else if (psiElement instanceof AqlAnyNumber || psiElement instanceof AqlIntegerType) {
             applyHighlighting(psiElement, annotationHolder, AqlSyntaxColors.NUMBER);
-        } else if (psiElement instanceof AqlLimitOffset) {
-            applyHighlighting(psiElement, annotationHolder, AqlSyntaxColors.AQL_BRACES);
-        }
+        } 
     }
 
     private void applyHighlighting(final PsiElement psiElement, final AnnotationHolder annotationHolder, final TextAttributesKey key) {

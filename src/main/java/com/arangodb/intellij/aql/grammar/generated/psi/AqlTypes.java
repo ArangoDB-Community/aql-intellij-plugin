@@ -10,13 +10,12 @@ import com.intellij.psi.tree.IElementType;
 
 public interface AqlTypes {
 
-    IElementType ANY_INTEGER = new AqlElementType("ANY_INTEGER");
+    IElementType ANY_NUMBER = new AqlElementType("ANY_NUMBER");
   IElementType ARRAY_TYPE = new AqlElementType("ARRAY_TYPE");
   IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
   IElementType BOOLEAN_TYPE = new AqlElementType("BOOLEAN_TYPE");
   IElementType COMMENT = new AqlElementType("COMMENT");
   IElementType COMPLEX_JSON_PROPERTY = new AqlElementType("COMPLEX_JSON_PROPERTY");
-    IElementType DOUBLE_TYPE = new AqlElementType("DOUBLE_TYPE");
   IElementType EXPRESSION_TYPE = new AqlElementType("EXPRESSION_TYPE");
   IElementType FUNCTION_EXPRESSION = new AqlElementType("FUNCTION_EXPRESSION");
     IElementType FUN_ABS = new AqlElementType("FUN_ABS");
@@ -35,7 +34,6 @@ public interface AqlTypes {
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
-    IElementType SCIENTIFIC_NUMBER = new AqlElementType("SCIENTIFIC_NUMBER");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
     IElementType SIGNED_INTEGER = new AqlElementType("SIGNED_INTEGER");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
@@ -47,7 +45,6 @@ public interface AqlTypes {
   IElementType DOLLAR = new AqlTokenType("$");
   IElementType DOT = new AqlTokenType(".");
   IElementType DOUBLE_QUOTE = new AqlTokenType("\"");
-    IElementType EXPONENT_INDICATOR = new AqlTokenType("EXPONENT_INDICATOR");
   IElementType F_ABS = new AqlTokenType("F_ABS");
   IElementType F_ACOS = new AqlTokenType("F_ACOS");
   IElementType F_ANALYZER = new AqlTokenType("F_ANALYZER");
@@ -243,8 +240,9 @@ public interface AqlTypes {
   IElementType F_ZIP = new AqlTokenType("F_ZIP");
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
-    IElementType NUMBER_DOUBLE = new AqlTokenType("NUMBER_DOUBLE");
+    IElementType NUMBER = new AqlTokenType("NUMBER");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
+    IElementType N_AT = new AqlTokenType("@");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
   IElementType TEXT_SINGLE = new AqlTokenType("TEXT_SINGLE");
@@ -255,7 +253,6 @@ public interface AqlTypes {
   IElementType T_ARRAY_CLOSE = new AqlTokenType("]");
   IElementType T_ARRAY_OPEN = new AqlTokenType("[");
   IElementType T_ASC = new AqlTokenType("T_ASC");
-  IElementType T_AT = new AqlTokenType("@");
   IElementType T_CLOSE = new AqlTokenType(")");
   IElementType T_COLLECT = new AqlTokenType("T_COLLECT");
   IElementType T_COLON = new AqlTokenType(":");
@@ -319,8 +316,8 @@ public interface AqlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-        if (type == ANY_INTEGER) {
-            return new AqlAnyIntegerImpl(node);
+        if (type == ANY_NUMBER) {
+            return new AqlAnyNumberImpl(node);
         } else if (type == ARRAY_TYPE) {
         return new AqlArrayTypeImpl(node);
         } else if (type == BLOCK_COMMENT) {
@@ -331,8 +328,6 @@ public interface AqlTypes {
         return new AqlCommentImpl(node);
         } else if (type == COMPLEX_JSON_PROPERTY) {
         return new AqlComplexJsonPropertyImpl(node);
-        } else if (type == DOUBLE_TYPE) {
-            return new AqlDoubleTypeImpl(node);
         } else if (type == EXPRESSION_TYPE) {
         return new AqlExpressionTypeImpl(node);
         } else if (type == FUNCTION_EXPRESSION) {
@@ -369,8 +364,6 @@ public interface AqlTypes {
         return new AqlPropertyNameImpl(node);
         } else if (type == QUERY_ITEM) {
         return new AqlQueryItemImpl(node);
-        } else if (type == SCIENTIFIC_NUMBER) {
-            return new AqlScientificNumberImpl(node);
         } else if (type == SEQUENCE) {
         return new AqlSequenceImpl(node);
         } else if (type == SIGNED_INTEGER) {

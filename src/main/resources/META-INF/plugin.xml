@@ -12,7 +12,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-     1.0.0 initial release (basic coloring, autocompletion)
+     1.0.0 initial release (syntax highlighting, autocompletion, refactorings, spring data query language injection)
     ]]>
   </change-notes>
 

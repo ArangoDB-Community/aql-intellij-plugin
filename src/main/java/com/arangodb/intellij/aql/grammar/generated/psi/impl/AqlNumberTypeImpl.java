@@ -28,20 +28,14 @@ public class AqlNumberTypeImpl extends ASTWrapperPsiElement implements AqlNumber
 
     @Override
     @Nullable
-    public AqlDoubleType getDoubleType() {
-        return findChildByClass(AqlDoubleType.class);
+    public AqlAnyNumber getAnyNumber() {
+        return findChildByClass(AqlAnyNumber.class);
     }
 
     @Override
     @Nullable
     public AqlIntegerType getIntegerType() {
         return findChildByClass(AqlIntegerType.class);
-    }
-
-    @Override
-    @Nullable
-    public AqlScientificNumber getScientificNumber() {
-        return findChildByClass(AqlScientificNumber.class);
     }
 
     @Override

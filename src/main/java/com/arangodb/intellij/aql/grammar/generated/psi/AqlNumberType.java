@@ -7,13 +7,10 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlNumberType extends PsiElement {
 
     @Nullable
-    AqlDoubleType getDoubleType();
+    AqlAnyNumber getAnyNumber();
 
     @Nullable
     AqlIntegerType getIntegerType();
-
-    @Nullable
-    AqlScientificNumber getScientificNumber();
 
     @Nullable
     AqlSignedInteger getSignedInteger();

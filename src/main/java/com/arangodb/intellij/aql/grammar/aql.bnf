@@ -246,7 +246,13 @@ T_ID = "_id"
 T_SYS_FROM = "_from"
 T_SYS_TO = "_to"
     // operators
-T_AT = "@"
+
+//############################################
+// NONE_TOKENS
+//############################################
+N_AT = "@"
+
+
 T_TRUE = "true"
 T_FALSE = "false"
 T_NOT = "not"
@@ -287,16 +293,19 @@ T_NONE = "none"
     DOLLAR="$"
     T_OBJECT_START="${"
     NUMBER_INTEGER="regexp:\d+"
-    NUMBER_DOUBLE="regexp:\d+\.\d+"
-    EXPONENT_INDICATOR="regexp:([Ee])"
+    //NUMBER_DOUBLE="regexp:\d+\.\d+"
+    //EXPONENT_INDICATOR="regexp:([Ee])"
 
-    SPACE='regexp:\s+'
+
     B_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
     L_COMMENT='regexp://.*'
     TEXT_SINGLE ="regexp:'(''|[^']*)'"
     //TEXT_DOUBLE ="regexp:\"([^\"\\]|\\.)*\")"
     TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
-    ID='regexp:[a-zA-Z_][a-zA-Z0-9_-]*'
+    // identifier
+    NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
+    ID = 'regexp:[a-zA-Z_]\p{Alpha}\w*'
+    SPACE='regexp:\s+'
 ]
     
 }
@@ -543,7 +552,6 @@ KeywordStatements ::=    T_SHORTEST_PATH
 
 OperatorStatements ::= T_NULL
                        | T_TRUE
-                       | T_AT
                        | T_IS
                        | T_FALSE
                        | T_NOT
@@ -628,7 +636,7 @@ ExpressionType ::= ObjectExpression
 // object notation...{foo:bar}
 ComplexJsonProperty ::= (ExpressionArray | ArrayType)
 JsonType::=  "{" (ExpressionType ":" ComplexJsonProperty) ? ("," ExpressionType ":" ExpressionArray | ArrayType | NamedKeywordStatements | ObjectExpression  )*  "}" {
-//pin=2
+ pin=2
 }
 
 
@@ -658,17 +666,12 @@ pin = 2
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
 SignedInteger ::= ((T_PLUS | T_MINUS) IntegerType)
-AnyInteger::= SignedInteger | IntegerType
-ScientificNumber ::= ((DoubleType | AnyInteger) EXPONENT_INDICATOR  AnyInteger){
-    pin=2
-}
-DoubleType ::= NUMBER_DOUBLE | (T_PLUS | T_MINUS) NUMBER_DOUBLE
 
-NumberType ::= ScientificNumber | SignedInteger | IntegerType | DoubleType
+AnyNumber ::= NUMBER | (T_PLUS | T_MINUS) NUMBER
+
+NumberType ::= AnyNumber | SignedInteger | IntegerType
 
 BooleanType ::= T_TRUE | T_FALSE
-// overlap by array types
-//LimitOffset ::= IntegerType "," IntegerType
 
 
 VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
@@ -695,7 +698,8 @@ ObjectExpression ::=  PropertyName (DOT PropertyLookup)* {
 }
 
 
-ParameterVariable ::= T_AT  PropertyName {
+ParameterVariable ::= (N_AT  PropertyName){
+   pin=2
    methods=[ getName setName]
    mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqParameterVariableMixin"
 }

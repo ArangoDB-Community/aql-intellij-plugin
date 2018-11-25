@@ -4,9 +4,9 @@ package com.arangodb.intellij.aql.grammar.generated.psi;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
-public interface AqlPropertyKeyName extends PsiElement {
+public interface AqlAnyNumber extends PsiElement {
 
-  @NotNull
-  AqlPropertyName getPropertyName();
+    @NotNull
+    PsiElement getNumber();
 
 }

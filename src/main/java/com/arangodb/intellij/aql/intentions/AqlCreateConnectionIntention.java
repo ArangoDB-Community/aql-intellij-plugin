@@ -1,7 +1,7 @@
 package com.arangodb.intellij.aql.intentions;
 
+import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.lang.AqlLanguage;
-import com.arangodb.intellij.aql.ui.dialogs.AqlServerDialog;
 import com.intellij.codeInsight.intention.IntentionAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
@@ -34,7 +34,7 @@ public class AqlCreateConnectionIntention implements IntentionAction {
 
     @Override
     public void invoke(@NotNull final Project project, final Editor editor, final PsiFile psiFile) throws IncorrectOperationException {
-        new AqlServerDialog(project).show();
+        AqlDataService.with(project).showServerDialog();
     }
 
     @Override

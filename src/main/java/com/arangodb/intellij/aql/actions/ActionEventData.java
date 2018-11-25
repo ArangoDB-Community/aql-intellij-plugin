@@ -8,6 +8,7 @@ public class ActionEventData {
 
     public static final ActionEventData EMPTY = new ActionEventData();
     public static final String KEY_QUERY = "query";
+    public static final String KEY_EVENT_NAME = "name";
     public static final String KEY_RESULT = "result";
 
     private final Map<String, String> data = new HashMap<>();
@@ -20,8 +21,14 @@ public class ActionEventData {
     }
 
 
-    public void set(final String key, final String value) {
+    public ActionEventData forName(final String value) {
+        data.put(KEY_EVENT_NAME, value);
+        return this;
+    }
+
+    public ActionEventData set(final String key, final String value) {
         data.put(key, value);
+        return this;
     }
 
     public String get(final String key) {

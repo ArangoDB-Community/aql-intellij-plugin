@@ -247,14 +247,13 @@ F_IS_OBJECT=([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])
 F_STDDEV_SAMPLE=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])
 F_COUNT_DISTINCT=([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 NUMBER_INTEGER=[0-9]+
-NUMBER_DOUBLE=[0-9]+\.[0-9]+
-EXPONENT_INDICATOR=([Ee])
-SPACE=[ \t\n\x0B\f\r]+
 B_COMMENT="/"\*([^*]|\*+[^*/])*(\*+"/")?
 L_COMMENT="//".*
 TEXT_SINGLE='(''|[^']*)'
 TEXT_DOUBLE=\"([^\\\"\r\n]|\\[^\r\n])*\"?
-ID=[a-zA-Z_][a-zA-Z0-9_-]*
+NUMBER=-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]*)?
+ID=[a-zA-Z_][:letter:][a-zA-Z_0-9]*
+SPACE=[ \t\n\x0B\f\r]+
 
 %%
 <YYINITIAL> {
@@ -265,7 +264,7 @@ ID=[a-zA-Z_][a-zA-Z0-9_-]*
   "_id"                         { return T_ID; }
   "_from"                       { return T_SYS_FROM; }
   "_to"                         { return T_SYS_TO; }
-  "@"                           { return T_AT; }
+  "@"                           { return N_AT; }
   "true"                        { return T_TRUE; }
   "false"                       { return T_FALSE; }
   "not"                         { return T_NOT; }
@@ -526,14 +525,13 @@ ID=[a-zA-Z_][a-zA-Z0-9_-]*
   {F_STDDEV_SAMPLE}             { return F_STDDEV_SAMPLE; }
   {F_COUNT_DISTINCT}            { return F_COUNT_DISTINCT; }
   {NUMBER_INTEGER}              { return NUMBER_INTEGER; }
-  {NUMBER_DOUBLE}               { return NUMBER_DOUBLE; }
-  {EXPONENT_INDICATOR}          { return EXPONENT_INDICATOR; }
-  {SPACE}                       { return SPACE; }
   {B_COMMENT}                   { return B_COMMENT; }
   {L_COMMENT}                   { return L_COMMENT; }
   {TEXT_SINGLE}                 { return TEXT_SINGLE; }
   {TEXT_DOUBLE}                 { return TEXT_DOUBLE; }
+  {NUMBER}                      { return NUMBER; }
   {ID}                          { return ID; }
+  {SPACE}                       { return SPACE; }
 
 }
 

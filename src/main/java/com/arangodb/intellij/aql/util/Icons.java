@@ -31,6 +31,8 @@ public final class Icons {
 
     public static final Icon ICON_DATABASE = IconLoader.getIcon("/icons/database.png");
 
+    public static final Icon ICON_SERVER = IconLoader.getIcon("/icons/server.png");
+
     public static final Icon ICON_FUNCTION = IconLoader.getIcon("/icons/function.png");
 
     private Icons() {

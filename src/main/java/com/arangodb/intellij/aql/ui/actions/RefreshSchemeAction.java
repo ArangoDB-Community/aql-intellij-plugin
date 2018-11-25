@@ -1,5 +1,6 @@
 package com.arangodb.intellij.aql.ui.actions;
 
+import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.ui.windows.AqlServerToolWindow;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -17,6 +18,6 @@ public class RefreshSchemeAction extends AnActionButton {
 
     @Override
     public void actionPerformed(@NotNull final AnActionEvent anActionEvent) {
-        serverToolWindow.addServerAction();
+        AqlDataService.with(serverToolWindow.getProject()).refreshSchema();
     }
 }
