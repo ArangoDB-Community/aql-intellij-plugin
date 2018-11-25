@@ -18,8 +18,8 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey[] EMPTY = new TextAttributesKey[0];
     private static final TextAttributesKey[] LINE_COMMENT = new TextAttributesKey[]{AqlSyntaxColors.LINE_COMMENT};
     private static final TextAttributesKey[] BLOCK_COMMENT = new TextAttributesKey[]{AqlSyntaxColors.BLOCK_COMMENT};
-
     private static final TextAttributesKey[] STRINGS = new TextAttributesKey[]{AqlSyntaxColors.STRING};
+
     private static final TextAttributesKey[] FUNCTION = new TextAttributesKey[]{AqlSyntaxColors.FUNCTION};
     private static final TextAttributesKey[] KEYWORD = new TextAttributesKey[]{AqlSyntaxColors.KEYWORD};
     private static final TextAttributesKey[] PROPERTY_LOOKUP = new TextAttributesKey[]{AqlSyntaxColors.PROPERTY_LOOKUP};
@@ -40,11 +40,16 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     public TextAttributesKey[] getTokenHighlights(final IElementType type) {
 
+
         if (type.equals(AqlTypes.L_COMMENT)) {
             return LINE_COMMENT;
         } else if (type.equals(AqlTypes.B_COMMENT)) {
             return BLOCK_COMMENT;
-        } /*else if (type.equals(AqlTypes.PROPERTY_LOOKUP)) {
+        } else if (type.equals(AqlTypes.TEXT_DOUBLE)) {
+            return STRINGS;
+        } else if (type.equals(AqlTypes.TEXT_SINGLE)) {
+            return STRINGS;
+        } else if (type.equals(AqlTypes.PROPERTY_LOOKUP)) {
             return PROPERTY_LOOKUP;
         } else if (type.equals(AqlTypes.T_OPEN) || type.equals(AqlTypes.T_CLOSE) || type.equals(AqlTypes.T_ARRAY_OPEN) || type.equals(AqlTypes.T_ARRAY_CLOSE)) {
             return BRACKETS;
@@ -56,18 +61,15 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
             return PARAMETER_VARIABLE;
         } else if (type.equals(AqlTypes.SYSTEM_PROPERTY)) {
             return SYSTEM_PROPERTY;
-        } else if (type.equals(AqlTypes.TEXT_SINGLE)) {
-            return STRINGS;
-        } else if (type.equals(AqlTypes.TEXT_DOUBLE)) {
-            return STRINGS;
         } else if (type.equals(AqlTypes.KEYWORD_FUNCTIONS)) {
             return FUNCTION;
         } else if (type.equals(AqlTypes.ID) || type.equals(AqlTypes.T_RETURN) || type.equals(AqlTypes.T_FOR)) {
             return KEYWORD;
         } else if (type.equals(AqlTypes.INTEGER_TYPE)) {
             return NUMBER;
-        }*/
+        }
 
+        log.error("type {}", type);
         return EMPTY;
     }
 }

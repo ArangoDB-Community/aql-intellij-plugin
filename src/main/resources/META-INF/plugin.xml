@@ -59,7 +59,6 @@
     <projectService serviceInterface="com.arangodb.intellij.aql.db.AqlDatabaseService" serviceImplementation="com.arangodb.intellij.aql.db.AqlDatabaseServiceImpl"/>
     <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.arangodb.intellij.aql.ui.ServerWindowFactory" icon="/icons/toolbarArangoDB.png"/>
     <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.arangodb.intellij.aql.ui.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
-    <annotator language="AQL" implementationClass="com.arangodb.intellij.aql.editor.AqlAnnotator"/>
     <intentionAction>
       <className>com.arangodb.intellij.aql.intentions.AqlCreateConnectionIntention</className>
     </intentionAction>
@@ -83,7 +82,7 @@
       </action>
       <action id="AQL.Action.Console.Clean"
               class="com.arangodb.intellij.aql.actions.AqlEmptyLogAction"
-              text="Clear"
+              text="Clear Query Console"
               icon="/icons/trash.svg"
               description="Clear">
       </action>

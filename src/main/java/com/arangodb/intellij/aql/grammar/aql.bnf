@@ -548,6 +548,13 @@ KeywordStatements ::=    T_SHORTEST_PATH
                         | T_ANY
                         | T_ALL
                         | T_NONE
+/*{
+                          methods=[
+                            getName
+                            setName
+                          ]
+                          mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlKeywordMixin"
+}*/
 
 
 OperatorStatements ::= T_NULL

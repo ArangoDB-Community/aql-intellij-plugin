@@ -32,6 +32,7 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("String", AqlSyntaxColors.STRING),
             new AttributesDescriptor("Number", AqlSyntaxColors.NUMBER)};
 
+
     @Nullable
     @Override
     public Icon getIcon() {
