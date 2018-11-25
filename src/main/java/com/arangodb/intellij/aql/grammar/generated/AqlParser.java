@@ -1208,12 +1208,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!nextTokenIs(b, N_AT)) {
             return false;
         }
-        boolean r;
-        Marker m = enter_section_(b);
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, PARAMETER_VARIABLE, null);
         r = consumeToken(b, N_AT);
+        p = r; // pin = 1
         r = r && PropertyName(b, l + 1);
-        exit_section_(b, m, PARAMETER_VARIABLE, r);
-        return r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
     }
 
     /* ********************************************************** */

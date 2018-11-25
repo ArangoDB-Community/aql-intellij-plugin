@@ -19,7 +19,6 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] LINE_COMMENT = new TextAttributesKey[]{AqlSyntaxColors.LINE_COMMENT};
     private static final TextAttributesKey[] BLOCK_COMMENT = new TextAttributesKey[]{AqlSyntaxColors.BLOCK_COMMENT};
     private static final TextAttributesKey[] STRINGS = new TextAttributesKey[]{AqlSyntaxColors.STRING};
-
     private static final TextAttributesKey[] FUNCTION = new TextAttributesKey[]{AqlSyntaxColors.FUNCTION};
     private static final TextAttributesKey[] KEYWORD = new TextAttributesKey[]{AqlSyntaxColors.KEYWORD};
     private static final TextAttributesKey[] PROPERTY_LOOKUP = new TextAttributesKey[]{AqlSyntaxColors.PROPERTY_LOOKUP};
@@ -29,6 +28,7 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] PARAMETER_VARIABLE = new TextAttributesKey[]{AqlSyntaxColors.PARAMETER_VARIABLE};
     private static final TextAttributesKey[] BRACKETS = new TextAttributesKey[]{AqlSyntaxColors.AQL_BRACES};
     private static final TextAttributesKey[] NUMBER = new TextAttributesKey[]{AqlSyntaxColors.NUMBER};
+    private static final TextAttributesKey[] VARIABLE = new TextAttributesKey[]{AqlSyntaxColors.VARIABLE};
 
     @NotNull
     @Override
@@ -63,13 +63,15 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
             return SYSTEM_PROPERTY;
         } else if (type.equals(AqlTypes.KEYWORD_FUNCTIONS)) {
             return FUNCTION;
-        } else if (type.equals(AqlTypes.ID) || type.equals(AqlTypes.T_RETURN) || type.equals(AqlTypes.T_FOR)) {
+        } else if (type.equals(AqlTypes.KEYWORD_STATEMENTS)) {
             return KEYWORD;
-        } else if (type.equals(AqlTypes.INTEGER_TYPE)) {
+        } else if (type.equals(AqlTypes.ID)) {
+            return VARIABLE;
+        } else if (type.equals(AqlTypes.NUMBER)) {
             return NUMBER;
         }
 
-        log.error("type {}", type);
+        //log.error("typeX {}", type);
         return EMPTY;
     }
 }

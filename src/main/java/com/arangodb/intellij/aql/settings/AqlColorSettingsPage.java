@@ -21,16 +21,23 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Line comment", AqlSyntaxColors.LINE_COMMENT),
             new AttributesDescriptor("Block comment", AqlSyntaxColors.BLOCK_COMMENT),
             new AttributesDescriptor("Keyword", AqlSyntaxColors.KEYWORD),
-            new AttributesDescriptor("Variable", AqlSyntaxColors.VARIABLE_PLACE_HOLDER),
-            new AttributesDescriptor("Parameter", AqlSyntaxColors.PARAMETER),
             new AttributesDescriptor("Function", AqlSyntaxColors.FUNCTION),
+            new AttributesDescriptor("String", AqlSyntaxColors.STRING),
+            new AttributesDescriptor("Number", AqlSyntaxColors.NUMBER),
+            new AttributesDescriptor("Variable", AqlSyntaxColors.VARIABLE),
+            new AttributesDescriptor("Variable Placeholder", AqlSyntaxColors.VARIABLE_PLACE_HOLDER),
+            new AttributesDescriptor("Variable Parameter", AqlSyntaxColors.PARAMETER_VARIABLE),
+            new AttributesDescriptor("Property Lookup", AqlSyntaxColors.PROPERTY_LOOKUP),
+            // TODO
+
             new AttributesDescriptor("Operation sign", AqlSyntaxColors.OPERATION_SIGN),
             new AttributesDescriptor("Parentheses", AqlSyntaxColors.PARENTHESES),
             new AttributesDescriptor("Braces", AqlSyntaxColors.SQUARE_BRACES),
             new AttributesDescriptor("Comma", AqlSyntaxColors.COMMA),
-            new AttributesDescriptor("Dot", AqlSyntaxColors.DOT),
-            new AttributesDescriptor("String", AqlSyntaxColors.STRING),
-            new AttributesDescriptor("Number", AqlSyntaxColors.NUMBER)};
+            new AttributesDescriptor("Dot", AqlSyntaxColors.DOT)
+
+    };
+
 
 
     @Nullable

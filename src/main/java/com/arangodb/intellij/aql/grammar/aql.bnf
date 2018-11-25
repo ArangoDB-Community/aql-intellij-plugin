@@ -163,6 +163,7 @@ F_UPPER = "regexp:([Uu])([Pp])([Pp])([Ee])([Rr])"
 F_RIGHT = "regexp:([Rr])([Ii])([Gg])([Hh])([Tt])"
 F_ROUND = "regexp:([Rr])([Oo])([Uu])([Nn])([Dd])"
 F_TAN = "regexp:([Tt])([Aa])([Nn])"
+F_TAN2 = "regexp:([Tt])([Aa])([Nn])([2])"
 F_MAX = "regexp:([Mm])([Aa])([Xx])"
 F_TO_BOOL = "regexp:([Tt])([Oo])([_])([Bb])([Oo])([Oo])([Ll])"
 F_IS_NUMBER = "regexp:([Ii])([Ss])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
@@ -337,7 +338,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_WARN
                         | F_DATE_LEAPYEAR
                         | F_STDDEV_SAMPLE
-                        | F_TAN
                         | F_IS_BOOL
                         | F_TO_LIST
                         | F_REGEX_SPLIT
@@ -428,7 +428,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_HAS
                         | F_KEEP
                         | F_TO_STRING
-                        | F_ACOS
                         | F_V8
                         | F_PREGEL_RESULT
                         | F_UNION_DISTINCT
@@ -439,12 +438,9 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_REGEX_TEST
                         | F_REMOVE_VALUES
                         | F_GEO_INTERSECTS
-                        | F_ATAN
                         | F_LOG2
-                        | F_SIN
                         | F_IS_DOCUMENT
                         | F_REGEX_REPLACE
-                        | F_AVG
                         | F_SORTED_UNIQUE
                         | F_TYPENAME
                         | F_DATE_ADD
@@ -457,7 +453,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_WITHIN_RECTANGLE
                         | F_SOUNDEX
                         | F_TOKENS
-                        | F_AVERAGE
                         | F_DATE_QUARTER
                         | F_IS_NULL
                         | F_COLLECTIONS
@@ -477,7 +472,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_FULLTEXT
                         | F_UNIQUE
                         | F_IS_KEY
-                        | F_ATAN2
                         | F_CEIL
                         | F_IS_ARRAY
                         | F_SHA512
@@ -508,7 +502,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_RANDOM_TOKEN
                         | F_FIND_LAST
                         | F_STDDEV_POPULATION
-                        | F_COS
                         | F_VARIANCE
                         | F_IS_NUMBER
                         | F_SORTED
@@ -517,7 +510,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_ASSERT
                         | F_GEO_MULTIPOINT
                         | F_SLICE
-                        | F_ASIN
 
 
 
@@ -604,6 +596,15 @@ Statement ::= NamedKeywordStatements
               | ExpressionType
               // functions
               | FunAbs
+              | FunAcos
+              | FunAsin
+              | FunAvg
+              | FunTan
+              | FunTan2
+              | FunAtan
+              | FunSin
+              | FunAtan2
+              | FunCos
               | FunConcatSeparator
 
               | Comment
@@ -662,12 +663,44 @@ pin = 3
 
 private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
+//*************************************************************************************
+// FUNCTIONS 
+//*************************************************************************************
 FunAbs ::=  (F_ABS "(" number_argument ")"){
-pin = 2
+pin = 1
+}
+FunCos ::=  (F_COS "(" number_argument ")"){
+pin = 1
+}FunAcos ::=  (F_ACOS "(" number_argument ")"){
+pin = 1
+}
+FunAsin ::=  (F_ASIN "(" number_argument ")"){
+pin = 1
+}
+FunSin ::=  (F_SIN "(" number_argument ")"){
+pin = 1
 }
 
+FunAtan ::=  (F_ATAN "(" number_argument ")"){
+pin = 1
+}
+FunTan ::=  (F_TAN "(" number_argument ")"){
+pin = 1
+}
+FunTan2 ::=  (F_TAN2 "(" number_argument ")"){
+pin = 1
+}
+FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){
+pin = 1
+}
+FunAvg ::=  (F_AVERAGE | F_AVG "(" number_argument ")"){
+pin = 1
+}
+
+
+
 FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){
-pin = 2
+pin = 1
 }
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
