@@ -75,6 +75,8 @@ public final class AqlDataService {
     }
 
     public AqlDataService refreshSchema() {
+        // trigger cache reload
+        service.refresh(service.getServer(project), project);
         final ActionBusEvent event = messageBus.syncPublisher(ActionBusEvent.AQL_SYSTEM_REFRESH_SCHEME);
         event.onEvent(new ActionEventData().forName(ActionBusEvent.AQL_SYSTEM_REFRESH_SCHEME.getDisplayName()));
         return this;
@@ -83,11 +85,6 @@ public final class AqlDataService {
     public AqlDataService setActiveDatabase() {
         final ActionBusEvent event = messageBus.syncPublisher(ActionBusEvent.AQL_SYSTEM_ACTIVE_DATABASE_SET);
         event.onEvent(new ActionEventData().forName(ActionBusEvent.AQL_SYSTEM_ACTIVE_DATABASE_SET.getDisplayName()));
-        return this;
-    }
-
-    public AqlDataService subscribeSchemeRefresh(final ActionBusEvent event) {
-        messageBus.connect().subscribe(ActionBusEvent.AQL_SYSTEM_REFRESH_SCHEME, event);
         return this;
     }
 

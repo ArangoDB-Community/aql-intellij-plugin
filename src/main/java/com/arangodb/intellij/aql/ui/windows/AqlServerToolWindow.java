@@ -48,8 +48,9 @@ public class AqlServerToolWindow implements Disposable {
 
         AqlDataService
                 .with(project)
-                .subscribeSchemeRefresh(data -> {
+                .subscribe(ActionBusEvent.AQL_SYSTEM_REFRESH_SCHEME, data -> {
                     fillTree();
+                    log.info("Scheme refreshed");
                 })
                 .subscribe(ActionBusEvent.AQL_SYSTEM_ACTIVE_DATABASE_SET, data -> {
                     final CheckedTreeNode[] selectedNodes = schemaTree.getSelectedNodes(CheckedTreeNode.class,
