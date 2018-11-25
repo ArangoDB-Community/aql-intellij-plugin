@@ -3,11 +3,11 @@ package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 public interface AqlParameterVariable extends PsiElement {
 
-    @Nullable
+    @NotNull
     AqlPropertyName getPropertyName();
 
     String getName();

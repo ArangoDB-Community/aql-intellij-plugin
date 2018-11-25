@@ -9,7 +9,4 @@ public interface AqlOperatorStatements extends PsiElement {
   @Nullable
   PsiElement getTAnd();
 
-  @Nullable
-  PsiElement getTNull();
-
 }

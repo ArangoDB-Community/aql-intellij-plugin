@@ -52,7 +52,7 @@ T_OUTBOUND=([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])
 T_INBOUND=([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])
 T_ANY=([Aa])([Nn])([Yy])
 T_ALL=([Aa])([Ll])([Ll])
-T_NULL=([Nn])([Uu])([Ll])([Ll])
+T_NULL=([n])([u])([l])([l])
 T_AND=([Aa])([Nn])([Dd])
 F_TFIDF=([Tt])([Ff])([Ii])([Dd])([Ff])
 F_MIN_MATCH=([Mm])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])
@@ -172,6 +172,7 @@ F_UPPER=([Uu])([Pp])([Pp])([Ee])([Rr])
 F_RIGHT=([Rr])([Ii])([Gg])([Hh])([Tt])
 F_ROUND=([Rr])([Oo])([Uu])([Nn])([Dd])
 F_TAN=([Tt])([Aa])([Nn])
+F_TAN2=([Tt])([Aa])([Nn])([2])
 F_MAX=([Mm])([Aa])([Xx])
 F_TO_BOOL=([Tt])([Oo])([_])([Bb])([Oo])([Oo])([Ll])
 F_IS_NUMBER=([Ii])([Ss])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])
@@ -252,6 +253,7 @@ L_COMMENT="//".*
 TEXT_SINGLE='(''|[^']*)'
 TEXT_DOUBLE=\"([^\\\"\r\n]|\\[^\r\n])*\"?
 NUMBER=-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]*)?
+NUMBER_RANGE=[1-9][0-9]?|100
 ID=[a-zA-Z_][:letter:][a-zA-Z_0-9]*
 SPACE=[ \t\n\x0B\f\r]+
 
@@ -450,6 +452,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_RIGHT}                     { return F_RIGHT; }
   {F_ROUND}                     { return F_ROUND; }
   {F_TAN}                       { return F_TAN; }
+  {F_TAN2}                      { return F_TAN2; }
   {F_MAX}                       { return F_MAX; }
   {F_TO_BOOL}                   { return F_TO_BOOL; }
   {F_IS_NUMBER}                 { return F_IS_NUMBER; }
@@ -530,6 +533,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {TEXT_SINGLE}                 { return TEXT_SINGLE; }
   {TEXT_DOUBLE}                 { return TEXT_DOUBLE; }
   {NUMBER}                      { return NUMBER; }
+  {NUMBER_RANGE}                { return NUMBER_RANGE; }
   {ID}                          { return ID; }
   {SPACE}                       { return SPACE; }
 

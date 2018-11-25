@@ -10,7 +10,6 @@ import com.arangodb.intellij.aql.grammar.psi.impl.AqParameterVariableMixin;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class AqlParameterVariableImpl extends AqParameterVariableMixin implements AqlParameterVariable {
 
@@ -31,9 +30,9 @@ public class AqlParameterVariableImpl extends AqParameterVariableMixin implement
     }
 
     @Override
-    @Nullable
+    @NotNull
     public AqlPropertyName getPropertyName() {
-        return findChildByClass(AqlPropertyName.class);
+        return findNotNullChildByClass(AqlPropertyName.class);
     }
 
     public String getName() {

@@ -19,7 +19,42 @@ public interface AqlTypes {
   IElementType EXPRESSION_TYPE = new AqlElementType("EXPRESSION_TYPE");
   IElementType FUNCTION_EXPRESSION = new AqlElementType("FUNCTION_EXPRESSION");
     IElementType FUN_ABS = new AqlElementType("FUN_ABS");
+    IElementType FUN_ACOS = new AqlElementType("FUN_ACOS");
+    IElementType FUN_ASIN = new AqlElementType("FUN_ASIN");
+    IElementType FUN_ATAN = new AqlElementType("FUN_ATAN");
+    IElementType FUN_ATAN_2 = new AqlElementType("FUN_ATAN_2");
+    IElementType FUN_AVERAGE = new AqlElementType("FUN_AVERAGE");
+    IElementType FUN_AVG = new AqlElementType("FUN_AVG");
+    IElementType FUN_CEIL = new AqlElementType("FUN_CEIL");
     IElementType FUN_CONCAT_SEPARATOR = new AqlElementType("FUN_CONCAT_SEPARATOR");
+    IElementType FUN_COS = new AqlElementType("FUN_COS");
+    IElementType FUN_DEGREES = new AqlElementType("FUN_DEGREES");
+    IElementType FUN_EXP = new AqlElementType("FUN_EXP");
+    IElementType FUN_EXP_2 = new AqlElementType("FUN_EXP_2");
+    IElementType FUN_FLOOR = new AqlElementType("FUN_FLOOR");
+    IElementType FUN_LOG = new AqlElementType("FUN_LOG");
+    IElementType FUN_LOG_10 = new AqlElementType("FUN_LOG_10");
+    IElementType FUN_LOG_2 = new AqlElementType("FUN_LOG_2");
+    IElementType FUN_MAX = new AqlElementType("FUN_MAX");
+    IElementType FUN_MEDIAN = new AqlElementType("FUN_MEDIAN");
+    IElementType FUN_MIN = new AqlElementType("FUN_MIN");
+    IElementType FUN_PERCENTILE = new AqlElementType("FUN_PERCENTILE");
+    IElementType FUN_PI = new AqlElementType("FUN_PI");
+    IElementType FUN_POW = new AqlElementType("FUN_POW");
+    IElementType FUN_RADIANS = new AqlElementType("FUN_RADIANS");
+    IElementType FUN_RAND = new AqlElementType("FUN_RAND");
+    IElementType FUN_RANGE = new AqlElementType("FUN_RANGE");
+    IElementType FUN_ROUND = new AqlElementType("FUN_ROUND");
+    IElementType FUN_SIN = new AqlElementType("FUN_SIN");
+    IElementType FUN_SQRT = new AqlElementType("FUN_SQRT");
+    IElementType FUN_STDDEV = new AqlElementType("FUN_STDDEV");
+    IElementType FUN_STDDEV_POPULATION = new AqlElementType("FUN_STDDEV_POPULATION");
+    IElementType FUN_SUM = new AqlElementType("FUN_SUM");
+    IElementType FUN_TAN = new AqlElementType("FUN_TAN");
+    IElementType FUN_TAN_2 = new AqlElementType("FUN_TAN_2");
+    IElementType FUN_VARIANCE = new AqlElementType("FUN_VARIANCE");
+    IElementType FUN_VARIANCE_POPULATION = new AqlElementType("FUN_VARIANCE_POPULATION");
+    IElementType FUN_VARIANCE_SAMPLE = new AqlElementType("FUN_VARIANCE_SAMPLE");
   IElementType INTEGER_TYPE = new AqlElementType("INTEGER_TYPE");
   IElementType JSON_TYPE = new AqlElementType("JSON_TYPE");
   IElementType KEYWORD_FUNCTIONS = new AqlElementType("KEYWORD_FUNCTIONS");
@@ -34,6 +69,7 @@ public interface AqlTypes {
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
+    IElementType RESERVERD_WORDS = new AqlElementType("RESERVERD_WORDS");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
     IElementType SIGNED_INTEGER = new AqlElementType("SIGNED_INTEGER");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
@@ -208,6 +244,7 @@ public interface AqlTypes {
   IElementType F_SUBSTRING = new AqlTokenType("F_SUBSTRING");
   IElementType F_SUM = new AqlTokenType("F_SUM");
   IElementType F_TAN = new AqlTokenType("F_TAN");
+    IElementType F_TAN2 = new AqlTokenType("F_TAN2");
   IElementType F_TFIDF = new AqlTokenType("F_TFIDF");
   IElementType F_TOKENS = new AqlTokenType("F_TOKENS");
   IElementType F_TO_ARRAY = new AqlTokenType("F_TO_ARRAY");
@@ -242,6 +279,7 @@ public interface AqlTypes {
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
     IElementType NUMBER = new AqlTokenType("NUMBER");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
+    IElementType NUMBER_RANGE = new AqlTokenType("NUMBER_RANGE");
     IElementType N_AT = new AqlTokenType("@");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
@@ -334,8 +372,78 @@ public interface AqlTypes {
         return new AqlFunctionExpressionImpl(node);
         } else if (type == FUN_ABS) {
             return new AqlFunAbsImpl(node);
+        } else if (type == FUN_ACOS) {
+            return new AqlFunAcosImpl(node);
+        } else if (type == FUN_ASIN) {
+            return new AqlFunAsinImpl(node);
+        } else if (type == FUN_ATAN) {
+            return new AqlFunAtanImpl(node);
+        } else if (type == FUN_ATAN_2) {
+            return new AqlFunAtan2Impl(node);
+        } else if (type == FUN_AVERAGE) {
+            return new AqlFunAverageImpl(node);
+        } else if (type == FUN_AVG) {
+            return new AqlFunAvgImpl(node);
+        } else if (type == FUN_CEIL) {
+            return new AqlFunCeilImpl(node);
         } else if (type == FUN_CONCAT_SEPARATOR) {
             return new AqlFunConcatSeparatorImpl(node);
+        } else if (type == FUN_COS) {
+            return new AqlFunCosImpl(node);
+        } else if (type == FUN_DEGREES) {
+            return new AqlFunDegreesImpl(node);
+        } else if (type == FUN_EXP) {
+            return new AqlFunExpImpl(node);
+        } else if (type == FUN_EXP_2) {
+            return new AqlFunExp2Impl(node);
+        } else if (type == FUN_FLOOR) {
+            return new AqlFunFloorImpl(node);
+        } else if (type == FUN_LOG) {
+            return new AqlFunLogImpl(node);
+        } else if (type == FUN_LOG_10) {
+            return new AqlFunLog10Impl(node);
+        } else if (type == FUN_LOG_2) {
+            return new AqlFunLog2Impl(node);
+        } else if (type == FUN_MAX) {
+            return new AqlFunMaxImpl(node);
+        } else if (type == FUN_MEDIAN) {
+            return new AqlFunMedianImpl(node);
+        } else if (type == FUN_MIN) {
+            return new AqlFunMinImpl(node);
+        } else if (type == FUN_PERCENTILE) {
+            return new AqlFunPercentileImpl(node);
+        } else if (type == FUN_PI) {
+            return new AqlFunPiImpl(node);
+        } else if (type == FUN_POW) {
+            return new AqlFunPowImpl(node);
+        } else if (type == FUN_RADIANS) {
+            return new AqlFunRadiansImpl(node);
+        } else if (type == FUN_RAND) {
+            return new AqlFunRandImpl(node);
+        } else if (type == FUN_RANGE) {
+            return new AqlFunRangeImpl(node);
+        } else if (type == FUN_ROUND) {
+            return new AqlFunRoundImpl(node);
+        } else if (type == FUN_SIN) {
+            return new AqlFunSinImpl(node);
+        } else if (type == FUN_SQRT) {
+            return new AqlFunSQRTImpl(node);
+        } else if (type == FUN_STDDEV) {
+            return new AqlFunStddevImpl(node);
+        } else if (type == FUN_STDDEV_POPULATION) {
+            return new AqlFunStddevPopulationImpl(node);
+        } else if (type == FUN_SUM) {
+            return new AqlFunSumImpl(node);
+        } else if (type == FUN_TAN) {
+            return new AqlFunTanImpl(node);
+        } else if (type == FUN_TAN_2) {
+            return new AqlFunTan2Impl(node);
+        } else if (type == FUN_VARIANCE) {
+            return new AqlFunVarianceImpl(node);
+        } else if (type == FUN_VARIANCE_POPULATION) {
+            return new AqlFunVariancePopulationImpl(node);
+        } else if (type == FUN_VARIANCE_SAMPLE) {
+            return new AqlFunVarianceSampleImpl(node);
         } else if (type == INTEGER_TYPE) {
         return new AqlIntegerTypeImpl(node);
         } else if (type == JSON_TYPE) {
@@ -364,6 +472,8 @@ public interface AqlTypes {
         return new AqlPropertyNameImpl(node);
         } else if (type == QUERY_ITEM) {
         return new AqlQueryItemImpl(node);
+        } else if (type == RESERVERD_WORDS) {
+            return new AqlReserverdWordsImpl(node);
         } else if (type == SEQUENCE) {
         return new AqlSequenceImpl(node);
         } else if (type == SIGNED_INTEGER) {

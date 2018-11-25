@@ -305,7 +305,7 @@ T_NONE = "none"
     TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
     // identifier
     NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
-    NUMBER_RANGE='regexp:^[1-9][0-9]?$|^100$'
+    NUMBER_RANGE='regexp:[1-9][0-9]?|100'
     ID = 'regexp:[a-zA-Z_]\p{Alpha}\w*'
     SPACE='regexp:\s+'
 ]
@@ -344,7 +344,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_REGEX_SPLIT
                         | F_MATCHES
                         | F_CURRENT_DATABASE
-                        | F_VARIANCE_SAMPLE
                         | F_UNSET
                         | F_JSON_PARSE
                         | F_GEO_MULTILINESTRING
@@ -352,12 +351,10 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_LAST
                         | F_VALUES
                         | F_DATE_DAY
-                        | F_STDDEV
                         | F_DATE_DAYS_IN_MONTH
                         | F_NEAR
                         | F_LTRIM
                         | F_REVERSE
-                        | F_RANGE
                         | F_FIRST
                         | F_LENGTH
                         | F_UNSET_RECURSIVE
@@ -380,7 +377,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_LEVENSHTEIN_DISTANCE
                         | F_REMOVE_VALUE
                         | F_DATE_FORMAT
-                        | F_RADIANS
                         | F_OUTERSECTION
                         | F_UNION
                         | F_KEYS
@@ -390,17 +386,13 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DISTANCE
                         | F_CHAR_LENGTH
                         | F_MERGE_RECURSIVE
-                        | F_VARIANCE_POPULATION
                         | F_UPPER
-                        | F_RAND
                         | F_MIN_MATCH
                         | F_GEO_EQUALS
                         | F_TRIM
                         | F_LEFT
                         | F_NOT_NULL
-                        | F_SUM
                         | F_VERSION
-                        | F_POW
                         | F_SLEEP
                         | F_POP
                         | F_UUID
@@ -459,7 +451,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DOCUMENT
                         | F_GEO_DISTANCE
                         | F_PASSTHRU
-                        | F_ROUND
                         | F_ZIP
                         | F_TO_HEX
                         | F_FULLTEXT
@@ -474,7 +465,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_HASH
                         | F_COUNT_DISTINCT
                         | F_SHA1
-                        | F_SQRT
                         | F_POSITION
                         | F_MERGE
                         | F_DATE_TIMESTAMP
@@ -489,8 +479,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_FIRST_DOCUMENT
                         | F_RANDOM_TOKEN
                         | F_FIND_LAST
-                        | F_STDDEV_POPULATION
-                        | F_VARIANCE
                         | F_IS_NUMBER
                         | F_SORTED
                         | F_DATE_DIFF
@@ -557,7 +545,7 @@ OperatorStatements ::=
                        | T_COLON
                        | T_SCOPE
                        | T_RANGE
-                       // TODO remove
+                       //TODO remove
                       | T_COMMA
                       | T_OPEN
                        | T_CLOSE
@@ -597,6 +585,7 @@ Statement ::= NamedKeywordStatements
               | FunMedian
               | FunLog10
               | FunMax
+              | FunSQRT
               | FunPercentile
               | FunPi
               | FunLog2
@@ -605,6 +594,17 @@ Statement ::= NamedKeywordStatements
               | FunExp2
               | FunExp
               | FunCeil
+              | FunRand
+              | FunSum
+              | FunStddev
+              | FunPow
+              | FunVarianceSample
+              | FunStddevPopulation
+              | FunVariancePopulation
+              | FunRadians
+              | FunRange
+              | FunRound
+              | FunVariance
               | FunConcatSeparator
 
               | Comment
@@ -667,7 +667,7 @@ pin = 3
 //private number_argument_array_and_null ::= (T_NULL | NumberType)  (',' T_NULL | NumberType)+
 private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
-private number_argument_array ::= number_argument (',' number_argument)+
+private number_argument_array ::= "[" number_argument (',' number_argument)+ "]"
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
@@ -739,11 +739,53 @@ pin = 1
 FunMin  ::=  (F_MIN  "(" number_argument_array ")"){
 pin = 1
 }
-FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," NUMBER_RANGE ("," StringType)? ")"){
+// TODO fix range
+//FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," NUMBER_RANGE ("," StringType)? ")"){
+FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")"){
 pin = 1
 }
 
 FunPi  ::=  (F_PI "(" ")"){
+pin = 1
+}
+FunRand  ::=  (F_RAND "(" ")"){
+pin = 1
+}
+
+FunPow  ::=  (F_POW "(" number_argument "," number_argument ")"){
+pin = 1
+}
+FunRadians  ::=  (F_RADIANS "(" number_argument ")"){
+pin = 1
+}
+FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")"){
+pin = 1
+}
+
+FunRound  ::=  (F_ROUND "(" number_argument ")"){
+pin = 1
+}
+
+FunSQRT  ::=  (F_SQRT "(" number_argument ")"){
+pin = 1
+}
+FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){
+pin = 1
+}
+FunStddev  ::=  (F_STDDEV "(" number_argument_array ")"){
+pin = 1
+}
+FunSum  ::=  (F_SUM "(" number_argument_array ")"){
+pin = 1
+}
+
+FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")"){
+pin = 1
+}
+FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){
+pin = 1
+}
+FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){
 pin = 1
 }
 

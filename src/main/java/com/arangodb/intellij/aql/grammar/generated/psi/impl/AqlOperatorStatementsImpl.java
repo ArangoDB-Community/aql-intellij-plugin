@@ -33,10 +33,4 @@ public class AqlOperatorStatementsImpl extends ASTWrapperPsiElement implements A
     return findChildByType(T_AND);
   }
 
-  @Override
-  @Nullable
-  public PsiElement getTNull() {
-    return findChildByType(T_NULL);
-  }
-
 }

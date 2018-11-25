@@ -29,12 +29,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFAcos() {
-    return findChildByType(F_ACOS);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFAnalyzer() {
     return findChildByType(F_ANALYZER);
   }
@@ -53,44 +47,14 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFAsin() {
-    return findChildByType(F_ASIN);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFAssert() {
     return findChildByType(F_ASSERT);
   }
 
   @Override
   @Nullable
-  public PsiElement getFAtan() {
-    return findChildByType(F_ATAN);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFAtan2() {
-    return findChildByType(F_ATAN2);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFAttributes() {
     return findChildByType(F_ATTRIBUTES);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFAverage() {
-    return findChildByType(F_AVERAGE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFAvg() {
-    return findChildByType(F_AVG);
   }
 
   @Override
@@ -109,12 +73,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFCall() {
     return findChildByType(F_CALL);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFCeil() {
-    return findChildByType(F_CEIL);
   }
 
   @Override
@@ -151,12 +109,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFContainsArray() {
     return findChildByType(F_CONTAINS_ARRAY);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFCos() {
-    return findChildByType(F_COS);
   }
 
   @Override
@@ -323,12 +275,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFDegrees() {
-    return findChildByType(F_DEGREES);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFDistance() {
     return findChildByType(F_DISTANCE);
   }
@@ -349,18 +295,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFExists() {
     return findChildByType(F_EXISTS);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFExp() {
-    return findChildByType(F_EXP);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFExp2() {
-    return findChildByType(F_EXP2);
   }
 
   @Override
@@ -403,12 +337,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFFlatten() {
     return findChildByType(F_FLATTEN);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFFloor() {
-    return findChildByType(F_FLOOR);
   }
 
   @Override
@@ -617,24 +545,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFLog() {
-    return findChildByType(F_LOG);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFLog10() {
-    return findChildByType(F_LOG10);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFLog2() {
-    return findChildByType(F_LOG2);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFLower() {
     return findChildByType(F_LOWER);
   }
@@ -653,20 +563,8 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFMax() {
-    return findChildByType(F_MAX);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFMd5() {
     return findChildByType(F_MD5);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFMedian() {
-    return findChildByType(F_MEDIAN);
   }
 
   @Override
@@ -679,12 +577,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFMergeRecursive() {
     return findChildByType(F_MERGE_RECURSIVE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFMin() {
-    return findChildByType(F_MIN);
   }
 
   @Override
@@ -743,20 +635,8 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFPercentile() {
-    return findChildByType(F_PERCENTILE);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFPhrase() {
     return findChildByType(F_PHRASE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFPi() {
-    return findChildByType(F_PI);
   }
 
   @Override
@@ -773,12 +653,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFPow() {
-    return findChildByType(F_POW);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFPregelResult() {
     return findChildByType(F_PREGEL_RESULT);
   }
@@ -791,26 +665,8 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFRadians() {
-    return findChildByType(F_RADIANS);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFRand() {
-    return findChildByType(F_RAND);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFRandomToken() {
     return findChildByType(F_RANDOM_TOKEN);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFRange() {
-    return findChildByType(F_RANGE);
   }
 
   @Override
@@ -869,12 +725,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFRound() {
-    return findChildByType(F_ROUND);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFRtrim() {
     return findChildByType(F_RTRIM);
   }
@@ -895,12 +745,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFShift() {
     return findChildByType(F_SHIFT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFSin() {
-    return findChildByType(F_SIN);
   }
 
   @Override
@@ -941,26 +785,8 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFSqrt() {
-    return findChildByType(F_SQRT);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFStartsWith() {
     return findChildByType(F_STARTS_WITH);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFStddev() {
-    return findChildByType(F_STDDEV);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFStddevPopulation() {
-    return findChildByType(F_STDDEV_POPULATION);
   }
 
   @Override
@@ -979,18 +805,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFSubstring() {
     return findChildByType(F_SUBSTRING);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFSum() {
-    return findChildByType(F_SUM);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFTan() {
-    return findChildByType(F_TAN);
   }
 
   @Override
@@ -1123,24 +937,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFValues() {
     return findChildByType(F_VALUES);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFVariance() {
-    return findChildByType(F_VARIANCE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFVariancePopulation() {
-    return findChildByType(F_VARIANCE_POPULATION);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFVarianceSample() {
-    return findChildByType(F_VARIANCE_SAMPLE);
   }
 
   @Override
