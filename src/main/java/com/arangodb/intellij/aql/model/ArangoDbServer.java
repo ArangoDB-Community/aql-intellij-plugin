@@ -14,9 +14,8 @@ public class ArangoDbServer {
     private String host = "127.0.0.1";
     private String password;
     private String user;
-    @Transient
     private Set<ArangoDbDatabase> databases;
-    @Transient
+
     private ArangoDbDatabase selectedDatabase;
     private String name;
     private String selectedDatabaseName;
@@ -84,6 +83,7 @@ public class ArangoDbServer {
         databases.add(database);
     }
 
+    @Transient
     @NotNull
     public Set<ArangoDbDatabase> getDatabases() {
         if (databases == null) {
@@ -96,6 +96,7 @@ public class ArangoDbServer {
         this.databases = databases;
     }
 
+    @Transient
     public ArangoDbDatabase getSelectedDatabase() {
         return selectedDatabase;
     }
@@ -124,5 +125,6 @@ public class ArangoDbServer {
     public void setName(final String name) {
         this.name = name;
     }
+
 }
 

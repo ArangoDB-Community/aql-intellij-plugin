@@ -17,6 +17,7 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.CheckedTreeNode;
 import com.intellij.util.messages.MessageBus;
+import com.intellij.util.messages.Topic;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.DefaultTreeModel;
@@ -79,10 +80,23 @@ public final class AqlDataService {
         return this;
     }
 
+    public AqlDataService setActiveDatabase() {
+        final ActionBusEvent event = messageBus.syncPublisher(ActionBusEvent.AQL_SYSTEM_ACTIVE_DATABASE_SET);
+        event.onEvent(new ActionEventData().forName(ActionBusEvent.AQL_SYSTEM_ACTIVE_DATABASE_SET.getDisplayName()));
+        return this;
+    }
+
     public AqlDataService subscribeSchemeRefresh(final ActionBusEvent event) {
         messageBus.connect().subscribe(ActionBusEvent.AQL_SYSTEM_REFRESH_SCHEME, event);
         return this;
     }
+
+    public AqlDataService subscribe(final Topic<ActionBusEvent> topic, final ActionBusEvent event) {
+        messageBus.connect().subscribe(topic, event);
+        return this;
+
+    }
+
 
 
     public void showServerDialog() {
@@ -158,6 +172,14 @@ public final class AqlDataService {
 
         }
         return new DefaultTreeModel(root);
+    }
+
+    public AqlDataService setActiveDatabase(final AqlNodeModel selectedNode) {
+        final ArangoDbServer state = stateComponent.getState();
+        final String name = selectedNode.getName();
+        state.setSelectedDatabase(new ArangoDbDatabase(name));
+        log.info("New active database: " + name);
+        return refreshSchema();
     }
 }
 

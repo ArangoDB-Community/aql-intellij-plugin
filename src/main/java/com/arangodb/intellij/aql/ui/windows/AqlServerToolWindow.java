@@ -1,20 +1,19 @@
 package com.arangodb.intellij.aql.ui.windows;
 
+import com.arangodb.intellij.aql.actions.ActionBusEvent;
 import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
-import com.arangodb.intellij.aql.ui.actions.AddServerAction;
-import com.arangodb.intellij.aql.ui.actions.CollapseAllAction;
-import com.arangodb.intellij.aql.ui.actions.ExpandAllAction;
-import com.arangodb.intellij.aql.ui.actions.RefreshSchemeAction;
+import com.arangodb.intellij.aql.ui.actions.*;
+import com.arangodb.intellij.aql.ui.renderers.AqlNodeModel;
 import com.arangodb.intellij.aql.ui.renderers.AqlNodeRenderer;
+import com.arangodb.intellij.aql.util.log;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionToolbarPosition;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.ui.CheckedTreeNode;
 import com.intellij.ui.ToolbarDecorator;
 import com.intellij.ui.treeStructure.Tree;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -23,8 +22,6 @@ import java.awt.*;
 public class AqlServerToolWindow implements Disposable {
     public static final String WINDOW_ID = "ArangoDB";
 
-
-    private static final Logger log = LoggerFactory.getLogger(AqlServerToolWindow.class);
     private final Project project;
     private JPanel panel;
     private Tree schemaTree;
@@ -43,14 +40,36 @@ public class AqlServerToolWindow implements Disposable {
         toolbarDecorator.addExtraAction(new RefreshSchemeAction(this));
         toolbarDecorator.addExtraAction(new ExpandAllAction(schemaTree));
         toolbarDecorator.addExtraAction(new CollapseAllAction(schemaTree));
+        toolbarDecorator.addExtraAction(new SetActiveAction(this));
         schemePanel.add(toolbarDecorator.createPanel());
 
         //schemePanel.add(toolbarDecorator.createPanel());
         fillTree();
 
-        AqlDataService.with(project).subscribeSchemeRefresh(data -> {
-            fillTree();
-        });
+        AqlDataService
+                .with(project)
+                .subscribeSchemeRefresh(data -> {
+                    fillTree();
+                })
+                .subscribe(ActionBusEvent.AQL_SYSTEM_ACTIVE_DATABASE_SET, data -> {
+                    final CheckedTreeNode[] selectedNodes = schemaTree.getSelectedNodes(CheckedTreeNode.class,
+                            node -> {
+                                final Object userObject = node.getUserObject();
+                                return (userObject instanceof AqlNodeModel && ((AqlNodeModel) userObject).getType() == AqlNodeModel.Type.DATABASE);
+                            });
+                    if (selectedNodes.length == 0) {
+                        log.error("Please select one database node");
+                        return;
+                    }
+                    if (selectedNodes.length > 1) {
+                        log.error("Please select only one database node");
+                        return;
+                    }
+                    final AqlNodeModel selectedNode = (AqlNodeModel) selectedNodes[0].getUserObject();
+                    AqlDataService.with(project).setActiveDatabase(selectedNode);
+
+                });
+
 
     }
 
@@ -65,7 +84,7 @@ public class AqlServerToolWindow implements Disposable {
         final ArangoDbServer server = AqlDataService.with(project).server();
         final DefaultTreeModel treeModel = AqlDataService.with(project).populateTree(server);
         schemaTree.setModel(treeModel);
-        
+
 
         //schemaTree.setModel(new GraphTreeModelImpl());
         //schemaTree.setModel(new DefaultTreeModel(root));
