@@ -1,7 +1,7 @@
-package com.arangodb.intellij.aql.grammar.psi.impl;
+package com.arangodb.intellij.aql.grammar.custom.psi.impl;
 
-import com.arangodb.intellij.aql.grammar.psi.AqlMixinType;
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElementImpl;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlMixinType;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElementImpl;
 import com.intellij.lang.ASTNode;
 import org.jetbrains.annotations.NotNull;
 

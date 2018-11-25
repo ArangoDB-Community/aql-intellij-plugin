@@ -1,7 +1,7 @@
 package com.arangodb.intellij.aql.lang;
 
-import com.arangodb.intellij.aql.grammar.psi.AqlMixinType;
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlMixinType;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.lang.psi.*;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.patterns.PlatformPatterns;

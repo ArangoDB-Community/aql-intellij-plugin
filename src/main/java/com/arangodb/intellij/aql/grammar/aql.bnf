@@ -7,9 +7,9 @@
     parserClass="com.arangodb.intellij.aql.grammar.generated.AqlParser"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
     elementTypeHolderClass="com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes"
-    elementTypeClass="com.arangodb.intellij.aql.grammar.AqlElementType"
-    tokenTypeClass="com.arangodb.intellij.aql.grammar.AqlTokenType"
-    psiImplUtilClass="com.arangodb.intellij.aql.grammar.generated.AqlPsiUtil"
+    elementTypeClass="com.arangodb.intellij.aql.grammar.custom.AqlElementType"
+    tokenTypeClass="com.arangodb.intellij.aql.grammar.custom.AqlTokenType"
+    psiImplUtilClass="com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil"
     psiPackage="com.arangodb.intellij.aql.grammar.generated.psi"
     psiImplPackage="com.arangodb.intellij.aql.grammar.generated.psi.impl"
     
@@ -616,14 +616,14 @@ NamedKeywordFunctions ::= KeywordFunctions {
     getName
     setName
   ]
-  mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlFunctionMixin"
+  mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlFunctionMixin"
 }
 NamedKeywordStatements ::= KeywordStatements {
   methods=[
     getName
     setName
   ]
-  mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlKeywordMixin"
+  mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin"
 }
 
 ReserverdWords ::= T_NULL
@@ -809,7 +809,7 @@ BooleanType ::= T_TRUE | T_FALSE
 VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
                     pin=2
                    methods=[ getName setName]
-                   mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqPlaceholderVariableMixin"
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqPlaceholderVariableMixin"
 }
 
 
@@ -819,21 +819,21 @@ VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
 PropertyLookup ::=   PropertyName | SystemProperty
 {
                    methods=[ getName setName]
-                   mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlPropertyLookupMixin"
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlPropertyLookupMixin"
 }
 
 
 ObjectExpression ::=  PropertyName (DOT PropertyLookup)* {
                    pin= 2;
                    methods=[ getName setName]
-                   mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlObjectExpressionMixin"
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlObjectExpressionMixin"
 }
 
 
 ParameterVariable ::= (N_AT  PropertyName){
    pin=2
    methods=[ getName setName]
-   mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqParameterVariableMixin"
+   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqParameterVariableMixin"
 }
 
 Sequence ::= IntegerType T_RANGE IntegerType
@@ -842,7 +842,7 @@ SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
 
 PropertyName ::= ID {
                    methods=[ getName setName]
-                   mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlIdMixin"
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin"
 }
 
 // recover states

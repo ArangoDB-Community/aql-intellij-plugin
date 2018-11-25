@@ -1,12 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import com.arangodb.intellij.aql.grammar.generated.AqlPsiUtil;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
+import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqParameterVariableMixin;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyName;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
-import com.arangodb.intellij.aql.grammar.psi.impl.AqParameterVariableMixin;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;

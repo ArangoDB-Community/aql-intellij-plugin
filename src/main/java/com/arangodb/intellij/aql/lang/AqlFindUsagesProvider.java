@@ -1,6 +1,6 @@
 package com.arangodb.intellij.aql.lang;
 
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.intellij.lang.HelpID;
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;

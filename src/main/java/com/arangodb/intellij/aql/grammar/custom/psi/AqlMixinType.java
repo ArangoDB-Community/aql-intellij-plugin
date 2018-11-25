@@ -1,4 +1,4 @@
-package com.arangodb.intellij.aql.grammar.psi;
+package com.arangodb.intellij.aql.grammar.custom.psi;
 
 public enum AqlMixinType {
     FUNCTION,

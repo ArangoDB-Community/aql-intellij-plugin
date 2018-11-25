@@ -2,7 +2,7 @@ package com.arangodb.intellij.aql.lang.psi;
 
 import com.arangodb.intellij.aql.file.AqlFile;
 import com.arangodb.intellij.aql.file.AqlFileType;
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;

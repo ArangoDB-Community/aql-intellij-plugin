@@ -2,8 +2,8 @@
 
 package com.arangodb.intellij.aql.lang;
 
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlKeywordFunctions;
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
 import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;

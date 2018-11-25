@@ -1,4 +1,4 @@
-package com.arangodb.intellij.aql.grammar;
+package com.arangodb.intellij.aql.grammar.custom;
 
 import com.arangodb.intellij.aql.lang.AqlLanguage;
 import com.intellij.psi.tree.IElementType;

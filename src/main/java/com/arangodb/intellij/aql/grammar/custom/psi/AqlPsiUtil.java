@@ -1,6 +1,5 @@
-package com.arangodb.intellij.aql.grammar.generated;
+package com.arangodb.intellij.aql.grammar.custom.psi;
 
-import com.arangodb.intellij.aql.grammar.psi.AqlNamedElement;
 import com.intellij.psi.impl.PsiImplUtil;
 
 public final class AqlPsiUtil {

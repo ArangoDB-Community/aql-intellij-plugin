@@ -1,6 +1,6 @@
 package com.arangodb.intellij.aql.lang;
 
-import com.arangodb.intellij.aql.grammar.generated.AqlLexerAdapter;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlLexerAdapter;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.colors.TextAttributesKey;

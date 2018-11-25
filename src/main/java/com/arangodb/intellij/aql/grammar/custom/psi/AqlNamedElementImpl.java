@@ -1,4 +1,4 @@
-package com.arangodb.intellij.aql.grammar.psi;
+package com.arangodb.intellij.aql.grammar.custom.psi;
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
