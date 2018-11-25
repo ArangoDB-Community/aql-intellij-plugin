@@ -3,7 +3,8 @@
 // https://github.com/arangodb/arangodb/blob/devel/arangod/Aql/grammar.y
     psiClassPrefix="Aql"
     psiImplClassSuffix="Impl"
-    parserUtilClass="com.arangodb.intellij.aql.grammar.generated.AqlParserUtil"
+    //
+    parserUtilClass="com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil"
     parserClass="com.arangodb.intellij.aql.grammar.generated.AqlParser"
     extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
     elementTypeHolderClass="com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes"
@@ -305,12 +306,14 @@ T_NONE = "none"
     TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
     // identifier
     NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
-    NUMBER_RANGE='regexp:[1-9][0-9]?|100'
+    //NUMBER_RANGE='regexp:[1-9][0-9]?|100'
     ID = 'regexp:[a-zA-Z_]\p{Alpha}\w*'
     SPACE='regexp:\s+'
 ]
     
 }
+
+
 aql ::= QueryItem *
 LineComment ::= L_COMMENT
 BlockComment ::=  B_COMMENT
@@ -666,8 +669,9 @@ pin = 3
 
 //private number_argument_array_and_null ::= (T_NULL | NumberType)  (',' T_NULL | NumberType)+
 private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
-private number_argument::= (NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
-private number_argument_array ::= "[" number_argument (',' number_argument)+ "]"
+private possible_array::= (ObjectExpression | ParameterVariable | VariablePlaceHolder)
+private number_argument::= (NumberType | possible_array)
+private number_argument_array ::= (possible_array | "[" number_argument (',' number_argument)+ "]")
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
@@ -740,7 +744,8 @@ FunMin  ::=  (F_MIN  "(" number_argument_array ")"){
 pin = 1
 }
 // TODO fix range
-//FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," NUMBER_RANGE ("," StringType)? ")"){
+external external_percentile_range_rule ::= parsePercentileRange
+//FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," external_percentile_range_rule ("," StringType)? ")"){
 FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")"){
 pin = 1
 }

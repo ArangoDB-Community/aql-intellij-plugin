@@ -279,7 +279,6 @@ public interface AqlTypes {
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType NUMBER = new AqlTokenType("NUMBER");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
-  IElementType NUMBER_RANGE = new AqlTokenType("NUMBER_RANGE");
   IElementType N_AT = new AqlTokenType("@");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");

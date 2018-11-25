@@ -253,7 +253,6 @@ L_COMMENT="//".*
 TEXT_SINGLE='(''|[^']*)'
 TEXT_DOUBLE=\"([^\\\"\r\n]|\\[^\r\n])*\"?
 NUMBER=-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]*)?
-NUMBER_RANGE=[1-9][0-9]?|100
 ID=[a-zA-Z_][:letter:][a-zA-Z_0-9]*
 SPACE=[ \t\n\x0B\f\r]+
 
@@ -533,7 +532,6 @@ SPACE=[ \t\n\x0B\f\r]+
   {TEXT_SINGLE}                 { return TEXT_SINGLE; }
   {TEXT_DOUBLE}                 { return TEXT_DOUBLE; }
   {NUMBER}                      { return NUMBER; }
-  {NUMBER_RANGE}                { return NUMBER_RANGE; }
   {ID}                          { return ID; }
   {SPACE}                       { return SPACE; }
 

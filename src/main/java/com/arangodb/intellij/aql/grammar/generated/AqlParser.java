@@ -8,7 +8,7 @@ import com.intellij.lang.PsiBuilder.Marker;
 import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 
-import static com.arangodb.intellij.aql.grammar.generated.AqlParserUtil.*;
+import static com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil.*;
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
@@ -834,7 +834,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")"
+  // F_PERCENTILE  "(" number_argument_array "," external_percentile_range_rule ("," StringType)? ")"
   public static boolean FunPercentile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunPercentile")) {
       return false;
@@ -848,7 +848,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     p = r; // pin = 1
     r = r && report_error_(b, number_argument_array(b, l + 1));
     r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
-    r = p && report_error_(b, IntegerType(b, l + 1)) && r;
+    r = p && report_error_(b, parsePercentileRange(b, l + 1)) && r;
     r = p && report_error_(b, FunPercentile_5(b, l + 1)) && r;
     r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
