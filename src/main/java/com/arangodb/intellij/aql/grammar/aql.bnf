@@ -599,6 +599,7 @@ Statement ::= NamedKeywordStatements
               | FunAcos
               | FunAsin
               | FunAvg
+              | FunAverage
               | FunTan
               | FunTan2
               | FunAtan
@@ -663,6 +664,7 @@ pin = 3
 
 private string_argument::= (StringType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | ObjectExpression | ParameterVariable | VariablePlaceHolder)
+private number_argument_array ::= NumberType (',' NumberType)+
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
@@ -693,7 +695,10 @@ pin = 1
 FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){
 pin = 1
 }
-FunAvg ::=  (F_AVERAGE | F_AVG "(" number_argument ")"){
+FunAvg ::=  (F_AVG "(" number_argument_array ")"){
+pin = 1
+}
+FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){
 pin = 1
 }
 
