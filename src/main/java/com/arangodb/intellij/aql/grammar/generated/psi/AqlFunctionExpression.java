@@ -3,6 +3,7 @@ package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -11,7 +12,10 @@ public interface AqlFunctionExpression extends PsiElement {
     @NotNull
     List<AqlExpressionType> getExpressionTypeList();
 
-    @NotNull
+    @Nullable
+    AqlNamedFunctions getNamedFunctions();
+
+    @Nullable
     AqlNamedKeywordFunctions getNamedKeywordFunctions();
 
 }

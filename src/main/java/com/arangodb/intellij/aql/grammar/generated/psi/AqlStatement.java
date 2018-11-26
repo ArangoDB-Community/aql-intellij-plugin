@@ -25,9 +25,6 @@ public interface AqlStatement extends PsiElement {
   AqlJsonType getJsonType();
 
     @Nullable
-    AqlNamedFunctions getNamedFunctions();
-
-    @Nullable
     AqlNamedKeywordStatements getNamedKeywordStatements();
 
     @Nullable

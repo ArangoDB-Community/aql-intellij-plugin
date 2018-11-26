@@ -602,7 +602,6 @@ OperatorStatements ::=
                        | DOT
 
 Statement ::= NamedKeywordStatements
-              | NamedFunctions
               | OperatorStatements
               | Sequence
               | StringType
@@ -662,7 +661,7 @@ ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
 
 private ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
-FunctionExpression ::=  (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE){
+FunctionExpression ::= NamedFunctions | (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE){
 pin = 3
 }
 

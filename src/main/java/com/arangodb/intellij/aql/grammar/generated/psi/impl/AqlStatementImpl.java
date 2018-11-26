@@ -59,12 +59,6 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
       return findChildByClass(AqlJsonType.class);
   }
 
-    @Override
-    @Nullable
-    public AqlNamedFunctions getNamedFunctions() {
-        return findChildByClass(AqlNamedFunctions.class);
-    }
-
   @Override
   @Nullable
   public AqlNamedKeywordStatements getNamedKeywordStatements() {
