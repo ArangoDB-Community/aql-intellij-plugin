@@ -82,8 +82,9 @@ public class AqlServerToolWindow implements Disposable {
 
         schemaTree.setRootVisible(true);
         schemaTree.setShowsRootHandles(true);
-        final ArangoDbServer server = AqlDataService.with(project).server();
-        final DefaultTreeModel treeModel = AqlDataService.with(project).populateTree(server);
+        final AqlDataService service = AqlDataService.with(project);
+        final ArangoDbServer server = service.server();
+        final DefaultTreeModel treeModel = service.populateTree(server);
         schemaTree.setModel(treeModel);
 
 

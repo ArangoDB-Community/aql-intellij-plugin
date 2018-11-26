@@ -51,7 +51,7 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
         } else if (identifier.getAqlType() == AqlMixinType.KEYWORD) {
             return new PsiReference[]{new AqlKeywordReference(identifier, rangeInElement)};
         }
-        log.info("identifier.getAqlType() {}", identifier.getAqlType());
+        //log.info("identifier.getAqlType() {}", identifier.getAqlType());
         return EMPTY_REF_ARRAY;
     }
 

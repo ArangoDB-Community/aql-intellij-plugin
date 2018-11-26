@@ -44,11 +44,17 @@ public class AqlConsoleWindow implements Disposable {
         // TODO
         //tabContainer.setVisible(false);
         project.getMessageBus().connect().subscribe(ActionBusEvent.AQL_QUERY_RESULT, this::processQuery);
+        project.getMessageBus().connect().subscribe(ActionBusEvent.AQL_SYSTEM_EMPTY_LOG, this::emptyLog);
         final ActionGroup consoleActionGroup = (ActionGroup) ActionManager.getInstance().getAction(ActionBusEvent.ACTION_CONSOLE);
         final ActionToolbar consoleToolbar = ActionManager.getInstance().createActionToolbar(WINDOW_ID, consoleActionGroup, false);
         jsonTabPanel.add(consoleToolbar.getComponent(), BorderLayout.NORTH);
         jsonTabPanel.setBorder(new CustomLineBorder(0, 0, 0, 1));
         jsonTabPanel.validate();
+        // clear
+    }
+
+    private void emptyLog(final ActionEventData actionEventData) {
+        jsonPanel.onClean(project);
     }
 
     private void processQuery(final ActionEventData data) {

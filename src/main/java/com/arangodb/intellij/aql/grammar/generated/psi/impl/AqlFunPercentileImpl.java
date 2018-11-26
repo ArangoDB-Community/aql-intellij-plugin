@@ -33,6 +33,12 @@ public class AqlFunPercentileImpl extends ASTWrapperPsiElement implements AqlFun
     }
 
     @Override
+    @Nullable
+    public AqlIntegerType getIntegerType() {
+        return findChildByClass(AqlIntegerType.class);
+    }
+
+    @Override
     @NotNull
     public List<AqlNumberType> getNumberTypeList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);

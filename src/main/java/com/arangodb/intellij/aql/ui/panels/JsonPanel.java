@@ -57,4 +57,13 @@ public class JsonPanel implements Disposable, MessageView {
 
     }
 
+    @Override
+    public void onClean(final Project project) {
+        final Application application = ApplicationManager.getApplication();
+        application.runWriteAction(() -> {
+            final Document document = editor.getDocument();
+            document.setText("");
+        });
+    }
+
 }

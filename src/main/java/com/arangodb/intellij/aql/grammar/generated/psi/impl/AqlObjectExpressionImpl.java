@@ -33,21 +33,21 @@ public class AqlObjectExpressionImpl extends AqlObjectExpressionMixin implements
   @Override
   @NotNull
   public List<AqlPropertyLookup> getPropertyLookupList() {
-      return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyLookup.class);
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyLookup.class);
   }
 
-    @Override
-    @NotNull
-    public AqlPropertyName getPropertyName() {
-        return findNotNullChildByClass(AqlPropertyName.class);
-    }
+  @Override
+  @NotNull
+  public AqlPropertyName getPropertyName() {
+    return findNotNullChildByClass(AqlPropertyName.class);
+  }
 
-    public String getName() {
-        return AqlPsiUtil.getName(this);
-    }
+  public String getName() {
+    return AqlPsiUtil.getName(this);
+  }
 
-    public AqlNamedElement setName(String newName) {
-        return AqlPsiUtil.setName(this, newName);
+  public AqlNamedElement setName(String newName) {
+    return AqlPsiUtil.setName(this, newName);
   }
 
 }

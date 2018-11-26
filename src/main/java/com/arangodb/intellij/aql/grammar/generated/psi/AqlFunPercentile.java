@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface AqlFunPercentile extends PsiElement {
 
+    @Nullable
+    AqlIntegerType getIntegerType();
+
     @NotNull
     List<AqlNumberType> getNumberTypeList();
 

@@ -7,4 +7,6 @@ public interface MessageView {
 
 
     void onMessage(ActionEventData data, Project project);
+
+    void onClean(Project project);
 }

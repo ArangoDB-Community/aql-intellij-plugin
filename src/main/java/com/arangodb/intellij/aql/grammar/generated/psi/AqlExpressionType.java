@@ -28,7 +28,7 @@ public interface AqlExpressionType extends PsiElement {
     AqlPropertyName getPropertyName();
 
     @Nullable
-    AqlReserverdWords getReserverdWords();
+    AqlReservedWords getReservedWords();
 
     @Nullable
     AqlStringType getStringType();

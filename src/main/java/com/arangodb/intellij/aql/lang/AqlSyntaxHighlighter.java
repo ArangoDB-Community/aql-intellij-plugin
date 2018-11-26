@@ -39,8 +39,6 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(final IElementType type) {
-
-
         if (type.equals(AqlTypes.L_COMMENT)) {
             return LINE_COMMENT;
         } else if (type.equals(AqlTypes.B_COMMENT)) {
@@ -70,8 +68,6 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
         } else if (type.equals(AqlTypes.NUMBER)) {
             return NUMBER;
         }
-
-        //log.error("typeX {}", type);
         return EMPTY;
     }
 }

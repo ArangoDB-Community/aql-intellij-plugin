@@ -60,6 +60,7 @@ public interface AqlTypes {
   IElementType KEYWORD_FUNCTIONS = new AqlElementType("KEYWORD_FUNCTIONS");
   IElementType KEYWORD_STATEMENTS = new AqlElementType("KEYWORD_STATEMENTS");
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
+  IElementType NAMED_FUNCTIONS = new AqlElementType("NAMED_FUNCTIONS");
   IElementType NAMED_KEYWORD_FUNCTIONS = new AqlElementType("NAMED_KEYWORD_FUNCTIONS");
   IElementType NAMED_KEYWORD_STATEMENTS = new AqlElementType("NAMED_KEYWORD_STATEMENTS");
   IElementType NUMBER_TYPE = new AqlElementType("NUMBER_TYPE");
@@ -69,7 +70,7 @@ public interface AqlTypes {
   IElementType PROPERTY_LOOKUP = new AqlElementType("PROPERTY_LOOKUP");
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
-  IElementType RESERVERD_WORDS = new AqlElementType("RESERVERD_WORDS");
+  IElementType RESERVED_WORDS = new AqlElementType("RESERVED_WORDS");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
   IElementType SIGNED_INTEGER = new AqlElementType("SIGNED_INTEGER");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
@@ -453,6 +454,8 @@ public interface AqlTypes {
         return new AqlKeywordStatementsImpl(node);
       } else if (type == LINE_COMMENT) {
         return new AqlLineCommentImpl(node);
+      } else if (type == NAMED_FUNCTIONS) {
+        return new AqlNamedFunctionsImpl(node);
       } else if (type == NAMED_KEYWORD_FUNCTIONS) {
         return new AqlNamedKeywordFunctionsImpl(node);
       } else if (type == NAMED_KEYWORD_STATEMENTS) {
@@ -471,8 +474,8 @@ public interface AqlTypes {
         return new AqlPropertyNameImpl(node);
       } else if (type == QUERY_ITEM) {
         return new AqlQueryItemImpl(node);
-      } else if (type == RESERVERD_WORDS) {
-        return new AqlReserverdWordsImpl(node);
+      } else if (type == RESERVED_WORDS) {
+        return new AqlReservedWordsImpl(node);
       } else if (type == SEQUENCE) {
         return new AqlSequenceImpl(node);
       } else if (type == SIGNED_INTEGER) {

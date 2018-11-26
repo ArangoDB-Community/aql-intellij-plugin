@@ -207,6 +207,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+    public void visitNamedFunctions(@NotNull AqlNamedFunctions o) {
+        visitPsiElement(o);
+    }
+
   public void visitNamedKeywordFunctions(@NotNull AqlNamedKeywordFunctions o) {
     visitPsiElement(o);
   }
@@ -243,7 +247,7 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitReserverdWords(@NotNull AqlReserverdWords o) {
+    public void visitReservedWords(@NotNull AqlReservedWords o) {
         visitPsiElement(o);
     }
 

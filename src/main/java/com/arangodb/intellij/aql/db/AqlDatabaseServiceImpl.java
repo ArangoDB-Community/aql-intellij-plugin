@@ -135,6 +135,7 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
     @Override
     public ArangoDbServer getServer(final Project project) {
 
+
         final DataWindowState stateComponent = project.getComponent(DataWindowState.class);
         final ArangoDbServer server = stateComponent.getState();
         final AqlDataService service = AqlDataService.with(project);

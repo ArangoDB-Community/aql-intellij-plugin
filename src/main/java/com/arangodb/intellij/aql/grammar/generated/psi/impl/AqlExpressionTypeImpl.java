@@ -70,8 +70,8 @@ public class AqlExpressionTypeImpl extends ASTWrapperPsiElement implements AqlEx
 
     @Override
     @Nullable
-    public AqlReserverdWords getReserverdWords() {
-        return findChildByClass(AqlReserverdWords.class);
+    public AqlReservedWords getReservedWords() {
+        return findChildByClass(AqlReservedWords.class);
     }
 
     @Override

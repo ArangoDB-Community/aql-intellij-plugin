@@ -489,8 +489,49 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_ASSERT
                         | F_GEO_MULTIPOINT
                         | F_SLICE
-
-
+NamedFunctions::= FunAbs
+              | FunAcos
+              | FunAsin
+              | FunAvg
+              | FunAverage
+              | FunTan
+              | FunTan2
+              | FunAtan
+              | FunSin
+              | FunAtan2
+              | FunCos
+              | FunDegrees
+              | FunMin
+              | FunMedian
+              | FunLog10
+              | FunMax
+              | FunSQRT
+              | FunPercentile
+              | FunPi
+              | FunLog2
+              | FunLog
+              | FunFloor
+              | FunExp2
+              | FunExp
+              | FunCeil
+              | FunRand
+              | FunSum
+              | FunStddev
+              | FunPow
+              | FunVarianceSample
+              | FunStddevPopulation
+              | FunVariancePopulation
+              | FunRadians
+              | FunRange
+              | FunRound
+              | FunVariance
+              | FunConcatSeparator {
+     methods=[
+                                       getName
+                                       setName
+           ]
+     mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin"
+ }
 
 KeywordStatements ::=    T_SHORTEST_PATH
                         | T_SEARCH
@@ -561,6 +602,7 @@ OperatorStatements ::=
                        | DOT
 
 Statement ::= NamedKeywordStatements
+              | NamedFunctions
               | OperatorStatements
               | Sequence
               | StringType
@@ -571,45 +613,6 @@ Statement ::= NamedKeywordStatements
               | VariablePlaceHolder
               | FunctionExpression
               | ExpressionType
-              // functions
-              | FunAbs
-              | FunAcos
-              | FunAsin
-              | FunAvg
-              | FunAverage
-              | FunTan
-              | FunTan2
-              | FunAtan
-              | FunSin
-              | FunAtan2
-              | FunCos
-              | FunDegrees
-              | FunMin
-              | FunMedian
-              | FunLog10
-              | FunMax
-              | FunSQRT
-              | FunPercentile
-              | FunPi
-              | FunLog2
-              | FunLog
-              | FunFloor
-              | FunExp2
-              | FunExp
-              | FunCeil
-              | FunRand
-              | FunSum
-              | FunStddev
-              | FunPow
-              | FunVarianceSample
-              | FunStddevPopulation
-              | FunVariancePopulation
-              | FunRadians
-              | FunRange
-              | FunRound
-              | FunVariance
-              | FunConcatSeparator
-
               | Comment
 
 
@@ -629,7 +632,7 @@ NamedKeywordStatements ::= KeywordStatements {
   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin"
 }
 
-ReserverdWords ::= T_NULL
+ReservedWords ::= T_NULL
 
 ExpressionType ::= ObjectExpression
                 | NumberType
@@ -641,7 +644,7 @@ ExpressionType ::= ObjectExpression
                 | ParameterVariable
                 | SystemProperty
                 | ArithmeticOperators
-                | ReserverdWords
+                | ReservedWords
                 | PropertyName
 
 // foo, bar, 'test'

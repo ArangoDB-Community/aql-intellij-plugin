@@ -41,7 +41,7 @@ public class _AqlLexer implements FlexLexer {
    * Total runtime size is 14208 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[(ZZ_CMAP_Y[(ZZ_CMAP_Z[ch >> 10] << 6) | ((ch >> 4) & 0x3f)] << 4) | (ch & 0xf)];
+      return ZZ_CMAP_A[(ZZ_CMAP_Y[(ZZ_CMAP_Z[ch >> 10] << 6) | ((ch >> 4) & 0x3f)] << 4) | (ch & 0xf)];
   }
 
   /* The ZZ_CMAP_Z table has 1088 entries */
@@ -162,7 +162,7 @@ public class _AqlLexer implements FlexLexer {
                   "\1\0\2\62\1\0\1\62\2\0\4\62\1\0\7\62\1\0\4\62\1\0\4\62\1\0\1\62\1\0\12\62" +
                   "\1\0\5\62\1\0\3\62\1\0\5\62\1\0\5\62");
 
-  /**
+    /**
    * Translates DFA states to action switch labels.
    */
   private static final int [] ZZ_ACTION = zzUnpackAction();
@@ -229,7 +229,7 @@ public class _AqlLexer implements FlexLexer {
                   "\1\u0110\1\u0111\1\u0112";
 
   private static int [] zzUnpackAction() {
-    int[] result = new int[1247];
+      int[] result = new int[1247];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -248,7 +248,7 @@ public class _AqlLexer implements FlexLexer {
   }
 
 
-  /**
+    /**
    * Translates a state to a row index in the transition table
    */
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
@@ -412,7 +412,7 @@ public class _AqlLexer implements FlexLexer {
                   "\1\u4384\1\u43d6\1\u4428\0\u0f60\0\u0f60\0\u0f60\0\u0f60";
 
   private static int [] zzUnpackRowMap() {
-    int[] result = new int[1247];
+      int[] result = new int[1247];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -429,7 +429,7 @@ public class _AqlLexer implements FlexLexer {
     return j;
   }
 
-  /**
+    /**
    * The transition table of the DFA
    */
   private static final int [] ZZ_TRANS = zzUnpackTrans();
@@ -1682,7 +1682,7 @@ public class _AqlLexer implements FlexLexer {
                   "\1\0\2\75\22\0";
 
   private static int [] zzUnpackTrans() {
-    int[] result = new int[83066];
+      int[] result = new int[83066];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -1727,7 +1727,7 @@ public class _AqlLexer implements FlexLexer {
                   "\1\0\77\1\1\0\113\1\1\11\66\1\1\11\u02e1\1";
 
   private static int [] zzUnpackAttribute() {
-    int[] result = new int[1247];
+      int[] result = new int[1247];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -1798,7 +1798,7 @@ public class _AqlLexer implements FlexLexer {
   }
 
 
-  /**
+    /**
    * Unpacks the compressed character translation table.
    *
    * @param packed   the packed character translation table
@@ -2032,1573 +2032,1573 @@ public class _AqlLexer implements FlexLexer {
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
-          case 1:
+            case 1:
             { return BAD_CHARACTER;
             }
             // fall through
-          case 275:
-            break;
-          case 2:
+            case 275:
+                break;
+            case 2:
             { return WHITE_SPACE;
             }
             // fall through
-          case 276:
-            break;
-          case 3: {
-            return NUMBER_INTEGER;
-          }
+            case 276:
+                break;
+            case 3: {
+                return NUMBER_INTEGER;
+            }
             // fall through
-          case 277:
-            break;
-          case 4: {
-            return T_DIV;
-          }
+            case 277:
+                break;
+            case 4: {
+                return T_DIV;
+            }
             // fall through
-          case 278:
-            break;
-          case 5: {
-            return T_TIMES;
-          }
+            case 278:
+                break;
+            case 5: {
+                return T_TIMES;
+            }
             // fall through
-          case 279:
-            break;
-          case 6: {
-            return SINGLE_QUOTE;
-          }
+            case 279:
+                break;
+            case 6: {
+                return SINGLE_QUOTE;
+            }
             // fall through
-          case 280:
-            break;
-          case 7: {
-            return DOUBLE_QUOTE;
-          }
+            case 280:
+                break;
+            case 7: {
+                return DOUBLE_QUOTE;
+            }
             // fall through
-          case 281:
-            break;
-          case 8: {
-            return T_MINUS;
-          }
+            case 281:
+                break;
+            case 8: {
+                return T_MINUS;
+            }
             // fall through
-          case 282:
-            break;
-          case 9: {
-            return DOT;
-          }
+            case 282:
+                break;
+            case 9: {
+                return DOT;
+            }
             // fall through
-          case 283:
-            break;
-          case 10: {
-            return T_PLUS;
-          }
+            case 283:
+                break;
+            case 10: {
+                return T_PLUS;
+            }
             // fall through
-          case 284:
-            break;
-          case 11: {
-            return N_AT;
-          }
+            case 284:
+                break;
+            case 11: {
+                return N_AT;
+            }
             // fall through
-          case 285:
-            break;
-          case 12: {
-            return T_IS;
-          }
+            case 285:
+                break;
+            case 12: {
+                return T_IS;
+            }
             // fall through
           case 286: break;
-          case 13: {
-            return T_LT;
-          }
+            case 13: {
+                return T_LT;
+            }
             // fall through
           case 287: break;
-          case 14: {
-            return T_GT;
-          }
+            case 14: {
+                return T_GT;
+            }
             // fall through
           case 288: break;
-          case 15: {
-            return T_MOD;
-          }
+            case 15: {
+                return T_MOD;
+            }
             // fall through
           case 289: break;
-          case 16: {
-            return T_QUESTION;
-          }
+            case 16: {
+                return T_QUESTION;
+            }
             // fall through
           case 290: break;
-          case 17: {
-            return T_COLON;
-          }
+            case 17: {
+                return T_COLON;
+            }
             // fall through
           case 291: break;
-          case 18: {
-            return T_COMMA;
-          }
+            case 18: {
+                return T_COMMA;
+            }
             // fall through
           case 292: break;
-          case 19: {
-            return T_OPEN;
-          }
+            case 19: {
+                return T_OPEN;
+            }
             // fall through
           case 293: break;
-          case 20: {
-            return T_CLOSE;
-          }
+            case 20: {
+                return T_CLOSE;
+            }
             // fall through
           case 294: break;
-          case 21: {
-            return T_OBJECT_OPEN;
-          }
+            case 21: {
+                return T_OBJECT_OPEN;
+            }
             // fall through
           case 295: break;
-          case 22: {
-            return T_OBJECT_CLOSE;
-          }
+            case 22: {
+                return T_OBJECT_CLOSE;
+            }
             // fall through
           case 296: break;
-          case 23: {
-            return T_ARRAY_OPEN;
-          }
+            case 23: {
+                return T_ARRAY_OPEN;
+            }
             // fall through
           case 297: break;
-          case 24: {
-            return T_ARRAY_CLOSE;
-          }
+            case 24: {
+                return T_ARRAY_CLOSE;
+            }
             // fall through
           case 298: break;
-          case 25: {
-            return DOLLAR;
-          }
+            case 25: {
+                return DOLLAR;
+            }
             // fall through
           case 299: break;
-          case 26: {
-            return ID;
-          }
+            case 26: {
+                return ID;
+            }
             // fall through
           case 300: break;
-          case 27: {
-            return F_PI;
-          }
+            case 27: {
+                return F_PI;
+            }
             // fall through
           case 301: break;
-          case 28: {
-            return T_IN;
-          }
+            case 28: {
+                return T_IN;
+            }
             // fall through
           case 302: break;
-          case 29: {
-            return F_V8;
-          }
+            case 29: {
+                return F_V8;
+            }
             // fall through
           case 303: break;
-          case 30: {
-            return NUMBER;
-          }
+            case 30: {
+                return NUMBER;
+            }
             // fall through
           case 304: break;
-          case 31: {
-            return L_COMMENT;
-          }
+            case 31: {
+                return L_COMMENT;
+            }
             // fall through
           case 305: break;
-          case 32: {
-            return B_COMMENT;
-          }
+            case 32: {
+                return B_COMMENT;
+            }
             // fall through
           case 306: break;
-          case 33: {
-            return TEXT_SINGLE;
-          }
+            case 33: {
+                return TEXT_SINGLE;
+            }
             // fall through
           case 307: break;
-          case 34: {
-            return TEXT_DOUBLE;
-          }
+            case 34: {
+                return TEXT_DOUBLE;
+            }
             // fall through
           case 308: break;
-          case 35: {
-            return T_RANGE;
-          }
+            case 35: {
+                return T_RANGE;
+            }
             // fall through
           case 309: break;
-          case 36: {
-            return T_LOGICAL_AND;
-          }
+            case 36: {
+                return T_LOGICAL_AND;
+            }
             // fall through
           case 310: break;
-          case 37: {
-            return T_OR;
-          }
+            case 37: {
+                return T_OR;
+            }
             // fall through
           case 311: break;
-          case 38: {
-            return T_REGEX_MATCH;
-          }
+            case 38: {
+                return T_REGEX_MATCH;
+            }
             // fall through
           case 312: break;
-          case 39: {
-            return T_REGEX_NON_MATCH;
-          }
+            case 39: {
+                return T_REGEX_NON_MATCH;
+            }
             // fall through
           case 313: break;
-          case 40: {
-            return T_EQ;
-          }
+            case 40: {
+                return T_EQ;
+            }
             // fall through
           case 314: break;
-          case 41: {
-            return T_NE;
-          }
+            case 41: {
+                return T_NE;
+            }
             // fall through
           case 315: break;
-          case 42: {
-            return T_LE;
-          }
+            case 42: {
+                return T_LE;
+            }
             // fall through
           case 316: break;
-          case 43: {
-            return T_GE;
-          }
+            case 43: {
+                return T_GE;
+            }
             // fall through
           case 317: break;
-          case 44: {
-            return T_SCOPE;
-          }
+            case 44: {
+                return T_SCOPE;
+            }
             // fall through
           case 318: break;
-          case 45: {
-            return T_OBJECT_START;
-          }
+            case 45: {
+                return T_OBJECT_START;
+            }
             // fall through
           case 319: break;
-          case 46: {
-            return F_SIN;
-          }
+            case 46: {
+                return F_SIN;
+            }
             // fall through
           case 320: break;
-          case 47: {
-            return F_SUM;
-          }
+            case 47: {
+                return F_SUM;
+            }
             // fall through
           case 321: break;
-          case 48: {
-            return F_EXP;
-          }
+            case 48: {
+                return F_EXP;
+            }
             // fall through
           case 322: break;
-          case 49: {
-            return T_ASC;
-          }
+            case 49: {
+                return T_ASC;
+            }
             // fall through
           case 323: break;
-          case 50: {
-            return T_ALL;
-          }
+            case 50: {
+                return T_ALL;
+            }
             // fall through
           case 324: break;
-          case 51: {
-            return T_AND;
-          }
+            case 51: {
+                return T_AND;
+            }
             // fall through
           case 325: break;
-          case 52: {
-            return T_ANY;
-          }
+            case 52: {
+                return T_ANY;
+            }
             // fall through
           case 326: break;
-          case 53: {
-            return F_AVG;
-          }
+            case 53: {
+                return F_AVG;
+            }
             // fall through
           case 327: break;
-          case 54: {
-            return F_ABS;
-          }
+            case 54: {
+                return F_ABS;
+            }
             // fall through
           case 328: break;
-          case 55: {
-            return F_COS;
-          }
+            case 55: {
+                return F_COS;
+            }
             // fall through
           case 329: break;
-          case 56: {
-            return F_HAS;
-          }
+            case 56: {
+                return F_HAS;
+            }
             // fall through
           case 330: break;
-          case 57: {
-            return F_TAN;
-          }
+            case 57: {
+                return F_TAN;
+            }
             // fall through
           case 331: break;
-          case 58: {
-            return F_POP;
-          }
+            case 58: {
+                return F_POP;
+            }
             // fall through
           case 332: break;
-          case 59: {
-            return F_POW;
-          }
+            case 59: {
+                return F_POW;
+            }
             // fall through
           case 333: break;
-          case 60: {
-            return T_LET;
-          }
+            case 60: {
+                return T_LET;
+            }
             // fall through
           case 334: break;
-          case 61: {
-            return F_LOG;
-          }
+            case 61: {
+                return F_LOG;
+            }
             // fall through
           case 335: break;
-          case 62: {
-            return T_FOR;
-          }
+            case 62: {
+                return T_FOR;
+            }
             // fall through
           case 336: break;
-          case 63: {
-            return F_NTH;
-          }
+            case 63: {
+                return F_NTH;
+            }
             // fall through
           case 337: break;
-          case 64: {
-            return F_MAX;
-          }
+            case 64: {
+                return F_MAX;
+            }
             // fall through
           case 338: break;
-          case 65: {
-            return F_MIN;
-          }
+            case 65: {
+                return F_MIN;
+            }
             // fall through
           case 339: break;
-          case 66: {
-            return F_MD5;
-          }
+            case 66: {
+                return F_MD5;
+            }
             // fall through
           case 340: break;
-          case 67: {
-            return T_NOT;
-          }
+            case 67: {
+                return T_NOT;
+            }
             // fall through
           case 341: break;
-          case 68: {
-            return T_ID;
-          }
+            case 68: {
+                return T_ID;
+            }
             // fall through
           case 342: break;
-          case 69: {
-            return T_SYS_TO;
-          }
+            case 69: {
+                return T_SYS_TO;
+            }
             // fall through
           case 343: break;
-          case 70: {
-            return F_ZIP;
-          }
+            case 70: {
+                return F_ZIP;
+            }
             // fall through
           case 344: break;
-          case 71: {
-            return F_SHA1;
-          }
+            case 71: {
+                return F_SHA1;
+            }
             // fall through
           case 345: break;
-          case 72: {
-            return T_SORT;
-          }
+            case 72: {
+                return T_SORT;
+            }
             // fall through
           case 346: break;
-          case 73: {
-            return F_SQRT;
-          }
+            case 73: {
+                return F_SQRT;
+            }
             // fall through
           case 347: break;
-          case 74: {
-            return F_EXP2;
-          }
+            case 74: {
+                return F_EXP2;
+            }
             // fall through
           case 348: break;
-          case 75: {
-            return F_ASIN;
-          }
+            case 75: {
+                return F_ASIN;
+            }
             // fall through
           case 349: break;
-          case 76: {
-            return F_ACOS;
-          }
+            case 76: {
+                return F_ACOS;
+            }
             // fall through
           case 350: break;
-          case 77: {
-            return F_ATAN;
-          }
+            case 77: {
+                return F_ATAN;
+            }
             // fall through
           case 351: break;
-          case 78: {
-            return F_RAND;
-          }
+            case 78: {
+                return F_RAND;
+            }
             // fall through
           case 352: break;
-          case 79: {
-            return F_CEIL;
-          }
+            case 79: {
+                return F_CEIL;
+            }
             // fall through
           case 353: break;
-          case 80: {
-            return F_CALL;
-          }
+            case 80: {
+                return F_CALL;
+            }
             // fall through
           case 354: break;
-          case 81: {
-            return F_HASH;
-          }
+            case 81: {
+                return F_HASH;
+            }
             // fall through
           case 355: break;
-          case 82: {
-            return F_TAN2;
-          }
+            case 82: {
+                return F_TAN2;
+            }
             // fall through
           case 356: break;
-          case 83: {
-            return F_TRIM;
-          }
+            case 83: {
+                return F_TRIM;
+            }
             // fall through
           case 357: break;
-          case 84: {
-            return F_PUSH;
-          }
+            case 84: {
+                return F_PUSH;
+            }
             // fall through
           case 358: break;
-          case 85: {
-            return F_LEFT;
-          }
+            case 85: {
+                return F_LEFT;
+            }
             // fall through
           case 359: break;
-          case 86: {
-            return F_LAST;
-          }
+            case 86: {
+                return F_LAST;
+            }
             // fall through
           case 360: break;
-          case 87: {
-            return F_LOG2;
-          }
+            case 87: {
+                return F_LOG2;
+            }
             // fall through
           case 361: break;
-          case 88: {
-            return F_LIKE;
-          }
+            case 88: {
+                return F_LIKE;
+            }
             // fall through
           case 362: break;
-          case 89: {
-            return F_FAIL;
-          }
-            // fall through
-          case 363:
-            break;
-          case 90: {
-            return T_INTO;
-          }
-            // fall through
-          case 364:
-            break;
-          case 91: {
-            return T_DESC;
-          }
-            // fall through
-          case 365:
-            break;
-          case 92: {
-            return F_NEAR;
-          }
-            // fall through
-          case 366:
-            break;
-          case 93: {
-            return F_UUID;
-          }
-            // fall through
-          case 367:
-            break;
-          case 94: {
-            return F_WARN;
-          }
-            // fall through
-          case 368:
-            break;
-          case 95: {
-            return T_WITH;
-          }
-            // fall through
-          case 369:
-            break;
-          case 96: {
-            return F_BM25;
-          }
-            // fall through
-          case 370:
-            break;
-          case 97: {
-            return T_NULL;
-          }
-            // fall through
-          case 371:
-            break;
-          case 98: {
-            return T_NONE;
-          }
-            // fall through
-          case 372:
-            break;
-          case 99: {
-            return T_LIKE;
-          }
-            // fall through
-          case 373:
-            break;
-          case 100: {
-            return T_KEY;
-          }
-            // fall through
-          case 374:
-            break;
-          case 101: {
-            return F_KEEP;
-          }
-            // fall through
-          case 375:
-            break;
-          case 102: {
-            return F_KEYS;
-          }
-            // fall through
-          case 376:
-            break;
-          case 103: {
-            return T_TRUE;
-          }
-            // fall through
-          case 377:
-            break;
-          case 104: {
-            return F_SHIFT;
-          }
-            // fall through
-          case 378:
-            break;
-          case 105: {
-            return F_SPLIT;
-          }
-            // fall through
-          case 379:
-            break;
-          case 106: {
-            return F_SLEEP;
-          }
-            // fall through
-          case 380:
-            break;
-          case 107: {
-            return F_SLICE;
-          }
-            // fall through
-          case 381:
-            break;
-          case 108: {
-            return F_ATAN2;
-          }
-            // fall through
-          case 382:
-            break;
-          case 109: {
-            return F_APPLY;
-          }
-            // fall through
-          case 383:
-            break;
-          case 110: {
-            return F_RANGE;
-          }
-            // fall through
-          case 384:
-            break;
-          case 111: {
-            return F_ROUND;
-          }
-            // fall through
-          case 385:
-            break;
-          case 112: {
-            return F_RTRIM;
-          }
-            // fall through
-          case 386:
-            break;
-          case 113: {
-            return F_RIGHT;
-          }
-            // fall through
-          case 387:
-            break;
-          case 114: {
-            return F_COUNT;
-          }
-            // fall through
-          case 388:
-            break;
-          case 115: {
-            return F_TFIDF;
-          }
-            // fall through
-          case 389:
-            break;
-          case 116: {
-            return T_NIN;
-          }
-            // fall through
-          case 390:
-            break;
-          case 117: {
-            return F_LOG10;
-          }
-            // fall through
-          case 391:
-            break;
-          case 118: {
-            return F_LOWER;
-          }
-            // fall through
-          case 392:
-            break;
-          case 119: {
-            return F_LTRIM;
-          }
-            // fall through
-          case 393:
-            break;
-          case 120: {
-            return T_LIMIT;
-          }
-            // fall through
-          case 394:
-            break;
-          case 121: {
-            return T_GRAPH;
-          }
-            // fall through
-          case 395:
-            break;
-          case 122: {
-            return F_FLOOR;
-          }
-            // fall through
-          case 396:
-            break;
-          case 123: {
-            return F_FIRST;
-          }
-            // fall through
-          case 397:
-            break;
-          case 124: {
-            return F_NOOPT;
-          }
-            // fall through
-          case 398:
-            break;
-          case 125: {
-            return F_MERGE;
-          }
-            // fall through
-          case 399:
-            break;
-          case 126: {
-            return F_MINUS;
-          }
-            // fall through
-          case 400:
-            break;
-          case 127: {
-            return F_UPPER;
-          }
-            // fall through
-          case 401:
-            break;
-          case 128: {
-            return F_UNSET;
-          }
-            // fall through
-          case 402:
-            break;
-          case 129: {
-            return F_UNION;
-          }
-            // fall through
-          case 403:
-            break;
-          case 130: {
-            return F_BOOST;
-          }
-            // fall through
-          case 404:
-            break;
-          case 131: {
-            return T_SYS_FROM;
-          }
-            // fall through
-          case 405:
-            break;
-          case 132: {
-            return T_FALSE;
-          }
-            // fall through
-          case 406:
-            break;
-          case 133: {
-            return T_SEARCH;
-          }
-            // fall through
-          case 407:
-            break;
-          case 134: {
-            return F_SHA512;
-          }
-            // fall through
-          case 408:
-            break;
-          case 135: {
-            return F_SORTED;
-          }
-            // fall through
-          case 409:
-            break;
-          case 136: {
-            return F_STDDEV;
-          }
-            // fall through
-          case 410:
-            break;
-          case 137: {
-            return F_EXISTS;
-          }
-            // fall through
-          case 411:
-            break;
-          case 138: {
-            return F_ASSERT;
-          }
-            // fall through
-          case 412:
-            break;
-          case 139: {
-            return F_APPEND;
-          }
-            // fall through
-          case 413:
-            break;
-          case 140: {
-            return T_RETURN;
-          }
-            // fall through
-          case 414:
-            break;
-          case 141: {
-            return T_REMOVE;
-          }
-            // fall through
-          case 415:
-            break;
-          case 142: {
-            return F_CONCAT;
-          }
-            // fall through
-          case 416:
-            break;
-          case 143: {
-            return F_TO_HEX;
-          }
-            // fall through
-          case 417:
-            break;
-          case 144: {
-            return F_TOKENS;
-          }
-            // fall through
-          case 418:
-            break;
-          case 145: {
-            return F_PHRASE;
-          }
-            // fall through
-          case 419:
-            break;
-          case 146: {
-            return F_LENGTH;
-          }
-            // fall through
-          case 420:
-            break;
-          case 147: {
-            return T_FILTER;
-          }
-            // fall through
-          case 421:
-            break;
-          case 148: {
-            return F_IS_KEY;
-          }
-            // fall through
-          case 422:
-            break;
-          case 149: {
-            return T_INSERT;
-          }
-            // fall through
-          case 423:
-            break;
-          case 150: {
-            return T_INBOUND;
-          }
-            // fall through
-          case 424:
-            break;
-          case 151: {
-            return F_MEDIAN;
-          }
-            // fall through
-          case 425:
-            break;
-          case 152: {
-            return T_UPSERT;
-          }
-            // fall through
-          case 426:
-            break;
-          case 153: {
-            return T_UPDATE;
-          }
-            // fall through
-          case 427:
-            break;
-          case 154: {
-            return F_UNIQUE;
-          }
-            // fall through
-          case 428:
-            break;
-          case 155: {
-            return F_WITHIN;
-          }
-            // fall through
-          case 429:
-            break;
-          case 156: {
-            return F_VALUES;
-          }
-            // fall through
-          case 430:
-            break;
-          case 157: {
-            return F_SOUNDEX;
-          }
-            // fall through
-          case 431:
-            break;
-          case 158: {
-            return F_AVERAGE;
-          }
-            // fall through
-          case 432:
-            break;
-          case 159: {
-            return T_REPLACE;
-          }
-            // fall through
-          case 433:
-            break;
-          case 160: {
-            return F_REVERSE;
-          }
-            // fall through
-          case 434:
-            break;
-          case 161: {
-            return F_RADIANS;
-          }
-            // fall through
-          case 435:
-            break;
-          case 162: {
-            return T_COLLECT;
-          }
-            // fall through
-          case 436:
-            break;
-          case 163: {
-            return T_OUTBOUND;
-          }
-            // fall through
-          case 437:
-            break;
-          case 164: {
-            return F_TO_LIST;
-          }
-            // fall through
-          case 438:
-            break;
-          case 165: {
-            return F_TO_BOOL;
-          }
-            // fall through
-          case 439:
-            break;
-          case 166: {
-            return F_FLATTEN;
-          }
-            // fall through
-          case 440:
-            break;
-          case 167: {
-            return F_IS_LIST;
-          }
-            // fall through
-          case 441:
-            break;
-          case 168: {
-            return F_IS_NULL;
-          }
-            // fall through
-          case 442:
-            break;
-          case 169: {
-            return F_IS_BOOL;
-          }
-            // fall through
-          case 443:
-            break;
-          case 170: {
-            return F_DEGREES;
-          }
-            // fall through
-          case 444:
-            break;
-          case 171: {
-            return F_MATCHES;
-          }
-            // fall through
-          case 445:
-            break;
-          case 172: {
-            return F_UNSHIFT;
-          }
-            // fall through
-          case 446:
-            break;
-          case 173: {
-            return F_VERSION;
-          }
-            // fall through
-          case 447:
-            break;
-          case 174: {
-            return F_ANALYZER;
-          }
-            // fall through
-          case 448:
-            break;
-          case 175: {
-            return F_CONTAINS;
-          }
-            // fall through
-          case 449:
-            break;
-          case 176: {
-            return F_TO_ARRAY;
-          }
-            // fall through
-          case 450:
-            break;
-          case 177: {
-            return F_TYPENAME;
-          }
-            // fall through
-          case 451:
-            break;
-          case 178: {
-            return F_PASSTHRU;
-          }
-            // fall through
-          case 452:
-            break;
-          case 179: {
-            return F_POSITION;
-          }
-            // fall through
-          case 453:
-            break;
-          case 180: {
-            return F_FULLTEXT;
-          }
-            // fall through
-          case 454:
-            break;
-          case 181: {
-            return F_IS_ARRAY;
-          }
-            // fall through
-          case 455:
-            break;
-          case 182: {
-            return F_DATE_ADD;
-          }
-            // fall through
-          case 456:
-            break;
-          case 183: {
-            return F_DATE_DAY;
-          }
-            // fall through
-          case 457:
-            break;
-          case 184: {
-            return F_DATE_NOW;
-          }
-            // fall through
-          case 458:
-            break;
-          case 185: {
-            return F_DOCUMENT;
-          }
-            // fall through
-          case 459:
-            break;
-          case 186: {
-            return F_DISTANCE;
-          }
-            // fall through
-          case 460:
-            break;
-          case 187: {
-            return T_DISTINCT;
-          }
-            // fall through
-          case 461:
-            break;
-          case 188: {
-            return F_NOT_NULL;
-          }
-            // fall through
-          case 462:
-            break;
-          case 189: {
-            return F_VARIANCE;
-          }
-            // fall through
-          case 463:
-            break;
-          case 190: {
-            return F_SUBSTRING;
-          }
-            // fall through
-          case 464:
-            break;
-          case 191: {
-            return T_AGGREGATE;
-          }
-            // fall through
-          case 465:
-            break;
-          case 192: {
-            return F_TRANSLATE;
-          }
-            // fall through
-          case 466:
-            break;
-          case 193: {
-            return F_TO_STRING;
-          }
-            // fall through
-          case 467:
-            break;
-          case 194: {
-            return F_TO_NUMBER;
-          }
-            // fall through
-          case 468:
-            break;
-          case 195: {
-            return F_TO_BASE64;
-          }
-            // fall through
-          case 469:
-            break;
-          case 196: {
-            return F_GEO_POINT;
-          }
-            // fall through
-          case 470:
-            break;
-          case 197: {
-            return F_FIND_LAST;
-          }
-            // fall through
-          case 471:
-            break;
-          case 198: {
-            return F_IS_STRING;
-          }
-            // fall through
-          case 472:
-            break;
-          case 199: {
-            return F_IS_OBJECT;
-          }
-            // fall through
-          case 473:
-            break;
-          case 200: {
-            return F_IS_NUMBER;
-          }
-            // fall through
-          case 474:
-            break;
-          case 201: {
-            return F_DATE_HOUR;
-          }
-            // fall through
-          case 475:
-            break;
-          case 202: {
-            return F_DATE_DIFF;
-          }
-            // fall through
-          case 476:
-            break;
-          case 203: {
-            return F_DATE_YEAR;
-          }
-            // fall through
-          case 477:
-            break;
-          case 204: {
-            return F_MIN_MATCH;
-          }
-            // fall through
-          case 478:
-            break;
-          case 205: {
-            return F_SUBSTITUTE;
-          }
-            // fall through
-          case 479:
-            break;
-          case 206: {
-            return F_ATTRIBUTES;
-          }
-            // fall through
-          case 480:
-            break;
-          case 207: {
-            return F_REGEX_TEST;
-          }
-            // fall through
-          case 481:
-            break;
-          case 208: {
-            return F_REMOVE_NTH;
-          }
-            // fall through
-          case 482:
-            break;
-          case 209: {
-            return F_PERCENTILE;
-          }
-            // fall through
-          case 483:
-            break;
-          case 210: {
-            return F_GEO_EQUALS;
-          }
-            // fall through
-          case 484:
-            break;
-          case 211: {
-            return F_FIRST_LIST;
-          }
-            // fall through
-          case 485:
-            break;
-          case 212: {
-            return F_FIND_FIRST;
-          }
-            // fall through
-          case 486:
-            break;
-          case 213: {
-            return F_DATE_TRUNC;
-          }
-            // fall through
-          case 487:
-            break;
-          case 214: {
-            return F_DATE_MONTH;
-          }
-            // fall through
-          case 488:
-            break;
-          case 215: {
-            return F_JSON_PARSE;
-          }
-            // fall through
-          case 489:
-            break;
-          case 216: {
-            return T_SHORTEST_PATH;
-          }
-            // fall through
-          case 490:
-            break;
-          case 217: {
-            return F_STARTS_WITH;
-          }
-            // fall through
-          case 491:
-            break;
-          case 218: {
-            return F_REGEX_SPLIT;
-          }
-            // fall through
-          case 492:
-            break;
-          case 219: {
-            return F_CHAR_LENGTH;
-          }
-            // fall through
-          case 493:
-            break;
-          case 220: {
-            return F_COLLECTIONS;
-          }
-            // fall through
-          case 494:
-            break;
-          case 221: {
-            return F_GEO_POLYGON;
-          }
-            // fall through
-          case 495:
-            break;
-          case 222: {
-            return F_IS_DOCUMENT;
-          }
-            // fall through
-          case 496:
-            break;
-          case 223: {
-            return F_DATE_SECOND;
-          }
-            // fall through
-          case 497:
-            break;
-          case 224: {
-            return F_DATE_FORMAT;
-          }
-            // fall through
-          case 498:
-            break;
-          case 225: {
-            return F_DATE_MINUTE;
-          }
-            // fall through
-          case 499:
-            break;
-          case 226: {
-            return F_REMOVE_VALUE;
-          }
-            // fall through
-          case 500:
-            break;
-          case 227: {
-            return F_RANDOM_TOKEN;
-          }
-            // fall through
-          case 501:
-            break;
-          case 228: {
-            return F_COUNT_UNIQUE;
-          }
-            // fall through
-          case 502:
-            break;
-          case 229: {
-            return F_CURRENT_USER;
-          }
-            // fall through
-          case 503:
-            break;
-          case 230: {
-            return F_OUTERSECTION;
-          }
-            // fall through
-          case 504:
-            break;
-          case 231: {
-            return F_GEO_CONTAINS;
-          }
-            // fall through
-          case 505:
-            break;
-          case 232: {
-            return F_GEO_DISTANCE;
-          }
-            // fall through
-          case 506:
-            break;
-          case 233: {
-            return F_INTERSECTION;
-          }
-            // fall through
-          case 507:
-            break;
-          case 234: {
-            return F_DATE_COMPARE;
-          }
-            // fall through
-          case 508:
-            break;
-          case 235: {
-            return F_DATE_ISOWEEK;
-          }
-            // fall through
-          case 509:
-            break;
-          case 236: {
-            return F_DATE_ISO8601;
-          }
-            // fall through
-          case 510:
-            break;
-          case 237: {
-            return F_DATE_QUARTER;
-          }
-            // fall through
-          case 511:
-            break;
-          case 238: {
-            return F_SORTED_UNIQUE;
-          }
-            // fall through
-          case 512:
-            break;
-          case 239: {
-            return F_STDDEV_SAMPLE;
-          }
-            // fall through
-          case 513:
-            break;
-          case 240: {
-            return F_REGEX_REPLACE;
-          }
-            // fall through
-          case 514:
-            break;
-          case 241: {
-            return F_REGEX_MATCHES;
-          }
-            // fall through
-          case 515:
-            break;
-          case 242: {
-            return F_REMOVE_VALUES;
-          }
-            // fall through
-          case 516:
-            break;
-          case 243: {
-            return F_PREGEL_RESULT;
-          }
-            // fall through
-          case 517:
-            break;
-          case 244: {
-            return F_IS_IN_POLYGON;
-          }
-            // fall through
-          case 518:
-            break;
-          case 245: {
-            return F_IS_DATESTRING;
-          }
-            // fall through
-          case 519:
-            break;
-          case 246: {
-            return F_DATE_SUBTRACT;
-          }
-            // fall through
-          case 520:
-            break;
-          case 247: {
-            return F_DATE_LEAPYEAR;
-          }
-            // fall through
-          case 521:
-            break;
-          case 248: {
-            return F_CONTAINS_ARRAY;
-          }
-            // fall through
-          case 522:
-            break;
-          case 249: {
-            return F_COUNT_DISTINCT;
-          }
-            // fall through
-          case 523:
-            break;
-          case 250: {
-            return F_GEO_LINESTRING;
-          }
-            // fall through
-          case 524:
-            break;
-          case 251: {
-            return F_GEO_INTERSECTS;
-          }
-            // fall through
-          case 525:
-            break;
-          case 252: {
-            return F_GEO_MULTIPOINT;
-          }
-            // fall through
-          case 526:
-            break;
-          case 253: {
-            return F_FIRST_DOCUMENT;
-          }
-            // fall through
-          case 527:
-            break;
-          case 254: {
-            return F_DATE_TIMESTAMP;
-          }
-            // fall through
-          case 528:
-            break;
-          case 255: {
-            return F_DATE_DAYOFWEEK;
-          }
-            // fall through
-          case 529:
-            break;
-          case 256: {
-            return F_DATE_DAYOFYEAR;
-          }
-            // fall through
-          case 530:
-            break;
-          case 257: {
-            return F_UNION_DISTINCT;
-          }
-            // fall through
-          case 531:
-            break;
-          case 258: {
-            return F_JSON_STRINGIFY;
-          }
-            // fall through
-          case 532:
-            break;
-          case 259: {
-            return F_MERGE_RECURSIVE;
-          }
-            // fall through
-          case 533:
-            break;
-          case 260: {
-            return F_UNSET_RECURSIVE;
-          }
-            // fall through
-          case 534:
-            break;
-          case 261: {
-            return F_VARIANCE_SAMPLE;
-          }
-            // fall through
-          case 535:
-            break;
-          case 262: {
-            return F_COLLECTION_COUNT;
-          }
-            // fall through
-          case 536:
-            break;
-          case 263:
+            case 89: {
+                return F_FAIL;
+            }
+            // fall through
+            case 363:
+                break;
+            case 90: {
+                return T_INTO;
+            }
+            // fall through
+            case 364:
+                break;
+            case 91: {
+                return T_DESC;
+            }
+            // fall through
+            case 365:
+                break;
+            case 92: {
+                return F_NEAR;
+            }
+            // fall through
+            case 366:
+                break;
+            case 93: {
+                return F_UUID;
+            }
+            // fall through
+            case 367:
+                break;
+            case 94: {
+                return F_WARN;
+            }
+            // fall through
+            case 368:
+                break;
+            case 95: {
+                return T_WITH;
+            }
+            // fall through
+            case 369:
+                break;
+            case 96: {
+                return F_BM25;
+            }
+            // fall through
+            case 370:
+                break;
+            case 97: {
+                return T_NULL;
+            }
+            // fall through
+            case 371:
+                break;
+            case 98: {
+                return T_NONE;
+            }
+            // fall through
+            case 372:
+                break;
+            case 99: {
+                return T_LIKE;
+            }
+            // fall through
+            case 373:
+                break;
+            case 100: {
+                return T_KEY;
+            }
+            // fall through
+            case 374:
+                break;
+            case 101: {
+                return F_KEEP;
+            }
+            // fall through
+            case 375:
+                break;
+            case 102: {
+                return F_KEYS;
+            }
+            // fall through
+            case 376:
+                break;
+            case 103: {
+                return T_TRUE;
+            }
+            // fall through
+            case 377:
+                break;
+            case 104: {
+                return F_SHIFT;
+            }
+            // fall through
+            case 378:
+                break;
+            case 105: {
+                return F_SPLIT;
+            }
+            // fall through
+            case 379:
+                break;
+            case 106: {
+                return F_SLEEP;
+            }
+            // fall through
+            case 380:
+                break;
+            case 107: {
+                return F_SLICE;
+            }
+            // fall through
+            case 381:
+                break;
+            case 108: {
+                return F_ATAN2;
+            }
+            // fall through
+            case 382:
+                break;
+            case 109: {
+                return F_APPLY;
+            }
+            // fall through
+            case 383:
+                break;
+            case 110: {
+                return F_RANGE;
+            }
+            // fall through
+            case 384:
+                break;
+            case 111: {
+                return F_ROUND;
+            }
+            // fall through
+            case 385:
+                break;
+            case 112: {
+                return F_RTRIM;
+            }
+            // fall through
+            case 386:
+                break;
+            case 113: {
+                return F_RIGHT;
+            }
+            // fall through
+            case 387:
+                break;
+            case 114: {
+                return F_COUNT;
+            }
+            // fall through
+            case 388:
+                break;
+            case 115: {
+                return F_TFIDF;
+            }
+            // fall through
+            case 389:
+                break;
+            case 116: {
+                return T_NIN;
+            }
+            // fall through
+            case 390:
+                break;
+            case 117: {
+                return F_LOG10;
+            }
+            // fall through
+            case 391:
+                break;
+            case 118: {
+                return F_LOWER;
+            }
+            // fall through
+            case 392:
+                break;
+            case 119: {
+                return F_LTRIM;
+            }
+            // fall through
+            case 393:
+                break;
+            case 120: {
+                return T_LIMIT;
+            }
+            // fall through
+            case 394:
+                break;
+            case 121: {
+                return T_GRAPH;
+            }
+            // fall through
+            case 395:
+                break;
+            case 122: {
+                return F_FLOOR;
+            }
+            // fall through
+            case 396:
+                break;
+            case 123: {
+                return F_FIRST;
+            }
+            // fall through
+            case 397:
+                break;
+            case 124: {
+                return F_NOOPT;
+            }
+            // fall through
+            case 398:
+                break;
+            case 125: {
+                return F_MERGE;
+            }
+            // fall through
+            case 399:
+                break;
+            case 126: {
+                return F_MINUS;
+            }
+            // fall through
+            case 400:
+                break;
+            case 127: {
+                return F_UPPER;
+            }
+            // fall through
+            case 401:
+                break;
+            case 128: {
+                return F_UNSET;
+            }
+            // fall through
+            case 402:
+                break;
+            case 129: {
+                return F_UNION;
+            }
+            // fall through
+            case 403:
+                break;
+            case 130: {
+                return F_BOOST;
+            }
+            // fall through
+            case 404:
+                break;
+            case 131: {
+                return T_SYS_FROM;
+            }
+            // fall through
+            case 405:
+                break;
+            case 132: {
+                return T_FALSE;
+            }
+            // fall through
+            case 406:
+                break;
+            case 133: {
+                return T_SEARCH;
+            }
+            // fall through
+            case 407:
+                break;
+            case 134: {
+                return F_SHA512;
+            }
+            // fall through
+            case 408:
+                break;
+            case 135: {
+                return F_SORTED;
+            }
+            // fall through
+            case 409:
+                break;
+            case 136: {
+                return F_STDDEV;
+            }
+            // fall through
+            case 410:
+                break;
+            case 137: {
+                return F_EXISTS;
+            }
+            // fall through
+            case 411:
+                break;
+            case 138: {
+                return F_ASSERT;
+            }
+            // fall through
+            case 412:
+                break;
+            case 139: {
+                return F_APPEND;
+            }
+            // fall through
+            case 413:
+                break;
+            case 140: {
+                return T_RETURN;
+            }
+            // fall through
+            case 414:
+                break;
+            case 141: {
+                return T_REMOVE;
+            }
+            // fall through
+            case 415:
+                break;
+            case 142: {
+                return F_CONCAT;
+            }
+            // fall through
+            case 416:
+                break;
+            case 143: {
+                return F_TO_HEX;
+            }
+            // fall through
+            case 417:
+                break;
+            case 144: {
+                return F_TOKENS;
+            }
+            // fall through
+            case 418:
+                break;
+            case 145: {
+                return F_PHRASE;
+            }
+            // fall through
+            case 419:
+                break;
+            case 146: {
+                return F_LENGTH;
+            }
+            // fall through
+            case 420:
+                break;
+            case 147: {
+                return T_FILTER;
+            }
+            // fall through
+            case 421:
+                break;
+            case 148: {
+                return F_IS_KEY;
+            }
+            // fall through
+            case 422:
+                break;
+            case 149: {
+                return T_INSERT;
+            }
+            // fall through
+            case 423:
+                break;
+            case 150: {
+                return T_INBOUND;
+            }
+            // fall through
+            case 424:
+                break;
+            case 151: {
+                return F_MEDIAN;
+            }
+            // fall through
+            case 425:
+                break;
+            case 152: {
+                return T_UPSERT;
+            }
+            // fall through
+            case 426:
+                break;
+            case 153: {
+                return T_UPDATE;
+            }
+            // fall through
+            case 427:
+                break;
+            case 154: {
+                return F_UNIQUE;
+            }
+            // fall through
+            case 428:
+                break;
+            case 155: {
+                return F_WITHIN;
+            }
+            // fall through
+            case 429:
+                break;
+            case 156: {
+                return F_VALUES;
+            }
+            // fall through
+            case 430:
+                break;
+            case 157: {
+                return F_SOUNDEX;
+            }
+            // fall through
+            case 431:
+                break;
+            case 158: {
+                return F_AVERAGE;
+            }
+            // fall through
+            case 432:
+                break;
+            case 159: {
+                return T_REPLACE;
+            }
+            // fall through
+            case 433:
+                break;
+            case 160: {
+                return F_REVERSE;
+            }
+            // fall through
+            case 434:
+                break;
+            case 161: {
+                return F_RADIANS;
+            }
+            // fall through
+            case 435:
+                break;
+            case 162: {
+                return T_COLLECT;
+            }
+            // fall through
+            case 436:
+                break;
+            case 163: {
+                return T_OUTBOUND;
+            }
+            // fall through
+            case 437:
+                break;
+            case 164: {
+                return F_TO_LIST;
+            }
+            // fall through
+            case 438:
+                break;
+            case 165: {
+                return F_TO_BOOL;
+            }
+            // fall through
+            case 439:
+                break;
+            case 166: {
+                return F_FLATTEN;
+            }
+            // fall through
+            case 440:
+                break;
+            case 167: {
+                return F_IS_LIST;
+            }
+            // fall through
+            case 441:
+                break;
+            case 168: {
+                return F_IS_NULL;
+            }
+            // fall through
+            case 442:
+                break;
+            case 169: {
+                return F_IS_BOOL;
+            }
+            // fall through
+            case 443:
+                break;
+            case 170: {
+                return F_DEGREES;
+            }
+            // fall through
+            case 444:
+                break;
+            case 171: {
+                return F_MATCHES;
+            }
+            // fall through
+            case 445:
+                break;
+            case 172: {
+                return F_UNSHIFT;
+            }
+            // fall through
+            case 446:
+                break;
+            case 173: {
+                return F_VERSION;
+            }
+            // fall through
+            case 447:
+                break;
+            case 174: {
+                return F_ANALYZER;
+            }
+            // fall through
+            case 448:
+                break;
+            case 175: {
+                return F_CONTAINS;
+            }
+            // fall through
+            case 449:
+                break;
+            case 176: {
+                return F_TO_ARRAY;
+            }
+            // fall through
+            case 450:
+                break;
+            case 177: {
+                return F_TYPENAME;
+            }
+            // fall through
+            case 451:
+                break;
+            case 178: {
+                return F_PASSTHRU;
+            }
+            // fall through
+            case 452:
+                break;
+            case 179: {
+                return F_POSITION;
+            }
+            // fall through
+            case 453:
+                break;
+            case 180: {
+                return F_FULLTEXT;
+            }
+            // fall through
+            case 454:
+                break;
+            case 181: {
+                return F_IS_ARRAY;
+            }
+            // fall through
+            case 455:
+                break;
+            case 182: {
+                return F_DATE_ADD;
+            }
+            // fall through
+            case 456:
+                break;
+            case 183: {
+                return F_DATE_DAY;
+            }
+            // fall through
+            case 457:
+                break;
+            case 184: {
+                return F_DATE_NOW;
+            }
+            // fall through
+            case 458:
+                break;
+            case 185: {
+                return F_DOCUMENT;
+            }
+            // fall through
+            case 459:
+                break;
+            case 186: {
+                return F_DISTANCE;
+            }
+            // fall through
+            case 460:
+                break;
+            case 187: {
+                return T_DISTINCT;
+            }
+            // fall through
+            case 461:
+                break;
+            case 188: {
+                return F_NOT_NULL;
+            }
+            // fall through
+            case 462:
+                break;
+            case 189: {
+                return F_VARIANCE;
+            }
+            // fall through
+            case 463:
+                break;
+            case 190: {
+                return F_SUBSTRING;
+            }
+            // fall through
+            case 464:
+                break;
+            case 191: {
+                return T_AGGREGATE;
+            }
+            // fall through
+            case 465:
+                break;
+            case 192: {
+                return F_TRANSLATE;
+            }
+            // fall through
+            case 466:
+                break;
+            case 193: {
+                return F_TO_STRING;
+            }
+            // fall through
+            case 467:
+                break;
+            case 194: {
+                return F_TO_NUMBER;
+            }
+            // fall through
+            case 468:
+                break;
+            case 195: {
+                return F_TO_BASE64;
+            }
+            // fall through
+            case 469:
+                break;
+            case 196: {
+                return F_GEO_POINT;
+            }
+            // fall through
+            case 470:
+                break;
+            case 197: {
+                return F_FIND_LAST;
+            }
+            // fall through
+            case 471:
+                break;
+            case 198: {
+                return F_IS_STRING;
+            }
+            // fall through
+            case 472:
+                break;
+            case 199: {
+                return F_IS_OBJECT;
+            }
+            // fall through
+            case 473:
+                break;
+            case 200: {
+                return F_IS_NUMBER;
+            }
+            // fall through
+            case 474:
+                break;
+            case 201: {
+                return F_DATE_HOUR;
+            }
+            // fall through
+            case 475:
+                break;
+            case 202: {
+                return F_DATE_DIFF;
+            }
+            // fall through
+            case 476:
+                break;
+            case 203: {
+                return F_DATE_YEAR;
+            }
+            // fall through
+            case 477:
+                break;
+            case 204: {
+                return F_MIN_MATCH;
+            }
+            // fall through
+            case 478:
+                break;
+            case 205: {
+                return F_SUBSTITUTE;
+            }
+            // fall through
+            case 479:
+                break;
+            case 206: {
+                return F_ATTRIBUTES;
+            }
+            // fall through
+            case 480:
+                break;
+            case 207: {
+                return F_REGEX_TEST;
+            }
+            // fall through
+            case 481:
+                break;
+            case 208: {
+                return F_REMOVE_NTH;
+            }
+            // fall through
+            case 482:
+                break;
+            case 209: {
+                return F_PERCENTILE;
+            }
+            // fall through
+            case 483:
+                break;
+            case 210: {
+                return F_GEO_EQUALS;
+            }
+            // fall through
+            case 484:
+                break;
+            case 211: {
+                return F_FIRST_LIST;
+            }
+            // fall through
+            case 485:
+                break;
+            case 212: {
+                return F_FIND_FIRST;
+            }
+            // fall through
+            case 486:
+                break;
+            case 213: {
+                return F_DATE_TRUNC;
+            }
+            // fall through
+            case 487:
+                break;
+            case 214: {
+                return F_DATE_MONTH;
+            }
+            // fall through
+            case 488:
+                break;
+            case 215: {
+                return F_JSON_PARSE;
+            }
+            // fall through
+            case 489:
+                break;
+            case 216: {
+                return T_SHORTEST_PATH;
+            }
+            // fall through
+            case 490:
+                break;
+            case 217: {
+                return F_STARTS_WITH;
+            }
+            // fall through
+            case 491:
+                break;
+            case 218: {
+                return F_REGEX_SPLIT;
+            }
+            // fall through
+            case 492:
+                break;
+            case 219: {
+                return F_CHAR_LENGTH;
+            }
+            // fall through
+            case 493:
+                break;
+            case 220: {
+                return F_COLLECTIONS;
+            }
+            // fall through
+            case 494:
+                break;
+            case 221: {
+                return F_GEO_POLYGON;
+            }
+            // fall through
+            case 495:
+                break;
+            case 222: {
+                return F_IS_DOCUMENT;
+            }
+            // fall through
+            case 496:
+                break;
+            case 223: {
+                return F_DATE_SECOND;
+            }
+            // fall through
+            case 497:
+                break;
+            case 224: {
+                return F_DATE_FORMAT;
+            }
+            // fall through
+            case 498:
+                break;
+            case 225: {
+                return F_DATE_MINUTE;
+            }
+            // fall through
+            case 499:
+                break;
+            case 226: {
+                return F_REMOVE_VALUE;
+            }
+            // fall through
+            case 500:
+                break;
+            case 227: {
+                return F_RANDOM_TOKEN;
+            }
+            // fall through
+            case 501:
+                break;
+            case 228: {
+                return F_COUNT_UNIQUE;
+            }
+            // fall through
+            case 502:
+                break;
+            case 229: {
+                return F_CURRENT_USER;
+            }
+            // fall through
+            case 503:
+                break;
+            case 230: {
+                return F_OUTERSECTION;
+            }
+            // fall through
+            case 504:
+                break;
+            case 231: {
+                return F_GEO_CONTAINS;
+            }
+            // fall through
+            case 505:
+                break;
+            case 232: {
+                return F_GEO_DISTANCE;
+            }
+            // fall through
+            case 506:
+                break;
+            case 233: {
+                return F_INTERSECTION;
+            }
+            // fall through
+            case 507:
+                break;
+            case 234: {
+                return F_DATE_COMPARE;
+            }
+            // fall through
+            case 508:
+                break;
+            case 235: {
+                return F_DATE_ISOWEEK;
+            }
+            // fall through
+            case 509:
+                break;
+            case 236: {
+                return F_DATE_ISO8601;
+            }
+            // fall through
+            case 510:
+                break;
+            case 237: {
+                return F_DATE_QUARTER;
+            }
+            // fall through
+            case 511:
+                break;
+            case 238: {
+                return F_SORTED_UNIQUE;
+            }
+            // fall through
+            case 512:
+                break;
+            case 239: {
+                return F_STDDEV_SAMPLE;
+            }
+            // fall through
+            case 513:
+                break;
+            case 240: {
+                return F_REGEX_REPLACE;
+            }
+            // fall through
+            case 514:
+                break;
+            case 241: {
+                return F_REGEX_MATCHES;
+            }
+            // fall through
+            case 515:
+                break;
+            case 242: {
+                return F_REMOVE_VALUES;
+            }
+            // fall through
+            case 516:
+                break;
+            case 243: {
+                return F_PREGEL_RESULT;
+            }
+            // fall through
+            case 517:
+                break;
+            case 244: {
+                return F_IS_IN_POLYGON;
+            }
+            // fall through
+            case 518:
+                break;
+            case 245: {
+                return F_IS_DATESTRING;
+            }
+            // fall through
+            case 519:
+                break;
+            case 246: {
+                return F_DATE_SUBTRACT;
+            }
+            // fall through
+            case 520:
+                break;
+            case 247: {
+                return F_DATE_LEAPYEAR;
+            }
+            // fall through
+            case 521:
+                break;
+            case 248: {
+                return F_CONTAINS_ARRAY;
+            }
+            // fall through
+            case 522:
+                break;
+            case 249: {
+                return F_COUNT_DISTINCT;
+            }
+            // fall through
+            case 523:
+                break;
+            case 250: {
+                return F_GEO_LINESTRING;
+            }
+            // fall through
+            case 524:
+                break;
+            case 251: {
+                return F_GEO_INTERSECTS;
+            }
+            // fall through
+            case 525:
+                break;
+            case 252: {
+                return F_GEO_MULTIPOINT;
+            }
+            // fall through
+            case 526:
+                break;
+            case 253: {
+                return F_FIRST_DOCUMENT;
+            }
+            // fall through
+            case 527:
+                break;
+            case 254: {
+                return F_DATE_TIMESTAMP;
+            }
+            // fall through
+            case 528:
+                break;
+            case 255: {
+                return F_DATE_DAYOFWEEK;
+            }
+            // fall through
+            case 529:
+                break;
+            case 256: {
+                return F_DATE_DAYOFYEAR;
+            }
+            // fall through
+            case 530:
+                break;
+            case 257: {
+                return F_UNION_DISTINCT;
+            }
+            // fall through
+            case 531:
+                break;
+            case 258: {
+                return F_JSON_STRINGIFY;
+            }
+            // fall through
+            case 532:
+                break;
+            case 259: {
+                return F_MERGE_RECURSIVE;
+            }
+            // fall through
+            case 533:
+                break;
+            case 260: {
+                return F_UNSET_RECURSIVE;
+            }
+            // fall through
+            case 534:
+                break;
+            case 261: {
+                return F_VARIANCE_SAMPLE;
+            }
+            // fall through
+            case 535:
+                break;
+            case 262: {
+                return F_COLLECTION_COUNT;
+            }
+            // fall through
+            case 536:
+                break;
+            case 263:
             { return F_CONCAT_SEPARATOR;
             }
             // fall through
-          case 537:
-            break;
-          case 264:
+            case 537:
+                break;
+            case 264:
             { return F_CURRENT_DATABASE;
             }
             // fall through
-          case 538:
-            break;
-          case 265:
+            case 538:
+                break;
+            case 265:
             { return F_PARSE_IDENTIFIER;
             }
             // fall through
-          case 539:
-            break;
-          case 266:
+            case 539:
+                break;
+            case 266:
             { return F_DATE_MILLISECOND;
             }
             // fall through
-          case 540:
-            break;
-          case 267:
+            case 540:
+                break;
+            case 267:
             { return F_WITHIN_RECTANGLE;
             }
             // fall through
-          case 541:
-            break;
-          case 268:
+            case 541:
+                break;
+            case 268:
             { return F_STDDEV_POPULATION;
             }
             // fall through
-          case 542:
-            break;
-          case 269:
+            case 542:
+                break;
+            case 269:
             { return F_IS_SAME_COLLECTION;
             }
             // fall through
-          case 543:
-            break;
-          case 270:
+            case 543:
+                break;
+            case 270:
             { return F_DATE_DAYS_IN_MONTH;
             }
             // fall through
-          case 544:
-            break;
-          case 271:
+            case 544:
+                break;
+            case 271:
             { return F_GEO_MULTILINESTRING;
             }
             // fall through
-          case 545:
-            break;
-          case 272:
+            case 545:
+                break;
+            case 272:
             { return F_VARIANCE_POPULATION;
             }
             // fall through
-          case 546:
-            break;
-          case 273:
+            case 546:
+                break;
+            case 273:
             { return F_ENCODE_URI_COMPONENT;
             }
             // fall through
-          case 547:
-            break;
-          case 274:
+            case 547:
+                break;
+            case 274:
             { return F_LEVENSHTEIN_DISTANCE;
             }
             // fall through
-          case 548:
-            break;
+            case 548:
+                break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }
