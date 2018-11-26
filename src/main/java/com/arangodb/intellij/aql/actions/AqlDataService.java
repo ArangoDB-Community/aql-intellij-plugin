@@ -2,10 +2,8 @@ package com.arangodb.intellij.aql.actions;
 
 import com.arangodb.ArangoCursor;
 import com.arangodb.ArangoDBException;
-import com.arangodb.entity.CollectionEntity;
-import com.arangodb.entity.CollectionType;
-import com.arangodb.entity.GraphEntity;
-import com.arangodb.entity.ViewEntity;
+import com.arangodb.ArangoDatabase;
+import com.arangodb.entity.*;
 import com.arangodb.intellij.aql.db.AqlDatabaseService;
 import com.arangodb.intellij.aql.exc.AqlDataSourceException;
 import com.arangodb.intellij.aql.model.ArangoDbDatabase;
@@ -13,7 +11,9 @@ import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.arangodb.intellij.aql.ui.DataWindowState;
 import com.arangodb.intellij.aql.ui.dialogs.AqlServerDialog;
 import com.arangodb.intellij.aql.ui.renderers.AqlNodeModel;
+import com.arangodb.intellij.aql.util.AqlUtils;
 import com.arangodb.intellij.aql.util.log;
+import com.arangodb.model.AqlQueryExplainOptions;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.CheckedTreeNode;
@@ -34,6 +34,9 @@ public final class AqlDataService {
     private final MessageBus messageBus;
     private final DataWindowState stateComponent;
 
+    private enum QueryType {
+        QUERY, EXPLAIN_QUERY
+    }
     private AqlDataService(final Project project) {
         this.project = project;
         this.messageBus = project.getMessageBus();
@@ -46,24 +49,46 @@ public final class AqlDataService {
     }
 
     public AqlDataService executeQuery(final String query) {
-        return executeQuery(query, Collections.emptyMap());
+        return executeQuery(query, Collections.emptyMap(), QueryType.QUERY);
+    }
+
+    public AqlDataService explainQuery(final String query) {
+        return executeQuery(query, Collections.emptyMap(), QueryType.EXPLAIN_QUERY);
+    }
+
+    public AqlDataService explainQuery(final String query, final Map<String, Object> bindVars) {
+
+        return executeQuery(query, bindVars, QueryType.EXPLAIN_QUERY);
     }
 
     public AqlDataService executeQuery(final String query, final Map<String, Object> bindVars) {
+        return executeQuery(query, bindVars, QueryType.QUERY);
+    }
+
+    private AqlDataService executeQuery(final String query, final Map<String, Object> bindVars, final QueryType type) {
         final DataWindowState component = project.getComponent(DataWindowState.class);
         final ArangoDbServer state = component.getState();
         final ActionBusEvent queryPlanEvent = messageBus.syncPublisher(ActionBusEvent.AQL_QUERY_RESULT);
         try {
 
-            final ArangoCursor<String> cursor = service.getActiveDatabase(state, project).query(query, bindVars, String.class);
-            final List<String> strings = cursor.asListRemaining();
-            final StringBuilder builder = new StringBuilder();
-            for (String serializable : strings) {
-                builder.append(serializable);
+            final ArangoDatabase activeDatabase = service.getActiveDatabase(state, project);
+            final String result;
+            if (type == QueryType.QUERY) {
+                final ArangoCursor<String> cursor = activeDatabase.query(query, bindVars, String.class);
+                final List<String> strings = cursor.asListRemaining();
+                final StringBuilder builder = new StringBuilder();
+                for (String serializable : strings) {
+                    builder.append(serializable);
+                }
+                result = builder.toString();
+            } else {
+                final AqlQueryExplainOptions options = new AqlQueryExplainOptions();
+                final AqlExecutionExplainEntity explainEntity = activeDatabase.explainQuery(query, bindVars, options);
+                result = AqlUtils.parseExecutionEntity(explainEntity);
             }
 
             final ActionEventData data = new ActionEventData(ActionEventData.KEY_QUERY, query);
-            data.set(ActionEventData.KEY_RESULT, builder.toString());
+            data.set(ActionEventData.KEY_RESULT, result);
             queryPlanEvent.onEvent(data);
         } catch (ArangoDBException | AqlDataSourceException e) {
             queryPlanEvent.onEvent(new ActionEventData(ActionEventData.KEY_RESULT, e.getMessage()));

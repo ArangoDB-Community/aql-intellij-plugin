@@ -7,7 +7,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import org.jetbrains.annotations.NotNull;
 
-public class AqlExecuteQueryAction extends AqlQueryAction {
+public class AqlExplainQueryAction extends AqlQueryAction {
 
 
     @Override
@@ -16,20 +16,8 @@ public class AqlExecuteQueryAction extends AqlQueryAction {
         if (!canExecute(project, anActionEvent)) {
             return;
         }
-        
-      /*  final Set<String> names = AqlUtils.extractParameterNames(charsSequence, project);
-        for (String name : names) {
-            log.info("name {}", name);
-        }*/
         final CharSequence charSequence = extractQuery(project, anActionEvent);
-        AqlDataService.with(project).executeQuery(charSequence.toString());
-      /*  final String title = "";
-        CommandProcessor.getInstance().executeCommand(project, () -> {
-            final Runnable action = () -> {
-
-            };
-            ApplicationManager.getApplication().runWriteAction(action);
-        }, title, null);*/
+        AqlDataService.with(project).explainQuery(charSequence.toString());
         // TODO add parameters
         // TODO move window itself
         assert project != null;
@@ -38,6 +26,5 @@ public class AqlExecuteQueryAction extends AqlQueryAction {
 
 
     }
-
 
 }

@@ -8,7 +8,9 @@ public final class Icons {
 
 
     public static final Icon ICON_SELECTED = IconLoader.getIcon("/icons/selected.png");
-    
+
+    public static final Icon ICON_SYSTEM_ATTRIBUTE = IconLoader.getIcon("/icons/system_attribute.svg");
+
     public static final Icon ICON_ERROR = IconLoader.getIcon("/icons/error.png");
 
     public static final Icon ICON_ARANGO = IconLoader.getIcon("/icons/aql.png");

@@ -43,7 +43,9 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
         } else if (identifier.getAqlType() == AqlMixinType.VAR_PARAMETER) {
             return new PsiReference[]{new AqlPropertyParameterReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.VAR_PLACEHOLDER) {
-            return new PsiReference[]{new AqlPropertyParameterReference(identifier, rangeInElement)};
+            return new PsiReference[]{new AqlPropertyPlaceholderReference(identifier, rangeInElement)};
+        } else if (identifier.getAqlType() == AqlMixinType.SYSTEM_PROPERTY) {
+            return new PsiReference[]{new AqlSystemPropertyReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.PROPERTY_LOOKUP) {
             return new PsiReference[]{new AqlPropertyLookupReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.ID) {

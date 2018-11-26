@@ -1,5 +1,6 @@
 package com.arangodb.intellij.aql.util;
 
+import com.arangodb.entity.AqlExecutionExplainEntity;
 import com.arangodb.intellij.aql.file.AqlFileType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
 import com.intellij.json.JsonFileType;
@@ -51,4 +52,7 @@ public final class AqlUtils {
     }
 
 
+    public static String parseExecutionEntity(final AqlExecutionExplainEntity entity) {
+        return JSON.toJson(entity);
+    }
 }

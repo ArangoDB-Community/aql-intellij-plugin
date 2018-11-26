@@ -66,8 +66,11 @@
 
   <actions>
     <action id="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" class="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
-        <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
-      </action>
+      <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
+    </action>
+    <action id="com.arangodb.intellij.aql.actions.AqlExplainQueryAction" class="com.arangodb.intellij.aql.actions.AqlExplainQueryAction" text="Explain AQL Query" description="Explain AQL Query">
+      <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
+    </action>
     <action id="aql.NewAqlFile" class="com.arangodb.intellij.aql.file.AqlFileTemplateAction"
             text="AQL File" description="Create new AQL file">
       <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>

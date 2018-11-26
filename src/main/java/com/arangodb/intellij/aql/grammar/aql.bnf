@@ -17,7 +17,7 @@
 tokens = [
     // system:
 T_SEARCH = "regexp:([Ss])([Ee])([Aa])([Rr])([Cc])([Hh])"
-T_SHORTEST_PATH = "regexp:([Ss])([Hh])([Oo])([Rr])([Tt])([Ee])([Ss])([Pp])([Aa])([Tt])([Hh])"
+T_SHORTEST_PATH = "regexp:([Ss])([Hh])([Oo])([Rr])([Tt])([Ee])([Ss])([Tt])([Pp])([Aa])([Tt])([Hh])"
 T_REPLACE = "regexp:([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])"
 T_ASC = "regexp:([Aa])([Ss])([Cc])"
 T_AGGREGATE = "regexp:([Aa])([Gg])([Gg])([Rr])([Ee])([Gg])([Aa])([Tt])([Ee])"
@@ -38,9 +38,8 @@ T_RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
 T_UPSERT = "regexp:([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])"
 T_REMOVE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])"
 T_INSERT = "regexp:([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])"
-F_INTERSECTION = "regexp:([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
-T_OUTBOUND = "regexp:([Oo])([Uu])([Tt])([Bb])([Aa])([Nn])([Dd])"
-T_INBOUND = "regexp:([Ii])([Nn])([Bb])([Aa])([Nn])([Dd])"
+T_OUTBOUND = "regexp:([Oo])([Uu])([Tt])([Bb])([Oo])([Uu])([Nn])([Dd])"
+T_INBOUND = "regexp:([Ii])([Nn])([Bb])([Ou])([Uu])([Nn])([Dd])"
 T_ANY = "regexp:([Aa])([Nn])([Yy])"
 T_ALL = "regexp:([Aa])([Ll])([Ll])"
 T_NULL = "regexp:([n])([u])([l])([l])"
@@ -351,21 +350,15 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_JSON_PARSE
                         | F_GEO_MULTILINESTRING
                         | F_DATE_DAYOFYEAR
-                        | F_LAST
                         | F_VALUES
                         | F_DATE_DAY
                         | F_DATE_DAYS_IN_MONTH
                         | F_NEAR
                         | F_LTRIM
-                        | F_REVERSE
-                        | F_FIRST
-                        | F_LENGTH
                         | F_UNSET_RECURSIVE
                         | F_PARSE_IDENTIFIER
                         | F_TO_BASE64
                         | F_IS_DATESTRING
-                        | F_INTERSECTION
-                        | F_MINUS
                         | F_IS_IN_POLYGON
                         | F_IS_OBJECT
                         | F_STARTS_WITH
@@ -378,10 +371,7 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_ATTRIBUTES
                         | F_CALL
                         | F_LEVENSHTEIN_DISTANCE
-                        | F_REMOVE_VALUE
                         | F_DATE_FORMAT
-                        | F_OUTERSECTION
-                        | F_UNION
                         | F_KEYS
                         | F_COLLECTION_COUNT
                         | F_BOOST
@@ -397,7 +387,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_NOT_NULL
                         | F_VERSION
                         | F_SLEEP
-                        | F_POP
                         | F_UUID
                         | F_TO_NUMBER
                         | F_FIND_FIRST
@@ -410,34 +399,24 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DATE_SECOND
                         | F_BM25
                         | F_DATE_MONTH
-                        | F_SHIFT
                         | F_CONCAT
                         | F_SUBSTRING
                         | F_CURRENT_USER
-                        | F_CONTAINS_ARRAY
                         | F_HAS
                         | F_KEEP
                         | F_TO_STRING
                         | F_V8
                         | F_PREGEL_RESULT
-                        | F_UNION_DISTINCT
                         | F_LIKE
-                        | F_COUNT_UNIQUE
                         | F_WITHIN
                         | F_IS_STRING
                         | F_REGEX_TEST
-                        | F_REMOVE_VALUES
                         | F_GEO_INTERSECTS
                         | F_IS_DOCUMENT
                         | F_REGEX_REPLACE
-                        | F_SORTED_UNIQUE
                         | F_TYPENAME
                         | F_DATE_ADD
-                        | F_REMOVE_NTH
-                        | F_APPEND
-                        | F_FLATTEN
                         | F_GEO_POLYGON
-                        | F_COUNT
                         | F_DATE_MILLISECOND
                         | F_WITHIN_RECTANGLE
                         | F_SOUNDEX
@@ -457,25 +436,20 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_ZIP
                         | F_TO_HEX
                         | F_FULLTEXT
-                        | F_UNIQUE
                         | F_IS_KEY
                         | F_IS_ARRAY
                         | F_SHA512
                         | F_DATE_COMPARE
                         | F_IS_SAME_COLLECTION
-                        | F_PUSH
                         | F_DATE_YEAR
                         | F_HASH
-                        | F_COUNT_DISTINCT
                         | F_SHA1
-                        | F_POSITION
                         | F_MERGE
                         | F_DATE_TIMESTAMP
                         | F_ENCODE_URI_COMPONENT
                         | F_CONTAINS
                         | F_FAIL
                         | F_EXISTS
-                        | F_NTH
                         | F_TO_BOOL
                         | F_DATE_HOUR
                         | F_JSON_STRINGIFY
@@ -483,12 +457,10 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_RANDOM_TOKEN
                         | F_FIND_LAST
                         | F_IS_NUMBER
-                        | F_SORTED
                         | F_DATE_DIFF
-                        | F_UNSHIFT
                         | F_ASSERT
                         | F_GEO_MULTIPOINT
-                        | F_SLICE
+
 NamedFunctions::= FunAbs
               | FunAcos
               | FunAsin
@@ -502,6 +474,34 @@ NamedFunctions::= FunAbs
               | FunCos
               | FunDegrees
               | FunMin
+              | FunPosition
+              | FunContainsArray
+              | FunAppend
+              | FunLength
+              | FunCount
+              | FunCountDistinct
+              | FunCountUnique
+              | FunFirst
+              | FunLast
+              | FunFlatten
+              | FunInterSection
+              | FunMinus
+              | FunNTH
+              | FunRemoveNTH
+              | FunOuterSection
+              | FunRemoveValue
+              | FunPop
+              | FunRemoveValues
+              | FunPush
+              | FunReverse
+              | FunShift
+              | FunSlice
+              | FunSorted
+              | FunSortedUnique
+              | FunUnion
+              | FunUnionDistinct
+              | FunUnique
+              | FunUnShift
               | FunMedian
               | FunLog10
               | FunMax
@@ -560,13 +560,13 @@ KeywordStatements ::=    T_SHORTEST_PATH
                         | T_ANY
                         | T_ALL
                         | T_NONE
-/*{
+{
                           methods=[
                             getName
                             setName
                           ]
-                          mixin="com.arangodb.intellij.aql.grammar.psi.impl.AqlKeywordMixin"
-}*/
+                          mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin"
+}
 
 
 OperatorStatements ::= 
@@ -677,130 +677,90 @@ private number_argument_array ::= (possible_array | "[" number_argument (',' num
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
-FunAbs ::=  (F_ABS "(" number_argument ")"){
-pin = 1
-}
-FunCos ::=  (F_COS "(" number_argument ")"){
-pin = 1
-}FunAcos ::=  (F_ACOS "(" number_argument ")"){
-pin = 1
-}
-FunAsin ::=  (F_ASIN "(" number_argument ")"){
-pin = 1
-}
-FunSin ::=  (F_SIN "(" number_argument ")"){
-pin = 1
-}
+FunAbs ::=  (F_ABS "(" number_argument ")")
+FunCos ::=  (F_COS "(" number_argument ")")
+FunAcos ::=  (F_ACOS "(" number_argument ")")
+FunAsin ::=  (F_ASIN "(" number_argument ")")
+FunSin ::=  (F_SIN "(" number_argument ")")
+FunAtan ::=  (F_ATAN "(" number_argument ")")
+FunTan ::=  (F_TAN "(" number_argument ")")
+FunTan2 ::=  (F_TAN2 "(" number_argument ")")
+FunAtan2 ::=  (F_ATAN2 "(" number_argument ")")
+FunAvg ::=  (F_AVG "(" number_argument_array ")")
+FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")")
+FunCeil  ::=  (F_CEIL  "(" number_argument ")")
+FunDegrees  ::=  (F_DEGREES  "(" number_argument ")")
+FunExp  ::=  (F_EXP  "(" number_argument ")")
+FunExp2  ::=  (F_EXP2  "(" number_argument ")")
+FunFloor  ::=  (F_FLOOR  "(" number_argument ")")
+FunLog  ::=  (F_LOG  "(" number_argument ")")
+FunLog2  ::=  (F_LOG2  "(" number_argument ")")
+FunLog10  ::=  (F_LOG10  "(" number_argument ")")
 
-FunAtan ::=  (F_ATAN "(" number_argument ")"){
-pin = 1
-}
-FunTan ::=  (F_TAN "(" number_argument ")"){
-pin = 1
-}
-FunTan2 ::=  (F_TAN2 "(" number_argument ")"){
-pin = 1
-}
-FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){
-pin = 1
-}
-FunAvg ::=  (F_AVG "(" number_argument_array ")"){
-pin = 1
-}
-FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){
-pin = 1
-}
+FunMax  ::=  (F_MAX  "(" number_argument_array ")")
+FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")")
+FunMin  ::=  (F_MIN  "(" number_argument_array ")")
 
-FunCeil  ::=  (F_CEIL  "(" number_argument ")"){
-pin = 1
-}
-FunDegrees  ::=  (F_DEGREES  "(" number_argument ")"){
-pin = 1
-}
-FunExp  ::=  (F_EXP  "(" number_argument ")"){
-pin = 1
-}
-FunExp2  ::=  (F_EXP2  "(" number_argument ")"){
-pin = 1
-}
-FunFloor  ::=  (F_FLOOR  "(" number_argument ")"){
-pin = 1
-}
-FunLog  ::=  (F_LOG  "(" number_argument ")"){
-pin = 1
-}
-FunLog2  ::=  (F_LOG2  "(" number_argument ")"){
-pin = 1
-}
-FunLog10  ::=  (F_LOG10  "(" number_argument ")"){
-pin = 1
-}
+//############################################
+// DOCUMENT
+//############################################
+// TODO
+//FunAttributes  ::=  (F_ATTRIBUTES  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
 
-FunMax  ::=  (F_MAX  "(" number_argument_array ")"){
-pin = 1
-}
-FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")"){
-pin = 1
-}
-FunMin  ::=  (F_MIN  "(" number_argument_array ")"){
-pin = 1
-}
+//############################################
+// ARRAY
+//############################################
+
+
+FunPosition  ::=  (F_POSITION  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunAppend  ::=  (F_APPEND  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunPush  ::=  (F_PUSH  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," ExpressionType ("," IntegerType)? ")")
+FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_argument_array ")")
+FunLength  ::=  (F_LENGTH  "(" number_argument_array ")")
+FunShift  ::=  (F_SHIFT  "(" number_argument_array ")")FunSlice  ::=  (F_SLICE  "(" number_argument_array "," IntegerType ("," IntegerType)? ")")
+FunCount  ::=  (F_COUNT  "(" number_argument_array ")")
+FunSorted  ::=  (F_SORTED  "(" number_argument_array ")")
+FunSortedUnique  ::=  (F_SORTED_UNIQUE  "(" number_argument_array ")")
+FunCountDistinct  ::=  (F_COUNT_DISTINCT  "(" number_argument_array ")")
+FunCountUnique  ::=  (F_COUNT_UNIQUE  "(" number_argument_array ")")
+FunFirst  ::=  (F_FIRST  "(" number_argument_array ")")
+FunLast  ::=  (F_LAST  "(" number_argument_array ")")
+FunUnique  ::=  (F_UNIQUE  "(" number_argument_array ")")
+FunFlatten  ::=  (F_FLATTEN  "(" number_argument_array ("," IntegerType)? ")")
+
+FunInterSection  ::=  (F_INTERSECTION  "(" (number_argument_array)+ ")")
+FunOuterSection  ::=  (F_OUTERSECTION  "(" (number_argument_array)+ ")")
+FunMinus  ::=  (F_MINUS  "(" (number_argument_array)+ ")")
+FunUnion  ::=  (F_UNION  "(" (number_argument_array)+ ")")
+FunUnionDistinct  ::=  (F_UNION_DISTINCT  "(" (number_argument_array)+ ")")
+FunPop  ::=  (F_POP  "(" (number_argument_array)+ ")")FunReverse  ::=  (F_REVERSE  "(" (number_argument_array)+ ")")
+FunNTH  ::=  (F_NTH  "(" (number_argument_array) "," IntegerType ")")
+
+FunRemoveNTH  ::=  (F_REMOVE_NTH  "(" (number_argument_array) "," IntegerType ")")
+
+
 // TODO fix range
 external external_percentile_range_rule ::= parsePercentileRange
 //FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," external_percentile_range_rule ("," StringType)? ")"){
-FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")"){
-pin = 1
-}
+FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")")
+FunPi  ::=  (F_PI "(" ")")
+FunRand  ::=  (F_RAND "(" ")")
+FunPow  ::=  (F_POW "(" number_argument "," number_argument ")")
+FunRadians  ::=  (F_RADIANS "(" number_argument ")")
+FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")")
+FunRound  ::=  (F_ROUND "(" number_argument ")")
+FunSQRT  ::=  (F_SQRT "(" number_argument ")")
+FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")")
+FunStddev  ::=  (F_STDDEV "(" number_argument_array ")")
+FunSum  ::=  (F_SUM "(" number_argument_array ")")
+FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")")
+FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")")
+FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")")
 
-FunPi  ::=  (F_PI "(" ")"){
-pin = 1
-}
-FunRand  ::=  (F_RAND "(" ")"){
-pin = 1
-}
-
-FunPow  ::=  (F_POW "(" number_argument "," number_argument ")"){
-pin = 1
-}
-FunRadians  ::=  (F_RADIANS "(" number_argument ")"){
-pin = 1
-}
-FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")"){
-pin = 1
-}
-
-FunRound  ::=  (F_ROUND "(" number_argument ")"){
-pin = 1
-}
-
-FunSQRT  ::=  (F_SQRT "(" number_argument ")"){
-pin = 1
-}
-FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){
-pin = 1
-}
-FunStddev  ::=  (F_STDDEV "(" number_argument_array ")"){
-pin = 1
-}
-FunSum  ::=  (F_SUM "(" number_argument_array ")"){
-pin = 1
-}
-
-FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")"){
-pin = 1
-}
-FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){
-pin = 1
-}
-FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){
-pin = 1
-}
-
-
-
-FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){
-pin = 1
-}
+FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")")
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
@@ -830,7 +790,7 @@ PropertyLookup ::=   PropertyName | SystemProperty
 }
 
 
-ObjectExpression ::=  PropertyName (DOT PropertyLookup)* {
+ObjectExpression ::=  PropertyName (DOT SystemProperty | PropertyLookup)* {
                    pin= 2;
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlObjectExpressionMixin"
@@ -845,8 +805,10 @@ ParameterVariable ::= (N_AT  PropertyName){
 
 Sequence ::= IntegerType T_RANGE IntegerType
 
-SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
-
+SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO {
+                   methods=[ getName setName]
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlSystemPropertyMixin"
+}
 PropertyName ::= ID {
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin"

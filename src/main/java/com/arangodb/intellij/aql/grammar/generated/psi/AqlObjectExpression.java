@@ -15,6 +15,9 @@ public interface AqlObjectExpression extends PsiElement {
     @NotNull
     AqlPropertyName getPropertyName();
 
+    @NotNull
+    List<AqlSystemProperty> getSystemPropertyList();
+
     String getName();
 
     AqlNamedElement setName(String newName);

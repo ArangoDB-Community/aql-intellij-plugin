@@ -2,6 +2,7 @@ package com.arangodb.intellij.aql.lang;
 
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlLexerAdapter;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes;
+import com.intellij.lang.Language;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
@@ -29,6 +30,7 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] BRACKETS = new TextAttributesKey[]{AqlSyntaxColors.AQL_BRACES};
     private static final TextAttributesKey[] NUMBER = new TextAttributesKey[]{AqlSyntaxColors.NUMBER};
     private static final TextAttributesKey[] VARIABLE = new TextAttributesKey[]{AqlSyntaxColors.VARIABLE};
+    //private static final TextAttributesKey[] OBJECT_EXPRESSION = new TextAttributesKey[]{AqlSyntaxColors.OBJECT_EXPRESSION};
 
     @NotNull
     @Override
@@ -39,6 +41,10 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     @NotNull
     @Override
     public TextAttributesKey[] getTokenHighlights(final IElementType type) {
+        final Language language = type.getLanguage();
+        if (!language.equals(AqlLanguage.AQL_LANGUAGE)) {
+            return EMPTY;
+        }
         if (type.equals(AqlTypes.L_COMMENT)) {
             return LINE_COMMENT;
         } else if (type.equals(AqlTypes.B_COMMENT)) {
@@ -65,9 +71,19 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
             return KEYWORD;
         } else if (type.equals(AqlTypes.ID)) {
             return VARIABLE;
-        } else if (type.equals(AqlTypes.NUMBER)) {
+        } else if (type.equals(AqlTypes.NUMBER) || type.equals(AqlTypes.NUMBER_INTEGER)) {
             return NUMBER;
         }
+        // workaround
+        final String name = type.toString();
+        if (name != null) {
+            if (name.startsWith("F_")) {
+                return FUNCTION;
+            } else if (name.startsWith("T_")) {
+                return KEYWORD;
+            }
+        }
+        log.info("settings: {}", type);
         return EMPTY;
     }
 }

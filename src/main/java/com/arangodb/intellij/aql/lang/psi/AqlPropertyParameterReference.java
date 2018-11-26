@@ -21,8 +21,8 @@ public class AqlPropertyParameterReference extends AqlPsiReference {
         return findAll(myElement.getProject()).stream()
                 .map(name -> LookupElementBuilder
                         .create(name)
-                        .withIcon(Icons.ICON_PLACEHOLDER)
-                        .withTypeText("placeholder " + name + "()")
+                        .withIcon(Icons.ICON_PROPERTY)
+                        .withTypeText("property " + name)
                         .bold()
                 )
                 .toArray(Object[]::new);

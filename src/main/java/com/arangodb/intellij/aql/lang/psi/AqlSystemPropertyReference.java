@@ -6,10 +6,10 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
-public class AqlPropertyPlaceholderReference extends AqlPsiReference {
+public class AqlSystemPropertyReference extends AqlPsiReference {
 
 
-    public AqlPropertyPlaceholderReference(final PsiElement element, final TextRange rangeInElement) {
+    public AqlSystemPropertyReference(final PsiElement element, final TextRange rangeInElement) {
         super(element, rangeInElement);
     }
 
@@ -21,8 +21,8 @@ public class AqlPropertyPlaceholderReference extends AqlPsiReference {
         return findAll(myElement.getProject()).stream()
                 .map(name -> LookupElementBuilder
                         .create(name)
-                        .withIcon(Icons.ICON_PLACEHOLDER)
-                        .withTypeText("placeholder${ " + name + '}')
+                        .withIcon(Icons.ICON_SYSTEM_ATTRIBUTE)
+                        .withTypeText("system " + name)
                         .bold()
                 )
                 .toArray(Object[]::new);

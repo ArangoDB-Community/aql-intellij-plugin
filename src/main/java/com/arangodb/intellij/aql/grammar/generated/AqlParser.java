@@ -1971,7 +1971,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PropertyName (DOT PropertyLookup)*
+  // PropertyName (DOT SystemProperty | PropertyLookup)*
   public static boolean ObjectExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression")) return false;
       if (!nextTokenIs(b, ID)) {
@@ -1985,7 +1985,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (DOT PropertyLookup)*
+    // (DOT SystemProperty | PropertyLookup)*
   private static boolean ObjectExpression_1(PsiBuilder b, int l) {
       if (!recursion_guard_(b, l, "ObjectExpression_1")) {
           return false;
@@ -2002,15 +2002,30 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // DOT PropertyLookup
+    // DOT SystemProperty | PropertyLookup
   private static boolean ObjectExpression_1_0(PsiBuilder b, int l) {
       if (!recursion_guard_(b, l, "ObjectExpression_1_0")) {
           return false;
       }
+      boolean r;
+      Marker m = enter_section_(b);
+      r = ObjectExpression_1_0_0(b, l + 1);
+      if (!r) {
+          r = PropertyLookup(b, l + 1);
+      }
+      exit_section_(b, m, null, r);
+      return r;
+  }
+
+    // DOT SystemProperty
+    private static boolean ObjectExpression_1_0_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "ObjectExpression_1_0_0")) {
+            return false;
+        }
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, DOT);
-    r = r && PropertyLookup(b, l + 1);
+        r = r && SystemProperty(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
