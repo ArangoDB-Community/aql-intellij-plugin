@@ -292,7 +292,7 @@ T_NONE = "none"
     SINGLE_QUOTE="'"
     DOUBLE_QUOTE="\""
     DOLLAR="$"
-    T_OBJECT_START="${"
+    T_PLACHOLDER_START="${"
     NUMBER_INTEGER="regexp:\d+"
     //NUMBER_DOUBLE="regexp:\d+\.\d+"
     //EXPONENT_INDICATOR="regexp:([Ee])"
@@ -306,7 +306,7 @@ T_NONE = "none"
     // identifier
     NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
     //NUMBER_RANGE='regexp:[1-9][0-9]?|100'
-    ID = 'regexp:[a-zA-Z_]\p{Alpha}\w*'
+    ID = 'regexp:[a-zA-Z_]([[a-zA-Z_0-9]]\w*)?'
     SPACE='regexp:\s+'
 ]
     
@@ -342,7 +342,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DATE_LEAPYEAR
                         | F_STDDEV_SAMPLE
                         | F_REGEX_SPLIT
-                        | F_MATCHES
                         | F_CURRENT_DATABASE
                         | F_UNSET
                         | F_JSON_PARSE
@@ -363,7 +362,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DATE_ISO8601
                         | F_DATE_TRUNC
                         | F_NOOPT
-                        | F_ATTRIBUTES
                         | F_CALL
                         | F_LEVENSHTEIN_DISTANCE
                         | F_DATE_FORMAT
@@ -372,7 +370,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_BOOST
                         | F_REGEX_MATCHES
                         | F_DISTANCE
-                        | F_CHAR_LENGTH
                         | F_MERGE_RECURSIVE
                         | F_UPPER
                         | F_MIN_MATCH
@@ -396,8 +393,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_CONCAT
                         | F_SUBSTRING
                         | F_CURRENT_USER
-                        | F_HAS
-                        | F_KEEP
                         | F_V8
                         | F_PREGEL_RESULT
                         | F_LIKE
@@ -423,10 +418,8 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_PASSTHRU
                         | F_ZIP
                         | F_TO_HEX
-                        | F_FULLTEXT
                         | F_SHA512
                         | F_DATE_COMPARE
-                        | F_IS_SAME_COLLECTION
                         | F_DATE_YEAR
                         | F_HASH
                         | F_SHA1
@@ -446,6 +439,13 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_GEO_MULTIPOINT
 
 NamedFunctions::= FunAbs
+              | FunCharLength
+              | FunAttributes
+              | FunIsSameCollection
+              | FunHas
+              | FunKeep
+              | FunFullText
+              | FunMatches
               | FunAcos
               | FunToBool
               | FunToString
@@ -593,12 +593,12 @@ OperatorStatements ::=
                       | T_COMMA
                       | T_OPEN
                        | T_CLOSE
-                        | T_OBJECT_OPEN
+                        //| T_OBJECT_OPEN
 
-                       | T_ARRAY_OPEN
-                       | T_ARRAY_CLOSE
-                       | T_OBJECT_START
-                       | T_OBJECT_CLOSE
+                     /*  | T_ARRAY_OPEN
+                       | T_ARRAY_CLOSE*/
+                       //| T_PLACHOLDER_START
+                       //| T_OBJECT_CLOSE
                        | DOT
 
 Statement ::= NamedKeywordStatements
@@ -633,7 +633,7 @@ NamedKeywordStatements ::= KeywordStatements {
 
 ReservedWords ::= T_NULL
 
-ExpressionType ::= ObjectExpression
+ExpressionType ::= ArrayRef | ObjectExpression
                 | NumberType
                 | ArrayType
                 | StringType
@@ -650,31 +650,52 @@ ExpressionType ::= ObjectExpression
 //ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
 // object notation...{foo:bar}
-ComplexJsonProperty ::= (ExpressionArray | ArrayType)
-JsonType::=  "{" (ExpressionType ":" ComplexJsonProperty) ? ("," ExpressionType ":" ExpressionArray | ArrayType | NamedKeywordStatements | ObjectExpression  )*  "}" {
+ComplexJsonProperty ::= ArrayRef
+| objects_argument
+| ExpressionArray
+| ArrayType
+| StringType
+| NamedKeywordStatements
+| NamedFunctions
+| ExpressionType
+
+private pair::= (objects_argument | StringType)":" (ComplexJsonProperty)+
+
+JsonType::=  "{" pair ("," pair)* "}" {
  pin=2
 }
 
 
-AnyType::=ExpressionType | JsonType
+AnyType::= ExpressionType | JsonType
 
-ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
+//ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
+
+ArrayRef ::= ObjectExpression "[" ExpressionType "]"
+
+private array_element ::= ExpressionArray (','|&']') {
+  recoverWhile = not_bracket_or_next_value
+  pin=1
+}
+ArrayType ::= '[' array_element* ']' {pin=1}
+private not_bracket_or_next_value ::= !(']'|ExpressionArray)
 
 private ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
-FunctionExpression ::= NamedFunctions | (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE){
-pin = 3
-}
+FunctionExpression ::= NamedFunctions | (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE)
 
 //############################################
 // FUNCTIONS  (more strict error checking)
 //############################################
 
 //private number_argument_array_and_null ::= (T_NULL | NumberType)  (',' T_NULL | NumberType)+
+private objects_argument::= (ObjectExpression  | ParameterVariable | VariablePlaceHolder)
+private document_argument::= (ObjectExpression | JsonType | ParameterVariable | VariablePlaceHolder)
 private string_argument::= (ObjectExpression | StringType | ParameterVariable | VariablePlaceHolder)
+private possible_number_array::= (/*NumberType |*/ ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
-private number_argument::= (NumberType | possible_array)
-private number_argument_array ::= (possible_array | "[" number_argument (',' number_argument)+ "]")
+private number_argument::= (NumberType | possible_number_array)
+private number_argument_array ::= (possible_number_array | "[" number_argument (',' number_argument)* "]")
+
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
@@ -683,110 +704,124 @@ private number_argument_array ::= (possible_array | "[" number_argument (',' num
 //############################################
 
 
-FunToBool ::=  (F_TO_BOOL "(" AnyType ")")
-FunToNumber ::=  (F_TO_NUMBER "(" AnyType ")")
-FunToString ::=  (F_TO_STRING "(" AnyType ")")
-FunToArray ::=  (F_TO_ARRAY "(" AnyType ")")
-FunToList ::=  (F_TO_LIST "(" AnyType ")")
-FunIsNull ::=  (F_IS_NULL "(" AnyType ")")
-FunIsBool ::=  (F_IS_BOOL "(" AnyType ")")
-FunIsNumber ::=  (F_IS_NUMBER "(" AnyType ")")
-FunIsString ::=  (F_IS_STRING "(" AnyType ")")
-FunIsArray ::=  (F_IS_ARRAY "(" AnyType ")")
-FunIsList ::=  (F_IS_LIST "(" AnyType ")")
-FunIsObject ::=  (F_IS_OBJECT "(" AnyType ")")
-FunIsDocument ::=  (F_IS_DOCUMENT "(" AnyType ")")
-FunIsDateString ::=  (F_IS_DATESTRING "(" AnyType ")")
-FunIsKey ::=  (F_IS_KEY "(" AnyType ")")
-FunTypename ::=  (F_TYPENAME "(" AnyType ")")
+FunToBool ::=  (F_TO_BOOL "(" AnyType ")"){pin=2}
+FunToNumber ::=  (F_TO_NUMBER "(" AnyType ")"){pin=2}
+FunToString ::=  (F_TO_STRING "(" AnyType ")"){pin=2}
+FunToArray ::=  (F_TO_ARRAY "(" AnyType ")"){pin=2}
+FunToList ::=  (F_TO_LIST "(" AnyType ")"){pin=2}
+FunIsNull ::=  (F_IS_NULL "(" AnyType ")"){pin=2}
+FunIsBool ::=  (F_IS_BOOL "(" AnyType ")"){pin=2}
+FunIsNumber ::=  (F_IS_NUMBER "(" AnyType ")"){pin=2}
+FunIsString ::=  (F_IS_STRING "(" AnyType ")"){pin=2}
+FunIsArray ::=  (F_IS_ARRAY "(" AnyType ")"){pin=2}
+FunIsList ::=  (F_IS_LIST "(" AnyType ")"){pin=2}
+FunIsObject ::=  (F_IS_OBJECT "(" AnyType ")"){pin=2}
+FunIsDocument ::=  (F_IS_DOCUMENT "(" AnyType ")"){pin=2}
+FunIsDateString ::=  (F_IS_DATESTRING "(" AnyType ")"){pin=2}
+FunIsKey ::=  (F_IS_KEY "(" AnyType ")"){pin=2}
+FunTypename ::=  (F_TYPENAME "(" AnyType ")"){pin=2}
+// TODO check any params
+FunCharLength ::=  (F_CHAR_LENGTH "(" AnyType ")"){pin=2}
+FunFullText ::=  (F_FULLTEXT "(" possible_array "," StringType  "," StringType  ("," IntegerType)? ")"){pin=2}
 
 
 
 
-FunAbs ::=  (F_ABS "(" number_argument ")")
-FunCos ::=  (F_COS "(" number_argument ")")
-FunAcos ::=  (F_ACOS "(" number_argument ")")
-FunAsin ::=  (F_ASIN "(" number_argument ")")
-FunSin ::=  (F_SIN "(" number_argument ")")
-FunAtan ::=  (F_ATAN "(" number_argument ")")
-FunTan ::=  (F_TAN "(" number_argument ")")
-FunTan2 ::=  (F_TAN2 "(" number_argument ")")
-FunAtan2 ::=  (F_ATAN2 "(" number_argument ")")
-FunAvg ::=  (F_AVG "(" number_argument_array ")")
-FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")")
-FunCeil  ::=  (F_CEIL  "(" number_argument ")")
-FunDegrees  ::=  (F_DEGREES  "(" number_argument ")")
-FunExp  ::=  (F_EXP  "(" number_argument ")")
-FunExp2  ::=  (F_EXP2  "(" number_argument ")")
-FunFloor  ::=  (F_FLOOR  "(" number_argument ")")
-FunLog  ::=  (F_LOG  "(" number_argument ")")
-FunLog2  ::=  (F_LOG2  "(" number_argument ")")
-FunLog10  ::=  (F_LOG10  "(" number_argument ")")
+FunAbs ::=  (F_ABS "(" number_argument ")"){pin=2}
+FunCos ::=  (F_COS "(" number_argument ")"){pin=2}
+FunAcos ::=  (F_ACOS "(" number_argument ")"){pin=2}
+FunAsin ::=  (F_ASIN "(" number_argument ")"){pin=2}
+FunSin ::=  (F_SIN "(" number_argument ")"){pin=2}
+FunAtan ::=  (F_ATAN "(" number_argument ")"){pin=2}
+FunTan ::=  (F_TAN "(" number_argument ")"){pin=2}
+FunTan2 ::=  (F_TAN2 "(" number_argument ")"){pin=2}
+FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){pin=2}
+FunAvg ::=  (F_AVG "(" number_argument_array ")"){pin=2}
+FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){pin=2}
+FunCeil  ::=  (F_CEIL  "(" number_argument ")"){pin=2}
+FunDegrees  ::=  (F_DEGREES  "(" number_argument ")"){pin=2}
+FunExp  ::=  (F_EXP  "(" number_argument ")"){pin=2}
+FunExp2  ::=  (F_EXP2  "(" number_argument ")"){pin=2}
+FunFloor  ::=  (F_FLOOR  "(" number_argument ")"){pin=2}
+FunLog  ::=  (F_LOG  "(" number_argument ")"){pin=2}
+FunLog2  ::=  (F_LOG2  "(" number_argument ")"){pin=2}
+FunLog10  ::=  (F_LOG10  "(" number_argument ")"){pin=2}
 
-FunMax  ::=  (F_MAX  "(" number_argument_array ")")
-FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")")
-FunMin  ::=  (F_MIN  "(" number_argument_array ")")
+FunMax  ::=  (F_MAX  "(" number_argument_array ")"){pin=2}
+FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")"){pin=2}
+FunMin  ::=  (F_MIN  "(" number_argument_array ")"){pin=2}
 
 //############################################
 // DOCUMENT
 //############################################
-// TODO
-//FunAttributes  ::=  (F_ATTRIBUTES  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunAttributes  ::=  (F_ATTRIBUTES  "(" document_argument ("," BooleanType)? ("," BooleanType)? ")"){pin=2}
+FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
+FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
+
+private string_array ::= "[" StringType ("," StringType)* "]"
+private string_list ::= StringType ("," StringType)*
+private string_argument_array ::= (possible_array | string_array)
+
+FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
+FunMatches  ::=  (F_MATCHES  "(" document_argument "," (ExpressionType | JsonType) ("," BooleanType)?")"){pin=2}
 
 //############################################
 // ARRAY
 //############################################
 
 
-FunPosition  ::=  (F_POSITION  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
-FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
-FunAppend  ::=  (F_APPEND  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
+FunPosition  ::=  (F_POSITION  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
+FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
+FunAppend  ::=  (F_APPEND  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
 FunPush  ::=  (F_PUSH  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin =2}
-FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")")
-FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," ExpressionType ("," IntegerType)? ")")
-FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_argument_array ")")
-FunLength  ::=  (F_LENGTH  "(" number_argument_array ")")
-FunShift  ::=  (F_SHIFT  "(" number_argument_array ")")FunSlice  ::=  (F_SLICE  "(" number_argument_array "," IntegerType ("," IntegerType)? ")")
-FunCount  ::=  (F_COUNT  "(" number_argument_array ")")
-FunSorted  ::=  (F_SORTED  "(" number_argument_array ")")
-FunSortedUnique  ::=  (F_SORTED_UNIQUE  "(" number_argument_array ")")
-FunCountDistinct  ::=  (F_COUNT_DISTINCT  "(" number_argument_array ")")
-FunCountUnique  ::=  (F_COUNT_UNIQUE  "(" number_argument_array ")")
-FunFirst  ::=  (F_FIRST  "(" number_argument_array ")")
-FunLast  ::=  (F_LAST  "(" number_argument_array ")")
-FunUnique  ::=  (F_UNIQUE  "(" number_argument_array ")")
-FunFlatten  ::=  (F_FLATTEN  "(" number_argument_array ("," IntegerType)? ")")
+FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
+FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," ExpressionType ("," IntegerType)? ")"){pin=2}
+FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_argument_array ")"){pin=2}
+// also for doc
+FunLength  ::=  (F_LENGTH  "(" number_argument_array | document_argument ")"){pin=2}
+FunShift  ::=  (F_SHIFT  "(" number_argument_array ")"){pin=2}
+FunSlice  ::=  (F_SLICE  "(" number_argument_array "," IntegerType ("," IntegerType)? ")"){pin=2}
+FunCount  ::=  (F_COUNT  "(" number_argument_array ")"){pin=2}
+FunSorted  ::=  (F_SORTED  "(" number_argument_array ")"){pin=2}
+FunSortedUnique  ::=  (F_SORTED_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunCountDistinct  ::=  (F_COUNT_DISTINCT  "(" number_argument_array ")"){pin=2}
+FunCountUnique  ::=  (F_COUNT_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunFirst  ::=  (F_FIRST  "(" number_argument_array ")"){pin=2}
+FunLast  ::=  (F_LAST  "(" number_argument_array ")"){pin=2}
+FunUnique  ::=  (F_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunFlatten  ::=  (F_FLATTEN  "(" number_argument_array ("," IntegerType)? ")"){pin=2}
 
-FunInterSection  ::=  (F_INTERSECTION  "(" (number_argument_array)+ ")")
-FunOuterSection  ::=  (F_OUTERSECTION  "(" (number_argument_array)+ ")")
-FunMinus  ::=  (F_MINUS  "(" (number_argument_array)+ ")")
-FunUnion  ::=  (F_UNION  "(" (number_argument_array)+ ")")
-FunUnionDistinct  ::=  (F_UNION_DISTINCT  "(" (number_argument_array)+ ")")
-FunPop  ::=  (F_POP  "(" (number_argument_array)+ ")")FunReverse  ::=  (F_REVERSE  "(" (number_argument_array)+ ")")
-FunNTH  ::=  (F_NTH  "(" (number_argument_array) "," IntegerType ")")
+FunInterSection  ::=  (F_INTERSECTION  "(" (number_argument_array)+ ")"){pin=2}
+FunOuterSection  ::=  (F_OUTERSECTION  "(" (number_argument_array)+ ")"){pin=2}
+FunMinus  ::=  (F_MINUS  "(" (number_argument_array)+ ")"){pin=2}
+FunUnion  ::=  (F_UNION  "(" (number_argument_array)+ ")"){pin=2}
+FunUnionDistinct  ::=  (F_UNION_DISTINCT  "(" (number_argument_array)+ ")"){pin=2}
+FunPop  ::=  (F_POP  "(" (number_argument_array)+ ")"){pin=2}
+FunReverse  ::=  (F_REVERSE  "(" (number_argument_array)+ ")"){pin=2}
+FunNTH  ::=  (F_NTH  "(" (number_argument_array) "," IntegerType ")"){pin=2}
 
-FunRemoveNTH  ::=  (F_REMOVE_NTH  "(" (number_argument_array) "," IntegerType ")")
+FunRemoveNTH  ::=  (F_REMOVE_NTH  "(" (number_argument_array) "," IntegerType ")"){pin=2}
 
 
 // TODO fix range
 external external_percentile_range_rule ::= parsePercentileRange
 //FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," external_percentile_range_rule ("," StringType)? ")"){
-FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")")
+FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")"){pin=2}
 FunPi  ::=  (F_PI "(" ")")
 FunRand  ::=  (F_RAND "(" ")")
-FunPow  ::=  (F_POW "(" number_argument "," number_argument ")")
-FunRadians  ::=  (F_RADIANS "(" number_argument ")")
-FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")")
-FunRound  ::=  (F_ROUND "(" number_argument ")")
-FunSQRT  ::=  (F_SQRT "(" number_argument ")")
-FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")")
-FunStddev  ::=  (F_STDDEV "(" number_argument_array ")")
-FunSum  ::=  (F_SUM "(" number_argument_array ")")
-FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")")
-FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")")
-FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")")
+FunPow  ::=  (F_POW "(" number_argument "," number_argument ")"){pin=2}
+FunRadians  ::=  (F_RADIANS "(" number_argument ")"){pin=2}
+FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")"){pin=2}
+FunRound  ::=  (F_ROUND "(" number_argument ")"){pin=2}
+FunSQRT  ::=  (F_SQRT "(" number_argument ")"){pin=2}
+FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){pin=2}
+FunStddev  ::=  (F_STDDEV "(" number_argument_array ")"){pin=2}
+FunSum  ::=  (F_SUM "(" number_argument_array ")"){pin=2}
+FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")"){pin=2}
+FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){pin=2}
+FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){pin=2}
 
-FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")")
+FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){pin=2}
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
@@ -799,7 +834,7 @@ NumberType ::= AnyNumber | SignedInteger | IntegerType
 BooleanType ::= T_TRUE | T_FALSE
 
 
-VariablePlaceHolder ::=  (T_OBJECT_START ObjectExpression T_OBJECT_CLOSE){
+VariablePlaceHolder ::=  (T_PLACHOLDER_START ObjectExpression T_OBJECT_CLOSE){
                     pin=2
                    methods=[ getName setName]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqPlaceholderVariableMixin"
