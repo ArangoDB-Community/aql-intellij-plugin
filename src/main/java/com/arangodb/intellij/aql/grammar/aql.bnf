@@ -657,14 +657,21 @@ ComplexJsonProperty ::= ArrayRef
 | StringType
 | NamedKeywordStatements
 | NamedFunctions
+| BooleanType
+| NumberType
 | ExpressionType
+| JsonType
 
-private pair::= (objects_argument | StringType)":" (ComplexJsonProperty)+
+JsonType ::= '{' object_element* '}' {pin=1}
 
-JsonType::=  "{" pair ("," pair)* "}" {
- pin=2
+private object_element ::= property (','|&'}') {
+  recoverWhile = not_brace_or_next_value
+  pin = 1
 }
-
+private property_name::= objects_argument | StringType
+private value::=(ComplexJsonProperty)+
+private property ::= property_name (':' value) {pin(".*")=1}
+private not_brace_or_next_value ::= !('}'|value)
 
 AnyType::= ExpressionType | JsonType
 
