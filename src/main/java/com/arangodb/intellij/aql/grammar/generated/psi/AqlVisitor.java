@@ -11,6 +11,14 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitAnyType(@NotNull AqlAnyType o) {
+        visitPsiElement(o);
+    }
+
+    public void visitArrayRef(@NotNull AqlArrayRef o) {
+        visitPsiElement(o);
+    }
+
     public void visitArrayType(@NotNull AqlArrayType o) {
         visitPsiElement(o);
     }
@@ -27,7 +35,7 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-    public void visitComplexJsonProperty(@NotNull AqlComplexJsonProperty o) {
+    public void visitComplexJsonValue(@NotNull AqlComplexJsonValue o) {
         visitPsiElement(o);
     }
 
@@ -43,6 +51,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunAppend(@NotNull AqlFunAppend o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunAsin(@NotNull AqlFunAsin o) {
         visitPsiElement(o);
     }
@@ -52,6 +64,10 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunAtan2(@NotNull AqlFunAtan2 o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunAttributes(@NotNull AqlFunAttributes o) {
         visitPsiElement(o);
     }
 
@@ -67,11 +83,31 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunCharLength(@NotNull AqlFunCharLength o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunConcatSeparator(@NotNull AqlFunConcatSeparator o) {
         visitPsiElement(o);
     }
 
+    public void visitFunContainsArray(@NotNull AqlFunContainsArray o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunCos(@NotNull AqlFunCos o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunCount(@NotNull AqlFunCount o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunCountDistinct(@NotNull AqlFunCountDistinct o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunCountUnique(@NotNull AqlFunCountUnique o) {
         visitPsiElement(o);
     }
 
@@ -87,7 +123,83 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunFirst(@NotNull AqlFunFirst o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunFlatten(@NotNull AqlFunFlatten o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunFloor(@NotNull AqlFunFloor o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunFullText(@NotNull AqlFunFullText o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunHas(@NotNull AqlFunHas o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunInterSection(@NotNull AqlFunInterSection o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsArray(@NotNull AqlFunIsArray o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsBool(@NotNull AqlFunIsBool o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsDateString(@NotNull AqlFunIsDateString o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsDocument(@NotNull AqlFunIsDocument o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsKey(@NotNull AqlFunIsKey o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsList(@NotNull AqlFunIsList o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsNull(@NotNull AqlFunIsNull o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsNumber(@NotNull AqlFunIsNumber o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsObject(@NotNull AqlFunIsObject o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsSameCollection(@NotNull AqlFunIsSameCollection o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunIsString(@NotNull AqlFunIsString o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunKeep(@NotNull AqlFunKeep o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunLast(@NotNull AqlFunLast o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunLength(@NotNull AqlFunLength o) {
         visitPsiElement(o);
     }
 
@@ -103,6 +215,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunMatches(@NotNull AqlFunMatches o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunMax(@NotNull AqlFunMax o) {
         visitPsiElement(o);
     }
@@ -115,6 +231,18 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunMinus(@NotNull AqlFunMinus o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunNTH(@NotNull AqlFunNTH o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunOuterSection(@NotNull AqlFunOuterSection o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunPercentile(@NotNull AqlFunPercentile o) {
         visitPsiElement(o);
     }
@@ -123,7 +251,19 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunPop(@NotNull AqlFunPop o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunPosition(@NotNull AqlFunPosition o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunPow(@NotNull AqlFunPow o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunPush(@NotNull AqlFunPush o) {
         visitPsiElement(o);
     }
 
@@ -139,6 +279,22 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunRemoveNTH(@NotNull AqlFunRemoveNTH o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunRemoveValue(@NotNull AqlFunRemoveValue o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunRemoveValues(@NotNull AqlFunRemoveValues o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunReverse(@NotNull AqlFunReverse o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunRound(@NotNull AqlFunRound o) {
         visitPsiElement(o);
     }
@@ -147,7 +303,23 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunShift(@NotNull AqlFunShift o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunSin(@NotNull AqlFunSin o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunSlice(@NotNull AqlFunSlice o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunSorted(@NotNull AqlFunSorted o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunSortedUnique(@NotNull AqlFunSortedUnique o) {
         visitPsiElement(o);
     }
 
@@ -168,6 +340,46 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunTan2(@NotNull AqlFunTan2 o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunToArray(@NotNull AqlFunToArray o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunToBool(@NotNull AqlFunToBool o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunToList(@NotNull AqlFunToList o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunToNumber(@NotNull AqlFunToNumber o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunToString(@NotNull AqlFunToString o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunTypename(@NotNull AqlFunTypename o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunUnShift(@NotNull AqlFunUnShift o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunUnion(@NotNull AqlFunUnion o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunUnionDistinct(@NotNull AqlFunUnionDistinct o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunUnique(@NotNull AqlFunUnique o) {
         visitPsiElement(o);
     }
 

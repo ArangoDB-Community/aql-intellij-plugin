@@ -51,6 +51,12 @@ public class AqlFunMinImpl extends ASTWrapperPsiElement implements AqlFunMin {
 
     @Override
     @NotNull
+    public List<AqlPropertyName> getPropertyNameList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
+    }
+
+    @Override
+    @NotNull
     public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
     }

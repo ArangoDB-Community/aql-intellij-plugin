@@ -47,7 +47,6 @@ T_RETURN=([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])
 T_UPSERT=([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])
 T_REMOVE=([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])
 T_INSERT=([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])
-F_INTERSECTION=([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])
 T_OUTBOUND=([Oo])([Uu])([Tt])([Bb])([Oo])([Uu])([Nn])([Dd])
 T_INBOUND=([Ii])([Nn])([Bb])([Ou])([Uu])([Nn])([Dd])
 T_ANY=([Aa])([Nn])([Yy])
@@ -239,6 +238,7 @@ F_REGEX_TEST=([Rr])([Ee])([Gg])([Ee])([Xx])([_])([Tt])([Ee])([Ss])([Tt])
 F_OUTERSECTION=([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])
 F_DATE_SUBTRACT=([Dd])([Aa])([Tt])([Ee])([_])([Ss])([Uu])([Bb])([Tt])([Rr])([Aa])([Cc])([Tt])
 F_TO_HEX=([Tt])([Oo])([_])([Hh])([Ee])([Xx])
+F_INTERSECTION=([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])
 F_AVERAGE=([Aa])([Vv])([Ee])([Rr])([Aa])([Gg])([Ee])
 F_DATE_MINUTE=([Dd])([Aa])([Tt])([Ee])([_])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])
 F_IS_DATESTRING=([Ii])([Ss])([_])([Dd])([Aa])([Tt])([Ee])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])
@@ -253,7 +253,7 @@ L_COMMENT="//".*
 TEXT_SINGLE='(''|[^']*)'
 TEXT_DOUBLE=\"([^\\\"\r\n]|\\[^\r\n])*\"?
 NUMBER=-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]*)?
-ID=[a-zA-Z_][:letter:][a-zA-Z_0-9]*
+ID=[a-zA-Z_]([[a-zA-Z_0-9]][a-zA-Z_0-9]*)?
 SPACE=[ \t\n\x0B\f\r]+
 
 %%
@@ -301,7 +301,7 @@ SPACE=[ \t\n\x0B\f\r]+
   "'"                           { return SINGLE_QUOTE; }
   "\""                          { return DOUBLE_QUOTE; }
   "$"                           { return DOLLAR; }
-  "${"                          { return T_OBJECT_START; }
+  "${"                          { return T_PLACHOLDER_START; }
   "T_NIN"                       { return T_NIN; }
 
   {T_SEARCH}                    { return T_SEARCH; }
@@ -326,7 +326,6 @@ SPACE=[ \t\n\x0B\f\r]+
   {T_UPSERT}                    { return T_UPSERT; }
   {T_REMOVE}                    { return T_REMOVE; }
   {T_INSERT}                    { return T_INSERT; }
-  {F_INTERSECTION}              { return F_INTERSECTION; }
   {T_OUTBOUND}                  { return T_OUTBOUND; }
   {T_INBOUND}                   { return T_INBOUND; }
   {T_ANY}                       { return T_ANY; }
@@ -518,6 +517,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_OUTERSECTION}              { return F_OUTERSECTION; }
   {F_DATE_SUBTRACT}             { return F_DATE_SUBTRACT; }
   {F_TO_HEX}                    { return F_TO_HEX; }
+  {F_INTERSECTION}              { return F_INTERSECTION; }
   {F_AVERAGE}                   { return F_AVERAGE; }
   {F_DATE_MINUTE}               { return F_DATE_MINUTE; }
   {F_IS_DATESTRING}             { return F_IS_DATESTRING; }

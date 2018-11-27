@@ -10,9 +10,39 @@ import java.util.List;
 public interface AqlComplexJsonProperty extends PsiElement {
 
     @Nullable
+    AqlArrayRef getArrayRef();
+
+    @Nullable
     AqlArrayType getArrayType();
+
+    @Nullable
+    AqlBooleanType getBooleanType();
 
     @NotNull
     List<AqlExpressionType> getExpressionTypeList();
+
+    @Nullable
+    AqlJsonType getJsonType();
+
+    @Nullable
+    AqlNamedFunctions getNamedFunctions();
+
+    @Nullable
+    AqlNamedKeywordStatements getNamedKeywordStatements();
+
+    @Nullable
+    AqlNumberType getNumberType();
+
+    @Nullable
+    AqlObjectExpression getObjectExpression();
+
+    @Nullable
+    AqlParameterVariable getParameterVariable();
+
+    @Nullable
+    AqlStringType getStringType();
+
+    @Nullable
+    AqlVariablePlaceHolder getVariablePlaceHolder();
 
 }

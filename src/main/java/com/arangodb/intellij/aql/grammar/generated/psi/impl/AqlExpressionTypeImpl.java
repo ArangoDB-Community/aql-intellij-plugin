@@ -28,6 +28,12 @@ public class AqlExpressionTypeImpl extends ASTWrapperPsiElement implements AqlEx
 
     @Override
     @Nullable
+    public AqlArrayRef getArrayRef() {
+        return findChildByClass(AqlArrayRef.class);
+    }
+
+    @Override
+    @Nullable
     public AqlArrayType getArrayType() {
         return findChildByClass(AqlArrayType.class);
     }

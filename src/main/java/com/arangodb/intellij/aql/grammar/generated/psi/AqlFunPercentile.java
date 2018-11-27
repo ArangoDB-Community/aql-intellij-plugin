@@ -21,6 +21,9 @@ public interface AqlFunPercentile extends PsiElement {
     @NotNull
     List<AqlParameterVariable> getParameterVariableList();
 
+    @NotNull
+    List<AqlPropertyName> getPropertyNameList();
+
     @Nullable
     AqlStringType getStringType();
 

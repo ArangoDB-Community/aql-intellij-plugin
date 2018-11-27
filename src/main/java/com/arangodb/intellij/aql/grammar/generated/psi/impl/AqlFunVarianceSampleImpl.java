@@ -51,6 +51,12 @@ public class AqlFunVarianceSampleImpl extends ASTWrapperPsiElement implements Aq
 
     @Override
     @NotNull
+    public List<AqlPropertyName> getPropertyNameList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
+    }
+
+    @Override
+    @NotNull
     public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
     }

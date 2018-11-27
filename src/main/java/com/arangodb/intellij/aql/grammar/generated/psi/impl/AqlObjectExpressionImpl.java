@@ -4,7 +4,10 @@ package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlObjectExpressionMixin;
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlObjectExpression;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyLookup;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyName;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -38,12 +41,6 @@ public class AqlObjectExpressionImpl extends AqlObjectExpressionMixin implements
   public AqlPropertyName getPropertyName() {
     return findNotNullChildByClass(AqlPropertyName.class);
   }
-
-    @Override
-    @NotNull
-    public List<AqlSystemProperty> getSystemPropertyList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlSystemProperty.class);
-    }
 
   public String getName() {
     return AqlPsiUtil.getName(this);

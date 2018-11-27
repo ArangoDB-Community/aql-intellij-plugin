@@ -18,6 +18,9 @@ public interface AqlFunAvg extends PsiElement {
     List<AqlParameterVariable> getParameterVariableList();
 
     @NotNull
+    List<AqlPropertyName> getPropertyNameList();
+
+    @NotNull
     List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
     @NotNull

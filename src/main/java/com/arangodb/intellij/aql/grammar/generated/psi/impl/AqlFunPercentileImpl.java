@@ -57,6 +57,12 @@ public class AqlFunPercentileImpl extends ASTWrapperPsiElement implements AqlFun
     }
 
     @Override
+    @NotNull
+    public List<AqlPropertyName> getPropertyNameList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
+    }
+
+    @Override
     @Nullable
     public AqlStringType getStringType() {
         return findChildByClass(AqlStringType.class);

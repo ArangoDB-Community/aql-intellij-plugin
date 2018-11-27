@@ -17,6 +17,9 @@ public interface AqlFunExp2 extends PsiElement {
     AqlParameterVariable getParameterVariable();
 
     @Nullable
+    AqlPropertyName getPropertyName();
+
+    @Nullable
     AqlVariablePlaceHolder getVariablePlaceHolder();
 
     @NotNull

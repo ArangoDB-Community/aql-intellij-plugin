@@ -18,6 +18,9 @@ public interface AqlFunVariance extends PsiElement {
     List<AqlParameterVariable> getParameterVariableList();
 
     @NotNull
+    List<AqlPropertyName> getPropertyNameList();
+
+    @NotNull
     List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
     @NotNull

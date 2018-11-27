@@ -49,6 +49,12 @@ public class AqlFunAtan2Impl extends ASTWrapperPsiElement implements AqlFunAtan2
 
     @Override
     @Nullable
+    public AqlPropertyName getPropertyName() {
+        return findChildByClass(AqlPropertyName.class);
+    }
+
+    @Override
+    @Nullable
     public AqlVariablePlaceHolder getVariablePlaceHolder() {
         return findChildByClass(AqlVariablePlaceHolder.class);
     }

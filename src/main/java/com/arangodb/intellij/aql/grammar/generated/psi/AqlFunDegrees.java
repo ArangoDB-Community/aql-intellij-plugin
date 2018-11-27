@@ -17,6 +17,9 @@ public interface AqlFunDegrees extends PsiElement {
     AqlParameterVariable getParameterVariable();
 
     @Nullable
+    AqlPropertyName getPropertyName();
+
+    @Nullable
     AqlVariablePlaceHolder getVariablePlaceHolder();
 
     @NotNull

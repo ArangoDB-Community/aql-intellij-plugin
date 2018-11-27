@@ -7,7 +7,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -31,32 +30,38 @@ public class AqlJsonTypeImpl extends ASTWrapperPsiElement implements AqlJsonType
 
     @Override
     @NotNull
-    public List<AqlArrayType> getArrayTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
-    }
-
-    @Override
-    @Nullable
-    public AqlComplexJsonProperty getComplexJsonProperty() {
-        return findChildByClass(AqlComplexJsonProperty.class);
+    public List<AqlArrayRef> getArrayRefList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayRef.class);
     }
 
     @Override
     @NotNull
-    public List<AqlExpressionType> getExpressionTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
-    }
-
-    @Override
-    @NotNull
-    public List<AqlNamedKeywordStatements> getNamedKeywordStatementsList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNamedKeywordStatements.class);
+    public List<AqlComplexJsonValue> getComplexJsonValueList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlComplexJsonValue.class);
     }
 
     @Override
     @NotNull
     public List<AqlObjectExpression> getObjectExpressionList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+    }
+
+    @Override
+    @NotNull
+    public List<AqlParameterVariable> getParameterVariableList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+    }
+
+    @Override
+    @NotNull
+    public List<AqlStringType> getStringTypeList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
+    }
+
+    @Override
+    @NotNull
+    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
     }
 
 }

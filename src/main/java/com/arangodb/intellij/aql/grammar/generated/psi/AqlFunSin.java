@@ -17,6 +17,9 @@ public interface AqlFunSin extends PsiElement {
     AqlParameterVariable getParameterVariable();
 
     @Nullable
+    AqlPropertyName getPropertyName();
+
+    @Nullable
     AqlVariablePlaceHolder getVariablePlaceHolder();
 
     @NotNull

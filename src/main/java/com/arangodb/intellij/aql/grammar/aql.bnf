@@ -650,15 +650,16 @@ ExpressionType ::= ArrayRef | ObjectExpression
 //ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
 // object notation...{foo:bar}
-ComplexJsonProperty ::= ArrayRef
-| objects_argument
+ComplexJsonValue ::= NumberType |ArrayRef
+| ObjectExpression
+| ParameterVariable
+| VariablePlaceHolder
 | ExpressionArray
 | ArrayType
 | StringType
 | NamedKeywordStatements
 | NamedFunctions
 | BooleanType
-| NumberType
 | ExpressionType
 | JsonType
 
@@ -668,10 +669,9 @@ private object_element ::= property (','|&'}') {
   recoverWhile = not_brace_or_next_value
   pin = 1
 }
-private property_name::= objects_argument | StringType
-private value::=(ComplexJsonProperty)+
-private property ::= property_name (':' value) {pin(".*")=1}
-private not_brace_or_next_value ::= !('}'|value)
+private property_name::= objects_argument | StringType  | ArrayRef
+private property ::= property_name ':' ComplexJsonValue+ {pin(".*")=1}
+private not_brace_or_next_value ::= !('}'|ComplexJsonValue)
 
 AnyType::= ExpressionType | JsonType
 

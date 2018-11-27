@@ -49,6 +49,12 @@ public class AqlFunTanImpl extends ASTWrapperPsiElement implements AqlFunTan {
 
     @Override
     @Nullable
+    public AqlPropertyName getPropertyName() {
+        return findChildByClass(AqlPropertyName.class);
+    }
+
+    @Override
+    @Nullable
     public AqlVariablePlaceHolder getVariablePlaceHolder() {
         return findChildByClass(AqlVariablePlaceHolder.class);
     }

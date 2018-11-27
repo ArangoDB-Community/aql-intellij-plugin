@@ -51,6 +51,12 @@ public class AqlFunStddevImpl extends ASTWrapperPsiElement implements AqlFunStdd
 
     @Override
     @NotNull
+    public List<AqlPropertyName> getPropertyNameList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
+    }
+
+    @Override
+    @NotNull
     public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
     }

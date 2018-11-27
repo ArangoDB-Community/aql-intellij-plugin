@@ -7,6 +7,9 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlExpressionType extends PsiElement {
 
     @Nullable
+    AqlArrayRef getArrayRef();
+
+    @Nullable
     AqlArrayType getArrayType();
 
     @Nullable
