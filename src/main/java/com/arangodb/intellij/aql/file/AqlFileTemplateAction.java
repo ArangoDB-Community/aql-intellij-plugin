@@ -18,7 +18,7 @@ import java.util.Map;
 public class AqlFileTemplateAction extends CreateFileFromTemplateAction implements DumbAware {
 
     public static final String NEW_AQL_FILE = "New AQL File";
-    private static final String AQL_FILE = "Aql Template";
+    private static final String AQL_FILE = "AQL Template";
 
     public AqlFileTemplateAction() {
         super(NEW_AQL_FILE, "AQL file", Icons.ICON_ARANGO);
