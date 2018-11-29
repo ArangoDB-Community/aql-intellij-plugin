@@ -340,15 +340,11 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_STDDEV_SAMPLE
                         | F_REGEX_SPLIT
                         | F_CURRENT_DATABASE
-                        | F_UNSET
                         | F_JSON_PARSE
                         | F_DATE_DAYOFYEAR
-                        | F_VALUES
                         | F_DATE_DAY
                         | F_DATE_DAYS_IN_MONTH
                         | F_LTRIM
-                        | F_UNSET_RECURSIVE
-                        | F_PARSE_IDENTIFIER
                         | F_TO_BASE64
                         | F_STARTS_WITH
                         | F_DATE_DAYOFWEEK
@@ -360,7 +356,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_KEYS
                         | F_BOOST
                         | F_REGEX_MATCHES
-                        | F_MERGE_RECURSIVE
                         | F_UPPER
                         | F_MIN_MATCH
                         | F_TRIM
@@ -369,7 +364,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_FIND_FIRST
                         | F_DATE_ISOWEEK
                         | F_LOWER
-                        | F_TRANSLATE
                         | F_DATE_SECOND
                         | F_BM25
                         | F_DATE_MONTH
@@ -389,13 +383,11 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DATE_NOW
                         | F_RIGHT
                         | F_RTRIM
-                        | F_ZIP
                         | F_TO_HEX
                         | F_SHA512
                         | F_DATE_COMPARE
                         | F_DATE_YEAR
                         | F_SHA1
-                        | F_MERGE
                         | F_DATE_TIMESTAMP
                         | F_ENCODE_URI_COMPONENT
                         | F_CONTAINS
@@ -438,6 +430,14 @@ NamedFunctions::= FunAbs
               | FunVersion
               | FunCharLength
               | FunAttributes
+              | FunMerge
+              | FunMergeRecursive
+              | FunParseIdentifier
+              | FunTranslate
+              | FunUnset
+              | FunValues
+              | FunZip
+              | FunUnsetRecursive
               | FunIsSameCollection
               | FunHas
               | FunKeep
@@ -758,16 +758,23 @@ FunMin  ::=  (F_MIN  "(" number_argument_array ")"){pin=2}
 //############################################
 // DOCUMENT
 //############################################
-FunAttributes  ::=  (F_ATTRIBUTES  "(" document_argument ("," BooleanType)? ("," BooleanType)? ")"){pin=2}
-FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
-FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
-
 private string_array ::= "[" StringType ("," StringType)* "]"
 private string_list ::= StringType ("," StringType)*
 private string_argument_array ::= (possible_array | string_array)
 
+FunAttributes  ::=  (F_ATTRIBUTES  "(" document_argument ("," BooleanType)? ("," BooleanType)? ")"){pin=2}
+FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
+FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
 FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
 FunMatches  ::=  (F_MATCHES  "(" document_argument "," (ExpressionType | JsonType) ("," BooleanType)?")"){pin=2}
+FunMerge  ::=  (F_MERGE  "(" document_argument "," (document_argument)* ")"){pin=2}
+FunMergeRecursive  ::=  (F_MERGE_RECURSIVE  "(" document_argument "," (document_argument)* ")"){pin=2}
+FunParseIdentifier  ::=  (F_PARSE_IDENTIFIER  "(" StringType | document_argument  ")"){pin=2}
+FunTranslate  ::=  (F_TRANSLATE  "(" string_argument "," objects_argument ("," AnyType)? ")"){pin=2}
+FunUnset  ::=  (F_UNSET "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
+FunUnsetRecursive  ::=  (F_UNSET_RECURSIVE "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
+FunValues  ::=  (F_VALUES "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
+FunZip  ::=  (F_ZIP "(" ArrayType "," ArrayType ")"){pin=2}
 
 //############################################
 // ARRAY
