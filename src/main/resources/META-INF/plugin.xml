@@ -65,10 +65,10 @@
   </extensions>
 
   <actions>
-    <action id="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" class="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" description="Execute AQL Query">
+    <action id="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" class="com.arangodb.intellij.aql.actions.AqlExecuteQueryAction" text="Execute AQL Query" icon="/icons/run.svg" description="Execute AQL Query">
       <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
     </action>
-    <action id="com.arangodb.intellij.aql.actions.AqlExplainQueryAction" class="com.arangodb.intellij.aql.actions.AqlExplainQueryAction" text="Explain AQL Query" description="Explain AQL Query">
+    <action id="com.arangodb.intellij.aql.actions.AqlExplainQueryAction" class="com.arangodb.intellij.aql.actions.AqlExplainQueryAction" text="Explain AQL Query" icon="/icons/explain.svg" description="Explain AQL Query">
       <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
     </action>
     <action id="aql.NewAqlFile" class="com.arangodb.intellij.aql.file.AqlFileTemplateAction"

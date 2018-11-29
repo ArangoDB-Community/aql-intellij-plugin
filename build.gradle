@@ -27,8 +27,7 @@ dependencies {
     compile('com.arangodb:arangodb-java-driver:5.0.2')  {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
-
-    compile 'com.github.graphstream:gs-core:2.0-alpha'
+    
     
     compile "com.fasterxml.jackson.core:jackson-core:2.9.7"
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
