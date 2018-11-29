@@ -334,11 +334,9 @@ private ArithmeticOperators ::=  T_PLUS
 KeywordFunctions ::=  F_SUBSTITUTE
                         | F_MD5
                         | F_GEO_POINT
-                        | F_FIRST_LIST
                         | F_DATE_SUBTRACT
                         | F_DATE_MINUTE
                         | F_SPLIT
-                        | F_WARN
                         | F_DATE_LEAPYEAR
                         | F_STDDEV_SAMPLE
                         | F_REGEX_SPLIT
@@ -361,12 +359,9 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_TFIDF
                         | F_DATE_ISO8601
                         | F_DATE_TRUNC
-                        | F_NOOPT
-                        | F_CALL
                         | F_LEVENSHTEIN_DISTANCE
                         | F_DATE_FORMAT
                         | F_KEYS
-                        | F_COLLECTION_COUNT
                         | F_BOOST
                         | F_REGEX_MATCHES
                         | F_DISTANCE
@@ -376,9 +371,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_GEO_EQUALS
                         | F_TRIM
                         | F_LEFT
-                        | F_NOT_NULL
-                        | F_VERSION
-                        | F_SLEEP
                         | F_UUID
                         | F_FIND_FIRST
                         | F_DATE_ISOWEEK
@@ -386,14 +378,11 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_GEO_CONTAINS
                         | F_TRANSLATE
                         | F_GEO_LINESTRING
-                        | F_APPLY
                         | F_DATE_SECOND
                         | F_BM25
                         | F_DATE_MONTH
                         | F_CONCAT
                         | F_SUBSTRING
-                        | F_CURRENT_USER
-                        | F_V8
                         | F_PREGEL_RESULT
                         | F_LIKE
                         | F_WITHIN
@@ -407,38 +396,49 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_SOUNDEX
                         | F_TOKENS
                         | F_DATE_QUARTER
-                        | F_COLLECTIONS
                         | F_ANALYZER
                         | F_PHRASE
                         | F_DATE_NOW
                         | F_RIGHT
                         | F_RTRIM
-                        | F_DOCUMENT
                         | F_GEO_DISTANCE
-                        | F_PASSTHRU
                         | F_ZIP
                         | F_TO_HEX
                         | F_SHA512
                         | F_DATE_COMPARE
                         | F_DATE_YEAR
-                        | F_HASH
                         | F_SHA1
                         | F_MERGE
                         | F_DATE_TIMESTAMP
                         | F_ENCODE_URI_COMPONENT
                         | F_CONTAINS
-                        | F_FAIL
                         | F_EXISTS
                         | F_DATE_HOUR
                         | F_JSON_STRINGIFY
-                        | F_FIRST_DOCUMENT
                         | F_RANDOM_TOKEN
                         | F_FIND_LAST
                         | F_DATE_DIFF
-                        | F_ASSERT
                         | F_GEO_MULTIPOINT
 
 NamedFunctions::= FunAbs
+              | FunNotNull
+              | FunFirstList
+              | FunFirstDocument
+              | FunCollectionCount
+              | FunCollections
+              | FunCurrentUser
+              | FunDocument
+              | FunHash
+              | FunApply
+              | FunAssert
+              | FunWarn
+              | FunCall
+              | FunFail
+              | FunNoopt
+              | FunPassThru
+              | FunSleep
+              | FunV8
+              | FunVersion
               | FunCharLength
               | FunAttributes
               | FunIsSameCollection
@@ -788,6 +788,7 @@ FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_arg
 FunLength  ::=  (F_LENGTH  "(" number_argument_array | document_argument ")"){pin=2}
 FunShift  ::=  (F_SHIFT  "(" number_argument_array ")"){pin=2}
 FunSlice  ::=  (F_SLICE  "(" number_argument_array "," IntegerType ("," IntegerType)? ")"){pin=2}
+// TODO check for misc
 FunCount  ::=  (F_COUNT  "(" number_argument_array ")"){pin=2}
 FunSorted  ::=  (F_SORTED  "(" number_argument_array ")"){pin=2}
 FunSortedUnique  ::=  (F_SORTED_UNIQUE  "(" number_argument_array ")"){pin=2}
@@ -829,6 +830,32 @@ FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){pin=2}
 FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){pin=2}
 
 FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){pin=2}
+
+//############################################
+// MISCELLANEOUS
+//############################################
+
+FunNotNull ::=  (F_NOT_NULL "(" AnyType ("," AnyType)* ")"){pin=2}
+FunFirstList ::=  (F_FIRST_LIST "(" AnyType ("," AnyType)* ")"){pin=2}
+FunFirstDocument ::=  (F_FIRST_DOCUMENT "(" AnyType ("," AnyType)* ")"){pin=2}
+// TODO check
+FunCollectionCount ::=  (F_COLLECTION_COUNT "(" number_argument_array ")"){pin=2}
+FunCollections ::=  (F_COLLECTIONS "(" ")"){pin=2}
+FunCurrentUser ::=  (F_CURRENT_USER "(" ")"){pin=2}
+FunDocument ::=  (F_DOCUMENT "(" property_name "," StringType | ArrayType ")"){pin=2}
+FunHash ::=  (F_HASH "(" AnyType ")"){pin=2}
+FunApply ::=  (F_APPLY "(" StringType ("," ArrayType)? ")"){pin=2}
+FunAssert ::=  (F_ASSERT "(" AnyType "," StringType  ")"){pin=2}
+FunWarn ::=  (F_WARN "(" AnyType "," StringType ")"){pin=2}
+FunCall ::=  (F_CALL "(" StringType ("," AnyType)* ")"){pin=2}
+FunFail ::=  (F_FAIL "(" StringType ")"){pin=2}
+FunNoopt ::=  (F_NOOPT "(" AnyType ")"){pin=2}
+FunPassThru ::=  (F_PASSTHRU "(" AnyType ")"){pin=2}
+FunSleep ::=  (F_SLEEP "(" IntegerType ")"){pin=2}
+FunV8 ::=  (F_V8 "(" ExpressionType ")"){pin=2}
+FunVersion ::=  (F_VERSION "("  ")"){pin=2}
+
+
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
