@@ -1,0 +1,16 @@
+GEO_CONTAINS({ "type": "Point", "coordinates": [100.0, 0.0]},{
+                 "type": "Point",
+                 "coordinates": [100.0, 0.0]
+               })
+
+
+IS_IN_POLYGON( [ [ 0, 0 ], [ 0, 10 ], [ 10, 10 ], [ 10, 0 ] ], 4, 7 )
+
+GEO_LINESTRING([
+[35, 10], [45, 45]
+])
+
+GEO_MULTILINESTRING([
+ [[100.0, 0.0], [101.0, 1.0]],
+ [[102.0, 2.0], [101.0, 2.3]]
+])

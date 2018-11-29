@@ -50,9 +50,9 @@ F_MIN_MATCH = "regexp:([Mm])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])"
 F_PHRASE = "regexp:([Pp])([Hh])([Rr])([Aa])([Ss])([Ee])"
 F_EXISTS = "regexp:([Ee])([Xx])([Ii])([Ss])([Tt])([Ss])"
 F_TOKENS = "regexp:([Tt])([Oo])([Kk])([Ee])([Nn])([Ss])"
-F_WITHIN_RECTANGLE = "regexp:([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])([_])([Rr])([Ee])([Cc])([Tt])([Aa])([Nn])([Gg])([Ll])([Ee])"
+//F_WITHIN_RECTANGLE = "regexp:([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])([_])([Rr])([Ee])([Cc])([Tt])([Aa])([Nn])([Gg])([Ll])([Ee])"
 F_WARN = "regexp:([Ww])([Aa])([Rr])([Nn])"
-F_WITHIN = "regexp:([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])"
+//F_WITHIN = "regexp:([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])"
 F_PREGEL_RESULT = "regexp:([Pp])([Rr])([Ee])([Gg])([Ee])([Ll])([_])([Rr])([Ee])([Ss])([Uu])([Ll])([Tt])"
 F_NOOPT = "regexp:([Nn])([Oo])([Oo])([Pp])([Tt])"
 F_VERSION = "regexp:([Vv])([Ee])([Rr])([Ss])([Ii])([Oo])([Nn])"
@@ -63,7 +63,7 @@ F_FIRST_DOCUMENT = "regexp:([Ff])([Ii])([Rr])([Ss])([Tt])([_])([Dd])([Oo])([Cc])
 F_NOT_NULL = "regexp:([Nn])([Oo])([Tt])([_])([Nn])([Uu])([Ll])([Ll])"
 F_DATE_COMPARE = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Cc])([Oo])([Mm])([Pp])([Aa])([Rr])([Ee])"
 F_DATE_ADD = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Aa])([Dd])([Dd])"
-F_NEAR = "regexp:([Nn])([Ee])([Aa])([Rr])"
+//F_NEAR = "regexp:([Nn])([Ee])([Aa])([Rr])"
 F_DATE_DAYS_IN_MONTH = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Aa])([Yy])([Ss])([_])([Ii])([Nn])([_])([Mm])([Oo])([Nn])([Tt])([Hh])"
 F_DATE_FORMAT = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ff])([Oo])([Rr])([Mm])([Aa])([Tt])"
 F_DATE_LEAPYEAR = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ll])([Ee])([Aa])([Pp])([Yy])([Ee])([Aa])([Rr])"
@@ -150,7 +150,7 @@ F_ASIN = "regexp:([Aa])([Ss])([Ii])([Nn])"
 F_IS_ARRAY = "regexp:([Ii])([Ss])([_])([Aa])([Rr])([Rr])([Aa])([Yy])"
 F_TO_NUMBER = "regexp:([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
 F_COLLECTION_COUNT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])([_])([Cc])([Oo])([Uu])([Nn])([Tt])"
-F_IS_IN_POLYGON = "regexp:([Ii])([Ss])([_])([Ii])([Nn])([_])([Pp])([Oo])([Ll])([Yy])([Gg])([Oo])([Nn])"
+//F_IS_IN_POLYGON = "regexp:([Ii])([Ss])([_])([Ii])([Nn])([_])([Pp])([Oo])([Ll])([Yy])([Gg])([Oo])([Nn])"
 F_IS_STRING = "regexp:([Ii])([Ss])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
 F_MD5 = "regexp:([Mm])([Dd])([5])"
 F_CEIL = "regexp:([Cc])([Ee])([Ii])([Ll])"
@@ -333,7 +333,6 @@ private ArithmeticOperators ::=  T_PLUS
 
 KeywordFunctions ::=  F_SUBSTITUTE
                         | F_MD5
-                        | F_GEO_POINT
                         | F_DATE_SUBTRACT
                         | F_DATE_MINUTE
                         | F_SPLIT
@@ -343,17 +342,14 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_CURRENT_DATABASE
                         | F_UNSET
                         | F_JSON_PARSE
-                        | F_GEO_MULTILINESTRING
                         | F_DATE_DAYOFYEAR
                         | F_VALUES
                         | F_DATE_DAY
                         | F_DATE_DAYS_IN_MONTH
-                        | F_NEAR
                         | F_LTRIM
                         | F_UNSET_RECURSIVE
                         | F_PARSE_IDENTIFIER
                         | F_TO_BASE64
-                        | F_IS_IN_POLYGON
                         | F_STARTS_WITH
                         | F_DATE_DAYOFWEEK
                         | F_TFIDF
@@ -364,20 +360,16 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_KEYS
                         | F_BOOST
                         | F_REGEX_MATCHES
-                        | F_DISTANCE
                         | F_MERGE_RECURSIVE
                         | F_UPPER
                         | F_MIN_MATCH
-                        | F_GEO_EQUALS
                         | F_TRIM
                         | F_LEFT
                         | F_UUID
                         | F_FIND_FIRST
                         | F_DATE_ISOWEEK
                         | F_LOWER
-                        | F_GEO_CONTAINS
                         | F_TRANSLATE
-                        | F_GEO_LINESTRING
                         | F_DATE_SECOND
                         | F_BM25
                         | F_DATE_MONTH
@@ -385,14 +377,10 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_SUBSTRING
                         | F_PREGEL_RESULT
                         | F_LIKE
-                        | F_WITHIN
                         | F_REGEX_TEST
-                        | F_GEO_INTERSECTS
                         | F_REGEX_REPLACE
                         | F_DATE_ADD
-                        | F_GEO_POLYGON
                         | F_DATE_MILLISECOND
-                        | F_WITHIN_RECTANGLE
                         | F_SOUNDEX
                         | F_TOKENS
                         | F_DATE_QUARTER
@@ -401,7 +389,6 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_DATE_NOW
                         | F_RIGHT
                         | F_RTRIM
-                        | F_GEO_DISTANCE
                         | F_ZIP
                         | F_TO_HEX
                         | F_SHA512
@@ -418,9 +405,19 @@ KeywordFunctions ::=  F_SUBSTITUTE
                         | F_RANDOM_TOKEN
                         | F_FIND_LAST
                         | F_DATE_DIFF
-                        | F_GEO_MULTIPOINT
+
 
 NamedFunctions::= FunAbs
+              | FunDistance
+              | FunGeoContains
+              | FunGeoDistance
+              | FunGeoEquals
+              | FunGeoIntersects
+              | FunGeoLineString
+              | FunGeoMultiLineString
+              | FunGeoMultiPoint
+              | FunGeoPoint
+              | FunGeoPolygon
               | FunNotNull
               | FunFirstList
               | FunFirstDocument
@@ -670,7 +667,7 @@ private object_element ::= property (','|&'}') {
   pin = 1
 }
 private property_name::= objects_argument | StringType  | ArrayRef
-private property ::= property_name ':' ComplexJsonValue+ {pin(".*")=1}
+private property ::= property_name ":" ComplexJsonValue+ {pin(".*")=1}
 private not_brace_or_next_value ::= !('}'|ComplexJsonValue)
 
 AnyType::= ExpressionType | JsonType
@@ -855,7 +852,21 @@ FunSleep ::=  (F_SLEEP "(" IntegerType ")"){pin=2}
 FunV8 ::=  (F_V8 "(" ExpressionType ")"){pin=2}
 FunVersion ::=  (F_VERSION "("  ")"){pin=2}
 
+//############################################
+// GEO
+//############################################
+ FunDistance ::=  (F_DISTANCE "(" NumberType "," NumberType "," NumberType "," NumberType ")"){pin=2}
+ FunGeoContains ::=  (F_GEO_CONTAINS "(" JsonType "," JsonType ")"){pin=2}
+ FunGeoDistance ::=  (F_GEO_DISTANCE"(" JsonType "," JsonType ")"){pin=2}
+ FunGeoEquals ::=  (F_GEO_EQUALS"(" JsonType "," JsonType ")"){pin=2}
+ FunGeoIntersects ::=  (F_GEO_INTERSECTS"(" JsonType "," JsonType ")"){pin=2}
+ FunGeoLineString ::=  (F_GEO_LINESTRING "(" ArrayType ("," ArrayType)* ")"){pin=2}
+ FunGeoMultiLineString ::=  (F_GEO_MULTILINESTRING "(" ArrayType ("," ArrayType)* ")"){pin=2}
+ FunGeoMultiPoint ::=  (F_GEO_MULTIPOINT "(" ArrayType ("," ArrayType)* ")"){pin=2}
+ FunGeoPoint ::=  (F_GEO_POINT "(" NumberType "," NumberType ")"){pin=2}
+ FunGeoPolygon ::=  (F_GEO_POLYGON "(" ArrayType ("," ArrayType)* ")"){pin=2}
 
+                                
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
