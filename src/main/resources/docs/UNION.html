@@ -17,27 +17,27 @@
   </li>
 </ul>
 <p><strong>Examples</strong></p>
-<p>@startDocuBlockInline aqlArrayUnion_1
-  @EXAMPLE_AQL{aqlArrayUnion_1}
+<pre>
+
   RETURN UNION(
   [ 1, 2, 3 ],
   [ 1, 2 ]
   )
-  @END_EXAMPLE_AQL
-  @endDocuBlock aqlArrayUnion_1</p>
+
+  </pre>
 <p>Note: No duplicates will be removed. In order to remove duplicates, please use
   either <a href="#uniondistinct">UNION_DISTINCT()</a>
   or apply <a href="#unique">UNIQUE()</a> on the
   result of <em>UNION()</em>:</p>
-<p>@startDocuBlockInline aqlArrayUnion_2
-  @EXAMPLE_AQL{aqlArrayUnion_2}
+<pre>
+
   RETURN UNIQUE(
   UNION(
   [ 1, 2, 3 ],
   [ 1, 2 ]
   )
   )
-  @END_EXAMPLE_AQL
-  @endDocuBlock aqlArrayUnion_2</p>
+
+  </pre>
 </body>
 </html>

@@ -16,17 +16,17 @@
   <li>returns <strong>flatArray</strong> (array): a flattened array</li>
 </ul>
 <p><strong>Examples</strong></p>
-<p>@startDocuBlockInline aqlArrayFlatten_1
-  @EXAMPLE_AQL{aqlArrayFlatten_1}
+<pre>
+
   RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ] )
-  @END_EXAMPLE_AQL
-  @endDocuBlock aqlArrayFlatten_1</p>
+
+  </pre>
 <p>To fully flatten the example array, use a <em>depth</em> of 2:</p>
-<p>@startDocuBlockInline aqlArrayFlatten_2
-  @EXAMPLE_AQL{aqlArrayFlatten_2}
+<pre>
+
   RETURN FLATTEN( [ 1, 2, [ 3, 4 ], 5, [ 6, 7 ], [ 8, [ 9, 10 ] ] ], 2 )
-  @END_EXAMPLE_AQL
-  @endDocuBlock aqlArrayFlatten_2</p>
+
+  </pre>
 
 </body>
 </html>

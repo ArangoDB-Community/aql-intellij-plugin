@@ -40,7 +40,7 @@ public class AqlConsoleWindow implements Disposable {
         final JBEmptyBorder border = JBUI.Borders.empty();
         jsonResults.setBorder(border);
         jsonPanel = new JsonPanel(project);
-        jsonResults.add(jsonPanel.getEditor(), BorderLayout.CENTER);
+        jsonResults.add(jsonPanel, BorderLayout.CENTER);
         // TODO
         //tabContainer.setVisible(false);
         project.getMessageBus().connect().subscribe(ActionBusEvent.AQL_QUERY_RESULT, this::processQuery);

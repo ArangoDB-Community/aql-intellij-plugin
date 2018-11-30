@@ -16,21 +16,21 @@
   <li>returns <strong>geoJson</strong> (object|null): a valid GeoJSON Polygon</li>
 </ul>
 <p>Simple Polygon:</p>
-<p>@startDocuBlockInline aqlGeoPolygon_1
-  @EXAMPLE_AQL{aqlGeoPolygon_1}
+<pre>
+
   RETURN GEO_POLYGON([
   [0.0, 0.0], [7.5, 2.5], [0.0, 5.0]
   ])
-  @END_EXAMPLE_AQL
-  @endDocuBlock aqlGeoPolygon_1</p>
+
+  </pre>
 <p>Advanced Polygon with a hole inside:</p>
-<p>@startDocuBlockInline aqlGeoPolygon_2
-  @EXAMPLE_AQL{aqlGeoPolygon_2}
+<pre>
+
   RETURN GEO_POLYGON([
   [[35, 10], [45, 45], [15, 40], [10, 20], [35, 10]],
   [[20, 30], [35, 35], [30, 20], [20, 30]]
   ])
-  @END_EXAMPLE_AQL
-  @endDocuBlock aqlGeoPolygon</p>
+
+  </pre>
 </body>
 </html>

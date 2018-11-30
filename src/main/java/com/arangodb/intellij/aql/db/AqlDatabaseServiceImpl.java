@@ -183,8 +183,12 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
 
     @Override
     public ArangoDatabase checkServerConnection(final ArangoDbServer settings, final Project project) throws AqlDataSourceException {
+        final String user = settings.getUser();
+        if (user == null) {
+            throw new AqlDataSourceException("No user defined");
+        }
         try {
-            final String user = settings.getUser();
+
             final ArangoDatabase db = new ArangoDB
                     .Builder()
                     .host(settings.getHost(), settings.getPort())

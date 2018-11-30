@@ -3,6 +3,8 @@ package com.arangodb.intellij.aql.ui.panels;
 import com.arangodb.intellij.aql.actions.ActionEventData;
 import com.arangodb.intellij.aql.ui.MessageView;
 import com.arangodb.intellij.aql.util.AqlUtils;
+import com.intellij.execution.impl.ConsoleViewImpl;
+import com.intellij.execution.ui.ConsoleView;
 import com.intellij.json.JsonFileType;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.Application;
@@ -15,32 +17,22 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.ui.EditorTextField;
 
+import javax.swing.*;
 
-public class JsonPanel implements Disposable, MessageView {
 
-    private EditorTextField editor;
-
+public class JsonPanel extends ConsoleViewImpl implements Disposable, MessageView {
+    final JComponent consoleComponent;
     public JsonPanel(final Project project) {
-        final FileType instance = JsonFileType.INSTANCE;
-        editor = new EditorTextField("", project, instance) {
-            @Override
-            protected boolean shouldHaveBorder() {
-                return false;
-            }
-
-        };
-        editor.setOneLineMode(false);
+        super(project, true);
+        consoleComponent = getComponent();
 
 
-    }
 
-    public EditorTextField getEditor() {
-        return editor;
     }
 
     @Override
     public void dispose() {
-        editor = null;
+        super.dispose();
     }
 
     @Override
@@ -51,7 +43,7 @@ public class JsonPanel implements Disposable, MessageView {
             final PsiFile file = AqlUtils.createDummyJsonFile(charSequence, project);
             final CodeStyleManager manager = CodeStyleManager.getInstance(project);
             final PsiElement formatted = manager.reformat(file);
-            final Document document = editor.getDocument();
+            final Document document = getEditor().getDocument();
             document.setText(formatted.getText());
         });
 
@@ -61,7 +53,7 @@ public class JsonPanel implements Disposable, MessageView {
     public void onClean(final Project project) {
         final Application application = ApplicationManager.getApplication();
         application.runWriteAction(() -> {
-            final Document document = editor.getDocument();
+            final Document document = getEditor().getDocument();
             document.setText("");
         });
     }
