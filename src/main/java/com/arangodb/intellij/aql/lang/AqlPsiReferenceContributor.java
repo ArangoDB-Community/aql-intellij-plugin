@@ -26,7 +26,7 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
                         if (element instanceof AqlNamedElement) {
                             final AqlNamedElement identifier = (AqlNamedElement) element;
                             final TextRange rangeInElement = new TextRange(0, element.getText().length());
-                            return creteReference(identifier, rangeInElement);
+                            return creteReference(identifier, element, rangeInElement);
 
 
                         }
@@ -37,7 +37,7 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
 
 
     @NotNull
-    private PsiReference[] creteReference(final AqlNamedElement identifier, final TextRange rangeInElement) {
+    private PsiReference[] creteReference(final AqlNamedElement identifier, final PsiElement element, final TextRange rangeInElement) {
         if (identifier.getAqlType() == AqlMixinType.FUNCTION) {
             return new PsiReference[]{new AqlFunctionReference(identifier, rangeInElement)};
         } else if (identifier.getAqlType() == AqlMixinType.VAR_PARAMETER) {
@@ -53,8 +53,11 @@ public class AqlPsiReferenceContributor extends PsiReferenceContributor {
         } else if (identifier.getAqlType() == AqlMixinType.KEYWORD) {
             return new PsiReference[]{new AqlKeywordReference(identifier, rangeInElement)};
         }
-        //log.info("identifier.getAqlType() {}", identifier.getAqlType());
+        
+    /*    log.info("identifier.getAqlType() {}", identifier.getAqlType());
+        log.info("identifier.getAqlType() {}", element.getText());*/
         return EMPTY_REF_ARRAY;
     }
+
 
 }

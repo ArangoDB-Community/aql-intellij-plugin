@@ -7,272 +7,382 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlNamedFunctions extends PsiElement {
 
-    @Nullable
-    AqlFunAbs getFunAbs();
+  @Nullable
+  AqlFunAbs getFunAbs();
 
-    @Nullable
-    AqlFunAcos getFunAcos();
+  @Nullable
+  AqlFunAcos getFunAcos();
 
-    @Nullable
-    AqlFunAppend getFunAppend();
+  @Nullable
+  AqlFunAppend getFunAppend();
 
-    @Nullable
-    AqlFunAsin getFunAsin();
+  @Nullable
+  AqlFunApply getFunApply();
 
-    @Nullable
-    AqlFunAtan getFunAtan();
+  @Nullable
+  AqlFunAsin getFunAsin();
 
-    @Nullable
-    AqlFunAtan2 getFunAtan2();
+  @Nullable
+  AqlFunAssert getFunAssert();
 
-    @Nullable
-    AqlFunAttributes getFunAttributes();
+  @Nullable
+  AqlFunAtan getFunAtan();
 
-    @Nullable
-    AqlFunAverage getFunAverage();
+  @Nullable
+  AqlFunAtan2 getFunAtan2();
 
-    @Nullable
-    AqlFunAvg getFunAvg();
+  @Nullable
+  AqlFunAttributes getFunAttributes();
 
-    @Nullable
-    AqlFunCeil getFunCeil();
+  @Nullable
+  AqlFunAverage getFunAverage();
 
-    @Nullable
-    AqlFunCharLength getFunCharLength();
+  @Nullable
+  AqlFunAvg getFunAvg();
 
-    @Nullable
-    AqlFunConcatSeparator getFunConcatSeparator();
+  @Nullable
+  AqlFunCall getFunCall();
 
-    @Nullable
-    AqlFunContainsArray getFunContainsArray();
+  @Nullable
+  AqlFunCeil getFunCeil();
 
-    @Nullable
-    AqlFunCos getFunCos();
+  @Nullable
+  AqlFunCharLength getFunCharLength();
 
-    @Nullable
-    AqlFunCount getFunCount();
+  @Nullable
+  AqlFunCollectionCount getFunCollectionCount();
 
-    @Nullable
-    AqlFunCountDistinct getFunCountDistinct();
+  @Nullable
+  AqlFunCollections getFunCollections();
 
-    @Nullable
-    AqlFunCountUnique getFunCountUnique();
+  @Nullable
+  AqlFunConcatSeparator getFunConcatSeparator();
 
-    @Nullable
-    AqlFunDegrees getFunDegrees();
+  @Nullable
+  AqlFunContainsArray getFunContainsArray();
 
-    @Nullable
-    AqlFunExp getFunExp();
+  @Nullable
+  AqlFunCos getFunCos();
 
-    @Nullable
-    AqlFunExp2 getFunExp2();
+  @Nullable
+  AqlFunCount getFunCount();
 
-    @Nullable
-    AqlFunFirst getFunFirst();
+  @Nullable
+  AqlFunCountDistinct getFunCountDistinct();
 
-    @Nullable
-    AqlFunFlatten getFunFlatten();
+  @Nullable
+  AqlFunCountUnique getFunCountUnique();
 
-    @Nullable
-    AqlFunFloor getFunFloor();
+  @Nullable
+  AqlFunCurrentUser getFunCurrentUser();
 
-    @Nullable
-    AqlFunFullText getFunFullText();
+  @Nullable
+  AqlFunDegrees getFunDegrees();
 
-    @Nullable
-    AqlFunHas getFunHas();
+  @Nullable
+  AqlFunDistance getFunDistance();
 
-    @Nullable
-    AqlFunInterSection getFunInterSection();
+  @Nullable
+  AqlFunDocument getFunDocument();
 
-    @Nullable
-    AqlFunIsArray getFunIsArray();
+  @Nullable
+  AqlFunExp getFunExp();
 
-    @Nullable
-    AqlFunIsBool getFunIsBool();
+  @Nullable
+  AqlFunExp2 getFunExp2();
 
-    @Nullable
-    AqlFunIsDateString getFunIsDateString();
+  @Nullable
+  AqlFunFail getFunFail();
 
-    @Nullable
-    AqlFunIsDocument getFunIsDocument();
+  @Nullable
+  AqlFunFirst getFunFirst();
 
-    @Nullable
-    AqlFunIsKey getFunIsKey();
+  @Nullable
+  AqlFunFirstDocument getFunFirstDocument();
 
-    @Nullable
-    AqlFunIsList getFunIsList();
+  @Nullable
+  AqlFunFirstList getFunFirstList();
 
-    @Nullable
-    AqlFunIsNull getFunIsNull();
+  @Nullable
+  AqlFunFlatten getFunFlatten();
 
-    @Nullable
-    AqlFunIsNumber getFunIsNumber();
+  @Nullable
+  AqlFunFloor getFunFloor();
 
-    @Nullable
-    AqlFunIsObject getFunIsObject();
+  @Nullable
+  AqlFunFullText getFunFullText();
 
-    @Nullable
-    AqlFunIsSameCollection getFunIsSameCollection();
+  @Nullable
+  AqlFunGeoContains getFunGeoContains();
 
-    @Nullable
-    AqlFunIsString getFunIsString();
+  @Nullable
+  AqlFunGeoDistance getFunGeoDistance();
 
-    @Nullable
-    AqlFunKeep getFunKeep();
+  @Nullable
+  AqlFunGeoEquals getFunGeoEquals();
 
-    @Nullable
-    AqlFunLast getFunLast();
+  @Nullable
+  AqlFunGeoIntersects getFunGeoIntersects();
 
-    @Nullable
-    AqlFunLength getFunLength();
+  @Nullable
+  AqlFunGeoLineString getFunGeoLineString();
 
-    @Nullable
-    AqlFunLog getFunLog();
+  @Nullable
+  AqlFunGeoMultiLineString getFunGeoMultiLineString();
 
-    @Nullable
-    AqlFunLog10 getFunLog10();
+  @Nullable
+  AqlFunGeoMultiPoint getFunGeoMultiPoint();
 
-    @Nullable
-    AqlFunLog2 getFunLog2();
+  @Nullable
+  AqlFunGeoPoint getFunGeoPoint();
 
-    @Nullable
-    AqlFunMatches getFunMatches();
+  @Nullable
+  AqlFunGeoPolygon getFunGeoPolygon();
 
-    @Nullable
-    AqlFunMax getFunMax();
+  @Nullable
+  AqlFunHas getFunHas();
 
-    @Nullable
-    AqlFunMedian getFunMedian();
+  @Nullable
+  AqlFunHash getFunHash();
 
-    @Nullable
-    AqlFunMin getFunMin();
+  @Nullable
+  AqlFunInterSection getFunInterSection();
 
-    @Nullable
-    AqlFunMinus getFunMinus();
+  @Nullable
+  AqlFunIsArray getFunIsArray();
 
-    @Nullable
-    AqlFunNTH getFunNTH();
+  @Nullable
+  AqlFunIsBool getFunIsBool();
 
-    @Nullable
-    AqlFunOuterSection getFunOuterSection();
+  @Nullable
+  AqlFunIsDateString getFunIsDateString();
 
-    @Nullable
-    AqlFunPercentile getFunPercentile();
+  @Nullable
+  AqlFunIsDocument getFunIsDocument();
 
-    @Nullable
-    AqlFunPi getFunPi();
+  @Nullable
+  AqlFunIsKey getFunIsKey();
 
-    @Nullable
-    AqlFunPop getFunPop();
+  @Nullable
+  AqlFunIsList getFunIsList();
 
-    @Nullable
-    AqlFunPosition getFunPosition();
+  @Nullable
+  AqlFunIsNull getFunIsNull();
 
-    @Nullable
-    AqlFunPow getFunPow();
+  @Nullable
+  AqlFunIsNumber getFunIsNumber();
 
-    @Nullable
-    AqlFunPush getFunPush();
+  @Nullable
+  AqlFunIsObject getFunIsObject();
 
-    @Nullable
-    AqlFunRadians getFunRadians();
+  @Nullable
+  AqlFunIsSameCollection getFunIsSameCollection();
 
-    @Nullable
-    AqlFunRand getFunRand();
+  @Nullable
+  AqlFunIsString getFunIsString();
 
-    @Nullable
-    AqlFunRange getFunRange();
+  @Nullable
+  AqlFunKeep getFunKeep();
 
-    @Nullable
-    AqlFunRemoveNTH getFunRemoveNTH();
+  @Nullable
+  AqlFunLast getFunLast();
 
-    @Nullable
-    AqlFunRemoveValue getFunRemoveValue();
+  @Nullable
+  AqlFunLength getFunLength();
 
-    @Nullable
-    AqlFunRemoveValues getFunRemoveValues();
+  @Nullable
+  AqlFunLog getFunLog();
 
-    @Nullable
-    AqlFunReverse getFunReverse();
+  @Nullable
+  AqlFunLog10 getFunLog10();
 
-    @Nullable
-    AqlFunRound getFunRound();
+  @Nullable
+  AqlFunLog2 getFunLog2();
 
-    @Nullable
-    AqlFunSQRT getFunSQRT();
+  @Nullable
+  AqlFunMatches getFunMatches();
 
-    @Nullable
-    AqlFunShift getFunShift();
+  @Nullable
+  AqlFunMax getFunMax();
 
-    @Nullable
-    AqlFunSin getFunSin();
+  @Nullable
+  AqlFunMedian getFunMedian();
 
-    @Nullable
-    AqlFunSlice getFunSlice();
+  @Nullable
+  AqlFunMerge getFunMerge();
 
-    @Nullable
-    AqlFunSorted getFunSorted();
+  @Nullable
+  AqlFunMergeRecursive getFunMergeRecursive();
 
-    @Nullable
-    AqlFunSortedUnique getFunSortedUnique();
+  @Nullable
+  AqlFunMin getFunMin();
 
-    @Nullable
-    AqlFunStddev getFunStddev();
+  @Nullable
+  AqlFunMinus getFunMinus();
 
-    @Nullable
-    AqlFunStddevPopulation getFunStddevPopulation();
+  @Nullable
+  AqlFunNTH getFunNTH();
 
-    @Nullable
-    AqlFunSum getFunSum();
+  @Nullable
+  AqlFunNoopt getFunNoopt();
 
-    @Nullable
-    AqlFunTan getFunTan();
+  @Nullable
+  AqlFunNotNull getFunNotNull();
 
-    @Nullable
-    AqlFunTan2 getFunTan2();
+  @Nullable
+  AqlFunOuterSection getFunOuterSection();
 
-    @Nullable
-    AqlFunToArray getFunToArray();
+  @Nullable
+  AqlFunParseIdentifier getFunParseIdentifier();
 
-    @Nullable
-    AqlFunToBool getFunToBool();
+  @Nullable
+  AqlFunPassThru getFunPassThru();
 
-    @Nullable
-    AqlFunToList getFunToList();
+  @Nullable
+  AqlFunPercentile getFunPercentile();
 
-    @Nullable
-    AqlFunToNumber getFunToNumber();
+  @Nullable
+  AqlFunPi getFunPi();
 
-    @Nullable
-    AqlFunToString getFunToString();
+  @Nullable
+  AqlFunPop getFunPop();
 
-    @Nullable
-    AqlFunTypename getFunTypename();
+  @Nullable
+  AqlFunPosition getFunPosition();
 
-    @Nullable
-    AqlFunUnShift getFunUnShift();
+  @Nullable
+  AqlFunPow getFunPow();
 
-    @Nullable
-    AqlFunUnion getFunUnion();
+  @Nullable
+  AqlFunPush getFunPush();
 
-    @Nullable
-    AqlFunUnionDistinct getFunUnionDistinct();
+  @Nullable
+  AqlFunRadians getFunRadians();
 
-    @Nullable
-    AqlFunUnique getFunUnique();
+  @Nullable
+  AqlFunRand getFunRand();
 
-    @Nullable
-    AqlFunVariance getFunVariance();
+  @Nullable
+  AqlFunRange getFunRange();
 
-    @Nullable
-    AqlFunVariancePopulation getFunVariancePopulation();
+  @Nullable
+  AqlFunRemoveNTH getFunRemoveNTH();
 
-    @Nullable
-    AqlFunVarianceSample getFunVarianceSample();
+  @Nullable
+  AqlFunRemoveValue getFunRemoveValue();
 
-    String getName();
+  @Nullable
+  AqlFunRemoveValues getFunRemoveValues();
 
-    AqlNamedElement setName(String newName);
+  @Nullable
+  AqlFunReverse getFunReverse();
+
+  @Nullable
+  AqlFunRound getFunRound();
+
+  @Nullable
+  AqlFunSQRT getFunSQRT();
+
+  @Nullable
+  AqlFunShift getFunShift();
+
+  @Nullable
+  AqlFunSin getFunSin();
+
+  @Nullable
+  AqlFunSleep getFunSleep();
+
+  @Nullable
+  AqlFunSlice getFunSlice();
+
+  @Nullable
+  AqlFunSorted getFunSorted();
+
+  @Nullable
+  AqlFunSortedUnique getFunSortedUnique();
+
+  @Nullable
+  AqlFunStddev getFunStddev();
+
+  @Nullable
+  AqlFunStddevPopulation getFunStddevPopulation();
+
+  @Nullable
+  AqlFunSum getFunSum();
+
+  @Nullable
+  AqlFunTan getFunTan();
+
+  @Nullable
+  AqlFunTan2 getFunTan2();
+
+  @Nullable
+  AqlFunToArray getFunToArray();
+
+  @Nullable
+  AqlFunToBool getFunToBool();
+
+  @Nullable
+  AqlFunToList getFunToList();
+
+  @Nullable
+  AqlFunToNumber getFunToNumber();
+
+  @Nullable
+  AqlFunToString getFunToString();
+
+  @Nullable
+  AqlFunTranslate getFunTranslate();
+
+  @Nullable
+  AqlFunTypename getFunTypename();
+
+  @Nullable
+  AqlFunUnShift getFunUnShift();
+
+  @Nullable
+  AqlFunUnion getFunUnion();
+
+  @Nullable
+  AqlFunUnionDistinct getFunUnionDistinct();
+
+  @Nullable
+  AqlFunUnique getFunUnique();
+
+  @Nullable
+  AqlFunUnset getFunUnset();
+
+  @Nullable
+  AqlFunUnsetRecursive getFunUnsetRecursive();
+
+  @Nullable
+  AqlFunV8 getFunV8();
+
+  @Nullable
+  AqlFunValues getFunValues();
+
+  @Nullable
+  AqlFunVariance getFunVariance();
+
+  @Nullable
+  AqlFunVariancePopulation getFunVariancePopulation();
+
+  @Nullable
+  AqlFunVarianceSample getFunVarianceSample();
+
+  @Nullable
+  AqlFunVersion getFunVersion();
+
+  @Nullable
+  AqlFunWarn getFunWarn();
+
+  @Nullable
+  AqlFunZip getFunZip();
+
+  String getName();
+
+  String getFunctionName();
+
+  AqlNamedElement setName(String newName);
 
 }

@@ -23,28 +23,49 @@ public interface AqlTypes {
   IElementType FUN_ABS = new AqlElementType("FUN_ABS");
   IElementType FUN_ACOS = new AqlElementType("FUN_ACOS");
     IElementType FUN_APPEND = new AqlElementType("FUN_APPEND");
+    IElementType FUN_APPLY = new AqlElementType("FUN_APPLY");
   IElementType FUN_ASIN = new AqlElementType("FUN_ASIN");
+    IElementType FUN_ASSERT = new AqlElementType("FUN_ASSERT");
   IElementType FUN_ATAN = new AqlElementType("FUN_ATAN");
   IElementType FUN_ATAN_2 = new AqlElementType("FUN_ATAN_2");
     IElementType FUN_ATTRIBUTES = new AqlElementType("FUN_ATTRIBUTES");
   IElementType FUN_AVERAGE = new AqlElementType("FUN_AVERAGE");
   IElementType FUN_AVG = new AqlElementType("FUN_AVG");
+    IElementType FUN_CALL = new AqlElementType("FUN_CALL");
   IElementType FUN_CEIL = new AqlElementType("FUN_CEIL");
     IElementType FUN_CHAR_LENGTH = new AqlElementType("FUN_CHAR_LENGTH");
+    IElementType FUN_COLLECTIONS = new AqlElementType("FUN_COLLECTIONS");
+    IElementType FUN_COLLECTION_COUNT = new AqlElementType("FUN_COLLECTION_COUNT");
   IElementType FUN_CONCAT_SEPARATOR = new AqlElementType("FUN_CONCAT_SEPARATOR");
     IElementType FUN_CONTAINS_ARRAY = new AqlElementType("FUN_CONTAINS_ARRAY");
   IElementType FUN_COS = new AqlElementType("FUN_COS");
     IElementType FUN_COUNT = new AqlElementType("FUN_COUNT");
     IElementType FUN_COUNT_DISTINCT = new AqlElementType("FUN_COUNT_DISTINCT");
     IElementType FUN_COUNT_UNIQUE = new AqlElementType("FUN_COUNT_UNIQUE");
+    IElementType FUN_CURRENT_USER = new AqlElementType("FUN_CURRENT_USER");
   IElementType FUN_DEGREES = new AqlElementType("FUN_DEGREES");
+    IElementType FUN_DISTANCE = new AqlElementType("FUN_DISTANCE");
+    IElementType FUN_DOCUMENT = new AqlElementType("FUN_DOCUMENT");
   IElementType FUN_EXP = new AqlElementType("FUN_EXP");
   IElementType FUN_EXP_2 = new AqlElementType("FUN_EXP_2");
+    IElementType FUN_FAIL = new AqlElementType("FUN_FAIL");
     IElementType FUN_FIRST = new AqlElementType("FUN_FIRST");
+    IElementType FUN_FIRST_DOCUMENT = new AqlElementType("FUN_FIRST_DOCUMENT");
+    IElementType FUN_FIRST_LIST = new AqlElementType("FUN_FIRST_LIST");
     IElementType FUN_FLATTEN = new AqlElementType("FUN_FLATTEN");
   IElementType FUN_FLOOR = new AqlElementType("FUN_FLOOR");
     IElementType FUN_FULL_TEXT = new AqlElementType("FUN_FULL_TEXT");
+    IElementType FUN_GEO_CONTAINS = new AqlElementType("FUN_GEO_CONTAINS");
+    IElementType FUN_GEO_DISTANCE = new AqlElementType("FUN_GEO_DISTANCE");
+    IElementType FUN_GEO_EQUALS = new AqlElementType("FUN_GEO_EQUALS");
+    IElementType FUN_GEO_INTERSECTS = new AqlElementType("FUN_GEO_INTERSECTS");
+    IElementType FUN_GEO_LINE_STRING = new AqlElementType("FUN_GEO_LINE_STRING");
+    IElementType FUN_GEO_MULTI_LINE_STRING = new AqlElementType("FUN_GEO_MULTI_LINE_STRING");
+    IElementType FUN_GEO_MULTI_POINT = new AqlElementType("FUN_GEO_MULTI_POINT");
+    IElementType FUN_GEO_POINT = new AqlElementType("FUN_GEO_POINT");
+    IElementType FUN_GEO_POLYGON = new AqlElementType("FUN_GEO_POLYGON");
     IElementType FUN_HAS = new AqlElementType("FUN_HAS");
+    IElementType FUN_HASH = new AqlElementType("FUN_HASH");
     IElementType FUN_INTER_SECTION = new AqlElementType("FUN_INTER_SECTION");
     IElementType FUN_IS_ARRAY = new AqlElementType("FUN_IS_ARRAY");
     IElementType FUN_IS_BOOL = new AqlElementType("FUN_IS_BOOL");
@@ -66,10 +87,16 @@ public interface AqlTypes {
     IElementType FUN_MATCHES = new AqlElementType("FUN_MATCHES");
   IElementType FUN_MAX = new AqlElementType("FUN_MAX");
   IElementType FUN_MEDIAN = new AqlElementType("FUN_MEDIAN");
+    IElementType FUN_MERGE = new AqlElementType("FUN_MERGE");
+    IElementType FUN_MERGE_RECURSIVE = new AqlElementType("FUN_MERGE_RECURSIVE");
   IElementType FUN_MIN = new AqlElementType("FUN_MIN");
     IElementType FUN_MINUS = new AqlElementType("FUN_MINUS");
+    IElementType FUN_NOOPT = new AqlElementType("FUN_NOOPT");
+    IElementType FUN_NOT_NULL = new AqlElementType("FUN_NOT_NULL");
     IElementType FUN_NTH = new AqlElementType("FUN_NTH");
     IElementType FUN_OUTER_SECTION = new AqlElementType("FUN_OUTER_SECTION");
+    IElementType FUN_PARSE_IDENTIFIER = new AqlElementType("FUN_PARSE_IDENTIFIER");
+    IElementType FUN_PASS_THRU = new AqlElementType("FUN_PASS_THRU");
   IElementType FUN_PERCENTILE = new AqlElementType("FUN_PERCENTILE");
   IElementType FUN_PI = new AqlElementType("FUN_PI");
     IElementType FUN_POP = new AqlElementType("FUN_POP");
@@ -86,6 +113,7 @@ public interface AqlTypes {
   IElementType FUN_ROUND = new AqlElementType("FUN_ROUND");
     IElementType FUN_SHIFT = new AqlElementType("FUN_SHIFT");
   IElementType FUN_SIN = new AqlElementType("FUN_SIN");
+    IElementType FUN_SLEEP = new AqlElementType("FUN_SLEEP");
     IElementType FUN_SLICE = new AqlElementType("FUN_SLICE");
     IElementType FUN_SORTED = new AqlElementType("FUN_SORTED");
     IElementType FUN_SORTED_UNIQUE = new AqlElementType("FUN_SORTED_UNIQUE");
@@ -100,14 +128,22 @@ public interface AqlTypes {
     IElementType FUN_TO_LIST = new AqlElementType("FUN_TO_LIST");
     IElementType FUN_TO_NUMBER = new AqlElementType("FUN_TO_NUMBER");
     IElementType FUN_TO_STRING = new AqlElementType("FUN_TO_STRING");
+    IElementType FUN_TRANSLATE = new AqlElementType("FUN_TRANSLATE");
     IElementType FUN_TYPENAME = new AqlElementType("FUN_TYPENAME");
     IElementType FUN_UNION = new AqlElementType("FUN_UNION");
     IElementType FUN_UNION_DISTINCT = new AqlElementType("FUN_UNION_DISTINCT");
     IElementType FUN_UNIQUE = new AqlElementType("FUN_UNIQUE");
+    IElementType FUN_UNSET = new AqlElementType("FUN_UNSET");
+    IElementType FUN_UNSET_RECURSIVE = new AqlElementType("FUN_UNSET_RECURSIVE");
     IElementType FUN_UN_SHIFT = new AqlElementType("FUN_UN_SHIFT");
+    IElementType FUN_VALUES = new AqlElementType("FUN_VALUES");
   IElementType FUN_VARIANCE = new AqlElementType("FUN_VARIANCE");
   IElementType FUN_VARIANCE_POPULATION = new AqlElementType("FUN_VARIANCE_POPULATION");
   IElementType FUN_VARIANCE_SAMPLE = new AqlElementType("FUN_VARIANCE_SAMPLE");
+    IElementType FUN_VERSION = new AqlElementType("FUN_VERSION");
+    IElementType FUN_V_8 = new AqlElementType("FUN_V_8");
+    IElementType FUN_WARN = new AqlElementType("FUN_WARN");
+    IElementType FUN_ZIP = new AqlElementType("FUN_ZIP");
   IElementType INTEGER_TYPE = new AqlElementType("INTEGER_TYPE");
   IElementType JSON_TYPE = new AqlElementType("JSON_TYPE");
   IElementType KEYWORD_FUNCTIONS = new AqlElementType("KEYWORD_FUNCTIONS");
@@ -218,7 +254,6 @@ public interface AqlTypes {
   IElementType F_IS_BOOL = new AqlTokenType("F_IS_BOOL");
   IElementType F_IS_DATESTRING = new AqlTokenType("F_IS_DATESTRING");
   IElementType F_IS_DOCUMENT = new AqlTokenType("F_IS_DOCUMENT");
-  IElementType F_IS_IN_POLYGON = new AqlTokenType("F_IS_IN_POLYGON");
   IElementType F_IS_KEY = new AqlTokenType("F_IS_KEY");
   IElementType F_IS_LIST = new AqlTokenType("F_IS_LIST");
   IElementType F_IS_NULL = new AqlTokenType("F_IS_NULL");
@@ -249,7 +284,6 @@ public interface AqlTypes {
   IElementType F_MIN = new AqlTokenType("F_MIN");
   IElementType F_MINUS = new AqlTokenType("F_MINUS");
   IElementType F_MIN_MATCH = new AqlTokenType("F_MIN_MATCH");
-  IElementType F_NEAR = new AqlTokenType("F_NEAR");
   IElementType F_NOOPT = new AqlTokenType("F_NOOPT");
   IElementType F_NOT_NULL = new AqlTokenType("F_NOT_NULL");
   IElementType F_NTH = new AqlTokenType("F_NTH");
@@ -326,8 +360,6 @@ public interface AqlTypes {
   IElementType F_VARIANCE_SAMPLE = new AqlTokenType("F_VARIANCE_SAMPLE");
   IElementType F_VERSION = new AqlTokenType("F_VERSION");
   IElementType F_WARN = new AqlTokenType("F_WARN");
-  IElementType F_WITHIN = new AqlTokenType("F_WITHIN");
-  IElementType F_WITHIN_RECTANGLE = new AqlTokenType("F_WITHIN_RECTANGLE");
   IElementType F_ZIP = new AqlTokenType("F_ZIP");
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
@@ -433,8 +465,12 @@ public interface AqlTypes {
         return new AqlFunAcosImpl(node);
       } else if (type == FUN_APPEND) {
           return new AqlFunAppendImpl(node);
+      } else if (type == FUN_APPLY) {
+          return new AqlFunApplyImpl(node);
       } else if (type == FUN_ASIN) {
         return new AqlFunAsinImpl(node);
+      } else if (type == FUN_ASSERT) {
+          return new AqlFunAssertImpl(node);
       } else if (type == FUN_ATAN) {
         return new AqlFunAtanImpl(node);
       } else if (type == FUN_ATAN_2) {
@@ -445,10 +481,16 @@ public interface AqlTypes {
         return new AqlFunAverageImpl(node);
       } else if (type == FUN_AVG) {
         return new AqlFunAvgImpl(node);
+      } else if (type == FUN_CALL) {
+          return new AqlFunCallImpl(node);
       } else if (type == FUN_CEIL) {
         return new AqlFunCeilImpl(node);
       } else if (type == FUN_CHAR_LENGTH) {
           return new AqlFunCharLengthImpl(node);
+      } else if (type == FUN_COLLECTIONS) {
+          return new AqlFunCollectionsImpl(node);
+      } else if (type == FUN_COLLECTION_COUNT) {
+          return new AqlFunCollectionCountImpl(node);
       } else if (type == FUN_CONCAT_SEPARATOR) {
         return new AqlFunConcatSeparatorImpl(node);
       } else if (type == FUN_CONTAINS_ARRAY) {
@@ -461,22 +503,54 @@ public interface AqlTypes {
           return new AqlFunCountDistinctImpl(node);
       } else if (type == FUN_COUNT_UNIQUE) {
           return new AqlFunCountUniqueImpl(node);
+      } else if (type == FUN_CURRENT_USER) {
+          return new AqlFunCurrentUserImpl(node);
       } else if (type == FUN_DEGREES) {
         return new AqlFunDegreesImpl(node);
+      } else if (type == FUN_DISTANCE) {
+          return new AqlFunDistanceImpl(node);
+      } else if (type == FUN_DOCUMENT) {
+          return new AqlFunDocumentImpl(node);
       } else if (type == FUN_EXP) {
         return new AqlFunExpImpl(node);
       } else if (type == FUN_EXP_2) {
         return new AqlFunExp2Impl(node);
+      } else if (type == FUN_FAIL) {
+          return new AqlFunFailImpl(node);
       } else if (type == FUN_FIRST) {
           return new AqlFunFirstImpl(node);
+      } else if (type == FUN_FIRST_DOCUMENT) {
+          return new AqlFunFirstDocumentImpl(node);
+      } else if (type == FUN_FIRST_LIST) {
+          return new AqlFunFirstListImpl(node);
       } else if (type == FUN_FLATTEN) {
           return new AqlFunFlattenImpl(node);
       } else if (type == FUN_FLOOR) {
         return new AqlFunFloorImpl(node);
       } else if (type == FUN_FULL_TEXT) {
           return new AqlFunFullTextImpl(node);
+      } else if (type == FUN_GEO_CONTAINS) {
+          return new AqlFunGeoContainsImpl(node);
+      } else if (type == FUN_GEO_DISTANCE) {
+          return new AqlFunGeoDistanceImpl(node);
+      } else if (type == FUN_GEO_EQUALS) {
+          return new AqlFunGeoEqualsImpl(node);
+      } else if (type == FUN_GEO_INTERSECTS) {
+          return new AqlFunGeoIntersectsImpl(node);
+      } else if (type == FUN_GEO_LINE_STRING) {
+          return new AqlFunGeoLineStringImpl(node);
+      } else if (type == FUN_GEO_MULTI_LINE_STRING) {
+          return new AqlFunGeoMultiLineStringImpl(node);
+      } else if (type == FUN_GEO_MULTI_POINT) {
+          return new AqlFunGeoMultiPointImpl(node);
+      } else if (type == FUN_GEO_POINT) {
+          return new AqlFunGeoPointImpl(node);
+      } else if (type == FUN_GEO_POLYGON) {
+          return new AqlFunGeoPolygonImpl(node);
       } else if (type == FUN_HAS) {
           return new AqlFunHasImpl(node);
+      } else if (type == FUN_HASH) {
+          return new AqlFunHashImpl(node);
       } else if (type == FUN_INTER_SECTION) {
           return new AqlFunInterSectionImpl(node);
       } else if (type == FUN_IS_ARRAY) {
@@ -519,14 +593,26 @@ public interface AqlTypes {
         return new AqlFunMaxImpl(node);
       } else if (type == FUN_MEDIAN) {
         return new AqlFunMedianImpl(node);
+      } else if (type == FUN_MERGE) {
+          return new AqlFunMergeImpl(node);
+      } else if (type == FUN_MERGE_RECURSIVE) {
+          return new AqlFunMergeRecursiveImpl(node);
       } else if (type == FUN_MIN) {
         return new AqlFunMinImpl(node);
       } else if (type == FUN_MINUS) {
           return new AqlFunMinusImpl(node);
+      } else if (type == FUN_NOOPT) {
+          return new AqlFunNooptImpl(node);
+      } else if (type == FUN_NOT_NULL) {
+          return new AqlFunNotNullImpl(node);
       } else if (type == FUN_NTH) {
           return new AqlFunNTHImpl(node);
       } else if (type == FUN_OUTER_SECTION) {
           return new AqlFunOuterSectionImpl(node);
+      } else if (type == FUN_PARSE_IDENTIFIER) {
+          return new AqlFunParseIdentifierImpl(node);
+      } else if (type == FUN_PASS_THRU) {
+          return new AqlFunPassThruImpl(node);
       } else if (type == FUN_PERCENTILE) {
         return new AqlFunPercentileImpl(node);
       } else if (type == FUN_PI) {
@@ -559,6 +645,8 @@ public interface AqlTypes {
           return new AqlFunShiftImpl(node);
       } else if (type == FUN_SIN) {
         return new AqlFunSinImpl(node);
+      } else if (type == FUN_SLEEP) {
+          return new AqlFunSleepImpl(node);
       } else if (type == FUN_SLICE) {
           return new AqlFunSliceImpl(node);
       } else if (type == FUN_SORTED) {
@@ -587,6 +675,8 @@ public interface AqlTypes {
           return new AqlFunToNumberImpl(node);
       } else if (type == FUN_TO_STRING) {
           return new AqlFunToStringImpl(node);
+      } else if (type == FUN_TRANSLATE) {
+          return new AqlFunTranslateImpl(node);
       } else if (type == FUN_TYPENAME) {
           return new AqlFunTypenameImpl(node);
       } else if (type == FUN_UNION) {
@@ -595,14 +685,28 @@ public interface AqlTypes {
           return new AqlFunUnionDistinctImpl(node);
       } else if (type == FUN_UNIQUE) {
           return new AqlFunUniqueImpl(node);
+      } else if (type == FUN_UNSET) {
+          return new AqlFunUnsetImpl(node);
+      } else if (type == FUN_UNSET_RECURSIVE) {
+          return new AqlFunUnsetRecursiveImpl(node);
       } else if (type == FUN_UN_SHIFT) {
           return new AqlFunUnShiftImpl(node);
+      } else if (type == FUN_VALUES) {
+          return new AqlFunValuesImpl(node);
       } else if (type == FUN_VARIANCE) {
         return new AqlFunVarianceImpl(node);
       } else if (type == FUN_VARIANCE_POPULATION) {
         return new AqlFunVariancePopulationImpl(node);
       } else if (type == FUN_VARIANCE_SAMPLE) {
         return new AqlFunVarianceSampleImpl(node);
+      } else if (type == FUN_VERSION) {
+          return new AqlFunVersionImpl(node);
+      } else if (type == FUN_V_8) {
+          return new AqlFunV8Impl(node);
+      } else if (type == FUN_WARN) {
+          return new AqlFunWarnImpl(node);
+      } else if (type == FUN_ZIP) {
+          return new AqlFunZipImpl(node);
       } else if (type == INTEGER_TYPE) {
         return new AqlIntegerTypeImpl(node);
       } else if (type == JSON_TYPE) {

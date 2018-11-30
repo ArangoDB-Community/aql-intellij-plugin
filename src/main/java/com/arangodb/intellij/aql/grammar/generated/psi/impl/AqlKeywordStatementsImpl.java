@@ -35,17 +35,17 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
     return findChildByType(T_AGGREGATE);
   }
 
-    @Override
-    @Nullable
-    public PsiElement getTAll() {
-        return findChildByType(T_ALL);
-    }
+  @Override
+  @Nullable
+  public PsiElement getTAll() {
+    return findChildByType(T_ALL);
+  }
 
-    @Override
-    @Nullable
-    public PsiElement getTAny() {
-        return findChildByType(T_ANY);
-    }
+  @Override
+  @Nullable
+  public PsiElement getTAny() {
+    return findChildByType(T_ANY);
+  }
 
   @Override
   @Nullable
@@ -95,11 +95,11 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
     return findChildByType(T_IN);
   }
 
-    @Override
-    @Nullable
-    public PsiElement getTInbound() {
-        return findChildByType(T_INBOUND);
-    }
+  @Override
+  @Nullable
+  public PsiElement getTInbound() {
+    return findChildByType(T_INBOUND);
+  }
 
   @Override
   @Nullable
@@ -125,11 +125,11 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
     return findChildByType(T_LIMIT);
   }
 
-    @Override
-    @Nullable
-    public PsiElement getTOutbound() {
-        return findChildByType(T_OUTBOUND);
-    }
+  @Override
+  @Nullable
+  public PsiElement getTOutbound() {
+    return findChildByType(T_OUTBOUND);
+  }
 
   @Override
   @Nullable
@@ -185,12 +185,12 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
     return findChildByType(T_WITH);
   }
 
-    public String getName() {
-        return AqlPsiUtil.getName(this);
-    }
+  public String getName() {
+    return AqlPsiUtil.getName(this);
+  }
 
-    public AqlNamedElement setName(String newName) {
-        return AqlPsiUtil.setName(this, newName);
-    }
+  public AqlNamedElement setName(String newName) {
+    return AqlPsiUtil.setName(this, newName);
+  }
 
 }

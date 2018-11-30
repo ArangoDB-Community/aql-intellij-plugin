@@ -10,25 +10,10 @@ public interface AqlKeywordFunctions extends PsiElement {
   PsiElement getFAnalyzer();
 
   @Nullable
-  PsiElement getFApply();
-
-  @Nullable
-  PsiElement getFAssert();
-
-  @Nullable
   PsiElement getFBm25();
 
   @Nullable
   PsiElement getFBoost();
-
-  @Nullable
-  PsiElement getFCall();
-
-  @Nullable
-  PsiElement getFCollections();
-
-  @Nullable
-  PsiElement getFCollectionCount();
 
   @Nullable
   PsiElement getFConcat();
@@ -38,9 +23,6 @@ public interface AqlKeywordFunctions extends PsiElement {
 
   @Nullable
   PsiElement getFCurrentDatabase();
-
-  @Nullable
-  PsiElement getFCurrentUser();
 
   @Nullable
   PsiElement getFDateAdd();
@@ -109,64 +91,16 @@ public interface AqlKeywordFunctions extends PsiElement {
   PsiElement getFDateYear();
 
   @Nullable
-  PsiElement getFDistance();
-
-  @Nullable
-  PsiElement getFDocument();
-
-  @Nullable
   PsiElement getFEncodeUriComponent();
 
   @Nullable
   PsiElement getFExists();
 
   @Nullable
-  PsiElement getFFail();
-
-  @Nullable
   PsiElement getFFindFirst();
 
   @Nullable
   PsiElement getFFindLast();
-
-  @Nullable
-  PsiElement getFFirstDocument();
-
-  @Nullable
-  PsiElement getFFirstList();
-
-  @Nullable
-  PsiElement getFGeoContains();
-
-  @Nullable
-  PsiElement getFGeoDistance();
-
-  @Nullable
-  PsiElement getFGeoEquals();
-
-  @Nullable
-  PsiElement getFGeoIntersects();
-
-  @Nullable
-  PsiElement getFGeoLinestring();
-
-  @Nullable
-  PsiElement getFGeoMultilinestring();
-
-  @Nullable
-  PsiElement getFGeoMultipoint();
-
-  @Nullable
-  PsiElement getFGeoPoint();
-
-  @Nullable
-  PsiElement getFGeoPolygon();
-
-  @Nullable
-  PsiElement getFHash();
-
-  @Nullable
-  PsiElement getFIsInPolygon();
 
   @Nullable
   PsiElement getFJsonParse();
@@ -196,28 +130,7 @@ public interface AqlKeywordFunctions extends PsiElement {
   PsiElement getFMd5();
 
   @Nullable
-  PsiElement getFMerge();
-
-  @Nullable
-  PsiElement getFMergeRecursive();
-
-  @Nullable
   PsiElement getFMinMatch();
-
-  @Nullable
-  PsiElement getFNear();
-
-  @Nullable
-  PsiElement getFNoopt();
-
-  @Nullable
-  PsiElement getFNotNull();
-
-  @Nullable
-  PsiElement getFParseIdentifier();
-
-  @Nullable
-  PsiElement getFPassthru();
 
   @Nullable
   PsiElement getFPhrase();
@@ -253,9 +166,6 @@ public interface AqlKeywordFunctions extends PsiElement {
   PsiElement getFSha512();
 
   @Nullable
-  PsiElement getFSleep();
-
-  @Nullable
   PsiElement getFSoundex();
 
   @Nullable
@@ -286,42 +196,12 @@ public interface AqlKeywordFunctions extends PsiElement {
   PsiElement getFToHex();
 
   @Nullable
-  PsiElement getFTranslate();
-
-  @Nullable
   PsiElement getFTrim();
-
-  @Nullable
-  PsiElement getFUnset();
-
-  @Nullable
-  PsiElement getFUnsetRecursive();
 
   @Nullable
   PsiElement getFUpper();
 
   @Nullable
   PsiElement getFUuid();
-
-  @Nullable
-  PsiElement getFV8();
-
-  @Nullable
-  PsiElement getFValues();
-
-  @Nullable
-  PsiElement getFVersion();
-
-  @Nullable
-  PsiElement getFWarn();
-
-  @Nullable
-  PsiElement getFWithin();
-
-  @Nullable
-  PsiElement getFWithinRectangle();
-
-  @Nullable
-  PsiElement getFZip();
 
 }

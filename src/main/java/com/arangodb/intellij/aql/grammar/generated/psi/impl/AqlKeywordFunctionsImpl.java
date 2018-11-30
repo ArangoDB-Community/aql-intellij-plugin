@@ -35,18 +35,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFApply() {
-    return findChildByType(F_APPLY);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFAssert() {
-    return findChildByType(F_ASSERT);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFBm25() {
     return findChildByType(F_BM25);
   }
@@ -55,24 +43,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFBoost() {
     return findChildByType(F_BOOST);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFCall() {
-    return findChildByType(F_CALL);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFCollections() {
-    return findChildByType(F_COLLECTIONS);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFCollectionCount() {
-    return findChildByType(F_COLLECTION_COUNT);
   }
 
   @Override
@@ -91,12 +61,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFCurrentDatabase() {
     return findChildByType(F_CURRENT_DATABASE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFCurrentUser() {
-    return findChildByType(F_CURRENT_USER);
   }
 
   @Override
@@ -233,18 +197,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFDistance() {
-    return findChildByType(F_DISTANCE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFDocument() {
-    return findChildByType(F_DOCUMENT);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFEncodeUriComponent() {
     return findChildByType(F_ENCODE_URI_COMPONENT);
   }
@@ -257,12 +209,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFFail() {
-    return findChildByType(F_FAIL);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFFindFirst() {
     return findChildByType(F_FIND_FIRST);
   }
@@ -271,84 +217,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFFindLast() {
     return findChildByType(F_FIND_LAST);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFFirstDocument() {
-    return findChildByType(F_FIRST_DOCUMENT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFFirstList() {
-    return findChildByType(F_FIRST_LIST);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoContains() {
-    return findChildByType(F_GEO_CONTAINS);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoDistance() {
-    return findChildByType(F_GEO_DISTANCE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoEquals() {
-    return findChildByType(F_GEO_EQUALS);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoIntersects() {
-    return findChildByType(F_GEO_INTERSECTS);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoLinestring() {
-    return findChildByType(F_GEO_LINESTRING);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoMultilinestring() {
-    return findChildByType(F_GEO_MULTILINESTRING);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoMultipoint() {
-    return findChildByType(F_GEO_MULTIPOINT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoPoint() {
-    return findChildByType(F_GEO_POINT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFGeoPolygon() {
-    return findChildByType(F_GEO_POLYGON);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFHash() {
-    return findChildByType(F_HASH);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFIsInPolygon() {
-    return findChildByType(F_IS_IN_POLYGON);
   }
 
   @Override
@@ -407,50 +275,8 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFMerge() {
-    return findChildByType(F_MERGE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFMergeRecursive() {
-    return findChildByType(F_MERGE_RECURSIVE);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFMinMatch() {
     return findChildByType(F_MIN_MATCH);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFNear() {
-    return findChildByType(F_NEAR);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFNoopt() {
-    return findChildByType(F_NOOPT);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFNotNull() {
-    return findChildByType(F_NOT_NULL);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFParseIdentifier() {
-    return findChildByType(F_PARSE_IDENTIFIER);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFPassthru() {
-    return findChildByType(F_PASSTHRU);
   }
 
   @Override
@@ -521,12 +347,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFSleep() {
-    return findChildByType(F_SLEEP);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFSoundex() {
     return findChildByType(F_SOUNDEX);
   }
@@ -587,26 +407,8 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @Nullable
-  public PsiElement getFTranslate() {
-    return findChildByType(F_TRANSLATE);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getFTrim() {
     return findChildByType(F_TRIM);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFUnset() {
-    return findChildByType(F_UNSET);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFUnsetRecursive() {
-    return findChildByType(F_UNSET_RECURSIVE);
   }
 
   @Override
@@ -619,48 +421,6 @@ public class AqlKeywordFunctionsImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public PsiElement getFUuid() {
     return findChildByType(F_UUID);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFV8() {
-    return findChildByType(F_V8);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFValues() {
-    return findChildByType(F_VALUES);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFVersion() {
-    return findChildByType(F_VERSION);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFWarn() {
-    return findChildByType(F_WARN);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFWithin() {
-    return findChildByType(F_WITHIN);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFWithinRectangle() {
-    return findChildByType(F_WITHIN_RECTANGLE);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getFZip() {
-    return findChildByType(F_ZIP);
   }
 
 }

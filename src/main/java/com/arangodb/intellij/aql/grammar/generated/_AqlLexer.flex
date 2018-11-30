@@ -58,9 +58,7 @@ F_MIN_MATCH=([Mm])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])
 F_PHRASE=([Pp])([Hh])([Rr])([Aa])([Ss])([Ee])
 F_EXISTS=([Ee])([Xx])([Ii])([Ss])([Tt])([Ss])
 F_TOKENS=([Tt])([Oo])([Kk])([Ee])([Nn])([Ss])
-F_WITHIN_RECTANGLE=([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])([_])([Rr])([Ee])([Cc])([Tt])([Aa])([Nn])([Gg])([Ll])([Ee])
 F_WARN=([Ww])([Aa])([Rr])([Nn])
-F_WITHIN=([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])
 F_PREGEL_RESULT=([Pp])([Rr])([Ee])([Gg])([Ee])([Ll])([_])([Rr])([Ee])([Ss])([Uu])([Ll])([Tt])
 F_NOOPT=([Nn])([Oo])([Oo])([Pp])([Tt])
 F_VERSION=([Vv])([Ee])([Rr])([Ss])([Ii])([Oo])([Nn])
@@ -71,7 +69,6 @@ F_FIRST_DOCUMENT=([Ff])([Ii])([Rr])([Ss])([Tt])([_])([Dd])([Oo])([Cc])([Uu])([Mm
 F_NOT_NULL=([Nn])([Oo])([Tt])([_])([Nn])([Uu])([Ll])([Ll])
 F_DATE_COMPARE=([Dd])([Aa])([Tt])([Ee])([_])([Cc])([Oo])([Mm])([Pp])([Aa])([Rr])([Ee])
 F_DATE_ADD=([Dd])([Aa])([Tt])([Ee])([_])([Aa])([Dd])([Dd])
-F_NEAR=([Nn])([Ee])([Aa])([Rr])
 F_DATE_DAYS_IN_MONTH=([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Aa])([Yy])([Ss])([_])([Ii])([Nn])([_])([Mm])([Oo])([Nn])([Tt])([Hh])
 F_DATE_FORMAT=([Dd])([Aa])([Tt])([Ee])([_])([Ff])([Oo])([Rr])([Mm])([Aa])([Tt])
 F_DATE_LEAPYEAR=([Dd])([Aa])([Tt])([Ee])([_])([Ll])([Ee])([Aa])([Pp])([Yy])([Ee])([Aa])([Rr])
@@ -158,7 +155,6 @@ F_ASIN=([Aa])([Ss])([Ii])([Nn])
 F_IS_ARRAY=([Ii])([Ss])([_])([Aa])([Rr])([Rr])([Aa])([Yy])
 F_TO_NUMBER=([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])
 F_COLLECTION_COUNT=([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])([_])([Cc])([Oo])([Uu])([Nn])([Tt])
-F_IS_IN_POLYGON=([Ii])([Ss])([_])([Ii])([Nn])([_])([Pp])([Oo])([Ll])([Yy])([Gg])([Oo])([Nn])
 F_IS_STRING=([Ii])([Ss])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])
 F_MD5=([Mm])([Dd])([5])
 F_CEIL=([Cc])([Ee])([Ii])([Ll])
@@ -337,9 +333,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_PHRASE}                    { return F_PHRASE; }
   {F_EXISTS}                    { return F_EXISTS; }
   {F_TOKENS}                    { return F_TOKENS; }
-  {F_WITHIN_RECTANGLE}          { return F_WITHIN_RECTANGLE; }
   {F_WARN}                      { return F_WARN; }
-  {F_WITHIN}                    { return F_WITHIN; }
   {F_PREGEL_RESULT}             { return F_PREGEL_RESULT; }
   {F_NOOPT}                     { return F_NOOPT; }
   {F_VERSION}                   { return F_VERSION; }
@@ -350,7 +344,6 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_NOT_NULL}                  { return F_NOT_NULL; }
   {F_DATE_COMPARE}              { return F_DATE_COMPARE; }
   {F_DATE_ADD}                  { return F_DATE_ADD; }
-  {F_NEAR}                      { return F_NEAR; }
   {F_DATE_DAYS_IN_MONTH}        { return F_DATE_DAYS_IN_MONTH; }
   {F_DATE_FORMAT}               { return F_DATE_FORMAT; }
   {F_DATE_LEAPYEAR}             { return F_DATE_LEAPYEAR; }
@@ -437,7 +430,6 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_IS_ARRAY}                  { return F_IS_ARRAY; }
   {F_TO_NUMBER}                 { return F_TO_NUMBER; }
   {F_COLLECTION_COUNT}          { return F_COLLECTION_COUNT; }
-  {F_IS_IN_POLYGON}             { return F_IS_IN_POLYGON; }
   {F_IS_STRING}                 { return F_IS_STRING; }
   {F_MD5}                       { return F_MD5; }
   {F_CEIL}                      { return F_CEIL; }

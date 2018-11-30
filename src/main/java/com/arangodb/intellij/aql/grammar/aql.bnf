@@ -525,6 +525,7 @@ NamedFunctions::= FunAbs
               | FunConcatSeparator {
      methods=[
                                        getName
+                                       getFunctionName
                                        setName
            ]
      mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin"

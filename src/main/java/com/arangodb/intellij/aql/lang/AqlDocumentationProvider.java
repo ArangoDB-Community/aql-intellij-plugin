@@ -4,6 +4,7 @@ package com.arangodb.intellij.aql.lang;
 
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlKeywordFunctions;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlNamedFunctions;
 import com.google.common.base.Charsets;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -46,7 +47,6 @@ public class AqlDocumentationProvider extends AbstractDocumentationProvider {
             });
 
 
-
     @Nullable
     @Override
     public String getQuickNavigateInfo(final PsiElement element, final PsiElement originalElement) {
@@ -62,8 +62,12 @@ public class AqlDocumentationProvider extends AbstractDocumentationProvider {
     @Override
     public String generateDoc(final PsiElement element, @Nullable final PsiElement originalElement) {
         if (element instanceof AqlNamedElement) {
-            final AqlNamedElement identifier = (AqlNamedElement) element;
-            final String name = identifier.getName();
+            final String name;
+            if (element instanceof AqlNamedFunctions) {
+                name = ((AqlNamedFunctions) element).getFunctionName();
+            } else {
+                name = ((AqlNamedElement) element).getName();
+            }
             if (name != null) {
                 return loadDocumentForName(name);
             }
