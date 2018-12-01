@@ -23,6 +23,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
     else super.accept(visitor);
   }
 
+    @Override
+    @Nullable
+    public AqlAnalyzerType getAnalyzerType() {
+        return findChildByClass(AqlAnalyzerType.class);
+    }
+
   @Override
   @Nullable
   public AqlArrayType getArrayType() {
@@ -46,12 +52,6 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   public AqlExpressionType getExpressionType() {
       return findChildByClass(AqlExpressionType.class);
   }
-
-    @Override
-    @Nullable
-    public AqlFunctionExpression getFunctionExpression() {
-        return findChildByClass(AqlFunctionExpression.class);
-    }
 
   @Override
   @Nullable

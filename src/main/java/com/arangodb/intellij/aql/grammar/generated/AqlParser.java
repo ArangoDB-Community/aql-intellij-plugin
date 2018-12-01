@@ -593,6 +593,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   // | VariablePlaceHolder
   // | ExpressionArray
   // | ArrayType
+  // | AnalyzerType
   // | StringType
   // | NamedKeywordStatements
   // | NamedFunctions
@@ -610,6 +611,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
       if (!r) r = VariablePlaceHolder(b, l + 1);
       if (!r) r = ExpressionArray(b, l + 1);
       if (!r) r = ArrayType(b, l + 1);
+      if (!r) r = AnalyzerType(b, l + 1);
       if (!r) r = StringType(b, l + 1);
       if (!r) r = NamedKeywordStatements(b, l + 1);
       if (!r) r = NamedFunctions(b, l + 1);
@@ -655,9 +657,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ArrayRef | ObjectExpression
+  // ArrayRef
+  //                 | ObjectExpression
   //                 | NumberType
   //                 | ArrayType
+  //                 | AnalyzerType
   //                 | StringType
   //                 | BooleanType
   //                 | VariablePlaceHolder
@@ -675,6 +679,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
       if (!r) r = ObjectExpression(b, l + 1);
       if (!r) r = NumberType(b, l + 1);
       if (!r) r = ArrayType(b, l + 1);
+      if (!r) r = AnalyzerType(b, l + 1);
       if (!r) r = StringType(b, l + 1);
       if (!r) r = BooleanType(b, l + 1);
       if (!r) r = VariablePlaceHolder(b, l + 1);
@@ -3923,10 +3928,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!nextTokenIs(b, F_TOKENS)) return false;
         boolean r, p;
         Marker m = enter_section_(b, l, _NONE_, FUN_TOKENS, null);
-        r = consumeTokens(b, 2, F_TOKENS, T_OPEN);
-        p = r; // pin = 2
-        r = r && report_error_(b, string_argument(b, l + 1));
-        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = consumeTokens(b, 0, F_TOKENS, T_OPEN);
+        r = r && string_argument(b, l + 1);
+        p = r; // pin = 3
+        r = r && report_error_(b, consumeToken(b, T_COMMA));
         r = p && report_error_(b, AnalyzerType(b, l + 1)) && r;
         r = p && consumeToken(b, T_CLOSE) && r;
         exit_section_(b, l, m, r, p, null);
@@ -5279,13 +5284,14 @@ public class AqlParser implements PsiParser, LightPsiParser {
   // NamedKeywordStatements
   //               | OperatorStatements
   //               | Sequence
+  //               | AnalyzerType
   //               | StringType
   //               | ArrayType
   //               | JsonType
   //               | NumberType
   //               | BooleanType
   //               | VariablePlaceHolder
-  //               | FunctionExpression
+  //               //| FunctionExpression
   //               | ExpressionType
   //               | Comment
   public static boolean Statement(PsiBuilder b, int l) {
@@ -5295,13 +5301,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = NamedKeywordStatements(b, l + 1);
       if (!r) r = OperatorStatements(b, l + 1);
       if (!r) r = Sequence(b, l + 1);
+      if (!r) r = AnalyzerType(b, l + 1);
       if (!r) r = StringType(b, l + 1);
       if (!r) r = ArrayType(b, l + 1);
       if (!r) r = JsonType(b, l + 1);
       if (!r) r = NumberType(b, l + 1);
       if (!r) r = BooleanType(b, l + 1);
       if (!r) r = VariablePlaceHolder(b, l + 1);
-      if (!r) r = FunctionExpression(b, l + 1);
       if (!r) r = ExpressionType(b, l + 1);
       if (!r) r = Comment(b, l + 1);
     exit_section_(b, l, m, r, false, null);

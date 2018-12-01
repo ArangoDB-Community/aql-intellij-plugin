@@ -31,6 +31,12 @@ public class AqlComplexJsonValueImpl extends ASTWrapperPsiElement implements Aql
 
     @Override
     @Nullable
+    public AqlAnalyzerType getAnalyzerType() {
+        return findChildByClass(AqlAnalyzerType.class);
+    }
+
+    @Override
+    @Nullable
     public AqlArrayRef getArrayRef() {
         return findChildByClass(AqlArrayRef.class);
     }

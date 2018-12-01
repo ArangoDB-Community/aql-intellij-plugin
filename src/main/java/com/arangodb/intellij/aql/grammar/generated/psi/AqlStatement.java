@@ -7,6 +7,9 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlStatement extends PsiElement {
 
     @Nullable
+    AqlAnalyzerType getAnalyzerType();
+
+    @Nullable
     AqlArrayType getArrayType();
 
     @Nullable
@@ -17,9 +20,6 @@ public interface AqlStatement extends PsiElement {
 
   @Nullable
   AqlExpressionType getExpressionType();
-
-    @Nullable
-    AqlFunctionExpression getFunctionExpression();
 
   @Nullable
   AqlJsonType getJsonType();

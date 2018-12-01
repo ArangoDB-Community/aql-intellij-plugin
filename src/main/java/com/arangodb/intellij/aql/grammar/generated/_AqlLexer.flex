@@ -243,6 +243,19 @@ F_DATE_TRUNC=([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Rr])([Uu])([Nn])([Cc])
 F_IS_OBJECT=([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])
 F_STDDEV_SAMPLE=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])
 F_COUNT_DISTINCT=([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
+A_IDENTITY=('identity')|(\"identity\")
+A_TEXT_DE=('text_de')|(\"text_de\")
+A_TEXT_EN=('text_en')|(\"text_en\")
+A_TEXT_ES=('text_es')|(\"text_es\")
+A_TEXT_FI=('text_fi')|(\"text_fi\")
+TEXT_FR=('text_fr')|(\"text_fr\")
+A_TEXT_IT=('text_it')|(\"text_it\")
+A_TEXT_NL=('text_nl')|(\"text_nl\")
+A_TEXT_NO=('text_no')|(\"text_no\")
+A_TEXT_PT=('text_pt')|(\"text_pt\")
+A_TEXT_RU=('text_ru')|(\"text_ru\")
+A_TEXT_SV=('text_sv')|(\"text_sv\")
+A_TEXT_ZH=('text_zh')|(\"text_zh\")
 NUMBER_INTEGER=[0-9]+
 B_COMMENT="/"\*([^*]|\*+[^*/])*(\*+"/")?
 L_COMMENT="//".*
@@ -261,19 +274,6 @@ SPACE=[ \t\n\x0B\f\r]+
   "_id"                         { return T_ID; }
   "_from"                       { return T_SYS_FROM; }
   "_to"                         { return T_SYS_TO; }
-  "identity"                    { return A_IDENTITY; }
-  "text_de"                     { return A_TEXT_DE; }
-  "text_en"                     { return A_TEXT_EN; }
-  "text_es"                     { return A_TEXT_ES; }
-  "text_fi"                     { return A_TEXT_FI; }
-  "text_fr"                     { return A_TEXT_FR; }
-  "text_it"                     { return A_TEXT_IT; }
-  "text_nl"                     { return A_TEXT_NL; }
-  "text_no"                     { return A_TEXT_NO; }
-  "text_pt"                     { return A_TEXT_PT; }
-  "text_ru"                     { return A_TEXT_RU; }
-  "text_sv"                     { return A_TEXT_SV; }
-  "text_zh"                     { return A_TEXT_ZH; }
   "@"                           { return N_AT; }
   "true"                        { return T_TRUE; }
   "false"                       { return T_FALSE; }
@@ -312,6 +312,7 @@ SPACE=[ \t\n\x0B\f\r]+
   "$"                           { return DOLLAR; }
   "${"                          { return T_PLACHOLDER_START; }
   "T_NIN"                       { return T_NIN; }
+  "A_TEXT_FR"                   { return A_TEXT_FR; }
 
   {T_SEARCH}                    { return T_SEARCH; }
   {T_SHORTEST_PATH}             { return T_SHORTEST_PATH; }
@@ -531,6 +532,19 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_IS_OBJECT}                 { return F_IS_OBJECT; }
   {F_STDDEV_SAMPLE}             { return F_STDDEV_SAMPLE; }
   {F_COUNT_DISTINCT}            { return F_COUNT_DISTINCT; }
+  {A_IDENTITY}                  { return A_IDENTITY; }
+  {A_TEXT_DE}                   { return A_TEXT_DE; }
+  {A_TEXT_EN}                   { return A_TEXT_EN; }
+  {A_TEXT_ES}                   { return A_TEXT_ES; }
+  {A_TEXT_FI}                   { return A_TEXT_FI; }
+  {TEXT_FR}                     { return TEXT_FR; }
+  {A_TEXT_IT}                   { return A_TEXT_IT; }
+  {A_TEXT_NL}                   { return A_TEXT_NL; }
+  {A_TEXT_NO}                   { return A_TEXT_NO; }
+  {A_TEXT_PT}                   { return A_TEXT_PT; }
+  {A_TEXT_RU}                   { return A_TEXT_RU; }
+  {A_TEXT_SV}                   { return A_TEXT_SV; }
+  {A_TEXT_ZH}                   { return A_TEXT_ZH; }
   {NUMBER_INTEGER}              { return NUMBER_INTEGER; }
   {B_COMMENT}                   { return B_COMMENT; }
   {L_COMMENT}                   { return L_COMMENT; }

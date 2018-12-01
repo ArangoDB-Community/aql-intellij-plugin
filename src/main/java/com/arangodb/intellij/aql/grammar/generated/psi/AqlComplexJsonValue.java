@@ -10,6 +10,9 @@ import java.util.List;
 public interface AqlComplexJsonValue extends PsiElement {
 
     @Nullable
+    AqlAnalyzerType getAnalyzerType();
+
+    @Nullable
     AqlArrayRef getArrayRef();
 
     @Nullable

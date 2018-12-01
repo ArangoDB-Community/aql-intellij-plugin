@@ -252,19 +252,20 @@ T_SYS_TO = "_to"
 // ANALYZERS
 //############################################
 
-A_IDENTITY="identity"
-A_TEXT_DE="text_de"
-A_TEXT_EN="text_en"
-A_TEXT_ES="text_es"
-A_TEXT_FI="text_fi"
-A_TEXT_FR="text_fr"
-A_TEXT_IT="text_it"
-A_TEXT_NL="text_nl"
-A_TEXT_NO="text_no"
-A_TEXT_PT="text_pt"
-A_TEXT_RU="text_ru"
-A_TEXT_SV="text_sv"
-A_TEXT_ZH="text_zh"
+A_IDENTITY="regexp:('identity')|(\"identity\")"
+A_TEXT_DE="regexp:('text_de')|(\"text_de\")"
+A_TEXT_EN="regexp:('text_en')|(\"text_en\")"
+A_TEXT_ES="regexp:('text_es')|(\"text_es\")"
+A_TEXT_FI="regexp:('text_fi')|(\"text_fi\")"
+TEXT_FR="regexp:('text_fr')|(\"text_fr\")"
+A_TEXT_IT="regexp:('text_it')|(\"text_it\")"
+A_TEXT_NL="regexp:('text_nl')|(\"text_nl\")"
+A_TEXT_NO="regexp:('text_no')|(\"text_no\")"
+A_TEXT_PT="regexp:('text_pt')|(\"text_pt\")"
+A_TEXT_RU="regexp:('text_ru')|(\"text_ru\")"
+A_TEXT_SV="regexp:('text_sv')|(\"text_sv\")"
+A_TEXT_ZH="regexp:('text_zh')|(\"text_zh\")"
+
 //############################################
 // NONE_TOKENS
 //############################################
@@ -619,13 +620,14 @@ OperatorStatements ::=
 Statement ::= NamedKeywordStatements
               | OperatorStatements
               | Sequence
+              | AnalyzerType
               | StringType
               | ArrayType
               | JsonType
               | NumberType
               | BooleanType
               | VariablePlaceHolder
-              | FunctionExpression
+              //| FunctionExpression
               | ExpressionType
               | Comment
 
@@ -662,10 +664,13 @@ AnalyzerType ::= A_IDENTITY
                  |A_TEXT_SV
                  |A_TEXT_ZH
 
+
+
 ExpressionType ::= ArrayRef
                 | ObjectExpression
                 | NumberType
                 | ArrayType
+                | AnalyzerType
                 | StringType
                 | BooleanType
                 | VariablePlaceHolder
@@ -686,6 +691,7 @@ ComplexJsonValue ::= NumberType |ArrayRef
 | VariablePlaceHolder
 | ExpressionArray
 | ArrayType
+| AnalyzerType
 | StringType
 | NamedKeywordStatements
 | NamedFunctions
@@ -730,7 +736,6 @@ private document_argument::= (ObjectExpression | JsonType | ParameterVariable | 
 private string_argument::= (ObjectExpression | StringType | ParameterVariable | VariablePlaceHolder)
 private boolean_argument::= (ObjectExpression | BooleanType | ParameterVariable | VariablePlaceHolder)
 private integer_argument::= (ObjectExpression | IntegerType | ParameterVariable | VariablePlaceHolder)
-private analyzer_argument::= ('"' AnalyzerType '"' )  | ("'" AnalyzerType "'" )
 private possible_number_array::= (/*NumberType |*/ ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | possible_number_array)
@@ -902,7 +907,7 @@ FunSplit ::=  (F_SPLIT "(" string_argument "," string_argument  ("," integer_arg
 FunSoundex ::=  (F_SOUNDEX "(" string_argument ")"){pin=2}
 FunSubstitute ::=  (F_SUBSTITUTE "(" string_argument  ("," string_argument | string_array) ("," string_argument | string_array)? ("," integer_argument)?  ")"){pin=2}
 FunSubstring ::=  (F_SUBSTRING "(" string_argument "," integer_argument ("," integer_argument)?  ")"){pin=2}
-FunTokens ::=  (F_TOKENS "(" string_argument "," analyzer_argument ")"){pin=2}
+FunTokens ::=  (F_TOKENS "(" string_argument "," AnalyzerType ")"){pin=3}
 FunToBase64 ::=  (F_TO_BASE64 "(" string_argument ")"){pin=2}
 FunToHex ::=  (F_TO_HEX "(" string_argument ")"){pin=2}
 FunTrim ::=  (F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?   ")"){pin=2}
