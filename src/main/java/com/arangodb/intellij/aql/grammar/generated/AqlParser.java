@@ -41,12 +41,16 @@ public class AqlParser implements PsiParser, LightPsiParser {
       r = Comment(b, 0);
       } else if (t == COMPLEX_JSON_VALUE) {
           r = ComplexJsonValue(b, 0);
+      } else if (t == DATE_UNIT) {
+          r = DateUnit(b, 0);
       } else if (t == EXPRESSION_TYPE) {
       r = ExpressionType(b, 0);
       } else if (t == FUN_ABS) {
       r = FunAbs(b, 0);
       } else if (t == FUN_ACOS) {
       r = FunAcos(b, 0);
+      } else if (t == FUN_ANALYZER) {
+          r = FunAnalyzer(b, 0);
       } else if (t == FUN_APPEND) {
           r = FunAppend(b, 0);
       } else if (t == FUN_APPLY) {
@@ -65,6 +69,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
       r = FunAverage(b, 0);
       } else if (t == FUN_AVG) {
       r = FunAvg(b, 0);
+      } else if (t == FUN_BM_25) {
+          r = FunBm25(b, 0);
+      } else if (t == FUN_BOOST) {
+          r = FunBoost(b, 0);
       } else if (t == FUN_CALL) {
           r = FunCall(b, 0);
       } else if (t == FUN_CEIL) {
@@ -91,8 +99,54 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunCountDistinct(b, 0);
       } else if (t == FUN_COUNT_UNIQUE) {
           r = FunCountUnique(b, 0);
+      } else if (t == FUN_CURRENT_DATABASE) {
+          r = FunCurrentDatabase(b, 0);
       } else if (t == FUN_CURRENT_USER) {
           r = FunCurrentUser(b, 0);
+      } else if (t == FUN_DATE_ADD) {
+          r = FunDateAdd(b, 0);
+      } else if (t == FUN_DATE_COMPARE) {
+          r = FunDateCompare(b, 0);
+      } else if (t == FUN_DATE_DAY) {
+          r = FunDateDay(b, 0);
+      } else if (t == FUN_DATE_DAY_OF_YEAR) {
+          r = FunDateDayOfYear(b, 0);
+      } else if (t == FUN_DATE_DAYS_IN_MONTH) {
+          r = FunDateDaysInMonth(b, 0);
+      } else if (t == FUN_DATE_DIFF) {
+          r = FunDateDiff(b, 0);
+      } else if (t == FUN_DATE_FORMAT) {
+          r = FunDateFormat(b, 0);
+      } else if (t == FUN_DATE_HOUR) {
+          r = FunDateHour(b, 0);
+      } else if (t == FUN_DATE_ISO_8601) {
+          r = FunDateISO8601(b, 0);
+      } else if (t == FUN_DATE_ISO_WEEK) {
+          r = FunDateIsoWeek(b, 0);
+      } else if (t == FUN_DATE_LEAP_YEAR) {
+          r = FunDateLeapYear(b, 0);
+      } else if (t == FUN_DATE_MILLISECOND) {
+          r = FunDateMillisecond(b, 0);
+      } else if (t == FUN_DATE_MINUTE) {
+          r = FunDateMinute(b, 0);
+      } else if (t == FUN_DATE_MONTH) {
+          r = FunDateMonth(b, 0);
+      } else if (t == FUN_DATE_NOW) {
+          r = FunDateNow(b, 0);
+      } else if (t == FUN_DATE_OF_WEEK) {
+          r = FunDateOfWeek(b, 0);
+      } else if (t == FUN_DATE_QUARTER) {
+          r = FunDateQuarter(b, 0);
+      } else if (t == FUN_DATE_SECOND) {
+          r = FunDateSecond(b, 0);
+      } else if (t == FUN_DATE_SUBTRACT) {
+          r = FunDateSubtract(b, 0);
+      } else if (t == FUN_DATE_TIME_STAMP) {
+          r = FunDateTimeStamp(b, 0);
+      } else if (t == FUN_DATE_TRUNC) {
+          r = FunDateTrunc(b, 0);
+      } else if (t == FUN_DATE_YEAR) {
+          r = FunDateYear(b, 0);
       } else if (t == FUN_DEGREES) {
       r = FunDegrees(b, 0);
       } else if (t == FUN_DISTANCE) {
@@ -101,6 +155,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunDocument(b, 0);
       } else if (t == FUN_ENCODE_URI_COMPONENT) {
           r = FunEncodeUriComponent(b, 0);
+      } else if (t == FUN_EXISTS) {
+          r = FunExists(b, 0);
       } else if (t == FUN_EXP) {
       r = FunExp(b, 0);
       } else if (t == FUN_EXP_2) {
@@ -175,6 +231,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunJsonStringify(b, 0);
       } else if (t == FUN_KEEP) {
           r = FunKeep(b, 0);
+      } else if (t == FUN_KEYS) {
+          r = FunKeys(b, 0);
       } else if (t == FUN_LAST) {
           r = FunLast(b, 0);
       } else if (t == FUN_LEFT) {
@@ -209,6 +267,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunMergeRecursive(b, 0);
       } else if (t == FUN_MIN) {
       r = FunMin(b, 0);
+      } else if (t == FUN_MIN_MATCH) {
+          r = FunMinMatch(b, 0);
       } else if (t == FUN_MINUS) {
           r = FunMinus(b, 0);
       } else if (t == FUN_NTH) {
@@ -225,6 +285,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunPassThru(b, 0);
       } else if (t == FUN_PERCENTILE) {
       r = FunPercentile(b, 0);
+      } else if (t == FUN_PHRASE) {
+          r = FunPhrase(b, 0);
       } else if (t == FUN_PI) {
       r = FunPi(b, 0);
       } else if (t == FUN_POP) {
@@ -233,6 +295,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunPosition(b, 0);
       } else if (t == FUN_POW) {
       r = FunPow(b, 0);
+      } else if (t == FUN_PREGEL_RESULT) {
+          r = FunPregelResult(b, 0);
       } else if (t == FUN_PUSH) {
           r = FunPush(b, 0);
       } else if (t == FUN_RADIANS) {
@@ -287,6 +351,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
           r = FunSoundex(b, 0);
       } else if (t == FUN_SPLIT) {
           r = FunSplit(b, 0);
+      } else if (t == FUN_STARTS_WITH) {
+          r = FunStartsWith(b, 0);
+      } else if (t == FUN_STD_DEV_SAMPLE) {
+          r = FunStdDevSample(b, 0);
       } else if (t == FUN_STDDEV) {
       r = FunStddev(b, 0);
       } else if (t == FUN_STDDEV_POPULATION) {
@@ -301,6 +369,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
       r = FunTan(b, 0);
       } else if (t == FUN_TAN_2) {
       r = FunTan2(b, 0);
+      } else if (t == FUN_TF_DIFF) {
+          r = FunTfDiff(b, 0);
       } else if (t == FUN_TO_ARRAY) {
           r = FunToArray(b, 0);
       } else if (t == FUN_TO_BASE_64) {
@@ -361,16 +431,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
       r = IntegerType(b, 0);
       } else if (t == JSON_TYPE) {
       r = JsonType(b, 0);
-      } else if (t == KEYWORD_FUNCTIONS) {
-      r = KeywordFunctions(b, 0);
       } else if (t == KEYWORD_STATEMENTS) {
       r = KeywordStatements(b, 0);
       } else if (t == LINE_COMMENT) {
       r = LineComment(b, 0);
       } else if (t == NAMED_FUNCTIONS) {
       r = NamedFunctions(b, 0);
-      } else if (t == NAMED_KEYWORD_FUNCTIONS) {
-      r = NamedKeywordFunctions(b, 0);
       } else if (t == NAMED_KEYWORD_STATEMENTS) {
       r = NamedKeywordStatements(b, 0);
       } else if (t == NUMBER_TYPE) {
@@ -622,6 +688,43 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+    /* ********************************************************** */
+    // D_YEAR_S
+    //                        |D_YEAR_D
+    //                        |D_MONTH_S
+    //                        |D_MONTH_D
+    //                        |D_DAY_S
+    //                        |D_DAY_D
+    //                        |D_HOUR_S
+    //                        |D_HOUR_D
+    //                        |D_MINUTE_S
+    //                        |D_MINUTE_D
+    //                        |D_SECOND_S
+    //                        |D_SECOND_D
+    //                        |D_MILLISECOND_S
+    //                        |D_MILLISECOND_D
+    public static boolean DateUnit(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "DateUnit")) return false;
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, DATE_UNIT, "<date unit>");
+        r = consumeToken(b, D_YEAR_S);
+        if (!r) r = consumeToken(b, D_YEAR_D);
+        if (!r) r = consumeToken(b, D_MONTH_S);
+        if (!r) r = consumeToken(b, D_MONTH_D);
+        if (!r) r = consumeToken(b, D_DAY_S);
+        if (!r) r = consumeToken(b, D_DAY_D);
+        if (!r) r = consumeToken(b, D_HOUR_S);
+        if (!r) r = consumeToken(b, D_HOUR_D);
+        if (!r) r = consumeToken(b, D_MINUTE_S);
+        if (!r) r = consumeToken(b, D_MINUTE_D);
+        if (!r) r = consumeToken(b, D_SECOND_S);
+        if (!r) r = consumeToken(b, D_SECOND_D);
+        if (!r) r = consumeToken(b, D_MILLISECOND_S);
+        if (!r) r = consumeToken(b, D_MILLISECOND_D);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
   /* ********************************************************** */
   // ExpressionType (',' ExpressionType)*
   static boolean ExpressionArray(PsiBuilder b, int l) {
@@ -722,6 +825,23 @@ public class AqlParser implements PsiParser, LightPsiParser {
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
+
+    /* ********************************************************** */
+    // F_ANALYZER "(" AnyType  "," AnalyzerType ")"
+    public static boolean FunAnalyzer(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunAnalyzer")) return false;
+        if (!nextTokenIs(b, F_ANALYZER)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_ANALYZER, null);
+        r = consumeTokens(b, 2, F_ANALYZER, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, AnyType(b, l + 1));
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, AnalyzerType(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
 
     /* ********************************************************** */
     // F_APPEND  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"
@@ -937,6 +1057,86 @@ public class AqlParser implements PsiParser, LightPsiParser {
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
+
+    /* ********************************************************** */
+    // F_BM25 "(" document_argument  ("," number_argument)? ("," boolean_argument) ")"
+    public static boolean FunBm25(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBm25")) return false;
+        if (!nextTokenIs(b, F_BM25)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_BM_25, null);
+        r = consumeTokens(b, 2, F_BM25, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, document_argument(b, l + 1));
+        r = p && report_error_(b, FunBm25_3(b, l + 1)) && r;
+        r = p && report_error_(b, FunBm25_4(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // ("," number_argument)?
+    private static boolean FunBm25_3(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBm25_3")) return false;
+        FunBm25_3_0(b, l + 1);
+        return true;
+    }
+
+    // "," number_argument
+    private static boolean FunBm25_3_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBm25_3_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && number_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // "," boolean_argument
+    private static boolean FunBm25_4(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBm25_4")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && boolean_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_BOOST "(" AnyType  ("," number_argument)?  ")"
+    public static boolean FunBoost(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBoost")) return false;
+        if (!nextTokenIs(b, F_BOOST)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_BOOST, null);
+        r = consumeTokens(b, 2, F_BOOST, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, AnyType(b, l + 1));
+        r = p && report_error_(b, FunBoost_3(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // ("," number_argument)?
+    private static boolean FunBoost_3(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBoost_3")) return false;
+        FunBoost_3_0(b, l + 1);
+        return true;
+    }
+
+    // "," number_argument
+    private static boolean FunBoost_3_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunBoost_3_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && number_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
 
     /* ********************************************************** */
     // F_CALL "(" StringType ("," AnyType)* ")"
@@ -1229,6 +1429,19 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // F_CURRENT_DATABASE "("  ")"
+    public static boolean FunCurrentDatabase(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunCurrentDatabase")) return false;
+        if (!nextTokenIs(b, F_CURRENT_DATABASE)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_CURRENT_DATABASE, null);
+        r = consumeTokens(b, 2, F_CURRENT_DATABASE, T_OPEN, T_CLOSE);
+        p = r; // pin = 2
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
     // F_CURRENT_USER "(" ")"
     public static boolean FunCurrentUser(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunCurrentUser")) return false;
@@ -1237,6 +1450,468 @@ public class AqlParser implements PsiParser, LightPsiParser {
         Marker m = enter_section_(b, l, _NONE_, FUN_CURRENT_USER, null);
         r = consumeTokens(b, 2, F_CURRENT_USER, T_OPEN, T_CLOSE);
         p = r; // pin = 2
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_ADD "("  date_argument "," integer_argument | string_argument "," DateUnit")"
+    public static boolean FunDateAdd(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateAdd")) return false;
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_ADD, "<fun date add>");
+        r = FunDateAdd_0(b, l + 1);
+        if (!r) r = FunDateAdd_1(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // F_DATE_ADD "("  date_argument "," integer_argument
+    private static boolean FunDateAdd_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateAdd_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeTokens(b, 0, F_DATE_ADD, T_OPEN);
+        r = r && date_argument(b, l + 1);
+        r = r && consumeToken(b, T_COMMA);
+        r = r && integer_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // string_argument "," DateUnit")"
+    private static boolean FunDateAdd_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateAdd_1")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = string_argument(b, l + 1);
+        r = r && consumeToken(b, T_COMMA);
+        r = r && DateUnit(b, l + 1);
+        r = r && consumeToken(b, T_CLOSE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_COMPARE "("  date_argument "," date_argument "," DateUnit ("," DateUnit)? ")"
+    public static boolean FunDateCompare(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateCompare")) return false;
+        if (!nextTokenIs(b, F_DATE_COMPARE)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_COMPARE, null);
+        r = consumeTokens(b, 2, F_DATE_COMPARE, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, date_argument(b, l + 1)) && r;
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, DateUnit(b, l + 1)) && r;
+        r = p && report_error_(b, FunDateCompare_7(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // ("," DateUnit)?
+    private static boolean FunDateCompare_7(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateCompare_7")) return false;
+        FunDateCompare_7_0(b, l + 1);
+        return true;
+    }
+
+    // "," DateUnit
+    private static boolean FunDateCompare_7_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateCompare_7_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && DateUnit(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_DAY "("  date_argument ")"
+    public static boolean FunDateDay(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateDay")) return false;
+        if (!nextTokenIs(b, F_DATE_DAY)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_DAY, null);
+        r = consumeTokens(b, 2, F_DATE_DAY, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_DAYOFYEAR "("  date_argument ")"
+    public static boolean FunDateDayOfYear(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateDayOfYear")) return false;
+        if (!nextTokenIs(b, F_DATE_DAYOFYEAR)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_DAY_OF_YEAR, null);
+        r = consumeTokens(b, 2, F_DATE_DAYOFYEAR, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_DAYS_IN_MONTH "("  date_argument ")"
+    public static boolean FunDateDaysInMonth(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateDaysInMonth")) return false;
+        if (!nextTokenIs(b, F_DATE_DAYS_IN_MONTH)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_DAYS_IN_MONTH, null);
+        r = consumeTokens(b, 2, F_DATE_DAYS_IN_MONTH, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_DIFF "("  date_argument "," date_argument "," DateUnit ("," boolean_argument)? ")"
+    public static boolean FunDateDiff(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateDiff")) return false;
+        if (!nextTokenIs(b, F_DATE_DIFF)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_DIFF, null);
+        r = consumeTokens(b, 2, F_DATE_DIFF, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, date_argument(b, l + 1)) && r;
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, DateUnit(b, l + 1)) && r;
+        r = p && report_error_(b, FunDateDiff_7(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // ("," boolean_argument)?
+    private static boolean FunDateDiff_7(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateDiff_7")) return false;
+        FunDateDiff_7_0(b, l + 1);
+        return true;
+    }
+
+    // "," boolean_argument
+    private static boolean FunDateDiff_7_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateDiff_7_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && boolean_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_FORMAT "("  date_argument "," string_argument ")"
+    public static boolean FunDateFormat(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateFormat")) return false;
+        if (!nextTokenIs(b, F_DATE_FORMAT)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_FORMAT, null);
+        r = consumeTokens(b, 2, F_DATE_FORMAT, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, string_argument(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_HOUR "("  date_argument ")"
+    public static boolean FunDateHour(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateHour")) return false;
+        if (!nextTokenIs(b, F_DATE_HOUR)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_HOUR, null);
+        r = consumeTokens(b, 2, F_DATE_HOUR, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_ISO8601 "(" date_argument | integer_argument_array")"
+    public static boolean FunDateISO8601(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateISO8601")) return false;
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_ISO_8601, "<fun date iso 8601>");
+        r = FunDateISO8601_0(b, l + 1);
+        if (!r) r = FunDateISO8601_1(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // F_DATE_ISO8601 "(" date_argument
+    private static boolean FunDateISO8601_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateISO8601_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeTokens(b, 0, F_DATE_ISO8601, T_OPEN);
+        r = r && date_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // integer_argument_array")"
+    private static boolean FunDateISO8601_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateISO8601_1")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = integer_argument_array(b, l + 1);
+        r = r && consumeToken(b, T_CLOSE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_ISOWEEK "("  date_argument ")"
+    public static boolean FunDateIsoWeek(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateIsoWeek")) return false;
+        if (!nextTokenIs(b, F_DATE_ISOWEEK)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_ISO_WEEK, null);
+        r = consumeTokens(b, 2, F_DATE_ISOWEEK, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_LEAPYEAR "("  date_argument ")"
+    public static boolean FunDateLeapYear(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateLeapYear")) return false;
+        if (!nextTokenIs(b, F_DATE_LEAPYEAR)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_LEAP_YEAR, null);
+        r = consumeTokens(b, 2, F_DATE_LEAPYEAR, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_MILLISECOND "("  date_argument ")"
+    public static boolean FunDateMillisecond(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateMillisecond")) return false;
+        if (!nextTokenIs(b, F_DATE_MILLISECOND)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_MILLISECOND, null);
+        r = consumeTokens(b, 2, F_DATE_MILLISECOND, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_MINUTE "("  date_argument ")"
+    public static boolean FunDateMinute(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateMinute")) return false;
+        if (!nextTokenIs(b, F_DATE_MINUTE)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_MINUTE, null);
+        r = consumeTokens(b, 2, F_DATE_MINUTE, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_MONTH "("  date_argument ")"
+    public static boolean FunDateMonth(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateMonth")) return false;
+        if (!nextTokenIs(b, F_DATE_MONTH)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_MONTH, null);
+        r = consumeTokens(b, 2, F_DATE_MONTH, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_NOW "("  ")"
+    public static boolean FunDateNow(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateNow")) return false;
+        if (!nextTokenIs(b, F_DATE_NOW)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_NOW, null);
+        r = consumeTokens(b, 2, F_DATE_NOW, T_OPEN, T_CLOSE);
+        p = r; // pin = 2
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_DAYOFWEEK "("  date_argument ")"
+    public static boolean FunDateOfWeek(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateOfWeek")) return false;
+        if (!nextTokenIs(b, F_DATE_DAYOFWEEK)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_OF_WEEK, null);
+        r = consumeTokens(b, 2, F_DATE_DAYOFWEEK, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_QUARTER "("  date_argument ")"
+    public static boolean FunDateQuarter(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateQuarter")) return false;
+        if (!nextTokenIs(b, F_DATE_QUARTER)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_QUARTER, null);
+        r = consumeTokens(b, 2, F_DATE_QUARTER, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_SECOND "("  date_argument ")"
+    public static boolean FunDateSecond(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateSecond")) return false;
+        if (!nextTokenIs(b, F_DATE_SECOND)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_SECOND, null);
+        r = consumeTokens(b, 2, F_DATE_SECOND, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_SUBTRACT "("  date_argument "," integer_argument | string_argument "," DateUnit")"
+    public static boolean FunDateSubtract(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateSubtract")) return false;
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_SUBTRACT, "<fun date subtract>");
+        r = FunDateSubtract_0(b, l + 1);
+        if (!r) r = FunDateSubtract_1(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // F_DATE_SUBTRACT "("  date_argument "," integer_argument
+    private static boolean FunDateSubtract_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateSubtract_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeTokens(b, 0, F_DATE_SUBTRACT, T_OPEN);
+        r = r && date_argument(b, l + 1);
+        r = r && consumeToken(b, T_COMMA);
+        r = r && integer_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // string_argument "," DateUnit")"
+    private static boolean FunDateSubtract_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateSubtract_1")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = string_argument(b, l + 1);
+        r = r && consumeToken(b, T_COMMA);
+        r = r && DateUnit(b, l + 1);
+        r = r && consumeToken(b, T_CLOSE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_TIMESTAMP "("  date_argument | integer_argument_array ")"
+    public static boolean FunDateTimeStamp(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateTimeStamp")) return false;
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_TIME_STAMP, "<fun date time stamp>");
+        r = FunDateTimeStamp_0(b, l + 1);
+        if (!r) r = FunDateTimeStamp_1(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // F_DATE_TIMESTAMP "("  date_argument
+    private static boolean FunDateTimeStamp_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateTimeStamp_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeTokens(b, 0, F_DATE_TIMESTAMP, T_OPEN);
+        r = r && date_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // integer_argument_array ")"
+    private static boolean FunDateTimeStamp_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateTimeStamp_1")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = integer_argument_array(b, l + 1);
+        r = r && consumeToken(b, T_CLOSE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_TRUNC "("  date_argument "," DateUnit ")"
+    public static boolean FunDateTrunc(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateTrunc")) return false;
+        if (!nextTokenIs(b, F_DATE_TRUNC)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_TRUNC, null);
+        r = consumeTokens(b, 2, F_DATE_TRUNC, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, DateUnit(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_DATE_YEAR "("  date_argument ")"
+    public static boolean FunDateYear(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunDateYear")) return false;
+        if (!nextTokenIs(b, F_DATE_YEAR)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_DATE_YEAR, null);
+        r = consumeTokens(b, 2, F_DATE_YEAR, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, date_argument(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
         exit_section_(b, l, m, r, p, null);
         return r || p;
     }
@@ -1327,6 +2002,43 @@ public class AqlParser implements PsiParser, LightPsiParser {
         r = p && consumeToken(b, T_CLOSE) && r;
         exit_section_(b, l, m, r, p, null);
         return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_EXISTS "(" PropertyName property_lookup ("," string_argument)? ","  AnyType ")"
+    public static boolean FunExists(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunExists")) return false;
+        if (!nextTokenIs(b, F_EXISTS)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_EXISTS, null);
+        r = consumeTokens(b, 2, F_EXISTS, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, PropertyName(b, l + 1));
+        r = p && report_error_(b, property_lookup(b, l + 1)) && r;
+        r = p && report_error_(b, FunExists_4(b, l + 1)) && r;
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, AnyType(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // ("," string_argument)?
+    private static boolean FunExists_4(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunExists_4")) return false;
+        FunExists_4_0(b, l + 1);
+        return true;
+    }
+
+    // "," string_argument
+    private static boolean FunExists_4_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunExists_4_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && string_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
     }
 
   /* ********************************************************** */
@@ -1595,7 +2307,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
-    // F_FULLTEXT "(" possible_array "," StringType  "," StringType  ("," IntegerType)? ")"
+    // F_FULLTEXT "(" possible_array "," string_argument  "," string_argument  ("," integer_argument)? ")"
     public static boolean FunFullText(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunFullText")) return false;
         if (!nextTokenIs(b, F_FULLTEXT)) return false;
@@ -1605,29 +2317,29 @@ public class AqlParser implements PsiParser, LightPsiParser {
         p = r; // pin = 2
         r = r && report_error_(b, possible_array(b, l + 1));
         r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
-        r = p && report_error_(b, StringType(b, l + 1)) && r;
+        r = p && report_error_(b, string_argument(b, l + 1)) && r;
         r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
-        r = p && report_error_(b, StringType(b, l + 1)) && r;
+        r = p && report_error_(b, string_argument(b, l + 1)) && r;
         r = p && report_error_(b, FunFullText_7(b, l + 1)) && r;
         r = p && consumeToken(b, T_CLOSE) && r;
         exit_section_(b, l, m, r, p, null);
         return r || p;
     }
 
-    // ("," IntegerType)?
+    // ("," integer_argument)?
     private static boolean FunFullText_7(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunFullText_7")) return false;
         FunFullText_7_0(b, l + 1);
         return true;
     }
 
-    // "," IntegerType
+    // "," integer_argument
     private static boolean FunFullText_7_0(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunFullText_7_0")) return false;
         boolean r;
         Marker m = enter_section_(b);
         r = consumeToken(b, T_COMMA);
-        r = r && IntegerType(b, l + 1);
+        r = r && integer_argument(b, l + 1);
         exit_section_(b, m, null, r);
         return r;
     }
@@ -1989,7 +2701,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // F_IS_DATESTRING "(" AnyType ")"
+    // F_IS_DATESTRING "("  AnyType ")"
     public static boolean FunIsDateString(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunIsDateString")) return false;
         if (!nextTokenIs(b, F_IS_DATESTRING)) return false;
@@ -2197,6 +2909,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!r) r = string_argument_array(b, l + 1);
         if (!r) r = possible_array(b, l + 1);
         return r;
+    }
+
+    /* ********************************************************** */
+    // F_KEYS "(" AnyType ")"
+    public static boolean FunKeys(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunKeys")) return false;
+        if (!nextTokenIs(b, F_KEYS)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_KEYS, null);
+        r = consumeTokens(b, 2, F_KEYS, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, AnyType(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
     }
 
     /* ********************************************************** */
@@ -2595,6 +3322,23 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
+    // F_MIN_MATCH "(" AnyType  "," integer_argument ")"
+    public static boolean FunMinMatch(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunMinMatch")) return false;
+        if (!nextTokenIs(b, F_MIN_MATCH)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_MIN_MATCH, null);
+        r = consumeTokens(b, 2, F_MIN_MATCH, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, AnyType(b, l + 1));
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, integer_argument(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
     // F_MINUS  "(" (number_argument_array)+ ")"
     public static boolean FunMinus(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunMinus")) return false;
@@ -2839,6 +3583,43 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
+    /* ********************************************************** */
+    // F_PHRASE "(" PropertyName property_lookup ","  string_argument_array | number_argument_array ")"
+    public static boolean FunPhrase(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunPhrase")) return false;
+        boolean r;
+        Marker m = enter_section_(b, l, _NONE_, FUN_PHRASE, "<fun phrase>");
+        r = FunPhrase_0(b, l + 1);
+        if (!r) r = FunPhrase_1(b, l + 1);
+        exit_section_(b, l, m, r, false, null);
+        return r;
+    }
+
+    // F_PHRASE "(" PropertyName property_lookup ","  string_argument_array
+    private static boolean FunPhrase_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunPhrase_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeTokens(b, 0, F_PHRASE, T_OPEN);
+        r = r && PropertyName(b, l + 1);
+        r = r && property_lookup(b, l + 1);
+        r = r && consumeToken(b, T_COMMA);
+        r = r && string_argument_array(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // number_argument_array ")"
+    private static boolean FunPhrase_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunPhrase_1")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = number_argument_array(b, l + 1);
+        r = r && consumeToken(b, T_CLOSE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
   /* ********************************************************** */
   // F_PI "(" ")"
   public static boolean FunPi(PsiBuilder b, int l) {
@@ -2943,6 +3724,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
+
+    /* ********************************************************** */
+    // F_PREGEL_RESULT "(" AnyType ")"
+    public static boolean FunPregelResult(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunPregelResult")) return false;
+        if (!nextTokenIs(b, F_PREGEL_RESULT)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_PREGEL_RESULT, null);
+        r = consumeTokens(b, 2, F_PREGEL_RESULT, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, AnyType(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
 
     /* ********************************************************** */
     // F_PUSH  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"
@@ -3618,6 +4414,39 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
+    /* ********************************************************** */
+    // F_STARTS_WITH "(" PropertyName property_lookup "," string_argument ")"
+    public static boolean FunStartsWith(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunStartsWith")) return false;
+        if (!nextTokenIs(b, F_STARTS_WITH)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_STARTS_WITH, null);
+        r = consumeTokens(b, 2, F_STARTS_WITH, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, PropertyName(b, l + 1));
+        r = p && report_error_(b, property_lookup(b, l + 1)) && r;
+        r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+        r = p && report_error_(b, string_argument(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    /* ********************************************************** */
+    // F_STDDEV_SAMPLE "(" number_argument_array ")"
+    public static boolean FunStdDevSample(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunStdDevSample")) return false;
+        if (!nextTokenIs(b, F_STDDEV_SAMPLE)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_STD_DEV_SAMPLE, null);
+        r = consumeTokens(b, 2, F_STDDEV_SAMPLE, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, number_argument_array(b, l + 1));
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
   /* ********************************************************** */
   // F_STDDEV "(" number_argument_array ")"
   public static boolean FunStddev(PsiBuilder b, int l) {
@@ -3817,6 +4646,33 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
     /* ********************************************************** */
+    // F_TFIDF "(" document_argument  ("," boolean_argument) ")"
+    public static boolean FunTfDiff(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunTfDiff")) return false;
+        if (!nextTokenIs(b, F_TFIDF)) return false;
+        boolean r, p;
+        Marker m = enter_section_(b, l, _NONE_, FUN_TF_DIFF, null);
+        r = consumeTokens(b, 2, F_TFIDF, T_OPEN);
+        p = r; // pin = 2
+        r = r && report_error_(b, document_argument(b, l + 1));
+        r = p && report_error_(b, FunTfDiff_3(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
+        exit_section_(b, l, m, r, p, null);
+        return r || p;
+    }
+
+    // "," boolean_argument
+    private static boolean FunTfDiff_3(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunTfDiff_3")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && boolean_argument(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
     // F_TO_ARRAY "(" AnyType ")"
     public static boolean FunToArray(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunToArray")) return false;
@@ -3975,7 +4831,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
-    // F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?   ")")
+    // F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?)  ")"
     public static boolean FunTrim(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunTrim")) return false;
         if (!nextTokenIs(b, F_TRIM)) return false;
@@ -3984,12 +4840,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
         r = consumeTokens(b, 2, F_TRIM, T_OPEN);
         p = r; // pin = 2
         r = r && report_error_(b, string_argument(b, l + 1));
-        r = p && FunTrim_3(b, l + 1) && r;
+        r = p && report_error_(b, FunTrim_3(b, l + 1)) && r;
+        r = p && consumeToken(b, T_CLOSE) && r;
         exit_section_(b, l, m, r, p, null);
         return r || p;
     }
 
-    // ("," string_argument) | ("," integer_argument)?   ")"
+    // ("," string_argument) | ("," integer_argument)?
     private static boolean FunTrim_3(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunTrim_3")) return false;
         boolean r;
@@ -4011,27 +4868,16 @@ public class AqlParser implements PsiParser, LightPsiParser {
         return r;
     }
 
-    // ("," integer_argument)?   ")"
+    // ("," integer_argument)?
     private static boolean FunTrim_3_1(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "FunTrim_3_1")) return false;
-        boolean r;
-        Marker m = enter_section_(b);
-        r = FunTrim_3_1_0(b, l + 1);
-        r = r && consumeToken(b, T_CLOSE);
-        exit_section_(b, m, null, r);
-        return r;
-    }
-
-    // ("," integer_argument)?
-    private static boolean FunTrim_3_1_0(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "FunTrim_3_1_0")) return false;
-        FunTrim_3_1_0_0(b, l + 1);
+        FunTrim_3_1_0(b, l + 1);
         return true;
     }
 
     // "," integer_argument
-    private static boolean FunTrim_3_1_0_0(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "FunTrim_3_1_0_0")) return false;
+    private static boolean FunTrim_3_1_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "FunTrim_3_1_0")) return false;
         boolean r;
         Marker m = enter_section_(b);
         r = consumeToken(b, T_COMMA);
@@ -4496,37 +5342,28 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
   /* ********************************************************** */
-  // NamedFunctions | (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE)
+  // NamedFunctions  T_OPEN ExpressionArray* T_CLOSE
   public static boolean FunctionExpression(PsiBuilder b, int l) {
       if (!recursion_guard_(b, l, "FunctionExpression")) return false;
       boolean r;
       Marker m = enter_section_(b, l, _NONE_, FUNCTION_EXPRESSION, "<function expression>");
       r = NamedFunctions(b, l + 1);
-      if (!r) r = FunctionExpression_1(b, l + 1);
+      r = r && consumeToken(b, T_OPEN);
+      r = r && FunctionExpression_2(b, l + 1);
+      r = r && consumeToken(b, T_CLOSE);
       exit_section_(b, l, m, r, false, null);
       return r;
   }
 
-    // NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE
-    private static boolean FunctionExpression_1(PsiBuilder b, int l) {
-        if (!recursion_guard_(b, l, "FunctionExpression_1")) return false;
-        boolean r;
-        Marker m = enter_section_(b);
-        r = NamedKeywordFunctions(b, l + 1);
-        r = r && consumeToken(b, T_OPEN);
-        r = r && FunctionExpression_1_2(b, l + 1);
-        r = r && consumeToken(b, T_CLOSE);
-        exit_section_(b, m, null, r);
-        return r;
-    }
-
   // ExpressionArray*
-  private static boolean FunctionExpression_1_2(PsiBuilder b, int l) {
-      if (!recursion_guard_(b, l, "FunctionExpression_1_2")) return false;
+  private static boolean FunctionExpression_2(PsiBuilder b, int l) {
+      if (!recursion_guard_(b, l, "FunctionExpression_2")) {
+          return false;
+      }
     while (true) {
       int c = current_position_(b);
         if (!ExpressionArray(b, l + 1)) break;
-        if (!empty_element_parsed_guard_(b, "FunctionExpression_1_2", c)) break;
+        if (!empty_element_parsed_guard_(b, "FunctionExpression_2", c)) break;
     }
     return true;
   }
@@ -4567,83 +5404,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!empty_element_parsed_guard_(b, "JsonType_1", c)) break;
     }
     return true;
-  }
-
-  /* ********************************************************** */
-  // F_DATE_SUBTRACT
-  //                         | F_DATE_MINUTE
-  //                         | F_DATE_LEAPYEAR
-  //                         | F_STDDEV_SAMPLE
-  //                         | F_CURRENT_DATABASE
-  //                         | F_DATE_DAYOFYEAR
-  //                         | F_DATE_DAY
-  //                         | F_DATE_DAYS_IN_MONTH
-  //                         | F_STARTS_WITH
-  //                         | F_DATE_DAYOFWEEK
-  //                         | F_TFIDF
-  //                         | F_DATE_ISO8601
-  //                         | F_DATE_TRUNC
-  //                         | F_DATE_FORMAT
-  //                         | F_KEYS
-  //                         | F_BOOST
-  //                         | F_MIN_MATCH
-  //                         | F_DATE_ISOWEEK
-  //                         | F_DATE_SECOND
-  //                         | F_BM25
-  //                         | F_DATE_MONTH
-  //                         | F_PREGEL_RESULT
-  //                         | F_DATE_ADD
-  //                         | F_DATE_MILLISECOND
-  //                         | F_DATE_QUARTER
-  //                         | F_ANALYZER
-  //                         | F_PHRASE
-  //                         | F_DATE_NOW
-  //                         | F_DATE_COMPARE
-  //                         | F_DATE_YEAR
-  //                         | F_DATE_TIMESTAMP
-  //                         | F_EXISTS
-  //                         | F_DATE_HOUR
-  //                         | F_DATE_DIFF
-  public static boolean KeywordFunctions(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "KeywordFunctions")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, KEYWORD_FUNCTIONS, "<keyword functions>");
-      r = consumeToken(b, F_DATE_SUBTRACT);
-    if (!r) r = consumeToken(b, F_DATE_MINUTE);
-    if (!r) r = consumeToken(b, F_DATE_LEAPYEAR);
-    if (!r) r = consumeToken(b, F_STDDEV_SAMPLE);
-    if (!r) r = consumeToken(b, F_CURRENT_DATABASE);
-    if (!r) r = consumeToken(b, F_DATE_DAYOFYEAR);
-    if (!r) r = consumeToken(b, F_DATE_DAY);
-    if (!r) r = consumeToken(b, F_DATE_DAYS_IN_MONTH);
-    if (!r) r = consumeToken(b, F_STARTS_WITH);
-    if (!r) r = consumeToken(b, F_DATE_DAYOFWEEK);
-    if (!r) r = consumeToken(b, F_TFIDF);
-    if (!r) r = consumeToken(b, F_DATE_ISO8601);
-    if (!r) r = consumeToken(b, F_DATE_TRUNC);
-    if (!r) r = consumeToken(b, F_DATE_FORMAT);
-    if (!r) r = consumeToken(b, F_KEYS);
-    if (!r) r = consumeToken(b, F_BOOST);
-    if (!r) r = consumeToken(b, F_MIN_MATCH);
-    if (!r) r = consumeToken(b, F_DATE_ISOWEEK);
-    if (!r) r = consumeToken(b, F_DATE_SECOND);
-    if (!r) r = consumeToken(b, F_BM25);
-    if (!r) r = consumeToken(b, F_DATE_MONTH);
-    if (!r) r = consumeToken(b, F_PREGEL_RESULT);
-    if (!r) r = consumeToken(b, F_DATE_ADD);
-    if (!r) r = consumeToken(b, F_DATE_MILLISECOND);
-    if (!r) r = consumeToken(b, F_DATE_QUARTER);
-    if (!r) r = consumeToken(b, F_ANALYZER);
-    if (!r) r = consumeToken(b, F_PHRASE);
-    if (!r) r = consumeToken(b, F_DATE_NOW);
-    if (!r) r = consumeToken(b, F_DATE_COMPARE);
-    if (!r) r = consumeToken(b, F_DATE_YEAR);
-    if (!r) r = consumeToken(b, F_DATE_TIMESTAMP);
-    if (!r) r = consumeToken(b, F_EXISTS);
-    if (!r) r = consumeToken(b, F_DATE_HOUR);
-    if (!r) r = consumeToken(b, F_DATE_DIFF);
-    exit_section_(b, l, m, r, false, null);
-    return r;
   }
 
   /* ********************************************************** */
@@ -4723,6 +5483,41 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // FunAbs
+  //               | FunStdDevSample
+  //               | FunCurrentDatabase
+  //               | FunPregelResult
+  //               | FunKeys
+  //               | FunDateNow
+  //               | FunDateISO8601
+  //               | FunDateTimeStamp
+  //               | FunIsDateString
+  //               | FunDateOfWeek
+  //               | FunDateYear
+  //               | FunDateMonth
+  //               | FunDateDay
+  //               | FunDateHour
+  //               | FunDateMinute
+  //               | FunDateSecond
+  //               | FunDateMillisecond
+  //               | FunDateDayOfYear
+  //               | FunDateIsoWeek
+  //               | FunDateLeapYear
+  //               | FunDateQuarter
+  //               | FunDateDaysInMonth
+  //               | FunDateTrunc
+  //               | FunDateFormat
+  //               | FunDateAdd
+  //               | FunDateSubtract
+  //               | FunDateDiff
+  //               | FunDateCompare
+  //               | FunStartsWith
+  //               | FunMinMatch
+  //               | FunBm25
+  //               | FunTfDiff
+  //               | FunPhrase
+  //               | FunExists
+  //               | FunBoost
+  //               | FunAnalyzer
   //               | FunConcat
   //               | FunContains
   //               | FunEncodeUriComponent
@@ -4812,7 +5607,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | FunIsList
   //               | FunIsObject
   //               | FunIsDocument
-  //               | FunIsDateString
   //               | FunIsKey
   //               | FunTypename
   //               | FunAsin
@@ -4883,6 +5677,41 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMED_FUNCTIONS, "<named functions>");
     r = FunAbs(b, l + 1);
+      if (!r) r = FunStdDevSample(b, l + 1);
+      if (!r) r = FunCurrentDatabase(b, l + 1);
+      if (!r) r = FunPregelResult(b, l + 1);
+      if (!r) r = FunKeys(b, l + 1);
+      if (!r) r = FunDateNow(b, l + 1);
+      if (!r) r = FunDateISO8601(b, l + 1);
+      if (!r) r = FunDateTimeStamp(b, l + 1);
+      if (!r) r = FunIsDateString(b, l + 1);
+      if (!r) r = FunDateOfWeek(b, l + 1);
+      if (!r) r = FunDateYear(b, l + 1);
+      if (!r) r = FunDateMonth(b, l + 1);
+      if (!r) r = FunDateDay(b, l + 1);
+      if (!r) r = FunDateHour(b, l + 1);
+      if (!r) r = FunDateMinute(b, l + 1);
+      if (!r) r = FunDateSecond(b, l + 1);
+      if (!r) r = FunDateMillisecond(b, l + 1);
+      if (!r) r = FunDateDayOfYear(b, l + 1);
+      if (!r) r = FunDateIsoWeek(b, l + 1);
+      if (!r) r = FunDateLeapYear(b, l + 1);
+      if (!r) r = FunDateQuarter(b, l + 1);
+      if (!r) r = FunDateDaysInMonth(b, l + 1);
+      if (!r) r = FunDateTrunc(b, l + 1);
+      if (!r) r = FunDateFormat(b, l + 1);
+      if (!r) r = FunDateAdd(b, l + 1);
+      if (!r) r = FunDateSubtract(b, l + 1);
+      if (!r) r = FunDateDiff(b, l + 1);
+      if (!r) r = FunDateCompare(b, l + 1);
+      if (!r) r = FunStartsWith(b, l + 1);
+      if (!r) r = FunMinMatch(b, l + 1);
+      if (!r) r = FunBm25(b, l + 1);
+      if (!r) r = FunTfDiff(b, l + 1);
+      if (!r) r = FunPhrase(b, l + 1);
+      if (!r) r = FunExists(b, l + 1);
+      if (!r) r = FunBoost(b, l + 1);
+      if (!r) r = FunAnalyzer(b, l + 1);
       if (!r) r = FunConcat(b, l + 1);
       if (!r) r = FunContains(b, l + 1);
       if (!r) r = FunEncodeUriComponent(b, l + 1);
@@ -4972,7 +5801,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
       if (!r) r = FunIsList(b, l + 1);
       if (!r) r = FunIsObject(b, l + 1);
       if (!r) r = FunIsDocument(b, l + 1);
-      if (!r) r = FunIsDateString(b, l + 1);
       if (!r) r = FunIsKey(b, l + 1);
       if (!r) r = FunTypename(b, l + 1);
       if (!r) r = FunAsin(b, l + 1);
@@ -5038,17 +5866,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
       if (!r) r = FunRound(b, l + 1);
       if (!r) r = FunVariance(b, l + 1);
       if (!r) r = FunConcatSeparator(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // KeywordFunctions
-  public static boolean NamedKeywordFunctions(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "NamedKeywordFunctions")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, NAMED_KEYWORD_FUNCTIONS, "<named keyword functions>");
-    r = KeywordFunctions(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -5415,6 +6232,45 @@ public class AqlParser implements PsiParser, LightPsiParser {
     }
 
     /* ********************************************************** */
+    // StringType | objects_argument| ("*" IntegerType)+
+    static boolean date_argument(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "date_argument")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = StringType(b, l + 1);
+        if (!r) r = objects_argument(b, l + 1);
+        if (!r) r = date_argument_2(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // ("*" IntegerType)+
+    private static boolean date_argument_2(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "date_argument_2")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = date_argument_2_0(b, l + 1);
+        while (r) {
+            int c = current_position_(b);
+            if (!date_argument_2_0(b, l + 1)) break;
+            if (!empty_element_parsed_guard_(b, "date_argument_2", c)) break;
+        }
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // "*" IntegerType
+    private static boolean date_argument_2_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "date_argument_2_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_TIMES);
+        r = r && IntegerType(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    /* ********************************************************** */
     // ObjectExpression | JsonType | ParameterVariable | VariablePlaceHolder
     static boolean document_argument(PsiBuilder b, int l) {
         if (!recursion_guard_(b, l, "document_argument")) return false;
@@ -5435,6 +6291,53 @@ public class AqlParser implements PsiParser, LightPsiParser {
         if (!r) r = IntegerType(b, l + 1);
         if (!r) r = ParameterVariable(b, l + 1);
         if (!r) r = VariablePlaceHolder(b, l + 1);
+        return r;
+    }
+
+    /* ********************************************************** */
+    // possible_number_array | "[" integer_argument (',' integer_argument)* "]"
+    static boolean integer_argument_array(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "integer_argument_array")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = possible_number_array(b, l + 1);
+        if (!r) r = integer_argument_array_1(b, l + 1);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // "[" integer_argument (',' integer_argument)* "]"
+    private static boolean integer_argument_array_1(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "integer_argument_array_1")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_ARRAY_OPEN);
+        r = r && integer_argument(b, l + 1);
+        r = r && integer_argument_array_1_2(b, l + 1);
+        r = r && consumeToken(b, T_ARRAY_CLOSE);
+        exit_section_(b, m, null, r);
+        return r;
+    }
+
+    // (',' integer_argument)*
+    private static boolean integer_argument_array_1_2(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "integer_argument_array_1_2")) return false;
+        while (true) {
+            int c = current_position_(b);
+            if (!integer_argument_array_1_2_0(b, l + 1)) break;
+            if (!empty_element_parsed_guard_(b, "integer_argument_array_1_2", c)) break;
+        }
+        return true;
+    }
+
+    // ',' integer_argument
+    private static boolean integer_argument_array_1_2_0(PsiBuilder b, int l) {
+        if (!recursion_guard_(b, l, "integer_argument_array_1_2_0")) return false;
+        boolean r;
+        Marker m = enter_section_(b);
+        r = consumeToken(b, T_COMMA);
+        r = r && integer_argument(b, l + 1);
+        exit_section_(b, m, null, r);
         return r;
     }
 

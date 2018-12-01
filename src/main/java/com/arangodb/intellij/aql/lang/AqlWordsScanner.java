@@ -10,7 +10,7 @@ public class AqlWordsScanner extends DefaultWordsScanner {
     public AqlWordsScanner() {
         super(new AqlLexerAdapter(),
                 // identifier
-                TokenSet.create(AqlTypes.NAMED_KEYWORD_FUNCTIONS, AqlTypes.NAMED_KEYWORD_STATEMENTS),
+                TokenSet.create(AqlTypes.NAMED_FUNCTIONS, AqlTypes.NAMED_KEYWORD_STATEMENTS),
                 // string  literals
                 AqlParserDefinition.STRING_LITERALS,
                 // literals

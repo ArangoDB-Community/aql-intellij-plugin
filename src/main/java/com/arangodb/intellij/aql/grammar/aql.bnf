@@ -363,22 +363,16 @@ private ArithmeticOperators ::=  T_PLUS
                     | T_DIV
                     | T_MOD
 
-KeywordFunctions ::=
-                         F_STDDEV_SAMPLE
-                        | F_CURRENT_DATABASE
-                        | F_STARTS_WITH
-                        | F_TFIDF
-                        | F_KEYS
-                        | F_BOOST
-                        | F_MIN_MATCH
-                        | F_BM25
-                        | F_PREGEL_RESULT
-                        | F_ANALYZER
-                        | F_PHRASE
-                        | F_EXISTS
+
+
+
 
 
 NamedFunctions::= FunAbs
+              | FunStdDevSample
+              | FunCurrentDatabase
+              | FunPregelResult
+              | FunKeys
               | FunDateNow
               | FunDateISO8601
               | FunDateTimeStamp
@@ -402,6 +396,14 @@ NamedFunctions::= FunAbs
               | FunDateSubtract
               | FunDateDiff
               | FunDateCompare
+              | FunStartsWith
+              | FunMinMatch
+              | FunBm25
+              | FunTfDiff
+              | FunPhrase
+              | FunExists
+              | FunBoost
+              | FunAnalyzer
 
 
 
@@ -652,13 +654,7 @@ Statement ::= NamedKeywordStatements
 
 
 
-NamedKeywordFunctions ::= KeywordFunctions {
-  methods=[
-    getName
-    setName
-  ]
-  mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlFunctionMixin"
-}
+
 NamedKeywordStatements ::= KeywordStatements {
   methods=[
     getName
@@ -758,7 +754,7 @@ private not_bracket_or_next_value ::= !(']'|ExpressionArray)
 
 private ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
-FunctionExpression ::= NamedFunctions | (NamedKeywordFunctions T_OPEN ExpressionArray* T_CLOSE)
+FunctionExpression ::= NamedFunctions  T_OPEN ExpressionArray* T_CLOSE
 
 //############################################
 // FUNCTIONS  (more strict error checking)
@@ -828,12 +824,26 @@ FunIsDocument ::=  (F_IS_DOCUMENT "(" AnyType ")"){pin=2}
 FunIsKey ::=  (F_IS_KEY "(" AnyType ")"){pin=2}
 FunTypename ::=  (F_TYPENAME "(" AnyType ")"){pin=2}
 
-FunFullText ::=  (F_FULLTEXT "(" possible_array "," StringType  "," StringType  ("," IntegerType)? ")"){pin=2}
+//############################################
+// SEARCH
+//############################################
+
+FunFullText ::=  (F_FULLTEXT "(" possible_array "," string_argument  "," string_argument  ("," integer_argument)? ")"){pin=2}
+FunStartsWith ::=  (F_STARTS_WITH "(" PropertyName property_lookup "," string_argument ")"){pin=2}
+FunMinMatch ::=  (F_MIN_MATCH "(" AnyType  "," integer_argument ")"){pin=2}
+FunBm25 ::=  (F_BM25 "(" document_argument  ("," number_argument)? ("," boolean_argument) ")"){pin=2}
+FunTfDiff ::=  (F_TFIDF "(" document_argument  ("," boolean_argument) ")"){pin=2}
+FunPhrase ::=  (F_PHRASE "(" PropertyName property_lookup ","  string_argument_array | number_argument_array ")"){pin=2}
+// TODO check args
+FunExists ::=  (F_EXISTS "(" PropertyName property_lookup ("," string_argument)? ","  AnyType ")"){pin=2}
+FunBoost ::=  (F_BOOST "(" AnyType  ("," number_argument)?  ")"){pin=2}
+FunAnalyzer ::=  (F_ANALYZER "(" AnyType  "," AnalyzerType ")"){pin=2}
 
 
 
 
 FunAbs ::=  (F_ABS "(" number_argument ")"){pin=2}
+FunStdDevSample ::=  (F_STDDEV_SAMPLE "(" number_argument_array ")"){pin=2}
 FunCos ::=  (F_COS "(" number_argument ")"){pin=2}
 FunAcos ::=  (F_ACOS "(" number_argument ")"){pin=2}
 FunAsin ::=  (F_ASIN "(" number_argument ")"){pin=2}
@@ -972,7 +982,7 @@ FunSubstring ::=  (F_SUBSTRING "(" string_argument "," integer_argument ("," int
 FunTokens ::=  (F_TOKENS "(" string_argument "," AnalyzerType ")"){pin=3}
 FunToBase64 ::=  (F_TO_BASE64 "(" string_argument ")"){pin=2}
 FunToHex ::=  (F_TO_HEX "(" string_argument ")"){pin=2}
-FunTrim ::=  (F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?   ")"){pin=2}
+FunTrim ::=  (F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?)  ")"){pin=2}
 FunUpper ::=  (F_UPPER "(" string_argument ")"){pin=2}
 FunUuid ::=  (F_UUID "(" ")"){pin=2}
 
@@ -1000,6 +1010,10 @@ FunPassThru ::=  (F_PASSTHRU "(" AnyType ")"){pin=2}
 FunSleep ::=  (F_SLEEP "(" IntegerType ")"){pin=2}
 FunV8 ::=  (F_V8 "(" ExpressionType ")"){pin=2}
 FunVersion ::=  (F_VERSION "("  ")"){pin=2}
+FunCurrentDatabase ::=  (F_CURRENT_DATABASE "("  ")"){pin=2}
+// TODO check arg
+FunPregelResult ::=  (F_PREGEL_RESULT "(" AnyType ")"){pin=2}
+FunKeys ::=  (F_KEYS "(" AnyType ")"){pin=2}
 
 //############################################
 // GEO

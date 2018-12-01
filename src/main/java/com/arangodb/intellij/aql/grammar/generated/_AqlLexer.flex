@@ -256,6 +256,20 @@ A_TEXT_PT=('text_pt')|(\"text_pt\")
 A_TEXT_RU=('text_ru')|(\"text_ru\")
 A_TEXT_SV=('text_sv')|(\"text_sv\")
 A_TEXT_ZH=('text_zh')|(\"text_zh\")
+D_YEAR_S=(['])([Yy])([Ea])([Aa])([Rr])(['])|(['])([Yy])([Ea])([Aa])([Rr])([Ss])(['])|(['])([Yy])(['])
+D_YEAR_D=([\"])([Yy])([Ea])([Aa])([Rr])([\"])|([\"])([Yy])([Ea])([Aa])([Rr])([Ss])([\"])|([\"])([Yy])([\"])
+D_MONTH_S=(['])([Mm])([Oo])([Nn])([Tt])([Hh])(['])|(['])([Mm])([Oo])([Nn])([Tt])([Hh])([Ss])(['])|(['])([Mm])(['])
+D_MONTH_D=([\"])([Mm])([Oo])([Nn])([Tt])([Hh])([\"])|([\"])([Mm])([Oo])([Nn])([Tt])([Hh])([Ss])([\"])|([\"])([Mm])([\"])
+D_DAY_S=(['])([Dd])([Aa])([Yy])(['])|(['])([Dd])([Aa])([Yy])([Ss])(['])|(['])([Dd])(['])
+D_DAY_D=([\"])([Dd])([Aa])([Yy])([\"])|([\"])([Dd])([Aa])([Yy])([Ss])([\"])|(['])([Dd])([\"])
+D_HOUR_S=(['])([Hh])([Oo])([Uu])([Rr])(['])|(['])([Hh])([Oo])([Uu])([Rr])([Ss])(['])|(['])([Hh])(['])
+D_HOUR_D=([\"])([Hh])([Oo])([Uu])([Rr])([\"])|([\"])([Hh])([Oo])([Uu])([Rr])([Ss])([\"])|(['])([Hh])([\"])
+D_MINUTE_S=(['])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])(['])|(['])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([Ss])(['])|(['])([Ii])(['])
+D_MINUTE_D=([\"])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([\"])|([\"])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([Ss])([\"])|([\"])([Ii])([\"])
+D_SECOND_S=(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ss])(['])
+D_SECOND_D=([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ss])([\"])
+D_MILLISECOND_S=(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ff])(['])
+D_MILLISECOND_D=([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ff])([\"])
 NUMBER_INTEGER=[0-9]+
 B_COMMENT="/"\*([^*]|\*+[^*/])*(\*+"/")?
 L_COMMENT="//".*
@@ -545,6 +559,20 @@ SPACE=[ \t\n\x0B\f\r]+
   {A_TEXT_RU}                   { return A_TEXT_RU; }
   {A_TEXT_SV}                   { return A_TEXT_SV; }
   {A_TEXT_ZH}                   { return A_TEXT_ZH; }
+  {D_YEAR_S}                    { return D_YEAR_S; }
+  {D_YEAR_D}                    { return D_YEAR_D; }
+  {D_MONTH_S}                   { return D_MONTH_S; }
+  {D_MONTH_D}                   { return D_MONTH_D; }
+  {D_DAY_S}                     { return D_DAY_S; }
+  {D_DAY_D}                     { return D_DAY_D; }
+  {D_HOUR_S}                    { return D_HOUR_S; }
+  {D_HOUR_D}                    { return D_HOUR_D; }
+  {D_MINUTE_S}                  { return D_MINUTE_S; }
+  {D_MINUTE_D}                  { return D_MINUTE_D; }
+  {D_SECOND_S}                  { return D_SECOND_S; }
+  {D_SECOND_D}                  { return D_SECOND_D; }
+  {D_MILLISECOND_S}             { return D_MILLISECOND_S; }
+  {D_MILLISECOND_D}             { return D_MILLISECOND_D; }
   {NUMBER_INTEGER}              { return NUMBER_INTEGER; }
   {B_COMMENT}                   { return B_COMMENT; }
   {L_COMMENT}                   { return L_COMMENT; }

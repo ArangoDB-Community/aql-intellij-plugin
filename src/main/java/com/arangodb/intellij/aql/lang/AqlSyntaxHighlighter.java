@@ -65,7 +65,7 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
             return PARAMETER_VARIABLE;
         } else if (type.equals(AqlTypes.SYSTEM_PROPERTY)) {
             return SYSTEM_PROPERTY;
-        } else if (type.equals(AqlTypes.KEYWORD_FUNCTIONS)) {
+        } else if (type.equals(AqlTypes.NAMED_FUNCTIONS)) {
             return FUNCTION;
         } else if (type.equals(AqlTypes.KEYWORD_STATEMENTS)) {
             return KEYWORD;

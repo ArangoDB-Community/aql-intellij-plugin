@@ -12,11 +12,11 @@ public interface AqlFunFullText extends PsiElement {
     @Nullable
     AqlIntegerType getIntegerType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+    @NotNull
+    List<AqlObjectExpression> getObjectExpressionList();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+    @NotNull
+    List<AqlParameterVariable> getParameterVariableList();
 
     @Nullable
     AqlPropertyName getPropertyName();
@@ -24,8 +24,8 @@ public interface AqlFunFullText extends PsiElement {
     @NotNull
     List<AqlStringType> getStringTypeList();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+    @NotNull
+    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
     @NotNull
     PsiElement getFFulltext();

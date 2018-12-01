@@ -16,3 +16,4 @@ public abstract class AqlNamedFunctionMixin extends AqlNamedElementImpl {
         return AqlMixinType.FUNCTION;
     }
 }
+

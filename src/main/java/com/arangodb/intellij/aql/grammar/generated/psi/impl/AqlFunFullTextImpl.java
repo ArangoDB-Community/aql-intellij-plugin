@@ -39,15 +39,15 @@ public class AqlFunFullTextImpl extends ASTWrapperPsiElement implements AqlFunFu
     }
 
     @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
+    @NotNull
+    public List<AqlObjectExpression> getObjectExpressionList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
     }
 
     @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
+    @NotNull
+    public List<AqlParameterVariable> getParameterVariableList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
     }
 
     @Override
@@ -63,9 +63,9 @@ public class AqlFunFullTextImpl extends ASTWrapperPsiElement implements AqlFunFu
     }
 
     @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
+    @NotNull
+    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
     }
 
     @Override

@@ -43,6 +43,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitDateUnit(@NotNull AqlDateUnit o) {
+        visitPsiElement(o);
+    }
+
     public void visitExpressionType(@NotNull AqlExpressionType o) {
         visitPsiElement(o);
     }
@@ -52,6 +56,10 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunAcos(@NotNull AqlFunAcos o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunAnalyzer(@NotNull AqlFunAnalyzer o) {
         visitPsiElement(o);
     }
 
@@ -88,6 +96,14 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunAvg(@NotNull AqlFunAvg o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunBm25(@NotNull AqlFunBm25 o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunBoost(@NotNull AqlFunBoost o) {
         visitPsiElement(o);
     }
 
@@ -143,7 +159,99 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunCurrentDatabase(@NotNull AqlFunCurrentDatabase o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunCurrentUser(@NotNull AqlFunCurrentUser o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateAdd(@NotNull AqlFunDateAdd o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateCompare(@NotNull AqlFunDateCompare o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateDay(@NotNull AqlFunDateDay o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateDayOfYear(@NotNull AqlFunDateDayOfYear o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateDaysInMonth(@NotNull AqlFunDateDaysInMonth o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateDiff(@NotNull AqlFunDateDiff o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateFormat(@NotNull AqlFunDateFormat o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateHour(@NotNull AqlFunDateHour o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateISO8601(@NotNull AqlFunDateISO8601 o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateIsoWeek(@NotNull AqlFunDateIsoWeek o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateLeapYear(@NotNull AqlFunDateLeapYear o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateMillisecond(@NotNull AqlFunDateMillisecond o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateMinute(@NotNull AqlFunDateMinute o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateMonth(@NotNull AqlFunDateMonth o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateNow(@NotNull AqlFunDateNow o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateOfWeek(@NotNull AqlFunDateOfWeek o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateQuarter(@NotNull AqlFunDateQuarter o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateSecond(@NotNull AqlFunDateSecond o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateSubtract(@NotNull AqlFunDateSubtract o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateTimeStamp(@NotNull AqlFunDateTimeStamp o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateTrunc(@NotNull AqlFunDateTrunc o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunDateYear(@NotNull AqlFunDateYear o) {
         visitPsiElement(o);
     }
 
@@ -160,6 +268,10 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunEncodeUriComponent(@NotNull AqlFunEncodeUriComponent o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunExists(@NotNull AqlFunExists o) {
         visitPsiElement(o);
     }
 
@@ -311,6 +423,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunKeys(@NotNull AqlFunKeys o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunLast(@NotNull AqlFunLast o) {
         visitPsiElement(o);
     }
@@ -379,6 +495,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunMinMatch(@NotNull AqlFunMinMatch o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunMinus(@NotNull AqlFunMinus o) {
         visitPsiElement(o);
     }
@@ -411,6 +531,10 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunPhrase(@NotNull AqlFunPhrase o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunPi(@NotNull AqlFunPi o) {
         visitPsiElement(o);
     }
@@ -424,6 +548,10 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunPow(@NotNull AqlFunPow o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunPregelResult(@NotNull AqlFunPregelResult o) {
         visitPsiElement(o);
     }
 
@@ -535,6 +663,14 @@ public class AqlVisitor extends PsiElementVisitor {
         visitPsiElement(o);
     }
 
+    public void visitFunStartsWith(@NotNull AqlFunStartsWith o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunStdDevSample(@NotNull AqlFunStdDevSample o) {
+        visitPsiElement(o);
+    }
+
     public void visitFunStddev(@NotNull AqlFunStddev o) {
         visitPsiElement(o);
     }
@@ -560,6 +696,10 @@ public class AqlVisitor extends PsiElementVisitor {
     }
 
     public void visitFunTan2(@NotNull AqlFunTan2 o) {
+        visitPsiElement(o);
+    }
+
+    public void visitFunTfDiff(@NotNull AqlFunTfDiff o) {
         visitPsiElement(o);
     }
 
@@ -680,10 +820,6 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
     public void visitJsonType(@NotNull AqlJsonType o) {
-        visitPsiElement(o);
-    }
-
-  public void visitKeywordFunctions(@NotNull AqlKeywordFunctions o) {
     visitPsiElement(o);
   }
 
@@ -696,10 +832,6 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
     public void visitNamedFunctions(@NotNull AqlNamedFunctions o) {
-        visitPsiElement(o);
-    }
-
-  public void visitNamedKeywordFunctions(@NotNull AqlNamedKeywordFunctions o) {
     visitPsiElement(o);
   }
 
