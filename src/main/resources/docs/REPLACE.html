@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>REPLACE</title>
+</head>
+<body>
+<h1 id="replace">REPLACE<a class="anchorjs-link " href="#replace" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>REPLACE</em> keyword can be used to completely replace documents in a collection. On a
+    single server, the replace operation is executed transactionally in an all-or-nothing
+    fashion.</p>
+<p>If the RocksDB engine is used and intermediate commits are enabled, a query may
+    execute intermediate transaction commits in case the running transaction (AQL
+    query) hits the specified size thresholds. In this case, the query's operations
+    carried out so far will be committed and not rolled back in case of a later abort/rollback.
+    That behavior can be controlled by adjusting the intermediate commit settings for
+    the RocksDB engine. </p>
+<p>For sharded collections, the entire query and/or replace operation may not be transactional,
+    especially if it involves different shards and/or database servers.</p>
+<p>Each <em>REPLACE</em> operation is restricted to a single collection, and the
+    <a href="../../Manual/Appendix/Glossary.html#collection-name">collection name</a> must not be dynamic.
+    Only a single <em>REPLACE</em> statement per collection is allowed per AQL query, and
+    it cannot be followed by read or write operations that access the same collection, by
+    traversal operations, or AQL functions that can read documents.
+    The system attributes <em>_id</em>, <em>_key</em> and <em>_rev</em> cannot be replaced, <em>_from</em> and
+    <em>_to</em> can.</p>
+<p>The two syntaxes for a replace operation are:</p>
+<pre><code>REPLACE document IN collection options
+REPLACE keyExpression WITH document IN collection options
+</code></pre>
+<p><em>collection</em> must contain the name of the collection in which the documents should
+    be replaced. <em>document</em> is the replacement document. When using the first syntax, <em>document</em>
+    must also contain the <em>_key</em> attribute to identify the document to be replaced. </p>
+<pre><code>FOR u IN users
+  REPLACE { _key: u._key, name: CONCAT(u.firstName, u.lastName), status: u.status } IN users
+</code></pre>
+<p>The following query is invalid because it does not contain a <em>_key</em> attribute and
+    thus it is not possible to determine the documents to be replaced:</p>
+<pre><code>FOR u IN users
+  REPLACE { name: CONCAT(u.firstName, u.lastName, status: u.status) } IN users
+</code></pre>
+<p>When using the second syntax, <em>keyExpression</em> provides the document identification.
+    This can either be a string (which must then contain the document key) or a
+    document, which must contain a <em>_key</em> attribute.</p>
+<p>The following queries are equivalent:</p>
+<pre><code>FOR u IN users
+  REPLACE { _key: u._key, name: CONCAT(u.firstName, u.lastName) } IN users
+
+FOR u IN users
+  REPLACE u._key WITH { name: CONCAT(u.firstName, u.lastName) } IN users
+
+FOR u IN users
+  REPLACE { _key: u._key } WITH { name: CONCAT(u.firstName, u.lastName) } IN users
+
+FOR u IN users
+  REPLACE u WITH { name: CONCAT(u.firstName, u.lastName) } IN users
+</code></pre>
+<p>A replace will fully replace an existing document, but it will not modify the values
+    of internal attributes (such as <em>_id</em>, <em>_key</em>, <em>_from</em> and <em>_to</em>). Replacing a document
+    will modify a document's revision number with a server-generated value.</p>
+<p>A replace operation may update arbitrary documents which do not need to be identical
+    to the ones produced by a preceding <em>FOR</em> statement:</p>
+<pre><code>FOR i IN 1..1000
+  REPLACE CONCAT('test', i) WITH { foobar: true } IN users
+
+FOR u IN users
+  FILTER u.active == false
+  REPLACE u WITH { status: 'inactive', name: u.name } IN backup
+</code></pre>
+<h2 id="setting-query-options">Setting query options<a class="anchorjs-link " href="#setting-query-options" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><em>options</em> can be used to suppress query errors that may occur when trying to
+    replace non-existing documents or when violating unique key constraints:</p>
+<pre><code>FOR i IN 1..1000
+  REPLACE { _key: CONCAT('test', i) } WITH { foobar: true } IN users OPTIONS { ignoreErrors: true }
+</code></pre>
+<p>To make sure data are durable when a replace query returns, there is the <em>waitForSync</em>
+    query option:</p>
+<pre><code>FOR i IN 1..1000
+  REPLACE { _key: CONCAT('test', i) } WITH { foobar: true } IN users OPTIONS { waitForSync: true }
+</code></pre>
+<p>In order to not accidentially overwrite documents that have been updated since you last fetched
+    them, you can use the option <em>ignoreRevs</em> to either let ArangoDB compare the <code>_rev</code> value and only
+    succeed if they still match, or let ArangoDB ignore them (default):</p>
+<pre><code>FOR i IN 1..1000
+  REPLACE { _key: CONCAT('test', i), _rev: "1287623" } WITH { foobar: true } IN users OPTIONS { ignoreRevs: false }
+</code></pre>
+<h2 id="returning-the-modified-documents">Returning the modified documents<a class="anchorjs-link " href="#returning-the-modified-documents" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>The modified documents can also be returned by the query. In this case, the <code>REPLACE</code>
+    statement must be followed by a <code>RETURN</code> statement (intermediate <code>LET</code> statements are
+    allowed, too). The <code>OLD</code> pseudo-value can be used to refer to document revisions before
+    the replace, and <code>NEW</code> refers to document revisions after the replace.</p>
+<p>Both <code>OLD</code> and <code>NEW</code> will contain all document attributes, even those not specified
+    in the replace expression.</p>
+<pre><code>REPLACE document IN collection options RETURN OLD
+REPLACE document IN collection options RETURN NEW
+REPLACE keyExpression WITH document IN collection options RETURN OLD
+REPLACE keyExpression WITH document IN collection options RETURN NEW
+</code></pre>
+<p>Following is an example using a variable named <code>previous</code> to return the original
+    documents before modification. For each replaced document, the document key will be
+    returned:</p>
+<pre><code>FOR u IN users
+  REPLACE u WITH { value: "test" }
+  IN users
+  LET previous = OLD
+  RETURN previous._key
+</code></pre>
+<p>The following query uses the <code>NEW</code> pseudo-value to return the replaced
+    documents (without some of their system attributes):</p>
+<pre><code>FOR u IN users
+  REPLACE u WITH { value: "test" } IN users
+  LET replaced = NEW
+  RETURN UNSET(replaced, '_key', '_id', '_rev')</code></pre>
+</body>
+</html>

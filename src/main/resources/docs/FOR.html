@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FOR</title>
+</head>
+<body>
+<h1 id="for">FOR<a class="anchorjs-link " href="#for" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>FOR</em> keyword can be to iterate over all elements of an array.
+    The general syntax is:</p>
+<pre><code class="lang-js">FOR variableName IN expression
+</code></pre>
+<p>There is also a special variant for graph traversals:</p>
+<pre><code class="lang-js">FOR vertexVariableName, edgeVariableName, pathVariableName IN traversalExpression
+</code></pre>
+<p>For this special case see <a href="../Graphs/Traversals.html">the graph traversals chapter</a>.</p>
+<p>For views, there is a special (optional) <code>SEARCH</code> keyword:</p>
+<pre><code class="lang-js">FOR variableName IN viewName SEARCH searchExpression
+</code></pre>
+<p>Details can be found in <a href="Views/">the views chapter</a>.</p>
+<p>For all other cases read on:</p>
+<p>Each array element returned by <em>expression</em> is visited exactly once. It is
+    required that <em>expression</em> returns an array in all cases. The empty array is
+    allowed, too. The current array element is made available for further processing
+    in the variable specified by <em>variableName</em>.</p>
+<pre><code>FOR u IN users
+  RETURN u
+</code></pre>
+<p>This will iterate over all elements from the array <em>users</em> (note: this array
+    consists of all documents from the collection named "users" in this case) and
+    make the current array element available in variable <em>u</em>. <em>u</em> is not modified in
+    this example but simply pushed into the result using the <em>RETURN</em> keyword.</p>
+<p>Note: When iterating over collection-based arrays as shown here, the order of
+    documents is undefined unless an explicit sort order is defined using a <em>SORT</em>
+    statement.</p>
+<p>The variable introduced by <em>FOR</em> is available until the scope the <em>FOR</em> is
+    placed in is closed.</p>
+<p>Another example that uses a statically declared array of values to iterate over:</p>
+<pre><code>FOR year IN [ 2011, 2012, 2013 ]
+  RETURN { "year" : year, "isLeapYear" : year % 4 == 0 &amp;&amp; (year % 100 != 0 || year % 400 == 0) }
+</code></pre>
+<p>Nesting of multiple <em>FOR</em> statements is allowed, too. When <em>FOR</em> statements are
+    nested, a cross product of the array elements returned by the individual <em>FOR</em>
+    statements will be created.</p>
+<pre><code>FOR u IN users
+  FOR l IN locations
+    RETURN { "user" : u, "location" : l }
+</code></pre>
+<p>In this example, there are two array iterations: an outer iteration over the array
+    <em>users</em> plus an inner iteration over the array <em>locations</em>. The inner array is
+    traversed as many times as there are elements in the outer array. For each
+    iteration, the current values of <em>users</em> and <em>locations</em> are made available for
+    further processing in the variable <em>u</em> and <em>l</em>.</p>
+<p></p>
+
+</body>
+</html>

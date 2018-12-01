@@ -5,6 +5,56 @@
   <title>LET</title>
 </head>
 <body>
-<h1>LET's do it</h1>
+<h1 id="let">LET<a class="anchorjs-link " href="#let" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>LET</em> statement can be used to assign an arbitrary value to a variable.
+  The variable is then introduced in the scope the <em>LET</em> statement is placed in.</p>
+<p>The general syntax is:</p>
+<pre><code>LET variableName = expression
+</code></pre>
+<p>Variables are immutable in AQL, which means they can not be re-assigned:</p>
+<pre><code class="lang-js">LET a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]  <span class="hljs-comment">// initial assignment</span>
+
+a = PUSH(a, <span class="hljs-number">4</span>)     <span class="hljs-comment">// syntax error, unexpected identifier</span>
+LET a = PUSH(a, <span class="hljs-number">4</span>) <span class="hljs-comment">// parsing error, variable 'a' is assigned multiple times</span>
+LET b = PUSH(a, <span class="hljs-number">4</span>) <span class="hljs-comment">// allowed, result: [1, 2, 3, 4]</span>
+</code></pre>
+<p><em>LET</em> statements are mostly used to declare complex computations and to avoid
+  repeated computations of the same value at multiple parts of a query.</p>
+<pre><code>FOR u IN users
+  LET numRecommendations = LENGTH(u.recommendations)
+  RETURN {
+    "user" : u,
+    "numRecommendations" : numRecommendations,
+    "isPowerUser" : numRecommendations &gt;= 10
+  }
+</code></pre>
+<p>In the above example, the computation of the number of recommendations is
+  factored out using a <em>LET</em> statement, thus avoiding computing the value twice in
+  the <em>RETURN</em> statement.</p>
+<p>Another use case for <em>LET</em> is to declare a complex computation in a subquery,
+  making the whole query more readable.</p>
+<pre><code>FOR u IN users
+  LET friends = (
+  FOR f IN friends
+    FILTER u.id == f.userId
+    RETURN f
+  )
+  LET memberships = (
+  FOR m IN memberships
+    FILTER u.id == m.userId
+      RETURN m
+  )
+  RETURN {
+    "user" : u,
+    "friends" : friends,
+    "numFriends" : LENGTH(friends),
+    "memberShips" : memberships
+  }
+</code></pre>
+<p></p>
+<div id="page-footer" class="localized-footer">
+  <hr>
+</div>
 </body>
 </html>

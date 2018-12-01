@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WITH</title>
+</head>
+<body>
+<h1 id="with">WITH<a class="anchorjs-link " href="#with" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>An AQL query can optionally start with a <em>WITH</em> statement and the list of
+    collections used by the query. All collections specified in <em>WITH</em> will be
+    read-locked at query start, in addition to the other collections the query
+    uses and that are detected by the AQL query parser.</p>
+<p>Specifying further collections in <em>WITH</em> can be useful for queries that
+    dynamically access collections (e.g. via traversals or via dynamic
+    document access functions such as <code>DOCUMENT()</code>). Such collections may be
+    invisible to the AQL query parser at query compile time, and thus will not
+    be read-locked automatically at query start. In this case, the AQL execution
+    engine will lazily lock these collections whenever they are used, which can
+    lead to deadlock with other queries. In case such deadlock is detected, the
+    query will automatically be aborted and changes will be rolled back. In this
+    case the client application can try sending the query again.
+    However, if client applications specify the list of used collections for all
+    their queries using <em>WITH</em>, then no deadlocks will happen and no queries will
+    be aborted due to deadlock situations.</p>
+<p>From ArangoDB 3.1 onwards <code>WITH</code> is required for traversals in a
+    clustered environment in order to avoid deadlocks.</p>
+<p>Note that for queries that access only a single collection or that have all
+    collection names specified somewhere else in the query string, there is no
+    need to use <em>WITH</em>. <em>WITH</em> is only useful when the AQL query parser cannot
+    automatically figure out which collections are going to be used by the query.
+    <em>WITH</em> is only useful for queries that dynamically access collections, e.g.
+    via traversals, shortest path operations or the <em>DOCUMENT()</em> function.</p>
+<pre><code>WITH managers, usersHaveManagers
+FOR v, e, p IN OUTBOUND 'users/1' GRAPH 'userGraph'
+  RETURN { v, e, p }
+</code></pre>
+<p>Note that constant <em>WITH</em> is also a keyword that is used in other contexts,
+    for example in <em>UPDATE</em> statements. If <em>WITH</em> is used to specify the extra
+    list of collections, then it must be placed at the very start of the query
+    string.</p>
+</body>
+</html>

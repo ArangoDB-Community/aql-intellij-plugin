@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UPDATE</title>
+</head>
+<body>
+<h1 id="update">UPDATE<a class="anchorjs-link " href="#update" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>UPDATE</em> keyword can be used to partially update documents in a collection. On a
+    single server, updates are executed transactionally in an all-or-nothing fashion. </p>
+<p>If the RocksDB engine is used and intermediate commits are enabled, a query may
+    execute intermediate transaction commits in case the running transaction (AQL
+    query) hits the specified size thresholds. In this case, the query's operations
+    carried out so far will be committed and not rolled back in case of a later abort/rollback.
+    That behavior can be controlled by adjusting the intermediate commit settings for
+    the RocksDB engine. </p>
+<p>For sharded collections, the entire query and/or update operation may not be transactional,
+    especially if it involves different shards and/or database servers.</p>
+<p>Each <em>UPDATE</em> operation is restricted to a single collection, and the
+    <a href="../../Manual/Appendix/Glossary.html#collection-name">collection name</a> must not be dynamic.
+    Only a single <em>UPDATE</em> statement per collection is allowed per AQL query, and
+    it cannot be followed by read or write operations that access the same collection, by
+    traversal operations, or AQL functions that can read documents.
+    The system attributes <em>_id</em>, <em>_key</em> and <em>_rev</em> cannot be updated, <em>_from</em> and
+    <em>_to</em> can.</p>
+<p>The two syntaxes for an update operation are:</p>
+<pre><code>UPDATE document IN collection options
+UPDATE keyExpression WITH document IN collection options
+</code></pre>
+<p><em>collection</em> must contain the name of the collection in which the documents should
+    be updated. <em>document</em> must be a document that contains the attributes and values
+    to be updated. When using the first syntax, <em>document</em> must also contain the <em>_key</em>
+    attribute to identify the document to be updated. </p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE { _key: u._key, name: CONCAT(u.firstName, <span class="hljs-string">" "</span>, u.lastName) } IN users
+</code></pre>
+<p>The following query is invalid because it does not contain a <em>_key</em> attribute and
+    thus it is not possible to determine the documents to be updated:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE { name: CONCAT(u.firstName, <span class="hljs-string">" "</span>, u.lastName) } IN users
+</code></pre>
+<p>When using the second syntax, <em>keyExpression</em> provides the document identification.
+    This can either be a string (which must then contain the document key) or a
+    document, which must contain a <em>_key</em> attribute.</p>
+<p>An object with <code>_id</code> attribute but without <code>_key</code> attribute as well as a
+    document ID as string like <code>"users/john"</code> do not work. However, you can use
+    <code>DOCUMENT(id)</code> to fetch the document via its ID and <code>PARSE_IDENTIFIER(id).key</code>
+    to get the document key as string.</p>
+<p>The following queries are equivalent:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u._key WITH { name: CONCAT(u.firstName, <span class="hljs-string">" "</span>, u.lastName) } IN users
+
+FOR u IN users
+  UPDATE { _key: u._key } WITH { name: CONCAT(u.firstName, <span class="hljs-string">" "</span>, u.lastName) } IN users
+
+FOR u IN users
+  UPDATE u WITH { name: CONCAT(u.firstName, <span class="hljs-string">" "</span>, u.lastName) } IN users
+</code></pre>
+<p>An update operation may update arbitrary documents which do not need to be identical
+    to the ones produced by a preceding <em>FOR</em> statement:</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.1000</span>
+  UPDATE CONCAT(<span class="hljs-string">'test'</span>, i) WITH { foobar: <span class="hljs-literal">true</span> } IN users
+
+FOR u IN users
+  FILTER u.active == <span class="hljs-literal">false</span>
+  UPDATE u WITH { status: <span class="hljs-string">'inactive'</span> } IN backup
+</code></pre>
+<h2 id="using-the-current-value-of-a-document-attribute">Using the current value of a document attribute<a class="anchorjs-link " href="#using-the-current-value-of-a-document-attribute" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>The pseudo-variable <code>OLD</code> is not supported inside of <code>WITH</code> clauses (it is
+    available after <code>UPDATE</code>). To access the current attribute value, you can
+    usually refer to a document via the variable of the <code>FOR</code> loop, which is used
+    to iterate over a collection:</p>
+<pre><code class="lang-js">FOR doc IN users
+  UPDATE doc WITH {
+    fullName: CONCAT(doc.firstName, <span class="hljs-string">" "</span>, doc.lastName)
+  } IN users
+</code></pre>
+<p>If there is no loop, because a single document is updated only, then there
+    might not be a variable like above (<code>doc</code>), which would let you refer to the
+    document which is being updated:</p>
+<pre><code class="lang-js">UPDATE <span class="hljs-string">"john"</span> WITH { ... } IN users
+</code></pre>
+<pre><code class="lang-js">LET key = PARSE_IDENTIFIER(<span class="hljs-string">"users/john"</span>).key
+UPDATE key WITH { ... } IN users
+</code></pre>
+<p>To access the current value in this situation, the document has to be retrieved
+    and stored in a variable first:</p>
+<pre><code class="lang-js">LET doc = DOCUMENT(<span class="hljs-string">"users/john"</span>)
+UPDATE doc WITH {
+  fullName: CONCAT(doc.firstName, <span class="hljs-string">" "</span>, doc.lastName)
+} IN users
+</code></pre>
+<p>An existing attribute can be modified based on its current value this way,
+    to increment a counter for instance:</p>
+<pre><code class="lang-js">UPDATE doc WITH {
+  karma: doc.karma + <span class="hljs-number">1</span>
+} IN users
+</code></pre>
+<p>If the attribute <code>karma</code> doesn't exist yet, <code>doc.karma</code> is evaluated to <em>null</em>.
+    The expression <code>null + 1</code> results in the new attribute <code>karma</code> being set to <em>1</em>.
+    If the attribute does exist, then it is increased by <em>1</em>.</p>
+<p>Arrays can be mutated too of course:</p>
+<pre><code class="lang-js">UPDATE doc WITH {
+  hobbies: PUSH(doc.hobbies, <span class="hljs-string">"swimming"</span>)
+} IN users
+</code></pre>
+<p>If the attribute <code>hobbies</code> doesn't exist yet, it is conveniently initialized
+    as <code>[ "swimming" ]</code> and otherwise extended.</p>
+<h2 id="setting-query-options">Setting query options<a class="anchorjs-link " href="#setting-query-options" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><em>options</em> can be used to suppress query errors that may occur when trying to
+    update non-existing documents or violating unique key constraints:</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.1000</span>
+  UPDATE {
+    _key: CONCAT(<span class="hljs-string">'test'</span>, i)
+  } WITH {
+    foobar: <span class="hljs-literal">true</span>
+  } IN users OPTIONS { ignoreErrors: <span class="hljs-literal">true</span> }
+</code></pre>
+<p>An update operation will only update the attributes specified in <em>document</em> and
+    leave other attributes untouched. Internal attributes (such as <em>_id</em>, <em>_key</em>, <em>_rev</em>,
+    <em>_from</em> and <em>_to</em>) cannot be updated and are ignored when specified in <em>document</em>.
+    Updating a document will modify the document's revision number with a server-generated value.</p>
+<p>When updating an attribute with a null value, ArangoDB will not remove the attribute
+    from the document but store a null value for it. To get rid of attributes in an update
+    operation, set them to null and provide the <em>keepNull</em> option:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH {
+    foobar: <span class="hljs-literal">true</span>,
+    notNeeded: <span class="hljs-literal">null</span>
+  } IN users OPTIONS { keepNull: <span class="hljs-literal">false</span> }
+</code></pre>
+<p>The above query will remove the <em>notNeeded</em> attribute from the documents and update
+    the <em>foobar</em> attribute normally.</p>
+<p>There is also the option <em>mergeObjects</em> that controls whether object contents will be
+    merged if an object attribute is present in both the <em>UPDATE</em> query and in the
+    to-be-updated document.</p>
+<p>The following query will set the updated document's <em>name</em> attribute to the exact
+    same value that is specified in the query. This is due to the <em>mergeObjects</em> option
+    being set to <em>false</em>:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH {
+    name: { first: <span class="hljs-string">"foo"</span>, middle: <span class="hljs-string">"b."</span>, last: <span class="hljs-string">"baz"</span> }
+  } IN users OPTIONS { mergeObjects: <span class="hljs-literal">false</span> }
+</code></pre>
+<p>Contrary, the following query will merge the contents of the <em>name</em> attribute in the
+    original document with the value specified in the query:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH {
+    name: { first: <span class="hljs-string">"foo"</span>, middle: <span class="hljs-string">"b."</span>, last: <span class="hljs-string">"baz"</span> }
+  } IN users OPTIONS { mergeObjects: <span class="hljs-literal">true</span> }
+</code></pre>
+<p>Attributes in <em>name</em> that are present in the to-be-updated document but not in the
+    query will now be preserved. Attributes that are present in both will be overwritten
+    with the values specified in the query.</p>
+<p>Note: the default value for <em>mergeObjects</em> is <em>true</em>, so there is no need to specify it
+    explicitly.</p>
+<p>To make sure data are durable when an update query returns, there is the <em>waitForSync</em>
+    query option:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH {
+    foobar: <span class="hljs-literal">true</span>
+  } IN users OPTIONS { waitForSync: <span class="hljs-literal">true</span> }
+</code></pre>
+<p>In order to not accidentially overwrite documents that have been updated since you last fetched
+    them, you can use the option <em>ignoreRevs</em> to either let ArangoDB compare the <code>_rev</code> value and
+    only succeed if they still match, or let ArangoDB ignore them (default):</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.1000</span>
+  UPDATE { _key: CONCAT(<span class="hljs-string">'test'</span>, i), _rev: <span class="hljs-string">"1287623"</span> }
+  WITH { foobar: <span class="hljs-literal">true</span> } IN users
+  OPTIONS { ignoreRevs: <span class="hljs-literal">false</span> }
+</code></pre>
+<h2 id="returning-the-modified-documents">Returning the modified documents<a class="anchorjs-link " href="#returning-the-modified-documents" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>The modified documents can also be returned by the query. In this case, the <code>UPDATE</code>
+    statement needs to be followed a <code>RETURN</code> statement (intermediate <code>LET</code> statements
+    are allowed, too). These statements can refer to the pseudo-values <code>OLD</code> and <code>NEW</code>.
+    The <code>OLD</code> pseudo-value refers to the document revisions before the update, and <code>NEW</code>
+    refers to document revisions after the update.</p>
+<p>Both <code>OLD</code> and <code>NEW</code> will contain all document attributes, even those not specified
+    in the update expression.</p>
+<pre><code>UPDATE document IN collection options RETURN OLD
+UPDATE document IN collection options RETURN NEW
+UPDATE keyExpression WITH document IN collection options RETURN OLD
+UPDATE keyExpression WITH document IN collection options RETURN NEW
+</code></pre>
+<p>Following is an example using a variable named <code>previous</code> to capture the original
+    documents before modification. For each modified document, the document key is returned.</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH { value: <span class="hljs-string">"test"</span> }
+  IN users
+  LET previous = OLD
+  RETURN previous._key
+</code></pre>
+<p>The following query uses the <code>NEW</code> pseudo-value to return the updated documents,
+    without some of the system attributes:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH { value: <span class="hljs-string">"test"</span> }
+  IN users
+  LET updated = NEW
+  RETURN UNSET(updated, <span class="hljs-string">"_key"</span>, <span class="hljs-string">"_id"</span>, <span class="hljs-string">"_rev"</span>)
+</code></pre>
+<p>It is also possible to return both <code>OLD</code> and <code>NEW</code>:</p>
+<pre><code class="lang-js">FOR u IN users
+  UPDATE u WITH { value: <span class="hljs-string">"test"</span> }
+  IN users
+  RETURN { before: OLD, after: NEW }</code></pre>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SORT</title>
+</head>
+<body>
+<h1 id="sort">SORT<a class="anchorjs-link " href="#sort" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>SORT</em> statement will force a sort of the array of already produced
+    intermediate results in the current block. <em>SORT</em> allows specifying one or
+    multiple sort criteria and directions. The general syntax is:</p>
+<pre><code>SORT expression direction
+</code></pre>
+<p>Example query that is sorting by lastName (in ascending order), then firstName
+    (in ascending order), then by id (in descending order):</p>
+<pre><code>FOR u IN users
+  SORT u.lastName, u.firstName, u.id DESC
+  RETURN u
+</code></pre>
+<p>Specifying the <em>direction</em> is optional. The default (implicit) direction for a
+    sort expression is the ascending order. To explicitly specify the sort direction,
+    the keywords <em>ASC</em> (ascending) and <em>DESC</em> can be used. Multiple sort criteria can be
+    separated using commas. In this case the direction is specified for each
+    expression sperately. For example</p>
+<pre><code>SORT doc.lastName, doc.firstName
+</code></pre>
+<p>will first sort documents by lastName in ascending order and then by
+    firstName in ascending order.</p>
+<pre><code>SORT doc.lastName DESC, doc.firstName
+</code></pre>
+<p>will first sort documents by lastName in descending order and then by
+    firstName in ascending order.</p>
+<pre><code>SORT doc.lastName, doc.firstName DESC
+</code></pre>
+<p>will first sort documents by lastName in ascending order and then by
+    firstName in descending order.</p>
+<p>Note: when iterating over collection-based arrays, the order of documents is
+    always undefined unless an explicit sort order is defined using <em>SORT</em>.</p>
+<p>Note that constant <em>SORT</em> expressions can be used to indicate that no particular
+    sort order is desired. Constant <em>SORT</em> expressions will be optimized away by the AQL
+    optimizer during optimization, but specifying them explicitly may enable further
+    optimizations if the optimizer does not need to take into account any particular
+    sort order. This is especially the case after a <em>COLLECT</em> statement, which is
+    supposed to produce a sorted result. Specifying an extra <em>SORT null</em> after the
+    <em>COLLECT</em> statement allows to AQL optimizer to remove the post-sorting of the
+    collect results altogether.</p>
+</body>
+</html>

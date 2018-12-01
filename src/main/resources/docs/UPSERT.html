@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UPSERT</title>
+</head>
+<body>
+<h1 id="upsert">UPSERT<a class="anchorjs-link " href="#upsert" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>UPSERT</em> keyword can be used for checking whether certain documents exist,
+    and to update/replace them in case they exist, or create them in case they do not exist.
+    On a single server, upserts are executed transactionally in an all-or-nothing fashion. </p>
+<p>If the RocksDB engine is used and intermediate commits are enabled, a query may
+    execute intermediate transaction commits in case the running transaction (AQL
+    query) hits the specified size thresholds. In this case, the query's operations
+    carried out so far will be committed and not rolled back in case of a later abort/rollback.
+    That behavior can be controlled by adjusting the intermediate commit settings for
+    the RocksDB engine. </p>
+<p>For sharded collections, the entire query and/or upsert operation may not be transactional,
+    especially if it involves different shards and/or database servers.</p>
+<p>Each <em>UPSERT</em> operation is restricted to a single collection, and the
+    <a href="../../Manual/Appendix/Glossary.html#collection-name">collection name</a> must not be dynamic.
+    Only a single <em>UPSERT</em> statement per collection is allowed per AQL query, and
+    it cannot be followed by read or write operations that access the same collection, by
+    traversal operations, or AQL functions that can read documents.</p>
+<p>The syntax for an upsert operation is:</p>
+<pre><code>UPSERT searchExpression INSERT insertExpression UPDATE updateExpression IN collection options
+UPSERT searchExpression INSERT insertExpression REPLACE updateExpression IN collection options
+</code></pre>
+<p>When using the <em>UPDATE</em> variant of the upsert operation, the found document will be
+    partially updated, meaning only the attributes specified in <em>updateExpression</em> will be
+    updated or added. When using the <em>REPLACE</em> variant of upsert, existing documents will
+    be replaced with the contexts of <em>updateExpression</em>.</p>
+<p>Updating a document will modify the document's revision number with a server-generated value.
+    The system attributes <em>_id</em>, <em>_key</em> and <em>_rev</em> cannot be updated, <em>_from</em> and
+    <em>_to</em> can.</p>
+<p>The <em>searchExpression</em> contains the document to be looked for. It must be an object
+    literal without dynamic attribute names. In case no such document can be found in
+    <em>collection</em>, a new document will be inserted into the collection as specified in the
+    <em>insertExpression</em>. </p>
+<p>In case at least one document in <em>collection</em> matches the <em>searchExpression</em>, it will
+    be updated using the <em>updateExpression</em>. When more than one document in the collection
+    matches the <em>searchExpression</em>, it is undefined which of the matching documents will
+    be updated. It is therefore often sensible to make sure by other means (such as unique
+    indexes, application logic etc.) that at most one document matches <em>searchExpression</em>.</p>
+<p>The following query will look in the <em>users</em> collection for a document with a specific
+    <em>name</em> attribute value. If the document exists, its <em>logins</em> attribute will be increased
+    by one. If it does not exist, a new document will be inserted, consisting of the
+    attributes <em>name</em>, <em>logins</em>, and <em>dateCreated</em>:</p>
+<pre><code>UPSERT { name: 'superuser' }
+INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() }
+UPDATE { logins: OLD.logins + 1 } IN users
+</code></pre>
+<p>Note that in the <em>UPDATE</em> case it is possible to refer to the previous version of the
+    document using the <em>OLD</em> pseudo-value.</p>
+<h2 id="setting-query-options">Setting query options<a class="anchorjs-link " href="#setting-query-options" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>As in several above examples, the <em>ignoreErrors</em> option can be used to suppress query
+    errors that may occur when trying to violate unique key constraints.</p>
+<p>When updating or replacing an attribute with a null value, ArangoDB will not remove the
+    attribute from the document but store a null value for it. To get rid of attributes in
+    an upsert operation, set them to null and provide the <em>keepNull</em> option.</p>
+<p>There is also the option <em>mergeObjects</em> that controls whether object contents will be
+    merged if an object attribute is present in both the <em>UPDATE</em> query and in the
+    to-be-updated document.</p>
+<p>Note: the default value for <em>mergeObjects</em> is <em>true</em>, so there is no need to specify it
+    explicitly.</p>
+<p>To make sure data are durable when an update query returns, there is the <em>waitForSync</em>
+    query option.</p>
+<p>In order to not accidentially update documents that have been written and updated since
+    you last fetched them you can use the option <em>ignoreRevs</em> to either let ArangoDB compare
+    the <code>_rev</code> value and only succeed if they still match, or let ArangoDB ignore them (default):</p>
+<pre><code>FOR i IN 1..1000
+  UPSERT { _key: CONCAT('test', i)}
+    INSERT {foobar: false}
+    UPDATE {_rev: "1287623", foobar: true }
+  IN users OPTIONS { ignoreRevs: false }
+</code></pre>
+<p><em>NOTE</em>: You need to add the <code>_rev</code> value in the updateExpression, it will not be used within
+    the searchExpression. Even worse, if you use an outdated <code>_rev</code> in the searchExpression
+    UPSERT will trigger the INSERT path instead of the UPDATE path, because it has not found a document
+    exactly matching the searchExpression.</p>
+<h2 id="returning-documents">Returning documents<a class="anchorjs-link " href="#returning-documents" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>UPSERT</code> statements can optionally return data. To do so, they need to be followed
+    by a <code>RETURN</code> statement (intermediate <code>LET</code> statements are allowed, too). These statements
+    can optionally perform calculations and refer to the pseudo-values <code>OLD</code> and <code>NEW</code>.
+    In case the upsert performed an insert operation, <code>OLD</code> will have a value of <em>null</em>.
+    In case the upsert performed an update or replace operation, <code>OLD</code> will contain the
+    previous version of the document, before update/replace.</p>
+<p><code>NEW</code> will always be populated. It will contain the inserted document in case the
+    upsert performed an insert, or the updated/replaced document in case it performed an
+    update/replace.</p>
+<p>This can also be used to check whether the upsert has performed an insert or an update
+    internally:</p>
+<pre><code>UPSERT { name: 'superuser' }
+INSERT { name: 'superuser', logins: 1, dateCreated: DATE_NOW() }
+UPDATE { logins: OLD.logins + 1 } IN users
+RETURN { doc: NEW, type: OLD ? 'update' : 'insert' }</code></pre>
+</body>
+</html>

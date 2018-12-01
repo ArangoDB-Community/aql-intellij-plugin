@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>REMOVE</title>
+</head>
+<body>
+<h1 id="remove">REMOVE<a class="anchorjs-link " href="#remove" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>REMOVE</em> keyword can be used to remove documents from a collection. On a
+    single server, the document removal is executed transactionally in an
+    all-or-nothing fashion. </p>
+<p>If the RocksDB engine is used and intermediate commits are enabled, a query may
+    execute intermediate transaction commits in case the running transaction (AQL
+    query) hits the specified size thresholds. In this case, the query's operations
+    carried out so far will be committed and not rolled back in case of a later abort/rollback.
+    That behavior can be controlled by adjusting the intermediate commit settings for
+    the RocksDB engine. </p>
+<p>For sharded collections, the entire query and/or remove operation may not be transactional,
+    especially if it involves different shards and/or database servers.</p>
+<p>Each <em>REMOVE</em> operation is restricted to a single collection, and the
+    <a href="../../Manual/Appendix/Glossary.html#collection-name">collection name</a> must not be dynamic.
+    Only a single <em>REMOVE</em> statement per collection is allowed per AQL query, and
+    it cannot be followed by read or write operations that access the same collection, by
+    traversal operations, or AQL functions that can read documents.</p>
+<p>The syntax for a remove operation is:</p>
+<pre><code>REMOVE keyExpression IN collection options
+</code></pre>
+<p><em>collection</em> must contain the name of the collection to remove the documents
+    from. <em>keyExpression</em> must be an expression that contains the document identification.
+    This can either be a string (which must then contain the
+    <a href="../../Manual/Appendix/Glossary.html#document-key">document key</a>) or a
+    document, which must contain a <em>_key</em> attribute.</p>
+<p>The following queries are thus equivalent:</p>
+<pre><code>FOR u IN users
+  REMOVE { _key: u._key } IN users
+
+FOR u IN users
+  REMOVE u._key IN users
+
+FOR u IN users
+  REMOVE u IN users
+</code></pre>
+<p><strong>Note</strong>: A remove operation can remove arbitrary documents, and the documents
+    do not need to be identical to the ones produced by a preceding <em>FOR</em> statement:</p>
+<pre><code>FOR i IN 1..1000
+  REMOVE { _key: CONCAT('test', i) } IN users
+
+FOR u IN users
+  FILTER u.active == false
+  REMOVE { _key: u._key } IN backup
+</code></pre>
+<p>A single document can be removed as well, using a document key string or a
+    document with <code>_key</code> attribute:</p>
+<pre><code>REMOVE 'john' IN users
+</code></pre>
+<pre><code>LET doc = DOCUMENT('users/john')
+REMOVE doc IN users
+</code></pre>
+<p>The restriction of a single remove operation per query and collection
+    applies. The following query causes an <em>access after data-modification</em>
+    error because of the third remove operation:</p>
+<pre><code>REMOVE 'john' IN users
+REMOVE 'john' IN backups // OK, different collection
+REMOVE 'mary' IN users   // Error, users collection again
+</code></pre>
+<h2 id="setting-query-options">Setting query options<a class="anchorjs-link " href="#setting-query-options" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><em>options</em> can be used to suppress query errors that may occur when trying to
+    remove non-existing documents. For example, the following query will fail if one
+    of the to-be-deleted documents does not exist:</p>
+<pre><code>FOR i IN 1..1000
+  REMOVE { _key: CONCAT('test', i) } IN users
+</code></pre>
+<p>By specifying the <em>ignoreErrors</em> query option, these errors can be suppressed so
+    the query completes:</p>
+<pre><code>FOR i IN 1..1000
+  REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { ignoreErrors: true }
+</code></pre>
+<p>To make sure data has been written to disk when a query returns, there is the <em>waitForSync</em>
+    query option:</p>
+<pre><code>FOR i IN 1..1000
+  REMOVE { _key: CONCAT('test', i) } IN users OPTIONS { waitForSync: true }
+</code></pre>
+<p>In order to not accidentially remove documents that have been updated since you last fetched
+    them, you can use the option <em>ignoreRevs</em> to either let ArangoDB compare the <code>_rev</code> values and
+    only succeed if they still match, or let ArangoDB ignore them (default):</p>
+<pre><code>FOR i IN 1..1000
+  REMOVE { _key: CONCAT('test', i), _rev: "1287623" } IN users OPTIONS { ignoreRevs: false }
+</code></pre>
+<h2 id="returning-the-removed-documents">Returning the removed documents<a class="anchorjs-link " href="#returning-the-removed-documents" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>The removed documents can also be returned by the query. In this case, the <code>REMOVE</code>
+    statement must be followed by a <code>RETURN</code> statement (intermediate <code>LET</code> statements
+    are allowed, too).<code>REMOVE</code> introduces the pseudo-value <code>OLD</code> to refer to the removed
+    documents:</p>
+<pre><code>REMOVE keyExpression IN collection options RETURN OLD
+</code></pre>
+<p>Following is an example using a variable named <code>removed</code> for capturing the removed
+    documents. For each removed document, the document key will be returned.</p>
+<pre><code>FOR u IN users
+  REMOVE u IN users
+  LET removed = OLD
+  RETURN removed._key
+</code></pre>
+</body>
+</html>

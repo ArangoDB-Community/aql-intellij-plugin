@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>INSERT</title>
+</head>
+<body>
+<h1 id="insert">INSERT<a class="anchorjs-link " href="#insert" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>INSERT</em> keyword can be used to insert new documents into a collection. On a
+    single server, an insert operation is executed transactionally in an all-or-nothing
+    fashion. </p>
+<p>If the RocksDB engine is used and intermediate commits are enabled, a query may
+    execute intermediate transaction commits in case the running transaction (AQL
+    query) hits the specified size thresholds. In this case, the query's operations
+    carried out so far will be committed and not rolled back in case of a later abort/rollback.
+    That behavior can be controlled by adjusting the intermediate commit settings for
+    the RocksDB engine. </p>
+<p>For sharded collections, the entire query and/or insert operation may not be transactional,
+    especially if it involves different shards and/or database servers.</p>
+<p>Each <em>INSERT</em> operation is restricted to a single collection, and the
+    <a href="../../Manual/Appendix/Glossary.html#collection-name">collection name</a> must not be dynamic.
+    Only a single <em>INSERT</em> statement per collection is allowed per AQL query, and
+    it cannot be followed by read or write operations that access the same collection, by
+    traversal operations, or AQL functions that can read documents.</p>
+<p>The syntax for an insert operation is:</p>
+<pre><code>INSERT document INTO collection [ OPTIONS options ]
+</code></pre>
+<p><strong>Note</strong>: The <em>IN</em> keyword is allowed in place of <em>INTO</em> and has the same meaning.</p>
+<p><em>collection</em> must contain the name of the collection into which the documents should
+    be inserted. <em>document</em> is the document to be inserted, and it may or may not contain
+    a <em>_key</em> attribute. If no <em>_key</em> attribute is provided, ArangoDB will auto-generate
+    a value for <em>_key</em> value. Inserting a document will also auto-generate a document
+    revision number for the document.</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.100</span>
+  INSERT { value: i } INTO numbers
+</code></pre>
+<p>An insert operation can also be performed without a <em>FOR</em> loop to insert a
+    single document:</p>
+<pre><code class="lang-js">INSERT { value: <span class="hljs-number">1</span> } INTO numbers
+</code></pre>
+<p>When inserting into an <a href="../../Manual/Appendix/Glossary.html#edge-collection">edge collection</a>,
+    it is mandatory to specify the attributes <em>_from</em> and <em>_to</em> in document:</p>
+<pre><code class="lang-js">FOR u IN users
+  FOR p IN products
+    FILTER u._key == p.recommendedBy
+    INSERT { _from: u._id, _to: p._id } INTO recommendations
+</code></pre>
+<h2 id="setting-query-options">Setting query options<a class="anchorjs-link " href="#setting-query-options" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>The <em>OPTIONS</em> keyword followed by an object with query options can optionally
+    be provided in an <em>INSERT</em> operation.</p>
+<p>It can be used to suppress query errors that may occur when violating unique
+    key constraints:</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.1000</span>
+  INSERT {
+    _key: CONCAT(<span class="hljs-string">'test'</span>, i),
+    name: <span class="hljs-string">"test"</span>,
+    foobar: <span class="hljs-literal">true</span>
+  } INTO users OPTIONS { ignoreErrors: <span class="hljs-literal">true</span> }
+</code></pre>
+<p>To make sure data are durable when an insert query returns, there is the <em>waitForSync</em>
+    query option:</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.1000</span>
+  INSERT {
+    _key: CONCAT(<span class="hljs-string">'test'</span>, i),
+    name: <span class="hljs-string">"test"</span>,
+    foobar: <span class="hljs-literal">true</span>
+  } INTO users OPTIONS { waitForSync: <span class="hljs-literal">true</span> }
+</code></pre>
+<p>If you want to replace existing documents with documents having the same key
+    there is the <em>overwrite</em> query option. This will let you safely replace the
+    documents instead of raising an "unique constraint violated error":</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.1000</span>
+  INSERT {
+    _key: CONCAT(<span class="hljs-string">'test'</span>, i),
+    name: <span class="hljs-string">"test"</span>,
+    foobar: <span class="hljs-literal">true</span>
+  } INTO users OPTIONS { overwrite: <span class="hljs-literal">true</span> }
+</code></pre>
+<h2 id="returning-the-inserted-documents">Returning the inserted documents<a class="anchorjs-link " href="#returning-the-inserted-documents" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>The inserted documents can also be returned by the query. In this case, the <code>INSERT</code>
+    statement can be a <code>RETURN</code> statement (intermediate <code>LET</code> statements are allowed, too).
+    To refer to the inserted documents, the <code>INSERT</code> statement introduces a pseudo-value
+    named <code>NEW</code>. </p>
+<p>The documents contained in <code>NEW</code> will contain all attributes, even those auto-generated by
+    the database (e.g. <code>_id</code>, <code>_key</code>, <code>_rev</code>).</p>
+<pre><code class="lang-js">INSERT <span class="hljs-built_in">document</span> INTO collection RETURN NEW
+</code></pre>
+<p>Following is an example using a variable named <code>inserted</code> to return the inserted
+    documents. For each inserted document, the document key is returned:</p>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.100</span>
+  INSERT { value: i }
+  INTO users
+  LET inserted = NEW
+  RETURN inserted._key
+</code></pre>
+</body>
+</html>

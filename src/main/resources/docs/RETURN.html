@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RETURN</title>
+</head>
+<body>
+<h1 id="return">RETURN<a class="anchorjs-link " href="#return" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h1>
+<p>The <em>RETURN</em> statement can be used to produce the result of a query.
+    It is mandatory to specify a <em>RETURN</em> statement at the end of each block in a
+    data-selection query, otherwise the query result would be undefined. Using
+    <em>RETURN</em> on the main level in data-modification queries is optional.</p>
+<p>The general syntax for <em>RETURN</em> is:</p>
+<pre><code>RETURN expression
+</code></pre>
+<p>The <em>expression</em> returned by <em>RETURN</em> is produced for each iteration in the block the
+    <em>RETURN</em> statement is placed in. That means the result of a <em>RETURN</em> statement
+    is <strong>always an array</strong>. This includes an empty array if no documents matched the
+    query and a single return value returned as array with one element.</p>
+<p>To return all elements from the currently iterated array without modification,
+    the following simple form can be used:</p>
+<pre><code>FOR variableName IN expression
+  RETURN variableName
+</code></pre>
+<p>As <em>RETURN</em> allows specifying an expression, arbitrary computations can be
+    performed to calculate the result elements. Any of the variables valid in the
+    scope the <em>RETURN</em> is placed in can be used for the computations.</p>
+<p>To iterate over all documents of a collection called <em>users</em> and return the
+    full documents, you can write:</p>
+<pre><code class="lang-js">FOR u IN users
+  RETURN u
+</code></pre>
+<p>In each iteration of the for-loop, a document of the <em>users</em> collection is
+    assigned to a variable <em>u</em> and returned unmodified in this example. To return
+    only one attribute of each document, you could use a different return expression:</p>
+<pre><code class="lang-js">FOR u IN users
+  RETURN u.name
+</code></pre>
+<p>Or to return multiple attributes, an object can be constructed like this:</p>
+<pre><code class="lang-js">FOR u IN users
+  RETURN { name: u.name, age: u.age }
+</code></pre>
+<p>Note: <em>RETURN</em> will close the current scope and eliminate all local variables in it.
+    This is important to remember when working with <a href="../Examples/CombiningQueries.html">subqueries</a>.</p>
+<p><a href="../Fundamentals/DataTypes.html#objects--documents">Dynamic attribute names</a> are
+    supported as well:</p>
+<pre><code class="lang-js">FOR u IN users
+  RETURN { [ u._id ]: u.age }
+</code></pre>
+<p>The document <em>_id</em> of every user is used as expression to compute the
+    attribute key in this example:</p>
+<pre><code class="lang-json">[
+  {
+    <span class="hljs-string">"users/9883"</span>: <span class="hljs-number">32</span>
+  },
+  {
+    <span class="hljs-string">"users/9915"</span>: <span class="hljs-number">27</span>
+  },
+  {
+    <span class="hljs-string">"users/10074"</span>: <span class="hljs-number">69</span>
+  }
+]
+</code></pre>
+<p>The result contains one object per user with a single key/value pair each.
+    This is usually not desired. For a single object, that maps user IDs to ages,
+    the individual results need to be merged and returned with another <code>RETURN</code>:</p>
+<pre><code class="lang-js">RETURN MERGE(
+  FOR u IN users
+    RETURN { [ u._id ]: u.age }
+)
+</code></pre>
+<pre><code class="lang-json">[
+  {
+    <span class="hljs-string">"users/10074"</span>: <span class="hljs-number">69</span>,
+    <span class="hljs-string">"users/9883"</span>: <span class="hljs-number">32</span>,
+    <span class="hljs-string">"users/9915"</span>: <span class="hljs-number">27</span>
+  }
+]
+</code></pre>
+<p>Keep in mind that if the key expression evaluates to the same value multiple
+    times, only one of the key/value pairs with the duplicate name will survive
+    <a href="../Functions/Document.html#merge">MERGE()</a>. To avoid this, you can go without
+    dynamic attribute names, use static names instead and return all document
+    properties as attribute values:</p>
+<pre><code class="lang-js">FOR u IN users
+  RETURN { name: u.name, age: u.age }
+</code></pre>
+<pre><code class="lang-json">[
+  {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"John Smith"</span>,
+    <span class="hljs-string">"age"</span>: <span class="hljs-number">32</span>
+  },
+  {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"James Hendrix"</span>,
+    <span class="hljs-string">"age"</span>: <span class="hljs-number">69</span>
+  },
+  {
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Katie Foster"</span>,
+    <span class="hljs-string">"age"</span>: <span class="hljs-number">27</span>
+  }
+]
+</code></pre>
+<h2 id="return-distinct">RETURN DISTINCT<a class="anchorjs-link " href="#return-distinct" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>Since ArangoDB 2.7, <em>RETURN</em> can optionally be followed by the <em>DISTINCT</em> keyword.
+    The <em>DISTINCT</em> keyword will ensure uniqueness of the values returned by the
+    <em>RETURN</em> statement:</p>
+<pre><code>FOR variableName IN expression
+  RETURN DISTINCT expression
+</code></pre>
+<p>If the <em>DISTINCT</em> is applied on an expression that itself is an array or a subquery,
+    the <em>DISTINCT</em> will not make the values in each array or subquery result unique, but instead
+    ensure that the result contains only distinct arrays or subquery results. To make
+    the result of an array or a subquery unique, simply apply the <em>DISTINCT</em> for the
+    array or the subquery.</p>
+<p>For example, the following query will apply <em>DISTINCT</em> on its subquery results,
+    but not inside the subquery:</p>
+<pre><code>FOR what IN 1..2
+  RETURN DISTINCT (
+    FOR i IN [ 1, 2, 3, 4, 1, 3 ]
+      RETURN i
+  )
+</code></pre>
+<p>Here we'll have a <em>FOR</em> loop with two iterations that each execute a subquery. The
+    <em>DISTINCT</em> here is applied on the two subquery results. Both subqueries return the
+    same result value (that is [ 1, 2, 3, 4, 1, 3 ]), so after <em>DISTINCT</em> there will
+    only be one occurrence of the value [ 1, 2, 3, 4, 1, 3 ] left:</p>
+<pre><code>[
+  [ 1, 2, 3, 4, 1, 3 ]
+]
+</code></pre>
+<p>If the goal is to apply the <em>DISTINCT</em> inside the subquery, it needs to be moved
+    there:</p>
+<pre><code>FOR what IN 1..2
+  LET sub = (
+    FOR i IN [ 1, 2, 3, 4, 1, 3 ]
+      RETURN DISTINCT i
+  )
+  RETURN sub
+</code></pre>
+<p>In the above case, the <em>DISTINCT</em> will make the subquery results unique, so that
+    each subquery will return a unique array of values ([ 1, 2, 3, 4 ]). As the subquery
+    is executed twice and there is no <em>DISTINCT</em> on the top-level, that array will be
+    returned twice:</p>
+<pre><code>[
+  [ 1, 2, 3, 4 ],
+  [ 1, 2, 3, 4 ]
+]
+</code></pre>
+<p>Note: the order of results was undefined for <em>RETURN DISTINCT</em> until before ArangoDB
+    3.3. Starting with ArangoDB 3.3, <em>RETURN DISTINCT</em> will not change the order of the
+    results it is applied on.</p>
+<p>Note: <em>RETURN DISTINCT</em> is not allowed on the top-level of a query if there is no <em>FOR</em>
+    loop preceding it.</p></body>
+</html>
