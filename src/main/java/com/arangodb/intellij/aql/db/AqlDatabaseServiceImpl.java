@@ -15,7 +15,7 @@ import com.arangodb.intellij.aql.exc.AqlDataSourceException;
 import com.arangodb.intellij.aql.model.ArangoDbDatabase;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.arangodb.intellij.aql.ui.DataWindowState;
-import com.arangodb.intellij.aql.util.DataSourceWindowCallback;
+import com.arangodb.intellij.aql.util.AqlUtils;
 import com.arangodb.intellij.aql.util.Icons;
 import com.arangodb.intellij.aql.util.log;
 import com.google.common.cache.Cache;
@@ -108,11 +108,11 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
                 graphSet.add(new AqlKeywordElement(graph.getName(), Icons.ICON_GRAPH).createLookupElement());
             }
             collectionsCache.put(KEY_GRAPHS, graphSet);
-            log.info("Successfully refreshed ArangoDB database:", settings.getSelectedDatabaseName());
+            log.info("Successfully refreshed ArangoDB database:", settings.getName());
         } catch (ArangoDBException e) {
             final int errorNum = e.getErrorNum() == null ? -1 : e.getErrorNum();
             if (errorNum != 11) {
-                popupFix(e.getErrorMessage(), project);
+                AqlUtils.popupDataSourceFix(e.getErrorMessage(), project);
                 return;
             }
             log.error("Invalid ArangoDB datasource", e.getMessage());
@@ -151,6 +151,9 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
             server.setSelectedDatabase(null);
             final Collection<String> databases = getDatabase(server).getAccessibleDatabases();
             for (final String d : databases) {
+                if (server.isExcludeSystemCollections() && d.startsWith("_")) {
+                    continue;
+                }
                 final ArangoDbDatabase arangoDbDatabase = new ArangoDbDatabase(d);
                 populateSchema(server, arangoDbDatabase);
                 server.addDatabase(arangoDbDatabase);
@@ -249,13 +252,10 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
     private void checkEmpty(final String name, final Project project, final String value) throws AqlDataSourceException {
         if (value == null || value.trim().isEmpty()) {
             final String message = "No " + name + " set for ArangoDB data source";
-            popupFix(message, project);
+            AqlUtils.popupDataSourceFix(message, project);
             throw new AqlDataSourceException(message);
         }
     }
 
 
-    private void popupFix(final String message, final Project project) {
-        log.errorAction(message, "Fix ArangoDB data source", new DataSourceWindowCallback(project));
-    }
 }

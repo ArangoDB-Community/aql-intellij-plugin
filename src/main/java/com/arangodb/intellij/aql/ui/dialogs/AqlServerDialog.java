@@ -14,6 +14,7 @@ import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.ui.JBIntSpinner;
 import com.intellij.ui.awt.RelativePoint;
+import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBPasswordField;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.components.JBTextField;
@@ -34,9 +35,10 @@ public class AqlServerDialog extends DialogWrapper {
     private JButton testServerButton;
     private JBIntSpinner portSpinner;
     private JBTabbedPane tabbedPane;
+    private JBCheckBox excludeSystemCheckbox;
 
 
-    public AqlServerDialog(Project project) {
+    public AqlServerDialog(final Project project) {
         super(project);
         this.project = project;
         Disposer.register(project, myDisposable);
@@ -93,6 +95,7 @@ public class AqlServerDialog extends DialogWrapper {
         state.setPassword(String.valueOf(passwordText.getPassword()));
         state.setHost(hostText.getText());
         state.setPort(portSpinner.getNumber());
+        state.setExcludeSystemCollections(excludeSystemCheckbox.isSelected());
         return state;
     }
 
@@ -106,6 +109,7 @@ public class AqlServerDialog extends DialogWrapper {
         userText.setText(server.getUser());
         hostText.setText(server.getHost());
         portSpinner.setNumber(server.getPort());
+        excludeSystemCheckbox.setSelected(server.isExcludeSystemCollections());
 
     }
 }

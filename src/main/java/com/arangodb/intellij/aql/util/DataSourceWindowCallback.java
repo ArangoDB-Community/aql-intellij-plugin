@@ -1,6 +1,7 @@
 package com.arangodb.intellij.aql.util;
 
 
+import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.ui.windows.AqlServerToolWindow;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
@@ -19,5 +20,6 @@ public class DataSourceWindowCallback implements ActionMessageCallback {
         if (window != null) {
             window.activate(null, true);
         }
+        AqlDataService.with(project).showServerDialog();
     }
 }

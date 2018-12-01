@@ -15,7 +15,7 @@ public final class log {
 
     public static void errorAction(final String message, final String actionName, final ActionMessageCallback callback) {
         final String html = message + "<br/><a href=''>" + actionName + "</a>";
-        notify(new Notification(DISPLAY_ID, DISPLAY_ID, html, NotificationType.INFORMATION, (notification, event) -> callback.call()));
+        notify(new Notification(DISPLAY_ID, DISPLAY_ID, html, NotificationType.ERROR, (notification, event) -> callback.call()));
     }
 
 

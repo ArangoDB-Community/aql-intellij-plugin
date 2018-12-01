@@ -14,6 +14,7 @@ import com.arangodb.intellij.aql.ui.renderers.AqlNodeModel;
 import com.arangodb.intellij.aql.util.AqlUtils;
 import com.arangodb.intellij.aql.util.log;
 import com.arangodb.model.AqlQueryExplainOptions;
+import com.google.common.base.Strings;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.CheckedTreeNode;
@@ -37,11 +38,24 @@ public final class AqlDataService {
     private enum QueryType {
         QUERY, EXPLAIN_QUERY
     }
+
     private AqlDataService(final Project project) {
         this.project = project;
         this.messageBus = project.getMessageBus();
         this.service = ServiceManager.getService(project, AqlDatabaseService.class);
         this.stateComponent = project.getComponent(DataWindowState.class);
+    }
+
+    public boolean hasValidSettings() {
+        final ArangoDbServer state = stateComponent.getState();
+        if (Strings.isNullOrEmpty(state.getUser())
+                || Strings.isNullOrEmpty(state.getPassword())
+                || Strings.isNullOrEmpty(state.getHost())
+
+        ) {
+            return false;
+        }
+        return true;
     }
 
     public static AqlDataService with(final Project project) {
@@ -98,10 +112,18 @@ public final class AqlDataService {
 
 
     public ArangoDbServer server() {
-        return service.getServer(project);
+        if (hasValidSettings()) {
+            return service.getServer(project);
+        }
+        // return empty server
+        return stateComponent.getState();
     }
 
     public AqlDataService refreshSchema() {
+        if (!hasValidSettings()) {
+            AqlUtils.popupDataSourceFix("Setup ArangoDB connection", project);
+            return this;
+        }
         // trigger cache reload
         service.refresh(service.getServer(project), project);
         final ActionBusEvent event = messageBus.syncPublisher(ActionBusEvent.AQL_SYSTEM_REFRESH_SCHEME);
@@ -122,7 +144,6 @@ public final class AqlDataService {
     }
 
 
-
     public void showServerDialog() {
         final AqlServerDialog dialog = new AqlServerDialog(project);
         final ArangoDbServer state = stateComponent.getState();
@@ -131,7 +152,7 @@ public final class AqlDataService {
         if (ok) {
             final ActionResponse actionResponse = testServerConnection(dialog.getData());
             if (actionResponse.isError()) {
-                dialog.showTooltip(actionResponse);
+                log.error(actionResponse.getMessage());
                 return;
             }
             stateComponent.loadState(dialog.getData());
@@ -207,7 +228,10 @@ public final class AqlDataService {
     }
 
     public boolean hasValidConnection() {
-        return service.isConnectionValid(project);
+        if (hasValidSettings()) {
+            return service.isConnectionValid(project);
+        }
+        return false;
     }
 }
 

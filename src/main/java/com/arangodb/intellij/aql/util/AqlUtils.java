@@ -11,15 +11,15 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.arangodb.intellij.aql.util.log.*;
+
 
 public final class AqlUtils {
-    private static final Logger log = LoggerFactory.getLogger(AqlUtils.class);
+
 
     private AqlUtils() {
     }
@@ -54,5 +54,9 @@ public final class AqlUtils {
 
     public static String parseExecutionEntity(final AqlExecutionExplainEntity entity) {
         return JSON.toJson(entity);
+    }
+
+    public static void popupDataSourceFix(final String message, final Project project) {
+        errorAction(message, "Fix ArangoDB data source", new DataSourceWindowCallback(project));
     }
 }
