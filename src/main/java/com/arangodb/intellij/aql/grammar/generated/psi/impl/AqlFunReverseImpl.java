@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -56,15 +57,21 @@ public class AqlFunReverseImpl extends ASTWrapperPsiElement implements AqlFunRev
     }
 
     @Override
+    @Nullable
+    public AqlStringType getStringType() {
+        return findChildByClass(AqlStringType.class);
+    }
+
+    @Override
     @NotNull
     public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
     }
 
     @Override
-    @NotNull
+    @Nullable
     public PsiElement getFReverse() {
-        return findNotNullChildByType(F_REVERSE);
+        return findChildByType(F_REVERSE);
     }
 
 }

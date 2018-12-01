@@ -249,6 +249,23 @@ T_SYS_TO = "_to"
     // operators
 
 //############################################
+// ANALYZERS
+//############################################
+
+A_IDENTITY="identity"
+A_TEXT_DE="text_de"
+A_TEXT_EN="text_en"
+A_TEXT_ES="text_es"
+A_TEXT_FI="text_fi"
+A_TEXT_FR="text_fr"
+A_TEXT_IT="text_it"
+A_TEXT_NL="text_nl"
+A_TEXT_NO="text_no"
+A_TEXT_PT="text_pt"
+A_TEXT_RU="text_ru"
+A_TEXT_SV="text_sv"
+A_TEXT_ZH="text_zh"
+//############################################
 // NONE_TOKENS
 //############################################
 N_AT = "@"
@@ -331,75 +348,75 @@ private ArithmeticOperators ::=  T_PLUS
                     | T_DIV
                     | T_MOD
 
-KeywordFunctions ::=  F_SUBSTITUTE
-                        | F_MD5
-                        | F_DATE_SUBTRACT
+KeywordFunctions ::=   F_DATE_SUBTRACT
                         | F_DATE_MINUTE
-                        | F_SPLIT
                         | F_DATE_LEAPYEAR
                         | F_STDDEV_SAMPLE
-                        | F_REGEX_SPLIT
                         | F_CURRENT_DATABASE
-                        | F_JSON_PARSE
                         | F_DATE_DAYOFYEAR
                         | F_DATE_DAY
                         | F_DATE_DAYS_IN_MONTH
-                        | F_LTRIM
-                        | F_TO_BASE64
                         | F_STARTS_WITH
                         | F_DATE_DAYOFWEEK
                         | F_TFIDF
                         | F_DATE_ISO8601
                         | F_DATE_TRUNC
-                        | F_LEVENSHTEIN_DISTANCE
                         | F_DATE_FORMAT
                         | F_KEYS
                         | F_BOOST
-                        | F_REGEX_MATCHES
-                        | F_UPPER
                         | F_MIN_MATCH
-                        | F_TRIM
-                        | F_LEFT
-                        | F_UUID
-                        | F_FIND_FIRST
                         | F_DATE_ISOWEEK
-                        | F_LOWER
                         | F_DATE_SECOND
                         | F_BM25
                         | F_DATE_MONTH
-                        | F_CONCAT
-                        | F_SUBSTRING
                         | F_PREGEL_RESULT
-                        | F_LIKE
-                        | F_REGEX_TEST
-                        | F_REGEX_REPLACE
                         | F_DATE_ADD
                         | F_DATE_MILLISECOND
-                        | F_SOUNDEX
-                        | F_TOKENS
                         | F_DATE_QUARTER
                         | F_ANALYZER
                         | F_PHRASE
                         | F_DATE_NOW
-                        | F_RIGHT
-                        | F_RTRIM
-                        | F_TO_HEX
-                        | F_SHA512
                         | F_DATE_COMPARE
                         | F_DATE_YEAR
-                        | F_SHA1
                         | F_DATE_TIMESTAMP
-                        | F_ENCODE_URI_COMPONENT
-                        | F_CONTAINS
                         | F_EXISTS
                         | F_DATE_HOUR
-                        | F_JSON_STRINGIFY
-                        | F_RANDOM_TOKEN
-                        | F_FIND_LAST
                         | F_DATE_DIFF
 
 
 NamedFunctions::= FunAbs
+              | FunConcat
+              | FunContains
+              | FunEncodeUriComponent
+              | FunFindFirst
+              | FunFindLast
+              | FunJsonParse
+              | FunJsonStringify
+              | FunLeft
+              | FunLevenshteinDistance
+              | FunLike
+              | FunLower
+              | FunLtrim
+              | FunMd5
+              | FunRandomToken
+              | FunRegexMatches
+              | FunRegexSplit
+              | FunRegexTest
+              | FunRegexReplace
+              | FunRight
+              | FunRtrim
+              | FunSha1
+              | FunSha512
+              | FunSplit
+              | FunSoundex
+              | FunSubstitute
+              | FunSubstring
+              | FunTokens
+              | FunToBase64
+              | FunToHex
+              | FunTrim
+              | FunUpper
+              | FunUuid
               | FunDistance
               | FunGeoContains
               | FunGeoDistance
@@ -631,7 +648,22 @@ NamedKeywordStatements ::= KeywordStatements {
 
 ReservedWords ::= T_NULL
 
-ExpressionType ::= ArrayRef | ObjectExpression
+AnalyzerType ::= A_IDENTITY
+                 |A_TEXT_DE
+                 |A_TEXT_EN
+                 |A_TEXT_ES
+                 |A_TEXT_FI
+                 |A_TEXT_FR
+                 |A_TEXT_IT
+                 |A_TEXT_NL
+                 |A_TEXT_NO
+                 |A_TEXT_PT
+                 |A_TEXT_RU
+                 |A_TEXT_SV
+                 |A_TEXT_ZH
+
+ExpressionType ::= ArrayRef
+                | ObjectExpression
                 | NumberType
                 | ArrayType
                 | StringType
@@ -696,6 +728,9 @@ FunctionExpression ::= NamedFunctions | (NamedKeywordFunctions T_OPEN Expression
 private objects_argument::= (ObjectExpression  | ParameterVariable | VariablePlaceHolder)
 private document_argument::= (ObjectExpression | JsonType | ParameterVariable | VariablePlaceHolder)
 private string_argument::= (ObjectExpression | StringType | ParameterVariable | VariablePlaceHolder)
+private boolean_argument::= (ObjectExpression | BooleanType | ParameterVariable | VariablePlaceHolder)
+private integer_argument::= (ObjectExpression | IntegerType | ParameterVariable | VariablePlaceHolder)
+private analyzer_argument::= ('"' AnalyzerType '"' )  | ("'" AnalyzerType "'" )
 private possible_number_array::= (/*NumberType |*/ ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | possible_number_array)
@@ -725,8 +760,7 @@ FunIsDocument ::=  (F_IS_DOCUMENT "(" AnyType ")"){pin=2}
 FunIsDateString ::=  (F_IS_DATESTRING "(" AnyType ")"){pin=2}
 FunIsKey ::=  (F_IS_KEY "(" AnyType ")"){pin=2}
 FunTypename ::=  (F_TYPENAME "(" AnyType ")"){pin=2}
-// TODO check any params
-FunCharLength ::=  (F_CHAR_LENGTH "(" AnyType ")"){pin=2}
+
 FunFullText ::=  (F_FULLTEXT "(" possible_array "," StringType  "," StringType  ("," IntegerType)? ")"){pin=2}
 
 
@@ -763,11 +797,11 @@ private string_array ::= "[" StringType ("," StringType)* "]"
 private string_list ::= StringType ("," StringType)*
 private string_argument_array ::= (possible_array | string_array)
 
-FunAttributes  ::=  (F_ATTRIBUTES  "(" document_argument ("," BooleanType)? ("," BooleanType)? ")"){pin=2}
+FunAttributes  ::=  (F_ATTRIBUTES  "(" document_argument ("," boolean_argument)? ("," boolean_argument)? ")"){pin=2}
 FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
 FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
 FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
-FunMatches  ::=  (F_MATCHES  "(" document_argument "," (ExpressionType | JsonType) ("," BooleanType)?")"){pin=2}
+FunMatches  ::=  (F_MATCHES  "(" document_argument "," (ExpressionType | JsonType) ("," boolean_argument)?")"){pin=2}
 FunMerge  ::=  (F_MERGE  "(" document_argument "," (document_argument)* ")"){pin=2}
 FunMergeRecursive  ::=  (F_MERGE_RECURSIVE  "(" document_argument "," (document_argument)* ")"){pin=2}
 FunParseIdentifier  ::=  (F_PARSE_IDENTIFIER  "(" StringType | document_argument  ")"){pin=2}
@@ -782,15 +816,15 @@ FunZip  ::=  (F_ZIP "(" ArrayType "," ArrayType ")"){pin=2}
 //############################################
 
 
-FunPosition  ::=  (F_POSITION  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
-FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
-FunAppend  ::=  (F_APPEND  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
-FunPush  ::=  (F_PUSH  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin =2}
-FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," ExpressionType ("," BooleanType)? ")"){pin=2}
+FunPosition  ::=  (F_POSITION  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
+FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
+FunAppend  ::=  (F_APPEND  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
+FunPush  ::=  (F_PUSH  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin =2}
+FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
 FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," ExpressionType ("," IntegerType)? ")"){pin=2}
 FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_argument_array ")"){pin=2}
 // also for doc
-FunLength  ::=  (F_LENGTH  "(" number_argument_array | document_argument ")"){pin=2}
+FunLength  ::=  (F_LENGTH  "(" number_argument_array | document_argument | string_argument ")"){pin=2}
 FunShift  ::=  (F_SHIFT  "(" number_argument_array ")"){pin=2}
 FunSlice  ::=  (F_SLICE  "(" number_argument_array "," IntegerType ("," IntegerType)? ")"){pin=2}
 // TODO check for misc
@@ -810,7 +844,7 @@ FunMinus  ::=  (F_MINUS  "(" (number_argument_array)+ ")"){pin=2}
 FunUnion  ::=  (F_UNION  "(" (number_argument_array)+ ")"){pin=2}
 FunUnionDistinct  ::=  (F_UNION_DISTINCT  "(" (number_argument_array)+ ")"){pin=2}
 FunPop  ::=  (F_POP  "(" (number_argument_array)+ ")"){pin=2}
-FunReverse  ::=  (F_REVERSE  "(" (number_argument_array)+ ")"){pin=2}
+FunReverse  ::=  (F_REVERSE  "(" string_argument | (number_argument_array)+ ")"){pin=2}
 FunNTH  ::=  (F_NTH  "(" (number_argument_array) "," IntegerType ")"){pin=2}
 
 FunRemoveNTH  ::=  (F_REMOVE_NTH  "(" (number_argument_array) "," IntegerType ")"){pin=2}
@@ -834,7 +868,47 @@ FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")"
 FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){pin=2}
 FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){pin=2}
 
+//############################################
+// STRING
+//############################################
+// TODO check any params
+FunCharLength ::=  (F_CHAR_LENGTH "(" AnyType ")"){pin=2}
 FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){pin=2}
+FunConcat ::=  (F_CONCAT "(" AnyType+ ")"){pin=2}
+FunContains ::=  (F_CONTAINS "(" string_argument "," string_argument ("," boolean_argument)? ")"){pin=2}
+FunEncodeUriComponent ::=  (F_ENCODE_URI_COMPONENT "(" string_argument ")"){pin=2}
+//TODO arg limit
+FunFindFirst ::=  (F_FIND_FIRST "(" string_argument "," string_argument ("," integer_argument)* ")"){pin=2}
+FunFindLast ::=  (F_FIND_LAST "(" string_argument "," string_argument ("," integer_argument)* ")"){pin=2}
+FunJsonParse ::=  (F_JSON_PARSE "(" string_argument ")"){pin=2}
+FunJsonStringify ::=  (F_JSON_STRINGIFY "(" AnyType ")"){pin=2}
+FunLeft ::=  (F_LEFT "(" string_argument "," integer_argument ")"){pin=2}
+FunLevenshteinDistance ::=  (F_LEVENSHTEIN_DISTANCE "(" string_argument "," string_argument ")"){pin=2}
+FunLike ::=  (F_LIKE "(" string_argument "," string_argument ("," boolean_argument)? ")"){pin=2}
+FunLower ::=  (F_LOWER "(" string_argument ")"){pin=2}
+FunLtrim ::=  (F_LTRIM "(" string_argument ("," string_argument)?")"){pin=2}
+FunMd5 ::=  (F_MD5 "(" string_argument ")"){pin=2}
+FunRandomToken ::=  (F_RANDOM_TOKEN "(" integer_argument ")"){pin=2}
+//TODO check if boolean is optional
+FunRegexMatches ::=  (F_REGEX_MATCHES "(" string_argument "," string_argument ("," boolean_argument)?  ")"){pin=2}
+FunRegexSplit ::=  (F_REGEX_SPLIT "(" string_argument "," string_argument "," boolean_argument ("," integer_argument)? ")"){pin=2}
+FunRegexTest ::=  (F_REGEX_TEST "(" string_argument "," string_argument  ("," boolean_argument)? ")"){pin=2}
+FunRegexReplace ::=  (F_REGEX_REPLACE "(" string_argument "," string_argument "," string_argument  ("," boolean_argument)? ")"){pin=2}
+FunRight ::=  (F_RIGHT "(" string_argument "," integer_argument ")"){pin=2}
+FunRtrim ::=  (F_RTRIM "(" string_argument ("," string_argument)? ")"){pin=2}
+FunSha1 ::=  (F_SHA1 "(" string_argument  ")"){pin=2}
+FunSha512 ::=  (F_SHA512 "(" string_argument  ")"){pin=2}
+FunSplit ::=  (F_SPLIT "(" string_argument "," string_argument  ("," integer_argument)? ")"){pin=2}
+FunSoundex ::=  (F_SOUNDEX "(" string_argument ")"){pin=2}
+FunSubstitute ::=  (F_SUBSTITUTE "(" string_argument  ("," string_argument | string_array) ("," string_argument | string_array)? ("," integer_argument)?  ")"){pin=2}
+FunSubstring ::=  (F_SUBSTRING "(" string_argument "," integer_argument ("," integer_argument)?  ")"){pin=2}
+FunTokens ::=  (F_TOKENS "(" string_argument "," analyzer_argument ")"){pin=2}
+FunToBase64 ::=  (F_TO_BASE64 "(" string_argument ")"){pin=2}
+FunToHex ::=  (F_TO_HEX "(" string_argument ")"){pin=2}
+FunTrim ::=  (F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?   ")"){pin=2}
+FunUpper ::=  (F_UPPER "(" string_argument ")"){pin=2}
+FunUuid ::=  (F_UUID "(" ")"){pin=2}
+
 
 //############################################
 // MISCELLANEOUS

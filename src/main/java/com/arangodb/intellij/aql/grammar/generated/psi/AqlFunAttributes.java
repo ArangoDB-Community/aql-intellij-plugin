@@ -15,14 +15,14 @@ public interface AqlFunAttributes extends PsiElement {
     @Nullable
     AqlJsonType getJsonType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+    @NotNull
+    List<AqlObjectExpression> getObjectExpressionList();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+    @NotNull
+    List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+    @NotNull
+    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
     @NotNull
     PsiElement getFAttributes();

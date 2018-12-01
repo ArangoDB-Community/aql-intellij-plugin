@@ -21,11 +21,11 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof AqlVisitor) {
-      accept((AqlVisitor) visitor);
-    } else {
-      super.accept(visitor);
-    }
+      if (visitor instanceof AqlVisitor) {
+          accept((AqlVisitor) visitor);
+      } else {
+          super.accept(visitor);
+      }
   }
 
   @Override
@@ -124,11 +124,23 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunCollections.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunConcat getFunConcat() {
+        return findChildByClass(AqlFunConcat.class);
+    }
+
   @Override
   @Nullable
   public AqlFunConcatSeparator getFunConcatSeparator() {
     return findChildByClass(AqlFunConcatSeparator.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunContains getFunContains() {
+        return findChildByClass(AqlFunContains.class);
+    }
 
   @Override
   @Nullable
@@ -184,6 +196,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunDocument.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunEncodeUriComponent getFunEncodeUriComponent() {
+        return findChildByClass(AqlFunEncodeUriComponent.class);
+    }
+
   @Override
   @Nullable
   public AqlFunExp getFunExp() {
@@ -201,6 +219,18 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   public AqlFunFail getFunFail() {
     return findChildByClass(AqlFunFail.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunFindFirst getFunFindFirst() {
+        return findChildByClass(AqlFunFindFirst.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunFindLast getFunFindLast() {
+        return findChildByClass(AqlFunFindLast.class);
+    }
 
   @Override
   @Nullable
@@ -376,6 +406,18 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunIsString.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunJsonParse getFunJsonParse() {
+        return findChildByClass(AqlFunJsonParse.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunJsonStringify getFunJsonStringify() {
+        return findChildByClass(AqlFunJsonStringify.class);
+    }
+
   @Override
   @Nullable
   public AqlFunKeep getFunKeep() {
@@ -388,11 +430,29 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunLast.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunLeft getFunLeft() {
+        return findChildByClass(AqlFunLeft.class);
+    }
+
   @Override
   @Nullable
   public AqlFunLength getFunLength() {
     return findChildByClass(AqlFunLength.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunLevenshteinDistance getFunLevenshteinDistance() {
+        return findChildByClass(AqlFunLevenshteinDistance.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunLike getFunLike() {
+        return findChildByClass(AqlFunLike.class);
+    }
 
   @Override
   @Nullable
@@ -412,6 +472,18 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunLog2.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunLower getFunLower() {
+        return findChildByClass(AqlFunLower.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunLtrim getFunLtrim() {
+        return findChildByClass(AqlFunLtrim.class);
+    }
+
   @Override
   @Nullable
   public AqlFunMatches getFunMatches() {
@@ -423,6 +495,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   public AqlFunMax getFunMax() {
     return findChildByClass(AqlFunMax.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunMd5 getFunMd5() {
+        return findChildByClass(AqlFunMd5.class);
+    }
 
   @Override
   @Nullable
@@ -538,11 +616,41 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunRand.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunRandomToken getFunRandomToken() {
+        return findChildByClass(AqlFunRandomToken.class);
+    }
+
   @Override
   @Nullable
   public AqlFunRange getFunRange() {
     return findChildByClass(AqlFunRange.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunRegexMatches getFunRegexMatches() {
+        return findChildByClass(AqlFunRegexMatches.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunRegexReplace getFunRegexReplace() {
+        return findChildByClass(AqlFunRegexReplace.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunRegexSplit getFunRegexSplit() {
+        return findChildByClass(AqlFunRegexSplit.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunRegexTest getFunRegexTest() {
+        return findChildByClass(AqlFunRegexTest.class);
+    }
 
   @Override
   @Nullable
@@ -568,17 +676,41 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunReverse.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunRight getFunRight() {
+        return findChildByClass(AqlFunRight.class);
+    }
+
   @Override
   @Nullable
   public AqlFunRound getFunRound() {
     return findChildByClass(AqlFunRound.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunRtrim getFunRtrim() {
+        return findChildByClass(AqlFunRtrim.class);
+    }
+
   @Override
   @Nullable
   public AqlFunSQRT getFunSQRT() {
     return findChildByClass(AqlFunSQRT.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunSha1 getFunSha1() {
+        return findChildByClass(AqlFunSha1.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunSha512 getFunSha512() {
+        return findChildByClass(AqlFunSha512.class);
+    }
 
   @Override
   @Nullable
@@ -616,6 +748,18 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunSortedUnique.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunSoundex getFunSoundex() {
+        return findChildByClass(AqlFunSoundex.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunSplit getFunSplit() {
+        return findChildByClass(AqlFunSplit.class);
+    }
+
   @Override
   @Nullable
   public AqlFunStddev getFunStddev() {
@@ -627,6 +771,18 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   public AqlFunStddevPopulation getFunStddevPopulation() {
     return findChildByClass(AqlFunStddevPopulation.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunSubstitute getFunSubstitute() {
+        return findChildByClass(AqlFunSubstitute.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunSubstring getFunSubstring() {
+        return findChildByClass(AqlFunSubstring.class);
+    }
 
   @Override
   @Nullable
@@ -652,11 +808,23 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunToArray.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunToBase64 getFunToBase64() {
+        return findChildByClass(AqlFunToBase64.class);
+    }
+
   @Override
   @Nullable
   public AqlFunToBool getFunToBool() {
     return findChildByClass(AqlFunToBool.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunToHex getFunToHex() {
+        return findChildByClass(AqlFunToHex.class);
+    }
 
   @Override
   @Nullable
@@ -676,11 +844,23 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
     return findChildByClass(AqlFunToString.class);
   }
 
+    @Override
+    @Nullable
+    public AqlFunTokens getFunTokens() {
+        return findChildByClass(AqlFunTokens.class);
+    }
+
   @Override
   @Nullable
   public AqlFunTranslate getFunTranslate() {
     return findChildByClass(AqlFunTranslate.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunTrim getFunTrim() {
+        return findChildByClass(AqlFunTrim.class);
+    }
 
   @Override
   @Nullable
@@ -723,6 +903,18 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   public AqlFunUnsetRecursive getFunUnsetRecursive() {
     return findChildByClass(AqlFunUnsetRecursive.class);
   }
+
+    @Override
+    @Nullable
+    public AqlFunUpper getFunUpper() {
+        return findChildByClass(AqlFunUpper.class);
+    }
+
+    @Override
+    @Nullable
+    public AqlFunUuid getFunUuid() {
+        return findChildByClass(AqlFunUuid.class);
+    }
 
   @Override
   @Nullable

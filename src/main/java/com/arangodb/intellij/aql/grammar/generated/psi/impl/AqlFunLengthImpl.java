@@ -63,6 +63,12 @@ public class AqlFunLengthImpl extends ASTWrapperPsiElement implements AqlFunLeng
     }
 
     @Override
+    @Nullable
+    public AqlStringType getStringType() {
+        return findChildByClass(AqlStringType.class);
+    }
+
+    @Override
     @NotNull
     public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
         return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);

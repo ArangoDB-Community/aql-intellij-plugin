@@ -18,14 +18,14 @@ public interface AqlFunMatches extends PsiElement {
     @NotNull
     List<AqlJsonType> getJsonTypeList();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+    @NotNull
+    List<AqlObjectExpression> getObjectExpressionList();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+    @NotNull
+    List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+    @NotNull
+    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
     @NotNull
     PsiElement getFMatches();

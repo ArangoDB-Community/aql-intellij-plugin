@@ -24,6 +24,9 @@ public interface AqlFunLength extends PsiElement {
     @NotNull
     List<AqlPropertyName> getPropertyNameList();
 
+    @Nullable
+    AqlStringType getStringType();
+
     @NotNull
     List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 

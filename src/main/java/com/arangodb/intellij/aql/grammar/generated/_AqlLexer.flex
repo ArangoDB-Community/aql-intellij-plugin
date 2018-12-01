@@ -261,6 +261,19 @@ SPACE=[ \t\n\x0B\f\r]+
   "_id"                         { return T_ID; }
   "_from"                       { return T_SYS_FROM; }
   "_to"                         { return T_SYS_TO; }
+  "identity"                    { return A_IDENTITY; }
+  "text_de"                     { return A_TEXT_DE; }
+  "text_en"                     { return A_TEXT_EN; }
+  "text_es"                     { return A_TEXT_ES; }
+  "text_fi"                     { return A_TEXT_FI; }
+  "text_fr"                     { return A_TEXT_FR; }
+  "text_it"                     { return A_TEXT_IT; }
+  "text_nl"                     { return A_TEXT_NL; }
+  "text_no"                     { return A_TEXT_NO; }
+  "text_pt"                     { return A_TEXT_PT; }
+  "text_ru"                     { return A_TEXT_RU; }
+  "text_sv"                     { return A_TEXT_SV; }
+  "text_zh"                     { return A_TEXT_ZH; }
   "@"                           { return N_AT; }
   "true"                        { return T_TRUE; }
   "false"                       { return T_FALSE; }
