@@ -266,6 +266,20 @@ A_TEXT_RU="regexp:('text_ru')|(\"text_ru\")"
 A_TEXT_SV="regexp:('text_sv')|(\"text_sv\")"
 A_TEXT_ZH="regexp:('text_zh')|(\"text_zh\")"
 
+D_YEAR_S="regexp:(['])([Yy])([Ea])([Aa])([Rr])(['])|(['])([Yy])([Ea])([Aa])([Rr])([Ss])(['])|(['])([Yy])(['])"
+D_YEAR_D="regexp:([\"])([Yy])([Ea])([Aa])([Rr])([\"])|([\"])([Yy])([Ea])([Aa])([Rr])([Ss])([\"])|([\"])([Yy])([\"])"
+D_MONTH_S="regexp:(['])([Mm])([Oo])([Nn])([Tt])([Hh])(['])|(['])([Mm])([Oo])([Nn])([Tt])([Hh])([Ss])(['])|(['])([Mm])(['])"
+D_MONTH_D="regexp:([\"])([Mm])([Oo])([Nn])([Tt])([Hh])([\"])|([\"])([Mm])([Oo])([Nn])([Tt])([Hh])([Ss])([\"])|([\"])([Mm])([\"])"
+D_DAY_S="regexp:(['])([Dd])([Aa])([Yy])(['])|(['])([Dd])([Aa])([Yy])([Ss])(['])|(['])([Dd])(['])"
+D_DAY_D="regexp:([\"])([Dd])([Aa])([Yy])([\"])|([\"])([Dd])([Aa])([Yy])([Ss])([\"])|(['])([Dd])([\"])"
+D_HOUR_S="regexp:(['])([Hh])([Oo])([Uu])([Rr])(['])|(['])([Hh])([Oo])([Uu])([Rr])([Ss])(['])|(['])([Hh])(['])"
+D_HOUR_D="regexp:([\"])([Hh])([Oo])([Uu])([Rr])([\"])|([\"])([Hh])([Oo])([Uu])([Rr])([Ss])([\"])|(['])([Hh])([\"])"
+D_MINUTE_S="regexp:(['])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])(['])|(['])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([Ss])(['])|(['])([Ii])(['])"
+D_MINUTE_D="regexp:([\"])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([\"])|([\"])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([Ss])([\"])|([\"])([Ii])([\"])"
+D_SECOND_S="regexp:(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ss])(['])"
+D_SECOND_D="regexp:([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ss])([\"])"
+D_MILLISECOND_S="regexp:(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ff])(['])"
+D_MILLISECOND_D="regexp:([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ff])([\"])"
 //############################################
 // NONE_TOKENS
 //############################################
@@ -349,43 +363,49 @@ private ArithmeticOperators ::=  T_PLUS
                     | T_DIV
                     | T_MOD
 
-KeywordFunctions ::=   F_DATE_SUBTRACT
-                        | F_DATE_MINUTE
-                        | F_DATE_LEAPYEAR
-                        | F_STDDEV_SAMPLE
+KeywordFunctions ::=
+                         F_STDDEV_SAMPLE
                         | F_CURRENT_DATABASE
-                        | F_DATE_DAYOFYEAR
-                        | F_DATE_DAY
-                        | F_DATE_DAYS_IN_MONTH
                         | F_STARTS_WITH
-                        | F_DATE_DAYOFWEEK
                         | F_TFIDF
-                        | F_DATE_ISO8601
-                        | F_DATE_TRUNC
-                        | F_DATE_FORMAT
                         | F_KEYS
                         | F_BOOST
                         | F_MIN_MATCH
-                        | F_DATE_ISOWEEK
-                        | F_DATE_SECOND
                         | F_BM25
-                        | F_DATE_MONTH
                         | F_PREGEL_RESULT
-                        | F_DATE_ADD
-                        | F_DATE_MILLISECOND
-                        | F_DATE_QUARTER
                         | F_ANALYZER
                         | F_PHRASE
-                        | F_DATE_NOW
-                        | F_DATE_COMPARE
-                        | F_DATE_YEAR
-                        | F_DATE_TIMESTAMP
                         | F_EXISTS
-                        | F_DATE_HOUR
-                        | F_DATE_DIFF
 
 
 NamedFunctions::= FunAbs
+              | FunDateNow
+              | FunDateISO8601
+              | FunDateTimeStamp
+              | FunIsDateString
+              | FunDateOfWeek
+              | FunDateYear
+              | FunDateMonth
+              | FunDateDay
+              | FunDateHour
+              | FunDateMinute
+              | FunDateSecond
+              | FunDateMillisecond
+              | FunDateDayOfYear
+              | FunDateIsoWeek
+              | FunDateLeapYear
+              | FunDateQuarter
+              | FunDateDaysInMonth
+              | FunDateTrunc
+              | FunDateFormat
+              | FunDateAdd
+              | FunDateSubtract
+              | FunDateDiff
+              | FunDateCompare
+
+
+
+
               | FunConcat
               | FunContains
               | FunEncodeUriComponent
@@ -475,7 +495,6 @@ NamedFunctions::= FunAbs
               | FunIsList
               | FunIsObject
               | FunIsDocument
-              | FunIsDateString
               | FunIsKey
               | FunTypename
               | FunAsin
@@ -664,6 +683,21 @@ AnalyzerType ::= A_IDENTITY
                  |A_TEXT_SV
                  |A_TEXT_ZH
 
+DateUnit ::=  D_YEAR_S
+                       |D_YEAR_D
+                       |D_MONTH_S
+                       |D_MONTH_D
+                       |D_DAY_S
+                       |D_DAY_D
+                       |D_HOUR_S
+                       |D_HOUR_D
+                       |D_MINUTE_S
+                       |D_MINUTE_D
+                       |D_SECOND_S
+                       |D_SECOND_D
+                       |D_MILLISECOND_S
+                       |D_MILLISECOND_D
+
 
 
 ExpressionType ::= ArrayRef
@@ -739,11 +773,40 @@ private integer_argument::= (ObjectExpression | IntegerType | ParameterVariable 
 private possible_number_array::= (/*NumberType |*/ ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private number_argument::= (NumberType | possible_number_array)
+private date_argument::= (StringType | objects_argument| ("*" IntegerType)+)
 private number_argument_array ::= (possible_number_array | "[" number_argument (',' number_argument)* "]")
+private integer_argument_array ::= (possible_number_array | "[" integer_argument (',' integer_argument)* "]")
 
 //*************************************************************************************
 // FUNCTIONS 
 //*************************************************************************************
+//############################################
+// DATE
+//############################################
+ FunDateNow ::=  (F_DATE_NOW "("  ")"){pin=2}
+ FunDateISO8601 ::=  (F_DATE_ISO8601 "(" date_argument | integer_argument_array")"){pin=2}
+ FunDateTimeStamp ::=  (F_DATE_TIMESTAMP "("  date_argument | integer_argument_array ")"){pin=2}
+ FunIsDateString ::=  (F_IS_DATESTRING "("  AnyType ")"){pin=2}
+ FunDateOfWeek ::=  (F_DATE_DAYOFWEEK "("  date_argument ")"){pin=2}
+ FunDateYear ::=  (F_DATE_YEAR "("  date_argument ")"){pin=2}
+ FunDateMonth ::=  (F_DATE_MONTH "("  date_argument ")"){pin=2}
+ FunDateDay ::=  (F_DATE_DAY "("  date_argument ")"){pin=2}
+ FunDateHour ::=  (F_DATE_HOUR "("  date_argument ")"){pin=2}
+ FunDateMinute ::=  (F_DATE_MINUTE "("  date_argument ")"){pin=2}
+ FunDateSecond ::=  (F_DATE_SECOND "("  date_argument ")"){pin=2}
+ FunDateMillisecond ::=  (F_DATE_MILLISECOND "("  date_argument ")"){pin=2}
+ FunDateDayOfYear ::=  (F_DATE_DAYOFYEAR "("  date_argument ")"){pin=2}
+ FunDateIsoWeek ::=  (F_DATE_ISOWEEK "("  date_argument ")"){pin=2}
+ FunDateLeapYear ::=  (F_DATE_LEAPYEAR "("  date_argument ")"){pin=2}
+ FunDateQuarter ::=  (F_DATE_QUARTER "("  date_argument ")"){pin=2}
+ FunDateDaysInMonth ::=  (F_DATE_DAYS_IN_MONTH "("  date_argument ")"){pin=2}
+ FunDateTrunc ::=  (F_DATE_TRUNC "("  date_argument "," DateUnit ")"){pin=2}
+ FunDateFormat ::=  (F_DATE_FORMAT "("  date_argument "," string_argument ")"){pin=2}
+ FunDateAdd ::=  (F_DATE_ADD "("  date_argument "," integer_argument | string_argument "," DateUnit")"){pin=2}
+ FunDateSubtract ::=  (F_DATE_SUBTRACT "("  date_argument "," integer_argument | string_argument "," DateUnit")"){pin=2}
+ FunDateDiff ::=  (F_DATE_DIFF "("  date_argument "," date_argument "," DateUnit ("," boolean_argument)? ")"){pin=2}
+ FunDateCompare ::=  (F_DATE_COMPARE "("  date_argument "," date_argument "," DateUnit ("," DateUnit)? ")"){pin=2}
+
 //############################################
 // TYPE CAST
 //############################################
@@ -762,7 +825,6 @@ FunIsArray ::=  (F_IS_ARRAY "(" AnyType ")"){pin=2}
 FunIsList ::=  (F_IS_LIST "(" AnyType ")"){pin=2}
 FunIsObject ::=  (F_IS_OBJECT "(" AnyType ")"){pin=2}
 FunIsDocument ::=  (F_IS_DOCUMENT "(" AnyType ")"){pin=2}
-FunIsDateString ::=  (F_IS_DATESTRING "(" AnyType ")"){pin=2}
 FunIsKey ::=  (F_IS_KEY "(" AnyType ")"){pin=2}
 FunTypename ::=  (F_TYPENAME "(" AnyType ")"){pin=2}
 
