@@ -9,28 +9,31 @@ import java.util.List;
 
 public interface AqlFunUnShift extends PsiElement {
 
-    @Nullable
-    AqlBooleanType getBooleanType();
+  @Nullable
+  AqlBooleanType getBooleanType();
 
-    @Nullable
-    AqlExpressionType getExpressionType();
+  @Nullable
+  AqlExpressionType getExpressionType();
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @Nullable
+  AqlJsonType getJsonType();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlPropertyName> getPropertyNameList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
-    @NotNull
-    PsiElement getFUnshift();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+
+  @NotNull
+  PsiElement getFUnshift();
 
 }

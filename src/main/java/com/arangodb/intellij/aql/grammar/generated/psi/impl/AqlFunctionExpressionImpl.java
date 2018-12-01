@@ -15,32 +15,29 @@ import java.util.List;
 
 public class AqlFunctionExpressionImpl extends ASTWrapperPsiElement implements AqlFunctionExpression {
 
-    public AqlFunctionExpressionImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunctionExpressionImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunctionExpression(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunctionExpression(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlExpressionType> getExpressionTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlExpressionType> getExpressionTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
+  }
 
-    @Override
-    @NotNull
-    public AqlNamedFunctions getNamedFunctions() {
-        return findNotNullChildByClass(AqlNamedFunctions.class);
-    }
+  @Override
+  @NotNull
+  public AqlNamedFunctions getNamedFunctions() {
+    return findNotNullChildByClass(AqlNamedFunctions.class);
+  }
 
 }

@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface AqlFunFullText extends PsiElement {
 
-    @Nullable
-    AqlIntegerType getIntegerType();
+  @Nullable
+  AqlIntegerType getIntegerType();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlPropertyName getPropertyName();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
-    @NotNull
-    List<AqlStringType> getStringTypeList();
+  @NotNull
+  List<AqlStringType> getStringTypeList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFFulltext();
+  @NotNull
+  PsiElement getFFulltext();
 
 }

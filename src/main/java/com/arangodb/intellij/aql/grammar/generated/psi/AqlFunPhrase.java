@@ -9,28 +9,28 @@ import java.util.List;
 
 public interface AqlFunPhrase extends PsiElement {
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlPropertyLookup getPropertyLookup();
+  @Nullable
+  AqlPropertyLookup getPropertyLookup();
 
-    @NotNull
-    List<AqlPropertyName> getPropertyNameList();
+  @NotNull
+  List<AqlPropertyName> getPropertyNameList();
 
-    @NotNull
-    List<AqlStringType> getStringTypeList();
+  @NotNull
+  List<AqlStringType> getStringTypeList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @Nullable
-    PsiElement getFPhrase();
+  @Nullable
+  PsiElement getFPhrase();
 
 }

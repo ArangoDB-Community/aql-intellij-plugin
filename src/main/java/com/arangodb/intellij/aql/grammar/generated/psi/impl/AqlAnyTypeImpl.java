@@ -13,32 +13,29 @@ import org.jetbrains.annotations.Nullable;
 
 public class AqlAnyTypeImpl extends ASTWrapperPsiElement implements AqlAnyType {
 
-    public AqlAnyTypeImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlAnyTypeImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitAnyType(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitAnyType(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlExpressionType getExpressionType() {
-        return findChildByClass(AqlExpressionType.class);
-    }
+  @Override
+  @Nullable
+  public AqlExpressionType getExpressionType() {
+    return findChildByClass(AqlExpressionType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlJsonType getJsonType() {
-        return findChildByClass(AqlJsonType.class);
-    }
+  @Override
+  @Nullable
+  public AqlJsonType getJsonType() {
+    return findChildByClass(AqlJsonType.class);
+  }
 
 }

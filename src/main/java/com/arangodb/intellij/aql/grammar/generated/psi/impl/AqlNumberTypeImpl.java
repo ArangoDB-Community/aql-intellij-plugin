@@ -10,38 +10,35 @@ import org.jetbrains.annotations.Nullable;
 
 public class AqlNumberTypeImpl extends ASTWrapperPsiElement implements AqlNumberType {
 
-    public AqlNumberTypeImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlNumberTypeImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitNumberType(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitNumberType(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyNumber getAnyNumber() {
-        return findChildByClass(AqlAnyNumber.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyNumber getAnyNumber() {
+    return findChildByClass(AqlAnyNumber.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlIntegerType getIntegerType() {
-        return findChildByClass(AqlIntegerType.class);
-    }
+  @Override
+  @Nullable
+  public AqlIntegerType getIntegerType() {
+    return findChildByClass(AqlIntegerType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlSignedInteger getSignedInteger() {
-        return findChildByClass(AqlSignedInteger.class);
-    }
+  @Override
+  @Nullable
+  public AqlSignedInteger getSignedInteger() {
+    return findChildByClass(AqlSignedInteger.class);
+  }
 
 }

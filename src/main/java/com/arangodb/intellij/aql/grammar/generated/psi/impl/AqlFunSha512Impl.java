@@ -13,50 +13,47 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunSha512Impl extends ASTWrapperPsiElement implements AqlFunSha512 {
 
-    public AqlFunSha512Impl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunSha512Impl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunSha512(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunSha512(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
-    }
+  @Override
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFSha512() {
-        return findNotNullChildByType(F_SHA512);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFSha512() {
+    return findNotNullChildByType(F_SHA512);
+  }
 
 }

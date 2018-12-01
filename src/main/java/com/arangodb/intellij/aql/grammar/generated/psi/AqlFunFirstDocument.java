@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunFirstDocument extends PsiElement {
 
-    @NotNull
-    List<AqlAnyType> getAnyTypeList();
+  @NotNull
+  List<AqlAnyType> getAnyTypeList();
 
-    @NotNull
-    PsiElement getFFirstDocument();
+  @NotNull
+  PsiElement getFFirstDocument();
 
 }

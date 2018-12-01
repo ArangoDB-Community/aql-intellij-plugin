@@ -9,28 +9,28 @@ import java.util.List;
 
 public interface AqlFunPercentile extends PsiElement {
 
-    @Nullable
-    AqlIntegerType getIntegerType();
+  @Nullable
+  AqlIntegerType getIntegerType();
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlPropertyName> getPropertyNameList();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFPercentile();
+  @NotNull
+  PsiElement getFPercentile();
 
 }

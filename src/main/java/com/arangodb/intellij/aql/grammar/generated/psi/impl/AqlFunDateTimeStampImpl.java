@@ -16,62 +16,65 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunDateTimeStampImpl extends ASTWrapperPsiElement implements AqlFunDateTimeStamp {
 
-    public AqlFunDateTimeStampImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunDateTimeStampImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunDateTimeStamp(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunDateTimeStamp(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlIntegerType> getIntegerTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlIntegerType> getIntegerTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlObjectExpression> getObjectExpressionList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlNumberType getNumberType() {
+    return findChildByClass(AqlNumberType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlParameterVariable> getParameterVariableList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlObjectExpression> getObjectExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlPropertyName getPropertyName() {
-        return findChildByClass(AqlPropertyName.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlPropertyName getPropertyName() {
+    return findChildByClass(AqlPropertyName.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public PsiElement getFDateTimestamp() {
-        return findChildByType(F_DATE_TIMESTAMP);
-    }
+  @Override
+  @NotNull
+  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getFDateTimestamp() {
+    return findChildByType(F_DATE_TIMESTAMP);
+  }
 
 }

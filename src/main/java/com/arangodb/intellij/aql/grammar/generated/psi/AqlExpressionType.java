@@ -6,43 +6,46 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlExpressionType extends PsiElement {
 
-    @Nullable
-    AqlAnalyzerType getAnalyzerType();
+  @Nullable
+  AqlAnalyzerType getAnalyzerType();
 
-    @Nullable
-    AqlArrayRef getArrayRef();
+  @Nullable
+  AqlArrayRef getArrayRef();
 
-    @Nullable
-    AqlArrayType getArrayType();
+  @Nullable
+  AqlArrayType getArrayType();
 
-    @Nullable
-    AqlBooleanType getBooleanType();
+  @Nullable
+  AqlBooleanType getBooleanType();
 
-    @Nullable
-    AqlFunctionExpression getFunctionExpression();
+  @Nullable
+  AqlFunctionExpression getFunctionExpression();
 
-    @Nullable
-    AqlNumberType getNumberType();
+  @Nullable
+  AqlNamedFunctions getNamedFunctions();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlNumberType getNumberType();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlPropertyName getPropertyName();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlReservedWords getReservedWords();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlReservedWords getReservedWords();
 
-    @Nullable
-    AqlSystemProperty getSystemProperty();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlSystemProperty getSystemProperty();
+
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
 }

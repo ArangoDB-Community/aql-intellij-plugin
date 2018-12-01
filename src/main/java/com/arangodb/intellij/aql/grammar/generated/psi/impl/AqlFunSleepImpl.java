@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunSleepImpl extends ASTWrapperPsiElement implements AqlFunSleep {
 
-    public AqlFunSleepImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunSleepImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunSleep(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunSleep(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlIntegerType getIntegerType() {
-        return findChildByClass(AqlIntegerType.class);
-    }
+  @Override
+  @Nullable
+  public AqlIntegerType getIntegerType() {
+    return findChildByClass(AqlIntegerType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFSleep() {
-        return findNotNullChildByType(F_SLEEP);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFSleep() {
+    return findNotNullChildByType(F_SLEEP);
+  }
 
 }

@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunGeoPoint extends PsiElement {
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    PsiElement getFGeoPoint();
+  @NotNull
+  PsiElement getFGeoPoint();
 
 }

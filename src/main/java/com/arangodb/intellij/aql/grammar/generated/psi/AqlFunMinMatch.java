@@ -7,22 +7,22 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunMinMatch extends PsiElement {
 
-    @Nullable
-    AqlAnyType getAnyType();
+  @Nullable
+  AqlAnyType getAnyType();
 
-    @Nullable
-    AqlIntegerType getIntegerType();
+  @Nullable
+  AqlIntegerType getIntegerType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFMinMatch();
+  @NotNull
+  PsiElement getFMinMatch();
 
 }

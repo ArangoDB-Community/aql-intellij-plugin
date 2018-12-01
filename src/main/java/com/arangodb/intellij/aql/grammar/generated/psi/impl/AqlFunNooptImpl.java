@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunNooptImpl extends ASTWrapperPsiElement implements AqlFunNoopt {
 
-    public AqlFunNooptImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunNooptImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunNoopt(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunNoopt(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFNoopt() {
-        return findNotNullChildByType(F_NOOPT);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFNoopt() {
+    return findNotNullChildByType(F_NOOPT);
+  }
 
 }

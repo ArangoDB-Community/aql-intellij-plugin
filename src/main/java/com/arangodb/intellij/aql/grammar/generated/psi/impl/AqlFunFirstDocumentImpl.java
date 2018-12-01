@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunFirstDocumentImpl extends ASTWrapperPsiElement implements AqlFunFirstDocument {
 
-    public AqlFunFirstDocumentImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunFirstDocumentImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunFirstDocument(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunFirstDocument(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlAnyType> getAnyTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFFirstDocument() {
-        return findNotNullChildByType(F_FIRST_DOCUMENT);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFFirstDocument() {
+    return findNotNullChildByType(F_FIRST_DOCUMENT);
+  }
 
 }

@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunIsStringImpl extends ASTWrapperPsiElement implements AqlFunIsString {
 
-    public AqlFunIsStringImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunIsStringImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunIsString(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunIsString(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFIsString() {
-        return findNotNullChildByType(F_IS_STRING);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFIsString() {
+    return findNotNullChildByType(F_IS_STRING);
+  }
 
 }

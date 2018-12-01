@@ -7,22 +7,22 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunTokens extends PsiElement {
 
-    @Nullable
-    AqlAnalyzerType getAnalyzerType();
+  @Nullable
+  AqlAnalyzerType getAnalyzerType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFTokens();
+  @NotNull
+  PsiElement getFTokens();
 
 }

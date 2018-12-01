@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunGeoPolygon extends PsiElement {
 
-    @NotNull
-    List<AqlArrayType> getArrayTypeList();
+  @NotNull
+  List<AqlArrayType> getArrayTypeList();
 
-    @NotNull
-    PsiElement getFGeoPolygon();
+  @NotNull
+  PsiElement getFGeoPolygon();
 
 }

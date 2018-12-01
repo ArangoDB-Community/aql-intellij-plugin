@@ -13,62 +13,59 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunStartsWithImpl extends ASTWrapperPsiElement implements AqlFunStartsWith {
 
-    public AqlFunStartsWithImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunStartsWithImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunStartsWith(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunStartsWith(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
-    }
+  @Override
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlPropertyLookup getPropertyLookup() {
-        return findChildByClass(AqlPropertyLookup.class);
-    }
+  @Override
+  @Nullable
+  public AqlPropertyLookup getPropertyLookup() {
+    return findChildByClass(AqlPropertyLookup.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlPropertyName getPropertyName() {
-        return findChildByClass(AqlPropertyName.class);
-    }
+  @Override
+  @Nullable
+  public AqlPropertyName getPropertyName() {
+    return findChildByClass(AqlPropertyName.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFStartsWith() {
-        return findNotNullChildByType(F_STARTS_WITH);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFStartsWith() {
+    return findNotNullChildByType(F_STARTS_WITH);
+  }
 
 }

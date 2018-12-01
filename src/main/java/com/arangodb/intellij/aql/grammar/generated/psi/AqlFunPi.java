@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlFunPi extends PsiElement {
 
-    @NotNull
-    PsiElement getFPi();
+  @NotNull
+  PsiElement getFPi();
 
 }

@@ -10,11 +10,11 @@ public interface AqlKeywordStatements extends PsiElement {
   @Nullable
   PsiElement getTAggregate();
 
-    @Nullable
-    PsiElement getTAll();
+  @Nullable
+  PsiElement getTAll();
 
-    @Nullable
-    PsiElement getTAny();
+  @Nullable
+  PsiElement getTAny();
 
   @Nullable
   PsiElement getTAsc();
@@ -40,8 +40,8 @@ public interface AqlKeywordStatements extends PsiElement {
   @Nullable
   PsiElement getTIn();
 
-    @Nullable
-    PsiElement getTInbound();
+  @Nullable
+  PsiElement getTInbound();
 
   @Nullable
   PsiElement getTInsert();
@@ -55,8 +55,8 @@ public interface AqlKeywordStatements extends PsiElement {
   @Nullable
   PsiElement getTLimit();
 
-    @Nullable
-    PsiElement getTOutbound();
+  @Nullable
+  PsiElement getTOutbound();
 
   @Nullable
   PsiElement getTRemove();
@@ -85,8 +85,8 @@ public interface AqlKeywordStatements extends PsiElement {
   @Nullable
   PsiElement getTWith();
 
-    String getName();
+  String getName();
 
-    AqlNamedElement setName(String newName);
+  AqlNamedElement setName(String newName);
 
 }

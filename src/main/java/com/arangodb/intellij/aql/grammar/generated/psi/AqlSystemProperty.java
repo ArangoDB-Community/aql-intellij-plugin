@@ -6,8 +6,8 @@ import com.intellij.psi.PsiElement;
 
 public interface AqlSystemProperty extends PsiElement {
 
-    String getName();
+  String getName();
 
-    AqlNamedElement setName(String newName);
+  AqlNamedElement setName(String newName);
 
 }

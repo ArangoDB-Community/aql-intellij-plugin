@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunGeoMultiLineString extends PsiElement {
 
-    @NotNull
-    List<AqlArrayType> getArrayTypeList();
+  @NotNull
+  List<AqlArrayType> getArrayTypeList();
 
-    @NotNull
-    PsiElement getFGeoMultilinestring();
+  @NotNull
+  PsiElement getFGeoMultilinestring();
 
 }

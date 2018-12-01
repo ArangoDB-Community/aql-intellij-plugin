@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AqlArrayType extends PsiElement {
 
-    @NotNull
-    List<AqlExpressionType> getExpressionTypeList();
+  @NotNull
+  List<AqlExpressionType> getExpressionTypeList();
 
 }

@@ -16,38 +16,35 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunWarnImpl extends ASTWrapperPsiElement implements AqlFunWarn {
 
-    public AqlFunWarnImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunWarnImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunWarn(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunWarn(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFWarn() {
-        return findNotNullChildByType(F_WARN);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFWarn() {
+    return findNotNullChildByType(F_WARN);
+  }
 
 }

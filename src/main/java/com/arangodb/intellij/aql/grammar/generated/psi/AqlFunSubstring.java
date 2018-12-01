@@ -9,22 +9,22 @@ import java.util.List;
 
 public interface AqlFunSubstring extends PsiElement {
 
-    @NotNull
-    List<AqlIntegerType> getIntegerTypeList();
+  @NotNull
+  List<AqlIntegerType> getIntegerTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFSubstring();
+  @NotNull
+  PsiElement getFSubstring();
 
 }

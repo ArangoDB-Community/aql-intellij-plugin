@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunZipImpl extends ASTWrapperPsiElement implements AqlFunZip {
 
-    public AqlFunZipImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunZipImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunZip(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunZip(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlArrayType> getArrayTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlArrayType> getArrayTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFZip() {
-        return findNotNullChildByType(F_ZIP);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFZip() {
+    return findNotNullChildByType(F_ZIP);
+  }
 
 }

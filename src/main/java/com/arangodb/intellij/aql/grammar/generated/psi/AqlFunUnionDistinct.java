@@ -8,22 +8,22 @@ import java.util.List;
 
 public interface AqlFunUnionDistinct extends PsiElement {
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlPropertyName> getPropertyNameList();
+  @NotNull
+  List<AqlPropertyName> getPropertyNameList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFUnionDistinct();
+  @NotNull
+  PsiElement getFUnionDistinct();
 
 }

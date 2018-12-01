@@ -9,22 +9,22 @@ import java.util.List;
 
 public interface AqlFunUnset extends PsiElement {
 
-    @Nullable
-    AqlArrayType getArrayType();
+  @Nullable
+  AqlArrayType getArrayType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @NotNull
-    List<AqlStringType> getStringTypeList();
+  @NotNull
+  List<AqlStringType> getStringTypeList();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @Nullable
-    PsiElement getFUnset();
+  @Nullable
+  PsiElement getFUnset();
 
 }

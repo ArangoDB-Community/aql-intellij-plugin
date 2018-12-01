@@ -9,22 +9,22 @@ import java.util.List;
 
 public interface AqlFunDateHour extends PsiElement {
 
-    @NotNull
-    List<AqlIntegerType> getIntegerTypeList();
+  @NotNull
+  List<AqlIntegerType> getIntegerTypeList();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFDateHour();
+  @NotNull
+  PsiElement getFDateHour();
 
 }

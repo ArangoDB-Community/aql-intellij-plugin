@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunJsonStringifyImpl extends ASTWrapperPsiElement implements AqlFunJsonStringify {
 
-    public AqlFunJsonStringifyImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunJsonStringifyImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunJsonStringify(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunJsonStringify(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFJsonStringify() {
-        return findNotNullChildByType(F_JSON_STRINGIFY);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFJsonStringify() {
+    return findNotNullChildByType(F_JSON_STRINGIFY);
+  }
 
 }

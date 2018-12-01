@@ -8,22 +8,22 @@ import java.util.List;
 
 public interface AqlJsonType extends PsiElement {
 
-    @NotNull
-    List<AqlArrayRef> getArrayRefList();
+  @NotNull
+  List<AqlArrayRef> getArrayRefList();
 
-    @NotNull
-    List<AqlComplexJsonValue> getComplexJsonValueList();
+  @NotNull
+  List<AqlComplexJsonValue> getComplexJsonValueList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlStringType> getStringTypeList();
+  @NotNull
+  List<AqlStringType> getStringTypeList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
 }

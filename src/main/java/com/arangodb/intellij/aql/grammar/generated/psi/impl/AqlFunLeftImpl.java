@@ -16,56 +16,53 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunLeftImpl extends ASTWrapperPsiElement implements AqlFunLeft {
 
-    public AqlFunLeftImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunLeftImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunLeft(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunLeft(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlIntegerType getIntegerType() {
-        return findChildByClass(AqlIntegerType.class);
-    }
+  @Override
+  @Nullable
+  public AqlIntegerType getIntegerType() {
+    return findChildByClass(AqlIntegerType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlObjectExpression> getObjectExpressionList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlObjectExpression> getObjectExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlParameterVariable> getParameterVariableList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFLeft() {
-        return findNotNullChildByType(F_LEFT);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFLeft() {
+    return findNotNullChildByType(F_LEFT);
+  }
 
 }

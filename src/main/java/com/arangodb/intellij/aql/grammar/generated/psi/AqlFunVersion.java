@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlFunVersion extends PsiElement {
 
-    @NotNull
-    PsiElement getFVersion();
+  @NotNull
+  PsiElement getFVersion();
 
 }

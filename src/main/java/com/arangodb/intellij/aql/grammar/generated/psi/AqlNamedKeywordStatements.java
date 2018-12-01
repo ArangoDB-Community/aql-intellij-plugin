@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlNamedKeywordStatements extends PsiElement {
 
-    @NotNull
-    AqlKeywordStatements getKeywordStatements();
+  @NotNull
+  AqlKeywordStatements getKeywordStatements();
 
-    String getName();
+  String getName();
 
-    AqlNamedElement setName(String newName);
+  AqlNamedElement setName(String newName);
 
 }

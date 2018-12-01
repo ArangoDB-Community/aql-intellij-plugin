@@ -9,25 +9,28 @@ import java.util.List;
 
 public interface AqlFunDateTimeStamp extends PsiElement {
 
-    @NotNull
-    List<AqlIntegerType> getIntegerTypeList();
+  @NotNull
+  List<AqlIntegerType> getIntegerTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @Nullable
+  AqlNumberType getNumberType();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @Nullable
-    AqlPropertyName getPropertyName();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    PsiElement getFDateTimestamp();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+
+  @Nullable
+  PsiElement getFDateTimestamp();
 
 }

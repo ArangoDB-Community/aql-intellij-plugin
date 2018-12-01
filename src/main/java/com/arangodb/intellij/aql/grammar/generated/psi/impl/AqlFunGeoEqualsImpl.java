@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunGeoEqualsImpl extends ASTWrapperPsiElement implements AqlFunGeoEquals {
 
-    public AqlFunGeoEqualsImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunGeoEqualsImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunGeoEquals(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunGeoEquals(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlJsonType> getJsonTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlJsonType> getJsonTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFGeoEquals() {
-        return findNotNullChildByType(F_GEO_EQUALS);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFGeoEquals() {
+    return findNotNullChildByType(F_GEO_EQUALS);
+  }
 
 }

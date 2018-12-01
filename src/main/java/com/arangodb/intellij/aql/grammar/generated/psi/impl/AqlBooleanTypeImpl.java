@@ -10,12 +10,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlBooleanTypeImpl extends ASTWrapperPsiElement implements AqlBooleanType {
 
-    public AqlBooleanTypeImpl(@NotNull ASTNode node) {
+  public AqlBooleanTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AqlVisitor visitor) {
-      visitor.visitBooleanType(this);
+    visitor.visitBooleanType(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {

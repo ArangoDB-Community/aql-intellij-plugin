@@ -7,10 +7,10 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunKeys extends PsiElement {
 
-    @Nullable
-    AqlAnyType getAnyType();
+  @Nullable
+  AqlAnyType getAnyType();
 
-    @NotNull
-    PsiElement getFKeys();
+  @NotNull
+  PsiElement getFKeys();
 
 }

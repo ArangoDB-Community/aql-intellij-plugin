@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunConcatImpl extends ASTWrapperPsiElement implements AqlFunConcat {
 
-    public AqlFunConcatImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunConcatImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunConcat(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunConcat(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlAnyType> getAnyTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFConcat() {
-        return findNotNullChildByType(F_CONCAT);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFConcat() {
+    return findNotNullChildByType(F_CONCAT);
+  }
 
 }

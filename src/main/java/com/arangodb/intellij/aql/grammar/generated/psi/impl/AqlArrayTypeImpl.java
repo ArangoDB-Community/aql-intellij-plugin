@@ -14,12 +14,12 @@ import java.util.List;
 
 public class AqlArrayTypeImpl extends ASTWrapperPsiElement implements AqlArrayType {
 
-    public AqlArrayTypeImpl(@NotNull ASTNode node) {
+  public AqlArrayTypeImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AqlVisitor visitor) {
-      visitor.visitArrayType(this);
+    visitor.visitArrayType(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -30,7 +30,7 @@ public class AqlArrayTypeImpl extends ASTWrapperPsiElement implements AqlArrayTy
   @Override
   @NotNull
   public List<AqlExpressionType> getExpressionTypeList() {
-      return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
   }
 
 }

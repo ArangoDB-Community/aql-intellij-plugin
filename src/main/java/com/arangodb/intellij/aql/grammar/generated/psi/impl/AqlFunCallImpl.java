@@ -19,38 +19,35 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunCallImpl extends ASTWrapperPsiElement implements AqlFunCall {
 
-    public AqlFunCallImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunCallImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunCall(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunCall(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlAnyType> getAnyTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFCall() {
-        return findNotNullChildByType(F_CALL);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFCall() {
+    return findNotNullChildByType(F_CALL);
+  }
 
 }

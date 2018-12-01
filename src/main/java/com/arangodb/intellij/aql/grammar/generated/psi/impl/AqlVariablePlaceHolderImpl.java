@@ -13,34 +13,31 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlVariablePlaceHolderImpl extends AqPlaceholderVariableMixin implements AqlVariablePlaceHolder {
 
-    public AqlVariablePlaceHolderImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlVariablePlaceHolderImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitVariablePlaceHolder(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitVariablePlaceHolder(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public AqlObjectExpression getObjectExpression() {
-        return findNotNullChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @NotNull
+  public AqlObjectExpression getObjectExpression() {
+    return findNotNullChildByClass(AqlObjectExpression.class);
+  }
 
-    public String getName() {
-        return AqlPsiUtil.getName(this);
-    }
+  public String getName() {
+    return AqlPsiUtil.getName(this);
+  }
 
-    public AqlNamedElement setName(String newName) {
-        return AqlPsiUtil.setName(this, newName);
-    }
+  public AqlNamedElement setName(String newName) {
+    return AqlPsiUtil.setName(this, newName);
+  }
 
 }

@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface AqlFunFlatten extends PsiElement {
 
-    @Nullable
-    AqlIntegerType getIntegerType();
+  @Nullable
+  AqlIntegerType getIntegerType();
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlPropertyName> getPropertyNameList();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFFlatten();
+  @NotNull
+  PsiElement getFFlatten();
 
 }

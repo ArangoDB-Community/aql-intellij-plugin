@@ -6,40 +6,40 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlAnalyzerType extends PsiElement {
 
-    @Nullable
-    PsiElement getAIdentity();
+  @Nullable
+  PsiElement getAIdentity();
 
-    @Nullable
-    PsiElement getATextDe();
+  @Nullable
+  PsiElement getATextDe();
 
-    @Nullable
-    PsiElement getATextEn();
+  @Nullable
+  PsiElement getATextEn();
 
-    @Nullable
-    PsiElement getATextEs();
+  @Nullable
+  PsiElement getATextEs();
 
-    @Nullable
-    PsiElement getATextFi();
+  @Nullable
+  PsiElement getATextFi();
 
-    @Nullable
-    PsiElement getATextIt();
+  @Nullable
+  PsiElement getATextIt();
 
-    @Nullable
-    PsiElement getATextNl();
+  @Nullable
+  PsiElement getATextNl();
 
-    @Nullable
-    PsiElement getATextNo();
+  @Nullable
+  PsiElement getATextNo();
 
-    @Nullable
-    PsiElement getATextPt();
+  @Nullable
+  PsiElement getATextPt();
 
-    @Nullable
-    PsiElement getATextRu();
+  @Nullable
+  PsiElement getATextRu();
 
-    @Nullable
-    PsiElement getATextSv();
+  @Nullable
+  PsiElement getATextSv();
 
-    @Nullable
-    PsiElement getATextZh();
+  @Nullable
+  PsiElement getATextZh();
 
 }

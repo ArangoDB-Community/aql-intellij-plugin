@@ -15,56 +15,53 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunRemoveValuesImpl extends ASTWrapperPsiElement implements AqlFunRemoveValues {
 
-    public AqlFunRemoveValuesImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunRemoveValuesImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunRemoveValues(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunRemoveValues(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlNumberType> getNumberTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlNumberType> getNumberTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlObjectExpression> getObjectExpressionList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlObjectExpression> getObjectExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlParameterVariable> getParameterVariableList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlPropertyName> getPropertyNameList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlPropertyName> getPropertyNameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFRemoveValues() {
-        return findNotNullChildByType(F_REMOVE_VALUES);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFRemoveValues() {
+    return findNotNullChildByType(F_REMOVE_VALUES);
+  }
 
 }

@@ -13,26 +13,23 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunRandImpl extends ASTWrapperPsiElement implements AqlFunRand {
 
-    public AqlFunRandImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunRandImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunRand(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunRand(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFRand() {
-        return findNotNullChildByType(F_RAND);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFRand() {
+    return findNotNullChildByType(F_RAND);
+  }
 
 }

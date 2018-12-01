@@ -12,32 +12,29 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlArrayRefImpl extends ASTWrapperPsiElement implements AqlArrayRef {
 
-    public AqlArrayRefImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlArrayRefImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitArrayRef(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitArrayRef(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public AqlExpressionType getExpressionType() {
-        return findNotNullChildByClass(AqlExpressionType.class);
-    }
+  @Override
+  @NotNull
+  public AqlExpressionType getExpressionType() {
+    return findNotNullChildByClass(AqlExpressionType.class);
+  }
 
-    @Override
-    @NotNull
-    public AqlObjectExpression getObjectExpression() {
-        return findNotNullChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @NotNull
+  public AqlObjectExpression getObjectExpression() {
+    return findNotNullChildByClass(AqlObjectExpression.class);
+  }
 
 }

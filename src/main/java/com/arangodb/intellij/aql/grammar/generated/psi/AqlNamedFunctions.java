@@ -13,8 +13,8 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunAcos getFunAcos();
 
-    @Nullable
-    AqlFunAnalyzer getFunAnalyzer();
+  @Nullable
+  AqlFunAnalyzer getFunAnalyzer();
 
   @Nullable
   AqlFunAppend getFunAppend();
@@ -43,11 +43,11 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunAvg getFunAvg();
 
-    @Nullable
-    AqlFunBm25 getFunBm25();
+  @Nullable
+  AqlFunBm25 getFunBm25();
 
-    @Nullable
-    AqlFunBoost getFunBoost();
+  @Nullable
+  AqlFunBoost getFunBoost();
 
   @Nullable
   AqlFunCall getFunCall();
@@ -64,14 +64,14 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunCollections getFunCollections();
 
-    @Nullable
-    AqlFunConcat getFunConcat();
+  @Nullable
+  AqlFunConcat getFunConcat();
 
   @Nullable
   AqlFunConcatSeparator getFunConcatSeparator();
 
-    @Nullable
-    AqlFunContains getFunContains();
+  @Nullable
+  AqlFunContains getFunContains();
 
   @Nullable
   AqlFunContainsArray getFunContainsArray();
@@ -88,77 +88,77 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunCountUnique getFunCountUnique();
 
-    @Nullable
-    AqlFunCurrentDatabase getFunCurrentDatabase();
+  @Nullable
+  AqlFunCurrentDatabase getFunCurrentDatabase();
 
   @Nullable
   AqlFunCurrentUser getFunCurrentUser();
 
-    @Nullable
-    AqlFunDateAdd getFunDateAdd();
+  @Nullable
+  AqlFunDateAdd getFunDateAdd();
 
-    @Nullable
-    AqlFunDateCompare getFunDateCompare();
+  @Nullable
+  AqlFunDateCompare getFunDateCompare();
 
-    @Nullable
-    AqlFunDateDay getFunDateDay();
+  @Nullable
+  AqlFunDateDay getFunDateDay();
 
-    @Nullable
-    AqlFunDateDayOfYear getFunDateDayOfYear();
+  @Nullable
+  AqlFunDateDayOfYear getFunDateDayOfYear();
 
-    @Nullable
-    AqlFunDateDaysInMonth getFunDateDaysInMonth();
+  @Nullable
+  AqlFunDateDaysInMonth getFunDateDaysInMonth();
 
-    @Nullable
-    AqlFunDateDiff getFunDateDiff();
+  @Nullable
+  AqlFunDateDiff getFunDateDiff();
 
-    @Nullable
-    AqlFunDateFormat getFunDateFormat();
+  @Nullable
+  AqlFunDateFormat getFunDateFormat();
 
-    @Nullable
-    AqlFunDateHour getFunDateHour();
+  @Nullable
+  AqlFunDateHour getFunDateHour();
 
-    @Nullable
-    AqlFunDateISO8601 getFunDateISO8601();
+  @Nullable
+  AqlFunDateISO8601 getFunDateISO8601();
 
-    @Nullable
-    AqlFunDateIsoWeek getFunDateIsoWeek();
+  @Nullable
+  AqlFunDateIsoWeek getFunDateIsoWeek();
 
-    @Nullable
-    AqlFunDateLeapYear getFunDateLeapYear();
+  @Nullable
+  AqlFunDateLeapYear getFunDateLeapYear();
 
-    @Nullable
-    AqlFunDateMillisecond getFunDateMillisecond();
+  @Nullable
+  AqlFunDateMillisecond getFunDateMillisecond();
 
-    @Nullable
-    AqlFunDateMinute getFunDateMinute();
+  @Nullable
+  AqlFunDateMinute getFunDateMinute();
 
-    @Nullable
-    AqlFunDateMonth getFunDateMonth();
+  @Nullable
+  AqlFunDateMonth getFunDateMonth();
 
-    @Nullable
-    AqlFunDateNow getFunDateNow();
+  @Nullable
+  AqlFunDateNow getFunDateNow();
 
-    @Nullable
-    AqlFunDateOfWeek getFunDateOfWeek();
+  @Nullable
+  AqlFunDateOfWeek getFunDateOfWeek();
 
-    @Nullable
-    AqlFunDateQuarter getFunDateQuarter();
+  @Nullable
+  AqlFunDateQuarter getFunDateQuarter();
 
-    @Nullable
-    AqlFunDateSecond getFunDateSecond();
+  @Nullable
+  AqlFunDateSecond getFunDateSecond();
 
-    @Nullable
-    AqlFunDateSubtract getFunDateSubtract();
+  @Nullable
+  AqlFunDateSubtract getFunDateSubtract();
 
-    @Nullable
-    AqlFunDateTimeStamp getFunDateTimeStamp();
+  @Nullable
+  AqlFunDateTimeStamp getFunDateTimeStamp();
 
-    @Nullable
-    AqlFunDateTrunc getFunDateTrunc();
+  @Nullable
+  AqlFunDateTrunc getFunDateTrunc();
 
-    @Nullable
-    AqlFunDateYear getFunDateYear();
+  @Nullable
+  AqlFunDateYear getFunDateYear();
 
   @Nullable
   AqlFunDegrees getFunDegrees();
@@ -169,11 +169,11 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunDocument getFunDocument();
 
-    @Nullable
-    AqlFunEncodeUriComponent getFunEncodeUriComponent();
+  @Nullable
+  AqlFunEncodeUriComponent getFunEncodeUriComponent();
 
-    @Nullable
-    AqlFunExists getFunExists();
+  @Nullable
+  AqlFunExists getFunExists();
 
   @Nullable
   AqlFunExp getFunExp();
@@ -184,11 +184,11 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunFail getFunFail();
 
-    @Nullable
-    AqlFunFindFirst getFunFindFirst();
+  @Nullable
+  AqlFunFindFirst getFunFindFirst();
 
-    @Nullable
-    AqlFunFindLast getFunFindLast();
+  @Nullable
+  AqlFunFindLast getFunFindLast();
 
   @Nullable
   AqlFunFirst getFunFirst();
@@ -277,32 +277,32 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunIsString getFunIsString();
 
-    @Nullable
-    AqlFunJsonParse getFunJsonParse();
+  @Nullable
+  AqlFunJsonParse getFunJsonParse();
 
-    @Nullable
-    AqlFunJsonStringify getFunJsonStringify();
+  @Nullable
+  AqlFunJsonStringify getFunJsonStringify();
 
   @Nullable
   AqlFunKeep getFunKeep();
 
-    @Nullable
-    AqlFunKeys getFunKeys();
+  @Nullable
+  AqlFunKeys getFunKeys();
 
   @Nullable
   AqlFunLast getFunLast();
 
-    @Nullable
-    AqlFunLeft getFunLeft();
+  @Nullable
+  AqlFunLeft getFunLeft();
 
   @Nullable
   AqlFunLength getFunLength();
 
-    @Nullable
-    AqlFunLevenshteinDistance getFunLevenshteinDistance();
+  @Nullable
+  AqlFunLevenshteinDistance getFunLevenshteinDistance();
 
-    @Nullable
-    AqlFunLike getFunLike();
+  @Nullable
+  AqlFunLike getFunLike();
 
   @Nullable
   AqlFunLog getFunLog();
@@ -313,11 +313,11 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunLog2 getFunLog2();
 
-    @Nullable
-    AqlFunLower getFunLower();
+  @Nullable
+  AqlFunLower getFunLower();
 
-    @Nullable
-    AqlFunLtrim getFunLtrim();
+  @Nullable
+  AqlFunLtrim getFunLtrim();
 
   @Nullable
   AqlFunMatches getFunMatches();
@@ -325,8 +325,8 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunMax getFunMax();
 
-    @Nullable
-    AqlFunMd5 getFunMd5();
+  @Nullable
+  AqlFunMd5 getFunMd5();
 
   @Nullable
   AqlFunMedian getFunMedian();
@@ -340,8 +340,8 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunMin getFunMin();
 
-    @Nullable
-    AqlFunMinMatch getFunMinMatch();
+  @Nullable
+  AqlFunMinMatch getFunMinMatch();
 
   @Nullable
   AqlFunMinus getFunMinus();
@@ -367,8 +367,8 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunPercentile getFunPercentile();
 
-    @Nullable
-    AqlFunPhrase getFunPhrase();
+  @Nullable
+  AqlFunPhrase getFunPhrase();
 
   @Nullable
   AqlFunPi getFunPi();
@@ -382,8 +382,8 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunPow getFunPow();
 
-    @Nullable
-    AqlFunPregelResult getFunPregelResult();
+  @Nullable
+  AqlFunPregelResult getFunPregelResult();
 
   @Nullable
   AqlFunPush getFunPush();
@@ -394,23 +394,23 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunRand getFunRand();
 
-    @Nullable
-    AqlFunRandomToken getFunRandomToken();
+  @Nullable
+  AqlFunRandomToken getFunRandomToken();
 
   @Nullable
   AqlFunRange getFunRange();
 
-    @Nullable
-    AqlFunRegexMatches getFunRegexMatches();
+  @Nullable
+  AqlFunRegexMatches getFunRegexMatches();
 
-    @Nullable
-    AqlFunRegexReplace getFunRegexReplace();
+  @Nullable
+  AqlFunRegexReplace getFunRegexReplace();
 
-    @Nullable
-    AqlFunRegexSplit getFunRegexSplit();
+  @Nullable
+  AqlFunRegexSplit getFunRegexSplit();
 
-    @Nullable
-    AqlFunRegexTest getFunRegexTest();
+  @Nullable
+  AqlFunRegexTest getFunRegexTest();
 
   @Nullable
   AqlFunRemoveNTH getFunRemoveNTH();
@@ -424,23 +424,23 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunReverse getFunReverse();
 
-    @Nullable
-    AqlFunRight getFunRight();
+  @Nullable
+  AqlFunRight getFunRight();
 
   @Nullable
   AqlFunRound getFunRound();
 
-    @Nullable
-    AqlFunRtrim getFunRtrim();
+  @Nullable
+  AqlFunRtrim getFunRtrim();
 
   @Nullable
   AqlFunSQRT getFunSQRT();
 
-    @Nullable
-    AqlFunSha1 getFunSha1();
+  @Nullable
+  AqlFunSha1 getFunSha1();
 
-    @Nullable
-    AqlFunSha512 getFunSha512();
+  @Nullable
+  AqlFunSha512 getFunSha512();
 
   @Nullable
   AqlFunShift getFunShift();
@@ -460,17 +460,17 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunSortedUnique getFunSortedUnique();
 
-    @Nullable
-    AqlFunSoundex getFunSoundex();
+  @Nullable
+  AqlFunSoundex getFunSoundex();
 
-    @Nullable
-    AqlFunSplit getFunSplit();
+  @Nullable
+  AqlFunSplit getFunSplit();
 
-    @Nullable
-    AqlFunStartsWith getFunStartsWith();
+  @Nullable
+  AqlFunStartsWith getFunStartsWith();
 
-    @Nullable
-    AqlFunStdDevSample getFunStdDevSample();
+  @Nullable
+  AqlFunStdDevSample getFunStdDevSample();
 
   @Nullable
   AqlFunStddev getFunStddev();
@@ -478,11 +478,11 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunStddevPopulation getFunStddevPopulation();
 
-    @Nullable
-    AqlFunSubstitute getFunSubstitute();
+  @Nullable
+  AqlFunSubstitute getFunSubstitute();
 
-    @Nullable
-    AqlFunSubstring getFunSubstring();
+  @Nullable
+  AqlFunSubstring getFunSubstring();
 
   @Nullable
   AqlFunSum getFunSum();
@@ -493,20 +493,20 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunTan2 getFunTan2();
 
-    @Nullable
-    AqlFunTfDiff getFunTfDiff();
+  @Nullable
+  AqlFunTfDiff getFunTfDiff();
 
   @Nullable
   AqlFunToArray getFunToArray();
 
-    @Nullable
-    AqlFunToBase64 getFunToBase64();
+  @Nullable
+  AqlFunToBase64 getFunToBase64();
 
   @Nullable
   AqlFunToBool getFunToBool();
 
-    @Nullable
-    AqlFunToHex getFunToHex();
+  @Nullable
+  AqlFunToHex getFunToHex();
 
   @Nullable
   AqlFunToList getFunToList();
@@ -517,14 +517,14 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunToString getFunToString();
 
-    @Nullable
-    AqlFunTokens getFunTokens();
+  @Nullable
+  AqlFunTokens getFunTokens();
 
   @Nullable
   AqlFunTranslate getFunTranslate();
 
-    @Nullable
-    AqlFunTrim getFunTrim();
+  @Nullable
+  AqlFunTrim getFunTrim();
 
   @Nullable
   AqlFunTypename getFunTypename();
@@ -547,11 +547,11 @@ public interface AqlNamedFunctions extends PsiElement {
   @Nullable
   AqlFunUnsetRecursive getFunUnsetRecursive();
 
-    @Nullable
-    AqlFunUpper getFunUpper();
+  @Nullable
+  AqlFunUpper getFunUpper();
 
-    @Nullable
-    AqlFunUuid getFunUuid();
+  @Nullable
+  AqlFunUuid getFunUuid();
 
   @Nullable
   AqlFunV8 getFunV8();

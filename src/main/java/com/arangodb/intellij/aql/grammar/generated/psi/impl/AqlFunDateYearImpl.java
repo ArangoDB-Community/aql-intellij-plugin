@@ -16,56 +16,53 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunDateYearImpl extends ASTWrapperPsiElement implements AqlFunDateYear {
 
-    public AqlFunDateYearImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunDateYearImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunDateYear(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunDateYear(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlIntegerType> getIntegerTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlIntegerType> getIntegerTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
-    }
+  @Override
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFDateYear() {
-        return findNotNullChildByType(F_DATE_YEAR);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFDateYear() {
+    return findNotNullChildByType(F_DATE_YEAR);
+  }
 
 }

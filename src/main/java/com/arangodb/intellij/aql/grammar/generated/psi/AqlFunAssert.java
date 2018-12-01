@@ -7,13 +7,13 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunAssert extends PsiElement {
 
-    @Nullable
-    AqlAnyType getAnyType();
+  @Nullable
+  AqlAnyType getAnyType();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @NotNull
-    PsiElement getFAssert();
+  @NotNull
+  PsiElement getFAssert();
 
 }

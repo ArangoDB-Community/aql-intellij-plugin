@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunDistanceImpl extends ASTWrapperPsiElement implements AqlFunDistance {
 
-    public AqlFunDistanceImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunDistanceImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunDistance(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunDistance(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlNumberType> getNumberTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlNumberType> getNumberTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFDistance() {
-        return findNotNullChildByType(F_DISTANCE);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFDistance() {
+    return findNotNullChildByType(F_DISTANCE);
+  }
 
 }

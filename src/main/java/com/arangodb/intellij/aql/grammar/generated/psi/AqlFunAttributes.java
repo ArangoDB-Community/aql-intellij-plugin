@@ -9,22 +9,22 @@ import java.util.List;
 
 public interface AqlFunAttributes extends PsiElement {
 
-    @NotNull
-    List<AqlBooleanType> getBooleanTypeList();
+  @NotNull
+  List<AqlBooleanType> getBooleanTypeList();
 
-    @Nullable
-    AqlJsonType getJsonType();
+  @Nullable
+  AqlJsonType getJsonType();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFAttributes();
+  @NotNull
+  PsiElement getFAttributes();
 
 }

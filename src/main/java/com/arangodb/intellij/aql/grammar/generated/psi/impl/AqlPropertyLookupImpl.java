@@ -24,11 +24,8 @@ public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements Aql
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-      if (visitor instanceof AqlVisitor) {
-          accept((AqlVisitor) visitor);
-      } else {
-          super.accept(visitor);
-      }
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
   }
 
   @Override

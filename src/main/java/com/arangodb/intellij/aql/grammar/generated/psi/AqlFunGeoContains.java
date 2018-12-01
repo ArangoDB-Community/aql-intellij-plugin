@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunGeoContains extends PsiElement {
 
-    @NotNull
-    List<AqlJsonType> getJsonTypeList();
+  @NotNull
+  List<AqlJsonType> getJsonTypeList();
 
-    @NotNull
-    PsiElement getFGeoContains();
+  @NotNull
+  PsiElement getFGeoContains();
 
 }

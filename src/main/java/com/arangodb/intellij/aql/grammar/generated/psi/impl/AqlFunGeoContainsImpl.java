@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunGeoContainsImpl extends ASTWrapperPsiElement implements AqlFunGeoContains {
 
-    public AqlFunGeoContainsImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunGeoContainsImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunGeoContains(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunGeoContains(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlJsonType> getJsonTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlJsonType> getJsonTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFGeoContains() {
-        return findNotNullChildByType(F_GEO_CONTAINS);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFGeoContains() {
+    return findNotNullChildByType(F_GEO_CONTAINS);
+  }
 
 }

@@ -15,62 +15,59 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunDateCompareImpl extends ASTWrapperPsiElement implements AqlFunDateCompare {
 
-    public AqlFunDateCompareImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunDateCompareImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunDateCompare(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunDateCompare(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlDateUnit> getDateUnitList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlDateUnit.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlDateUnit> getDateUnitList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlDateUnit.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlIntegerType> getIntegerTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlIntegerType> getIntegerTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlObjectExpression> getObjectExpressionList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlObjectExpression> getObjectExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlParameterVariable> getParameterVariableList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlStringType> getStringTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlStringType> getStringTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFDateCompare() {
-        return findNotNullChildByType(F_DATE_COMPARE);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFDateCompare() {
+    return findNotNullChildByType(F_DATE_COMPARE);
+  }
 
 }

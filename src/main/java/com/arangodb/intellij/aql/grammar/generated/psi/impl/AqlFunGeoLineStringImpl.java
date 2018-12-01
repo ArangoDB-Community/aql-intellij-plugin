@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunGeoLineStringImpl extends ASTWrapperPsiElement implements AqlFunGeoLineString {
 
-    public AqlFunGeoLineStringImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunGeoLineStringImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunGeoLineString(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunGeoLineString(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlArrayType> getArrayTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlArrayType> getArrayTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFGeoLinestring() {
-        return findNotNullChildByType(F_GEO_LINESTRING);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFGeoLinestring() {
+    return findNotNullChildByType(F_GEO_LINESTRING);
+  }
 
 }

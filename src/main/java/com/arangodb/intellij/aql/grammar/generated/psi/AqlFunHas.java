@@ -7,22 +7,22 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunHas extends PsiElement {
 
-    @Nullable
-    AqlJsonType getJsonType();
+  @Nullable
+  AqlJsonType getJsonType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFHas();
+  @NotNull
+  PsiElement getFHas();
 
 }

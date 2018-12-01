@@ -7,22 +7,19 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunAtan2 extends PsiElement {
 
-    @Nullable
-    AqlNumberType getNumberType();
+  @Nullable
+  AqlNumberType getNumberType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlPropertyName getPropertyName();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
-
-    @NotNull
-    PsiElement getFAtan2();
+  @NotNull
+  PsiElement getFAtan2();
 
 }

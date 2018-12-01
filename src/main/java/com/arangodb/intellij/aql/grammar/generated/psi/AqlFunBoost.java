@@ -7,25 +7,22 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunBoost extends PsiElement {
 
-    @Nullable
-    AqlAnyType getAnyType();
+  @Nullable
+  AqlAnyType getAnyType();
 
-    @Nullable
-    AqlNumberType getNumberType();
+  @Nullable
+  AqlNumberType getNumberType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlPropertyName getPropertyName();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
-
-    @NotNull
-    PsiElement getFBoost();
+  @NotNull
+  PsiElement getFBoost();
 
 }

@@ -13,26 +13,23 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunVersionImpl extends ASTWrapperPsiElement implements AqlFunVersion {
 
-    public AqlFunVersionImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunVersionImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunVersion(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunVersion(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFVersion() {
-        return findNotNullChildByType(F_VERSION);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFVersion() {
+    return findNotNullChildByType(F_VERSION);
+  }
 
 }

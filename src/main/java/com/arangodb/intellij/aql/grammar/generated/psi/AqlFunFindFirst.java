@@ -8,22 +8,22 @@ import java.util.List;
 
 public interface AqlFunFindFirst extends PsiElement {
 
-    @NotNull
-    List<AqlIntegerType> getIntegerTypeList();
+  @NotNull
+  List<AqlIntegerType> getIntegerTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlStringType> getStringTypeList();
+  @NotNull
+  List<AqlStringType> getStringTypeList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFFindFirst();
+  @NotNull
+  PsiElement getFFindFirst();
 
 }

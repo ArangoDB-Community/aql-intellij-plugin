@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlFunUuid extends PsiElement {
 
-    @NotNull
-    PsiElement getFUuid();
+  @NotNull
+  PsiElement getFUuid();
 
 }

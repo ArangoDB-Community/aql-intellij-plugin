@@ -6,14 +6,14 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlStatement extends PsiElement {
 
-    @Nullable
-    AqlAnalyzerType getAnalyzerType();
+  @Nullable
+  AqlAnalyzerType getAnalyzerType();
 
-    @Nullable
-    AqlArrayType getArrayType();
+  @Nullable
+  AqlArrayType getArrayType();
 
-    @Nullable
-    AqlBooleanType getBooleanType();
+  @Nullable
+  AqlBooleanType getBooleanType();
 
   @Nullable
   AqlComment getComment();
@@ -22,13 +22,16 @@ public interface AqlStatement extends PsiElement {
   AqlExpressionType getExpressionType();
 
   @Nullable
+  AqlFunctionExpression getFunctionExpression();
+
+  @Nullable
   AqlJsonType getJsonType();
 
-    @Nullable
-    AqlNamedKeywordStatements getNamedKeywordStatements();
+  @Nullable
+  AqlNamedKeywordStatements getNamedKeywordStatements();
 
-    @Nullable
-    AqlNumberType getNumberType();
+  @Nullable
+  AqlNumberType getNumberType();
 
   @Nullable
   AqlOperatorStatements getOperatorStatements();
@@ -39,7 +42,7 @@ public interface AqlStatement extends PsiElement {
   @Nullable
   AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
 }

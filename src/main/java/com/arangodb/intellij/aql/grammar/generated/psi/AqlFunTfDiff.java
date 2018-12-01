@@ -9,22 +9,22 @@ import java.util.List;
 
 public interface AqlFunTfDiff extends PsiElement {
 
-    @Nullable
-    AqlBooleanType getBooleanType();
+  @Nullable
+  AqlBooleanType getBooleanType();
 
-    @Nullable
-    AqlJsonType getJsonType();
+  @Nullable
+  AqlJsonType getJsonType();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFTfidf();
+  @NotNull
+  PsiElement getFTfidf();
 
 }

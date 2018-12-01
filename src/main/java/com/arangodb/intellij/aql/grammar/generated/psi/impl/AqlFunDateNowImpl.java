@@ -13,26 +13,23 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunDateNowImpl extends ASTWrapperPsiElement implements AqlFunDateNow {
 
-    public AqlFunDateNowImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunDateNowImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunDateNow(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunDateNow(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFDateNow() {
-        return findNotNullChildByType(F_DATE_NOW);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFDateNow() {
+    return findNotNullChildByType(F_DATE_NOW);
+  }
 
 }

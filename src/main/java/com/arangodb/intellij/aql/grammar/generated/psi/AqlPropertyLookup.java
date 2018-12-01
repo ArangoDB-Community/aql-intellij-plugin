@@ -13,8 +13,8 @@ public interface AqlPropertyLookup extends PsiElement {
   @Nullable
   AqlSystemProperty getSystemProperty();
 
-    String getName();
+  String getName();
 
-    AqlNamedElement setName(String newName);
+  AqlNamedElement setName(String newName);
 
 }

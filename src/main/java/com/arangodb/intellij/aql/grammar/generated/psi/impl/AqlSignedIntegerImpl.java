@@ -11,26 +11,23 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlSignedIntegerImpl extends ASTWrapperPsiElement implements AqlSignedInteger {
 
-    public AqlSignedIntegerImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlSignedIntegerImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitSignedInteger(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitSignedInteger(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public AqlIntegerType getIntegerType() {
-        return findNotNullChildByClass(AqlIntegerType.class);
-    }
+  @Override
+  @NotNull
+  public AqlIntegerType getIntegerType() {
+    return findNotNullChildByClass(AqlIntegerType.class);
+  }
 
 }

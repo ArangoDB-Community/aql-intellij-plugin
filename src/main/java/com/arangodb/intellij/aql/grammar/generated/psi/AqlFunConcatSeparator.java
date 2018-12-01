@@ -9,22 +9,22 @@ import java.util.List;
 
 public interface AqlFunConcatSeparator extends PsiElement {
 
-    @NotNull
-    List<AqlExpressionType> getExpressionTypeList();
+  @NotNull
+  List<AqlExpressionType> getExpressionTypeList();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFConcatSeparator();
+  @NotNull
+  PsiElement getFConcatSeparator();
 
 }

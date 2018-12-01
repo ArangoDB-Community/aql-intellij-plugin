@@ -7,19 +7,19 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunRandomToken extends PsiElement {
 
-    @Nullable
-    AqlIntegerType getIntegerType();
+  @Nullable
+  AqlIntegerType getIntegerType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFRandomToken();
+  @NotNull
+  PsiElement getFRandomToken();
 
 }

@@ -6,10 +6,10 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlAnyType extends PsiElement {
 
-    @Nullable
-    AqlExpressionType getExpressionType();
+  @Nullable
+  AqlExpressionType getExpressionType();
 
-    @Nullable
-    AqlJsonType getJsonType();
+  @Nullable
+  AqlJsonType getJsonType();
 
 }

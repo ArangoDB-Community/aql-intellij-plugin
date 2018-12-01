@@ -6,46 +6,46 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlDateUnit extends PsiElement {
 
-    @Nullable
-    PsiElement getDDayD();
+  @Nullable
+  PsiElement getDDayD();
 
-    @Nullable
-    PsiElement getDDayS();
+  @Nullable
+  PsiElement getDDayS();
 
-    @Nullable
-    PsiElement getDHourD();
+  @Nullable
+  PsiElement getDHourD();
 
-    @Nullable
-    PsiElement getDHourS();
+  @Nullable
+  PsiElement getDHourS();
 
-    @Nullable
-    PsiElement getDMillisecondD();
+  @Nullable
+  PsiElement getDMillisecondD();
 
-    @Nullable
-    PsiElement getDMillisecondS();
+  @Nullable
+  PsiElement getDMillisecondS();
 
-    @Nullable
-    PsiElement getDMinuteD();
+  @Nullable
+  PsiElement getDMinuteD();
 
-    @Nullable
-    PsiElement getDMinuteS();
+  @Nullable
+  PsiElement getDMinuteS();
 
-    @Nullable
-    PsiElement getDMonthD();
+  @Nullable
+  PsiElement getDMonthD();
 
-    @Nullable
-    PsiElement getDMonthS();
+  @Nullable
+  PsiElement getDMonthS();
 
-    @Nullable
-    PsiElement getDSecondD();
+  @Nullable
+  PsiElement getDSecondD();
 
-    @Nullable
-    PsiElement getDSecondS();
+  @Nullable
+  PsiElement getDSecondS();
 
-    @Nullable
-    PsiElement getDYearD();
+  @Nullable
+  PsiElement getDYearD();
 
-    @Nullable
-    PsiElement getDYearS();
+  @Nullable
+  PsiElement getDYearS();
 
 }

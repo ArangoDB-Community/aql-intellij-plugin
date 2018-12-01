@@ -7,10 +7,10 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunFail extends PsiElement {
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @NotNull
-    PsiElement getFFail();
+  @NotNull
+  PsiElement getFFail();
 
 }

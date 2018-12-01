@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlSignedInteger extends PsiElement {
 
-    @NotNull
-    AqlIntegerType getIntegerType();
+  @NotNull
+  AqlIntegerType getIntegerType();
 
 }

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlFunDateNow extends PsiElement {
 
-    @NotNull
-    PsiElement getFDateNow();
+  @NotNull
+  PsiElement getFDateNow();
 
 }

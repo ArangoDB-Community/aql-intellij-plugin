@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunNotNullImpl extends ASTWrapperPsiElement implements AqlFunNotNull {
 
-    public AqlFunNotNullImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunNotNullImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunNotNull(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunNotNull(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlAnyType> getAnyTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFNotNull() {
-        return findNotNullChildByType(F_NOT_NULL);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFNotNull() {
+    return findNotNullChildByType(F_NOT_NULL);
+  }
 
 }

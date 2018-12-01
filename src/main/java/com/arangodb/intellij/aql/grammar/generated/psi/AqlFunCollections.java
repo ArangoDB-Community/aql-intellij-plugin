@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlFunCollections extends PsiElement {
 
-    @NotNull
-    PsiElement getFCollections();
+  @NotNull
+  PsiElement getFCollections();
 
 }

@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunctionExpression extends PsiElement {
 
-    @NotNull
-    List<AqlExpressionType> getExpressionTypeList();
+  @NotNull
+  List<AqlExpressionType> getExpressionTypeList();
 
-    @NotNull
-    AqlNamedFunctions getNamedFunctions();
+  @NotNull
+  AqlNamedFunctions getNamedFunctions();
 
 }

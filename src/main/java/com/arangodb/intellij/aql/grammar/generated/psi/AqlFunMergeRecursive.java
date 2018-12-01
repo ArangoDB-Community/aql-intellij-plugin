@@ -8,19 +8,19 @@ import java.util.List;
 
 public interface AqlFunMergeRecursive extends PsiElement {
 
-    @NotNull
-    List<AqlJsonType> getJsonTypeList();
+  @NotNull
+  List<AqlJsonType> getJsonTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @NotNull
-    PsiElement getFMergeRecursive();
+  @NotNull
+  PsiElement getFMergeRecursive();
 
 }

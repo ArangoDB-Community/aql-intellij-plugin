@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface AqlFunDateTrunc extends PsiElement {
 
-    @Nullable
-    AqlDateUnit getDateUnit();
+  @Nullable
+  AqlDateUnit getDateUnit();
 
-    @NotNull
-    List<AqlIntegerType> getIntegerTypeList();
+  @NotNull
+  List<AqlIntegerType> getIntegerTypeList();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @NotNull
-    PsiElement getFDateTrunc();
+  @NotNull
+  PsiElement getFDateTrunc();
 
 }

@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlParameterVariable extends PsiElement {
 
-    @NotNull
-    AqlPropertyName getPropertyName();
+  @NotNull
+  AqlPropertyName getPropertyName();
 
-    String getName();
+  String getName();
 
-    AqlNamedElement setName(String newName);
+  AqlNamedElement setName(String newName);
 
 }

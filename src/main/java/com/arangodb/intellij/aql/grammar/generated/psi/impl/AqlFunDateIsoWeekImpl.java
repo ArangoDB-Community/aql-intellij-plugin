@@ -16,56 +16,53 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunDateIsoWeekImpl extends ASTWrapperPsiElement implements AqlFunDateIsoWeek {
 
-    public AqlFunDateIsoWeekImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunDateIsoWeekImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunDateIsoWeek(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunDateIsoWeek(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlIntegerType> getIntegerTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlIntegerType> getIntegerTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
-    }
+  @Override
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFDateIsoweek() {
-        return findNotNullChildByType(F_DATE_ISOWEEK);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFDateIsoweek() {
+    return findNotNullChildByType(F_DATE_ISOWEEK);
+  }
 
 }

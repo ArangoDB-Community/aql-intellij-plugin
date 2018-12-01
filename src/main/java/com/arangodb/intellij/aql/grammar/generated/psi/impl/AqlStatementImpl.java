@@ -23,53 +23,59 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
     else super.accept(visitor);
   }
 
-    @Override
-    @Nullable
-    public AqlAnalyzerType getAnalyzerType() {
-        return findChildByClass(AqlAnalyzerType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnalyzerType getAnalyzerType() {
+    return findChildByClass(AqlAnalyzerType.class);
+  }
 
   @Override
   @Nullable
   public AqlArrayType getArrayType() {
-      return findChildByClass(AqlArrayType.class);
+    return findChildByClass(AqlArrayType.class);
   }
 
   @Override
   @Nullable
   public AqlBooleanType getBooleanType() {
-      return findChildByClass(AqlBooleanType.class);
+    return findChildByClass(AqlBooleanType.class);
   }
 
   @Override
   @Nullable
   public AqlComment getComment() {
-      return findChildByClass(AqlComment.class);
+    return findChildByClass(AqlComment.class);
   }
 
   @Override
   @Nullable
   public AqlExpressionType getExpressionType() {
-      return findChildByClass(AqlExpressionType.class);
+    return findChildByClass(AqlExpressionType.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunctionExpression getFunctionExpression() {
+    return findChildByClass(AqlFunctionExpression.class);
   }
 
   @Override
   @Nullable
   public AqlJsonType getJsonType() {
-      return findChildByClass(AqlJsonType.class);
+    return findChildByClass(AqlJsonType.class);
   }
 
   @Override
   @Nullable
   public AqlNamedKeywordStatements getNamedKeywordStatements() {
-      return findChildByClass(AqlNamedKeywordStatements.class);
+    return findChildByClass(AqlNamedKeywordStatements.class);
   }
 
-    @Override
-    @Nullable
-    public AqlNumberType getNumberType() {
-        return findChildByClass(AqlNumberType.class);
-    }
+  @Override
+  @Nullable
+  public AqlNumberType getNumberType() {
+    return findChildByClass(AqlNumberType.class);
+  }
 
   @Override
   @Nullable
@@ -89,10 +95,10 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
     return findChildByClass(AqlStringType.class);
   }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
 }

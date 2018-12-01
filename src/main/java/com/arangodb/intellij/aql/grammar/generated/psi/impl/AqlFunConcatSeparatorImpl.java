@@ -16,56 +16,53 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunConcatSeparatorImpl extends ASTWrapperPsiElement implements AqlFunConcatSeparator {
 
-    public AqlFunConcatSeparatorImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunConcatSeparatorImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunConcatSeparator(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunConcatSeparator(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlExpressionType> getExpressionTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlExpressionType> getExpressionTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
-    }
+  @Override
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlStringType getStringType() {
-        return findChildByClass(AqlStringType.class);
-    }
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFConcatSeparator() {
-        return findNotNullChildByType(F_CONCAT_SEPARATOR);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFConcatSeparator() {
+    return findNotNullChildByType(F_CONCAT_SEPARATOR);
+  }
 
 }

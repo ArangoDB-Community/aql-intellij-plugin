@@ -15,50 +15,47 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunMergeRecursiveImpl extends ASTWrapperPsiElement implements AqlFunMergeRecursive {
 
-    public AqlFunMergeRecursiveImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunMergeRecursiveImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunMergeRecursive(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunMergeRecursive(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlJsonType> getJsonTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlJsonType> getJsonTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlObjectExpression> getObjectExpressionList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlObjectExpression> getObjectExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlParameterVariable> getParameterVariableList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFMergeRecursive() {
-        return findNotNullChildByType(F_MERGE_RECURSIVE);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFMergeRecursive() {
+    return findNotNullChildByType(F_MERGE_RECURSIVE);
+  }
 
 }

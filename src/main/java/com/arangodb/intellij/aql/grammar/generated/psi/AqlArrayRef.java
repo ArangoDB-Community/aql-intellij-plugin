@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlArrayRef extends PsiElement {
 
-    @NotNull
-    AqlExpressionType getExpressionType();
+  @NotNull
+  AqlExpressionType getExpressionType();
 
-    @NotNull
-    AqlObjectExpression getObjectExpression();
+  @NotNull
+  AqlObjectExpression getObjectExpression();
 
 }

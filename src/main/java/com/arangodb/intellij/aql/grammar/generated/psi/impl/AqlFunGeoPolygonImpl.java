@@ -17,32 +17,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunGeoPolygonImpl extends ASTWrapperPsiElement implements AqlFunGeoPolygon {
 
-    public AqlFunGeoPolygonImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunGeoPolygonImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunGeoPolygon(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunGeoPolygon(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlArrayType> getArrayTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlArrayType> getArrayTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFGeoPolygon() {
-        return findNotNullChildByType(F_GEO_POLYGON);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFGeoPolygon() {
+    return findNotNullChildByType(F_GEO_POLYGON);
+  }
 
 }

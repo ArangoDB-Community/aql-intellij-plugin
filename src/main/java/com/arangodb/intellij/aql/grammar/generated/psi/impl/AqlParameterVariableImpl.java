@@ -13,34 +13,31 @@ import org.jetbrains.annotations.NotNull;
 
 public class AqlParameterVariableImpl extends AqParameterVariableMixin implements AqlParameterVariable {
 
-    public AqlParameterVariableImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlParameterVariableImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitParameterVariable(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitParameterVariable(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public AqlPropertyName getPropertyName() {
-        return findNotNullChildByClass(AqlPropertyName.class);
-    }
+  @Override
+  @NotNull
+  public AqlPropertyName getPropertyName() {
+    return findNotNullChildByClass(AqlPropertyName.class);
+  }
 
-    public String getName() {
-        return AqlPsiUtil.getName(this);
-    }
+  public String getName() {
+    return AqlPsiUtil.getName(this);
+  }
 
-    public AqlNamedElement setName(String newName) {
-        return AqlPsiUtil.setName(this, newName);
-    }
+  public AqlNamedElement setName(String newName) {
+    return AqlPsiUtil.setName(this, newName);
+  }
 
 }

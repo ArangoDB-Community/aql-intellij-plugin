@@ -13,26 +13,23 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunUuidImpl extends ASTWrapperPsiElement implements AqlFunUuid {
 
-    public AqlFunUuidImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunUuidImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunUuid(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunUuid(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFUuid() {
-        return findNotNullChildByType(F_UUID);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFUuid() {
+    return findNotNullChildByType(F_UUID);
+  }
 
 }

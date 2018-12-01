@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunDistance extends PsiElement {
 
-    @NotNull
-    List<AqlNumberType> getNumberTypeList();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
-    @NotNull
-    PsiElement getFDistance();
+  @NotNull
+  PsiElement getFDistance();
 
 }

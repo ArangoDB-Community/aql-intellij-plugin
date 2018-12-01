@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlReservedWords extends PsiElement {
 
-    @NotNull
-    PsiElement getTNull();
+  @NotNull
+  PsiElement getTNull();
 
 }

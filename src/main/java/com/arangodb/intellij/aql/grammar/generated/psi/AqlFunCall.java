@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface AqlFunCall extends PsiElement {
 
-    @NotNull
-    List<AqlAnyType> getAnyTypeList();
+  @NotNull
+  List<AqlAnyType> getAnyTypeList();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @NotNull
-    PsiElement getFCall();
+  @NotNull
+  PsiElement getFCall();
 
 }

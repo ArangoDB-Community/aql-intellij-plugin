@@ -7,13 +7,13 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AqlFunAnalyzer extends PsiElement {
 
-    @Nullable
-    AqlAnalyzerType getAnalyzerType();
+  @Nullable
+  AqlAnalyzerType getAnalyzerType();
 
-    @Nullable
-    AqlAnyType getAnyType();
+  @Nullable
+  AqlAnyType getAnyType();
 
-    @NotNull
-    PsiElement getFAnalyzer();
+  @NotNull
+  PsiElement getFAnalyzer();
 
 }

@@ -9,43 +9,43 @@ import java.util.List;
 
 public interface AqlComplexJsonValue extends PsiElement {
 
-    @Nullable
-    AqlAnalyzerType getAnalyzerType();
+  @Nullable
+  AqlAnalyzerType getAnalyzerType();
 
-    @Nullable
-    AqlArrayRef getArrayRef();
+  @Nullable
+  AqlArrayRef getArrayRef();
 
-    @Nullable
-    AqlArrayType getArrayType();
+  @Nullable
+  AqlArrayType getArrayType();
 
-    @Nullable
-    AqlBooleanType getBooleanType();
+  @Nullable
+  AqlBooleanType getBooleanType();
 
-    @NotNull
-    List<AqlExpressionType> getExpressionTypeList();
+  @NotNull
+  List<AqlExpressionType> getExpressionTypeList();
 
-    @Nullable
-    AqlJsonType getJsonType();
+  @Nullable
+  AqlJsonType getJsonType();
 
-    @Nullable
-    AqlNamedFunctions getNamedFunctions();
+  @Nullable
+  AqlNamedFunctions getNamedFunctions();
 
-    @Nullable
-    AqlNamedKeywordStatements getNamedKeywordStatements();
+  @Nullable
+  AqlNamedKeywordStatements getNamedKeywordStatements();
 
-    @Nullable
-    AqlNumberType getNumberType();
+  @Nullable
+  AqlNumberType getNumberType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
 }

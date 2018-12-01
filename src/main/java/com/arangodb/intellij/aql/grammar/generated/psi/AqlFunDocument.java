@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface AqlFunDocument extends PsiElement {
 
-    @Nullable
-    AqlArrayRef getArrayRef();
+  @Nullable
+  AqlArrayRef getArrayRef();
 
-    @Nullable
-    AqlArrayType getArrayType();
+  @Nullable
+  AqlArrayType getArrayType();
 
-    @Nullable
-    AqlObjectExpression getObjectExpression();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-    @Nullable
-    AqlParameterVariable getParameterVariable();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-    @NotNull
-    List<AqlStringType> getStringTypeList();
+  @NotNull
+  List<AqlStringType> getStringTypeList();
 
-    @Nullable
-    AqlVariablePlaceHolder getVariablePlaceHolder();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
-    @Nullable
-    PsiElement getFDocument();
+  @Nullable
+  PsiElement getFDocument();
 
 }

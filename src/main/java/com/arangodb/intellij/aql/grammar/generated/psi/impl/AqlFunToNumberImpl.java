@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunToNumberImpl extends ASTWrapperPsiElement implements AqlFunToNumber {
 
-    public AqlFunToNumberImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunToNumberImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunToNumber(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunToNumber(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFToNumber() {
-        return findNotNullChildByType(F_TO_NUMBER);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFToNumber() {
+    return findNotNullChildByType(F_TO_NUMBER);
+  }
 
 }

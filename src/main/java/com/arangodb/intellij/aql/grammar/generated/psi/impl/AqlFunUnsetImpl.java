@@ -16,56 +16,53 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunUnsetImpl extends ASTWrapperPsiElement implements AqlFunUnset {
 
-    public AqlFunUnsetImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunUnsetImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunUnset(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunUnset(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlArrayType getArrayType() {
-        return findChildByClass(AqlArrayType.class);
-    }
+  @Override
+  @Nullable
+  public AqlArrayType getArrayType() {
+    return findChildByClass(AqlArrayType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlObjectExpression getObjectExpression() {
-        return findChildByClass(AqlObjectExpression.class);
-    }
+  @Override
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlParameterVariable getParameterVariable() {
-        return findChildByClass(AqlParameterVariable.class);
-    }
+  @Override
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
+  }
 
-    @Override
-    @NotNull
-    public List<AqlStringType> getStringTypeList() {
-        return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
-    }
+  @Override
+  @NotNull
+  public List<AqlStringType> getStringTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
+  }
 
-    @Override
-    @Nullable
-    public AqlVariablePlaceHolder getVariablePlaceHolder() {
-        return findChildByClass(AqlVariablePlaceHolder.class);
-    }
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
+  }
 
-    @Override
-    @Nullable
-    public PsiElement getFUnset() {
-        return findChildByType(F_UNSET);
-    }
+  @Override
+  @Nullable
+  public PsiElement getFUnset() {
+    return findChildByType(F_UNSET);
+  }
 
 }

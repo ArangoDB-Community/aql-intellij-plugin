@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunToBoolImpl extends ASTWrapperPsiElement implements AqlFunToBool {
 
-    public AqlFunToBoolImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunToBoolImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunToBool(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunToBool(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFToBool() {
-        return findNotNullChildByType(F_TO_BOOL);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFToBool() {
+    return findNotNullChildByType(F_TO_BOOL);
+  }
 
 }

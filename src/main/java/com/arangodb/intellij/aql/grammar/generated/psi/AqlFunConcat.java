@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunConcat extends PsiElement {
 
-    @NotNull
-    List<AqlAnyType> getAnyTypeList();
+  @NotNull
+  List<AqlAnyType> getAnyTypeList();
 
-    @NotNull
-    PsiElement getFConcat();
+  @NotNull
+  PsiElement getFConcat();
 
 }

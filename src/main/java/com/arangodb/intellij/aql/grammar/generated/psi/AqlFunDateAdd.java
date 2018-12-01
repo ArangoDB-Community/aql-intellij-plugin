@@ -9,25 +9,25 @@ import java.util.List;
 
 public interface AqlFunDateAdd extends PsiElement {
 
-    @Nullable
-    AqlDateUnit getDateUnit();
+  @Nullable
+  AqlDateUnit getDateUnit();
 
-    @NotNull
-    List<AqlIntegerType> getIntegerTypeList();
+  @NotNull
+  List<AqlIntegerType> getIntegerTypeList();
 
-    @NotNull
-    List<AqlObjectExpression> getObjectExpressionList();
+  @NotNull
+  List<AqlObjectExpression> getObjectExpressionList();
 
-    @NotNull
-    List<AqlParameterVariable> getParameterVariableList();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
 
-    @Nullable
-    AqlStringType getStringType();
+  @Nullable
+  AqlStringType getStringType();
 
-    @NotNull
-    List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
-    @Nullable
-    PsiElement getFDateAdd();
+  @Nullable
+  PsiElement getFDateAdd();
 
 }

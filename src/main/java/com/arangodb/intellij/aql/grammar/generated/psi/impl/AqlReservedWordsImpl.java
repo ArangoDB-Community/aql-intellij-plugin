@@ -13,26 +13,23 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlReservedWordsImpl extends ASTWrapperPsiElement implements AqlReservedWords {
 
-    public AqlReservedWordsImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlReservedWordsImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitReservedWords(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitReservedWords(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getTNull() {
-        return findNotNullChildByType(T_NULL);
-    }
+  @Override
+  @NotNull
+  public PsiElement getTNull() {
+    return findNotNullChildByType(T_NULL);
+  }
 
 }

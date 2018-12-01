@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface AqlFunCurrentUser extends PsiElement {
 
-    @NotNull
-    PsiElement getFCurrentUser();
+  @NotNull
+  PsiElement getFCurrentUser();
 
 }

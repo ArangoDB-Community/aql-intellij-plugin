@@ -404,10 +404,6 @@ NamedFunctions::= FunAbs
               | FunExists
               | FunBoost
               | FunAnalyzer
-
-
-
-
               | FunConcat
               | FunContains
               | FunEncodeUriComponent
@@ -648,7 +644,7 @@ Statement ::= NamedKeywordStatements
               | NumberType
               | BooleanType
               | VariablePlaceHolder
-              //| FunctionExpression
+              | FunctionExpression
               | ExpressionType
               | Comment
 
@@ -699,6 +695,7 @@ DateUnit ::=  D_YEAR_S
 ExpressionType ::= ArrayRef
                 | ObjectExpression
                 | NumberType
+                | NamedFunctions
                 | ArrayType
                 | AnalyzerType
                 | StringType
@@ -766,12 +763,13 @@ private document_argument::= (ObjectExpression | JsonType | ParameterVariable | 
 private string_argument::= (ObjectExpression | StringType | ParameterVariable | VariablePlaceHolder)
 private boolean_argument::= (ObjectExpression | BooleanType | ParameterVariable | VariablePlaceHolder)
 private integer_argument::= (ObjectExpression | IntegerType | ParameterVariable | VariablePlaceHolder)
-private possible_number_array::= (/*NumberType |*/ ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
+private possible_number_array::= (NumberType | ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
-private number_argument::= (NumberType | possible_number_array)
+private number_argument::= NumberType | objects_argument
 private date_argument::= (StringType | objects_argument| ("*" IntegerType)+)
 private number_argument_array ::= (possible_number_array | "[" number_argument (',' number_argument)* "]")
 private integer_argument_array ::= (possible_number_array | "[" integer_argument (',' integer_argument)* "]")
+private expression_argument::= objects_argument | ExpressionType | JsonType
 
 //*************************************************************************************
 // FUNCTIONS 
@@ -842,26 +840,26 @@ FunAnalyzer ::=  (F_ANALYZER "(" AnyType  "," AnalyzerType ")"){pin=2}
 
 
 
-FunAbs ::=  (F_ABS "(" number_argument ")"){pin=2}
-FunStdDevSample ::=  (F_STDDEV_SAMPLE "(" number_argument_array ")"){pin=2}
-FunCos ::=  (F_COS "(" number_argument ")"){pin=2}
-FunAcos ::=  (F_ACOS "(" number_argument ")"){pin=2}
-FunAsin ::=  (F_ASIN "(" number_argument ")"){pin=2}
-FunSin ::=  (F_SIN "(" number_argument ")"){pin=2}
-FunAtan ::=  (F_ATAN "(" number_argument ")"){pin=2}
-FunTan ::=  (F_TAN "(" number_argument ")"){pin=2}
-FunTan2 ::=  (F_TAN2 "(" number_argument ")"){pin=2}
-FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){pin=2}
-FunAvg ::=  (F_AVG "(" number_argument_array ")"){pin=2}
-FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){pin=2}
-FunCeil  ::=  (F_CEIL  "(" number_argument ")"){pin=2}
-FunDegrees  ::=  (F_DEGREES  "(" number_argument ")"){pin=2}
-FunExp  ::=  (F_EXP  "(" number_argument ")"){pin=2}
-FunExp2  ::=  (F_EXP2  "(" number_argument ")"){pin=2}
-FunFloor  ::=  (F_FLOOR  "(" number_argument ")"){pin=2}
-FunLog  ::=  (F_LOG  "(" number_argument ")"){pin=2}
-FunLog2  ::=  (F_LOG2  "(" number_argument ")"){pin=2}
-FunLog10  ::=  (F_LOG10  "(" number_argument ")"){pin=2}
+FunAbs ::=  (F_ABS "(" number_argument ")"){pin=1}
+FunStdDevSample ::=  (F_STDDEV_SAMPLE "(" number_argument_array ")"){pin=1}
+FunCos ::=  (F_COS "(" number_argument ")"){pin=1}
+FunAcos ::=  (F_ACOS "(" number_argument ")"){pin=1}
+FunAsin ::=  (F_ASIN "(" number_argument ")"){pin=1}
+FunSin ::=  (F_SIN "(" number_argument ")"){pin=1}
+FunAtan ::=  (F_ATAN "(" number_argument ")"){pin=1}
+FunTan ::=  (F_TAN "(" number_argument ")"){pin=1}
+FunTan2 ::=  (F_TAN2 "(" number_argument ")"){pin=1}
+FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){pin=1}
+FunAvg ::=  (F_AVG "(" number_argument_array ")"){pin=1}
+FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){pin=1}
+FunCeil  ::=  (F_CEIL  "(" number_argument ")"){pin=1}
+FunDegrees  ::=  (F_DEGREES  "(" number_argument ")"){pin=1}
+FunExp  ::=  (F_EXP  "(" number_argument ")"){pin=1}
+FunExp2  ::=  (F_EXP2  "(" number_argument ")"){pin=1}
+FunFloor  ::=  (F_FLOOR  "(" number_argument ")"){pin=1}
+FunLog  ::=  (F_LOG  "(" number_argument ")"){pin=1}
+FunLog2  ::=  (F_LOG2  "(" number_argument ")"){pin=1}
+FunLog10  ::=  (F_LOG10  "(" number_argument ")"){pin=1}
 
 FunMax  ::=  (F_MAX  "(" number_argument_array ")"){pin=2}
 FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")"){pin=2}
@@ -878,7 +876,7 @@ FunAttributes  ::=  (F_ATTRIBUTES  "(" document_argument ("," boolean_argument)?
 FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
 FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
 FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
-FunMatches  ::=  (F_MATCHES  "(" document_argument "," (ExpressionType | JsonType) ("," boolean_argument)?")"){pin=2}
+FunMatches  ::=  (F_MATCHES  "(" document_argument "," (expression_argument | JsonType) ("," boolean_argument)?")"){pin=2}
 FunMerge  ::=  (F_MERGE  "(" document_argument "," (document_argument)* ")"){pin=2}
 FunMergeRecursive  ::=  (F_MERGE_RECURSIVE  "(" document_argument "," (document_argument)* ")"){pin=2}
 FunParseIdentifier  ::=  (F_PARSE_IDENTIFIER  "(" StringType | document_argument  ")"){pin=2}
@@ -893,12 +891,12 @@ FunZip  ::=  (F_ZIP "(" ArrayType "," ArrayType ")"){pin=2}
 //############################################
 
 
-FunPosition  ::=  (F_POSITION  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
-FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
-FunAppend  ::=  (F_APPEND  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
-FunPush  ::=  (F_PUSH  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin =2}
-FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," ExpressionType ("," boolean_argument)? ")"){pin=2}
-FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," ExpressionType ("," IntegerType)? ")"){pin=2}
+FunPosition  ::=  (F_POSITION  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunAppend  ::=  (F_APPEND  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunPush  ::=  (F_PUSH  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin =2}
+FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," expression_argument ("," IntegerType)? ")"){pin=2}
 FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_argument_array ")"){pin=2}
 // also for doc
 FunLength  ::=  (F_LENGTH  "(" number_argument_array | document_argument | string_argument ")"){pin=2}
@@ -1008,7 +1006,7 @@ FunFail ::=  (F_FAIL "(" StringType ")"){pin=2}
 FunNoopt ::=  (F_NOOPT "(" AnyType ")"){pin=2}
 FunPassThru ::=  (F_PASSTHRU "(" AnyType ")"){pin=2}
 FunSleep ::=  (F_SLEEP "(" IntegerType ")"){pin=2}
-FunV8 ::=  (F_V8 "(" ExpressionType ")"){pin=2}
+FunV8 ::=  (F_V8 "(" expression_argument ")"){pin=2}
 FunVersion ::=  (F_VERSION "("  ")"){pin=2}
 FunCurrentDatabase ::=  (F_CURRENT_DATABASE "("  ")"){pin=2}
 // TODO check arg
@@ -1085,8 +1083,8 @@ PropertyName ::= ID {
 }
 
 // recover states
-//private not_bracket_or_next_value ::= !(']' | ExpressionType)
+//private not_bracket_or_next_value ::= !(']' | expression_argument)
 //private not_property_lookup ::= !(PropertyLookup)
-//private not_comma_or_next_value ::=   !(',' | ExpressionType)
-//private not_brace_or_next_value ::=  !('}'  | ExpressionType)
+//private not_comma_or_next_value ::=   !(',' | expression_argument)
+//private not_brace_or_next_value ::=  !('}'  | expression_argument)
 

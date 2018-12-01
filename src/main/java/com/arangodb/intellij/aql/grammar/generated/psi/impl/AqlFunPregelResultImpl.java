@@ -15,32 +15,29 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlFunPregelResultImpl extends ASTWrapperPsiElement implements AqlFunPregelResult {
 
-    public AqlFunPregelResultImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlFunPregelResultImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitFunPregelResult(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitFunPregelResult(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @Nullable
-    public AqlAnyType getAnyType() {
-        return findChildByClass(AqlAnyType.class);
-    }
+  @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getFPregelResult() {
-        return findNotNullChildByType(F_PREGEL_RESULT);
-    }
+  @Override
+  @NotNull
+  public PsiElement getFPregelResult() {
+    return findNotNullChildByType(F_PREGEL_RESULT);
+  }
 
 }

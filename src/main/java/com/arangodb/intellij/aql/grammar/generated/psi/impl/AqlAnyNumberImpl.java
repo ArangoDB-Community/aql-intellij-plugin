@@ -13,26 +13,23 @@ import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlAnyNumberImpl extends ASTWrapperPsiElement implements AqlAnyNumber {
 
-    public AqlAnyNumberImpl(@NotNull ASTNode node) {
-        super(node);
-    }
+  public AqlAnyNumberImpl(@NotNull ASTNode node) {
+    super(node);
+  }
 
-    public void accept(@NotNull AqlVisitor visitor) {
-        visitor.visitAnyNumber(this);
-    }
+  public void accept(@NotNull AqlVisitor visitor) {
+    visitor.visitAnyNumber(this);
+  }
 
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) {
-            accept((AqlVisitor) visitor);
-        } else {
-            super.accept(visitor);
-        }
-    }
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
-    @Override
-    @NotNull
-    public PsiElement getNumber() {
-        return findNotNullChildByType(NUMBER);
-    }
+  @Override
+  @NotNull
+  public PsiElement getNumber() {
+    return findNotNullChildByType(NUMBER);
+  }
 
 }

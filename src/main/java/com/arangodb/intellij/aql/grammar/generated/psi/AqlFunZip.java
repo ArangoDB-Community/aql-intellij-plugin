@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface AqlFunZip extends PsiElement {
 
-    @NotNull
-    List<AqlArrayType> getArrayTypeList();
+  @NotNull
+  List<AqlArrayType> getArrayTypeList();
 
-    @NotNull
-    PsiElement getFZip();
+  @NotNull
+  PsiElement getFZip();
 
 }
