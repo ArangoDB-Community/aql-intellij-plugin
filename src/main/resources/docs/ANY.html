@@ -8,5 +8,782 @@
 <li><code>OUTBOUND|INBOUND|ANY</code>: follow outgoing, incoming, or edges pointing in either
     direction in the traversal; Please note that this can't be replaced by a bind parameter.
 </li>
+<h1 id="graph-traversals-in-aql">Graph traversals in AQL</h1>
+<h2 id="general-query-idea">General query idea<a class="anchorjs-link " href="#general-query-idea" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>A traversal starts at one specific document (<em>startVertex</em>) and follows all
+    edges connected to this document. For all documents (<em>vertices</em>) that are
+    targeted by these edges it will again follow all edges connected to them and
+    so on. It is possible to define how many of these follow iterations should be
+    executed at least (<em>min</em> depth) and at most (<em>max</em> depth).</p>
+<p>For all vertices that were visited during this process in the range between
+    <em>min</em> depth and <em>max</em> depth iterations you will get a result in form of a
+    set with three items:</p>
+<ol>
+    <li>The visited vertex.</li>
+    <li>The edge pointing to it.</li>
+    <li>The complete path from startVertex to the visited vertex as object with an
+        attribute <em>edges</em> and an attribute <em>vertices</em>, each a list of the coresponding
+        elements. These lists are sorted, which means the first element in <em>vertices</em>
+        is the <em>startVertex</em> and the last is the visited vertex, and the n-th element
+        in <em>edges</em> connects the n-th element with the (n+1)-th element in <em>vertices</em>.
+    </li>
+</ol>
+<h3 id="example-execution">Example execution<a class="anchorjs-link " href="#example-execution" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>Let's take a look at a simple example to explain how it works.
+    This is the graph that we are going to traverse:</p>
+<p><img src="traversal_graph.png" alt="traversal graph"></p>
+<p>We use the following parameters for our query:</p>
+<ol>
+    <li>We start at the vertex <strong>A</strong>.</li>
+    <li>We use a <em>min</em> depth of 1.</li>
+    <li>We use a <em>max</em> depth of 2.</li>
+    <li>We follow only in <em>OUTBOUND</em> direction of edges</li>
+</ol>
+<p><img src="traversal_graph1.png" alt="traversal graph step 1"></p>
+<p>Now it walks to one of the direct neighbors of <strong>A</strong>, say <strong>B</strong> (note: ordering
+    is not guaranteed!):</p>
+<p><img src="traversal_graph2.png" alt="traversal graph step 2"></p>
+<p>The query will remember the state (red circle) and will emit the first result
+    <strong>A</strong> → <strong>B</strong> (black box). This will also prevent the traverser to be trapped
+    in cycles. Now again it will visit one of the direct neighbors of <strong>B</strong>, say <strong>E</strong>:</p>
+<p><img src="traversal_graph3.png" alt="traversal graph step 3"></p>
+<p>We have limited the query with a <em>max</em> depth of <em>2</em>, so it will not pick any
+    neighbor of <strong>E</strong>, as the path from <strong>A</strong> to <strong>E</strong> already requires
+    <em>2</em> steps.
+    Instead, we will go back one level to <strong>B</strong> and continue with any other direct
+    neighbor there:</p>
+<p><img src="traversal_graph4.png" alt="traversal graph step 4"></p>
+<p>Again after we produced this result we will step back to <strong>B</strong>.
+    But there is no neighbor of <strong>B</strong> left that we have not yet visited.
+    Hence we go another step back to <strong>A</strong> and continue with any other neighbor there.</p>
+<p><img src="traversal_graph5.png" alt="traversal graph step 5"></p>
+<p>And identical to the iterations before we will visit <strong>H</strong>:</p>
+<p><img src="traversal_graph6.png" alt="traversal graph step 6"></p>
+<p>And <strong>J</strong>:</p>
+<p><img src="traversal_graph7.png" alt="traversal graph step 7"></p>
+<p>After these steps there is no further result left. So all together this query
+    has returned the following paths:</p>
+<ol>
+    <li><strong>A</strong> → <strong>B</strong></li>
+    <li><strong>A</strong> → <strong>B</strong> → <strong>E</strong></li>
+    <li><strong>A</strong> → <strong>B</strong> → <strong>C</strong></li>
+    <li><strong>A</strong> → <strong>G</strong></li>
+    <li><strong>A</strong> → <strong>G</strong> → <strong>H</strong></li>
+    <li><strong>A</strong> → <strong>G</strong> → <strong>J</strong></li>
+</ol>
+<h2 id="syntax">Syntax<a class="anchorjs-link " href="#syntax" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>Now let's see how we can write a query that follows this schema.
+    You have two options here, you can either use a named graph or a set of edge
+    collections (anonymous graph).</p>
+<h3 id="working-with-named-graphs">Working with named graphs<a class="anchorjs-link " href="#working-with-named-graphs" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<pre><code>FOR vertex[, edge[, path]]
+  IN [min[..max]]
+  OUTBOUND|INBOUND|ANY startVertex
+  GRAPH graphName
+  [OPTIONS options]
+</code></pre>
+<ul>
+    <li><code>FOR</code>: emits up to three variables:
+        <ul>
+            <li><strong>vertex</strong> (object): the current vertex in a traversal</li>
+            <li><strong>edge</strong> (object, <em>optional</em>): the current edge in a traversal</li>
+            <li><strong>path</strong> (object, <em>optional</em>): representation of the current path with
+                two members:
+                <ul>
+                    <li><code>vertices</code>: an array of all vertices on this path</li>
+                    <li><code>edges</code>: an array of all edges on this path</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><code>IN</code> <code>min..max</code>: the minimal and maximal depth for the traversal:
+        <ul>
+            <li><strong>min</strong> (number, <em>optional</em>): edges and vertices returned by this query will
+                start at the traversal depth of <em>min</em> (thus edges and vertices below will
+                not be returned). If not specified, it defaults to 1. The minimal
+                possible value is 0.
+            </li>
+            <li><strong>max</strong> (number, <em>optional</em>): up to <em>max</em> length paths are traversed.
+                If omitted, <em>max</em> defaults to <em>min</em>. Thus only the vertices and edges in
+                the range of <em>min</em> are returned. <em>max</em> can not be specified without <em>min</em>.
+            </li>
+        </ul>
+    </li>
+    <li><code>OUTBOUND|INBOUND|ANY</code>: follow outgoing, incoming, or edges pointing in either
+        direction in the traversal; Please note that this can't be replaced by a bind parameter.
+    </li>
+    <li><strong>startVertex</strong> (string|object): a vertex where the traversal will originate from.
+        This can be specified in the form of an ID string or in the form of a document
+        with the attribute <code>_id</code>. All other values will lead to a warning and an empty
+        result. If the specified document does not exist, the result is empty as well
+        and there is no warning.
+    </li>
+    <li><code>GRAPH</code> <strong>graphName</strong> (string): the name identifying the named graph.
+        Its vertex and edge collections will be looked up.
+    </li>
+    <li><code>OPTIONS</code> <strong>options</strong> (object, <em>optional</em>): used to modify the execution of the
+        traversal. Only the following attributes have an effect, all others are ignored:
+        <ul>
+            <li><strong>uniqueVertices</strong> (string): optionally ensure vertex uniqueness
+                <ul>
+                    <li>"path" – it is guaranteed that there is no path returned with a duplicate vertex</li>
+                    <li>"global" – it is guaranteed that each vertex is visited at most once during
+                        the traversal, no matter how many paths lead from the start vertex to this one.
+                        If you start with a <code>min depth &gt; 1</code> a vertex that was found before
+                        <em>min</em> depth
+                        might not be returned at all (it still might be part of a path). <strong>Note:</strong>
+                        Using this configuration the result is not deterministic any more. If there
+                        are multiple paths from <em>startVertex</em> to <em>vertex</em>, one of those is picked.
+                    </li>
+                    <li>"none" (default) – no uniqueness check is applied on vertices</li>
+                </ul>
+            </li>
+            <li><strong>uniqueEdges</strong> (string): optionally ensure edge uniqueness
+                <ul>
+                    <li>"path" (default) – it is guaranteed that there is no path returned with a
+                        duplicate edge
+                    </li>
+                    <li>"global" – it is guaranteed that each edge is visited at most once during
+                        the traversal, no matter how many paths lead from the start vertex to this edge.
+                        If you start with a <code>min depth &gt; 1</code>, an edge that was found before
+                        <em>min</em> depth
+                        might not be returned at all (it still might be part of a path). <strong>Note:</strong>
+                        Using this configuration the result is not deterministic any more. If there
+                        are multiple paths from <em>startVertex</em> over <em>edge</em> one of those is picked.
+                    </li>
+                    <li>"none" – no uniqueness check is applied on edges. <strong>Note:</strong>
+                        Using this configuration the traversal will follow cycles in edges.
+                    </li>
+                </ul>
+            </li>
+            <li><strong>bfs</strong> (bool): optionally use the alternative breadth-first traversal algorithm
+                <ul>
+                    <li>true – the traversal will be executed breadth-first. The results will first
+                        contain all vertices at depth 1. Than all vertices at depth 2 and so on.
+                    </li>
+                    <li>false (default) – the traversal will be executed depth-first. It will first
+                        return all paths from <em>min</em> depth to <em>max</em> depth for one vertex at depth 1.
+                        Than for the next vertex at depth 1 and so on.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3 id="working-with-collection-sets">Working with collection sets<a class="anchorjs-link " href="#working-with-collection-sets" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<pre><code>FOR vertex[, edge[, path]]
+  IN [min[..max]]
+  OUTBOUND|INBOUND|ANY startVertex
+  edgeCollection1, ..., edgeCollectionN
+  [OPTIONS options]
+</code></pre>
+<p>Instead of <code>GRAPH graphName</code> you may specify a list of edge collections. Vertex
+    collections are determined by the edges in the edge collections. The rest of the
+    behavior is similar to the named version.
+    If the same edge collection is specified multiple times, it will behave as if it
+    were specified only once. Specifying the same edge collection is only allowed when
+    the collections do not have conflicting traversal directions. </p>
+<h3 id="traversing-in-mixed-directions">Traversing in mixed directions<a class="anchorjs-link " href="#traversing-in-mixed-directions" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>For traversals with a list of edge collections you can optionally specify the
+    direction for some of the edge collections. Say for example you have three edge
+    collections <em>edges1</em>, <em>edges2</em> and <em>edges3</em>, where in <em>edges2</em> the direction has
+    no relevance but in <em>edges1</em> and <em>edges3</em> the direction should be taken into account.
+    In this case you can use <em>OUTBOUND</em> as general traversal direction and <em>ANY</em>
+    specifically for <em>edges2</em> as follows:</p>
+<pre><code>FOR vertex IN OUTBOUND
+  startVertex
+  edges1, ANY edges2, edges3
+</code></pre>
+<p>All collections in the list that do not specify their own direction will use the
+    direction defined after <code>IN</code>. This allows to use a different direction for each
+    collection in your traversal.</p>
+<h2 id="using-filters-and-the-explainer-to-extrapolate-the-costs">Using filters and the explainer to extrapolate the costs<a class="anchorjs-link " href="#using-filters-and-the-explainer-to-extrapolate-the-costs" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>All three variables emitted by the traversals might as well be used in filter
+    statements. For some of these filter statements the optimizer can detect that it
+    is possible to prune paths of traversals earlier, hence filtered results will
+    not be emitted to the variables in the first place. This may significantly
+    improve the performance of your query. Whenever a filter is not fulfilled,
+    the complete set of <em>vertex</em>, <em>edge</em> and <em>path</em> will be skipped. All paths
+    with a length greater than <em>max</em> will never be computed.</p>
+<p>In the current state, <code>AND</code> combined filters can be optimized, but <code>OR</code>
+    combined filters cannot.</p>
+<h3 id="filtering-on-paths">Filtering on paths<a class="anchorjs-link " href="#filtering-on-paths" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>Filtering on paths allows for the most powerful filtering and may have the
+    highest impact on performance. Using the path variable you can filter on
+    specific iteration depths. You can filter for absolute positions in the path
+    by specifying a positive number (which then qualifies for the optimizations),
+    or relative positions to the end of the path by specifying a negative number.</p>
+<h4 id="filtering-edges-on-the-path">Filtering edges on the path<a class="anchorjs-link " href="#filtering-edges-on-the-path" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h4>
+<pre><code class="lang-js">FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FILTER p.edges[<span class="hljs-number">0</span>].theTruth == <span class="hljs-literal">true</span>
+  RETURN p
+</code></pre>
+<p>will filter all paths where the start edge (index 0) has the attribute
+    <em>theTruth</em> equal to <em>true</em>. The resulting paths will be up to 5 items long.</p>
+<h3 id="filtering-vertices-on-the-path">Filtering vertices on the path<a class="anchorjs-link " href="#filtering-vertices-on-the-path" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>Similar to filtering the edges on the path you can also filter the vertices:</p>
+<pre><code class="lang-js">FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FILTER p.vertices[<span class="hljs-number">1</span>]._key == <span class="hljs-string">"G"</span>
+  RETURN p
+</code></pre>
+<h4 id="combining-several-filters">Combining several filters<a class="anchorjs-link " href="#combining-several-filters" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h4>
+<p>And of course you can combine these filters in any way you like: </p>
+<pre><code class="lang-js">FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FILTER p.edges[<span class="hljs-number">0</span>].theTruth == <span class="hljs-literal">true</span>
+     AND p.edges[<span class="hljs-number">1</span>].theFalse == <span class="hljs-literal">false</span>
+  FILTER p.vertices[<span class="hljs-number">1</span>]._key == <span class="hljs-string">"G"</span>
+  RETURN p
+</code></pre>
+<p>The query will filter all paths where the first edge has the attribute
+    <em>theTruth</em> equal to <em>true</em>, the first vertex is "G" and the second edge has
+    the attribute <em>theFalse</em> equal to <em>false</em>. The resulting paths will be up to
+    5 items long.</p>
+<p><strong>Note</strong>: Although we have defined a <em>min</em> of 1, we will only get results of
+    depth 2. This is because for all results in depth 1 the second edge does not
+    exist and hence cannot fulfill the condition here.</p>
+<h4 id="filter-on-the-entire-path">Filter on the entire path<a class="anchorjs-link " href="#filter-on-the-entire-path" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h4>
+<p>With the help of array comparison operators filters can also be defined
+    on the entire path, like ALL edges should have theTruth == true:</p>
+<pre><code class="lang-js">FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FILTER p.edges[*].theTruth ALL == <span class="hljs-literal">true</span>
+  RETURN p
+</code></pre>
+<p>Or NONE of the edges should have theTruth == true:</p>
+<pre><code class="lang-js">FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FILTER p.edges[*].theTruth NONE == <span class="hljs-literal">true</span>
+  RETURN p
+</code></pre>
+<p>Both examples above are recognized by the optimizer and can potentially use other indexes
+    than the edge index.</p>
+<p>It is also possible to define that at least one edge on the path has to fulfill the condition:</p>
+<pre><code class="lang-js">FOR v, e, p IN <span class="hljs-number">1.</span><span class="hljs-number">.5</span> OUTBOUND <span class="hljs-string">'circles/A'</span> GRAPH <span class="hljs-string">'traversalGraph'</span>
+  FILTER p.edges[*].theTruth ANY == <span class="hljs-literal">true</span>
+  RETURN p
+</code></pre>
+<p>It is guaranteed that at least one, but potentially more edges fulfill the condition.
+    All of the above filters can be defined on vertices in the exact same way.</p>
+<h3 id="filtering-on-the-path-vs-filtering-on-vertices-or-edges">Filtering on the path vs. filtering on vertices or edges<a class="anchorjs-link " href="#filtering-on-the-path-vs-filtering-on-vertices-or-edges" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>Filtering on the path influences the Iteration on your graph. If certain conditions
+    aren't met, the traversal may stop continuing along this path.</p>
+<p>In contrast filters on vertex or edge only express whether you're interestet in the actual value of these
+    documents. Thus, it influences the list of returned documents (if you return v or e) similar
+    as specifying a non-null <code>min</code> value. If you specify a min value of 2, the traversal over the first
+    two nodes of these paths has to be executed - you just won't see them in your result array. </p>
+<p>Similar are filters on vertices or edges - the traverser has to walk along these nodes, since
+    you may be interested in documents further down the path. </p>
+<h3 id="examples">Examples<a class="anchorjs-link " href="#examples" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>We will create a simple symmetric traversal demonstration graph:</p>
+<p><img src="traversal_graph.png" alt="traversal graph"></p>
+<div id="GRAPHTRAV_01_create_graph_container">
+    <div id="GRAPHTRAV_01_create_graph_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/graph-examples/example-graph.js"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph = examples.loadGraph(<span class="hljs-string">"traversalGraph"</span>);
+arangosh&gt; db.circles.toArray();
+[
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"I"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/I"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--C"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"9"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"G"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/G"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--A"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"7"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"F"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/F"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--_"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"6"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"A"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/A"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfz----"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"1"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"E"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/E"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC---"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"5"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"C"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/C"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfz---A"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"3"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"D"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/D"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfz---B"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"4"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"J"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/J"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--D"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"10"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"B"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/B"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfz---_"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"2"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"H"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/H"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--B"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"8"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"K"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"circles/K"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--E"</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"11"</span>
+  }
+]
+arangosh&gt; db.edges.toArray();
+[
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7561"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7561"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/A"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/B"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzC--F"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"left_bar"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7586"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7586"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/G"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/J"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzK---"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"right_zip"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7568"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7568"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/C"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/D"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG--_"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"left_blorg"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7577"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7577"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/A"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/G"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG--C"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"right_foo"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7589"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7589"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/J"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/K"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzK--_"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"right_zup"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7565"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7565"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/B"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/C"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG---"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"left_blarg"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7583"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7583"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/H"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/I"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG--E"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"right_blub"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7571"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7571"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/B"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/E"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG--A"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"left_blub"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7580"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7580"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/G"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/H"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG--D"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"right_blob"</span>
+  },
+  {
+    <span class="hljs-string">"_key"</span> : <span class="hljs-string">"7574"</span>,
+    <span class="hljs-string">"_id"</span> : <span class="hljs-string">"edges/7574"</span>,
+    <span class="hljs-string">"_from"</span> : <span class="hljs-string">"circles/E"</span>,
+    <span class="hljs-string">"_to"</span> : <span class="hljs-string">"circles/F"</span>,
+    <span class="hljs-string">"_rev"</span> : <span class="hljs-string">"_XAuyfzG--B"</span>,
+    <span class="hljs-string">"theFalse"</span> : <span class="hljs-literal">false</span>,
+    <span class="hljs-string">"theTruth"</span> : <span class="hljs-literal">true</span>,
+    <span class="hljs-string">"label"</span> : <span class="hljs-string">"left_schubi"</span>
+  }
+]
+</pre>
+    </div>
+    <div id="GRAPHTRAV_01_create_graph_short" onclick="$('#GRAPHTRAV_01_create_graph_short').hide(); $('#GRAPHTRAV_01_create_graph_long').show();">
+<pre>arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/graph-examples/example-graph.js"</span>);
+arangosh&gt; <span class="hljs-keyword">var</span> graph = examples.loadGraph(<span class="hljs-string">"traversalGraph"</span>);
+arangosh&gt; db.circles.toArray();
+arangosh&gt; db.edges.toArray();
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>To get started we select the full graph. For better overview we only return
+    the vertex IDs:</p>
+<div id="GRAPHTRAV_02_traverse_all_container">
+    <div id="GRAPHTRAV_02_traverse_all_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' RETURN v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>,
+  <span class="hljs-string">"E"</span>,
+  <span class="hljs-string">"F"</span>,
+  <span class="hljs-string">"G"</span>,
+  <span class="hljs-string">"H"</span>,
+  <span class="hljs-string">"I"</span>,
+  <span class="hljs-string">"J"</span>,
+  <span class="hljs-string">"K"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 OUTBOUND 'circles/A' edges RETURN v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>,
+  <span class="hljs-string">"E"</span>,
+  <span class="hljs-string">"F"</span>,
+  <span class="hljs-string">"G"</span>,
+  <span class="hljs-string">"H"</span>,
+  <span class="hljs-string">"I"</span>,
+  <span class="hljs-string">"J"</span>,
+  <span class="hljs-string">"K"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+    </div>
+    <div id="GRAPHTRAV_02_traverse_all_short" onclick="$('#GRAPHTRAV_02_traverse_all_short').hide(); $('#GRAPHTRAV_02_traverse_all_long').show();">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' RETURN v._key"</span>);
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 OUTBOUND 'circles/A' edges RETURN v._key"</span>);
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>We can nicely see that it is heading for the first outer vertex, then goes back to
+    the branch to descend into the next tree. After that it returns to our start node,
+    to descend again. As we can see both queries return the same result, the first one
+    uses the named graph, the second uses the edge collections directly.</p>
+<p>Now we only want the elements of a specific depth (min = max = 2), the ones that
+    are right behind the fork:</p>
+<div id="GRAPHTRAV_03_traverse_3_container">
+    <div id="GRAPHTRAV_03_traverse_3_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 2..2 OUTBOUND 'circles/A' GRAPH 'traversalGraph' return v._key"</span>);
+[
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"E"</span>,
+  <span class="hljs-string">"H"</span>,
+  <span class="hljs-string">"J"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 2 OUTBOUND 'circles/A' GRAPH 'traversalGraph' return v._key"</span>);
+[
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"E"</span>,
+  <span class="hljs-string">"H"</span>,
+  <span class="hljs-string">"J"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">4</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+    </div>
+    <div id="GRAPHTRAV_03_traverse_3_short" onclick="$('#GRAPHTRAV_03_traverse_3_short').hide(); $('#GRAPHTRAV_03_traverse_3_long').show();">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 2..2 OUTBOUND 'circles/A' GRAPH 'traversalGraph' return v._key"</span>);
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 2 OUTBOUND 'circles/A' GRAPH 'traversalGraph' return v._key"</span>);
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>As you can see, we can express this in two ways: with or without <em>max</em> parameter
+    in the expression.</p>
+<h3 id="filter-examples">Filter examples<a class="anchorjs-link " href="#filter-examples" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>Now let's start to add some filters. We want to cut of the branch on the right
+    side of the graph, we may filter in two ways:</p>
+<ul>
+    <li>we know the vertex at depth 1 has <code>_key</code> == <code>G</code></li>
+    <li>we know the <code>label</code> attribute of the edge connecting <strong>A</strong> to <strong>G</strong> is
+        <code>right_foo</code></li>
+</ul>
+<div id="GRAPHTRAV_04_traverse_4_container">
+    <div id="GRAPHTRAV_04_traverse_4_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v, e, p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' RETURN v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>,
+  <span class="hljs-string">"E"</span>,
+  <span class="hljs-string">"F"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">"FOR v, e, p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label != 'right_foo' RETURN v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>,
+  <span class="hljs-string">"E"</span>,
+  <span class="hljs-string">"F"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+    </div>
+    <div id="GRAPHTRAV_04_traverse_4_short" onclick="$('#GRAPHTRAV_04_traverse_4_short').hide(); $('#GRAPHTRAV_04_traverse_4_long').show();">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v, e, p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' RETURN v._key"</span>);
+arangosh&gt; db._query(<span class="hljs-string">"FOR v, e, p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label != 'right_foo' RETURN v._key"</span>);
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>As we can see all vertices behind <strong>G</strong> are skipped in both queries.
+    The first filters on the vertex <code>_key</code>, the second on an edge label.
+    Note again, as soon as a filter is not fulfilled for any of the three elements
+    <code>v</code>, <code>e</code> or <code>p</code>, the complete set of these will be excluded from the result.</p>
+<p>We also may combine several filters, for instance to filter out the right branch
+    (<strong>G</strong>), and the <strong>E</strong> branch:</p>
+<div id="GRAPHTRAV_05_traverse_5_container">
+    <div id="GRAPHTRAV_05_traverse_5_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' FILTER p.edges[1].label != 'left_blub' return v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">"FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' AND    p.edges[1].label != 'left_blub' return v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+    </div>
+    <div id="GRAPHTRAV_05_traverse_5_short" onclick="$('#GRAPHTRAV_05_traverse_5_short').hide(); $('#GRAPHTRAV_05_traverse_5_long').show();">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' FILTER p.edges[1].label != 'left_blub' return v._key"</span>);
+arangosh&gt; db._query(<span class="hljs-string">"FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.vertices[1]._key != 'G' AND    p.edges[1].label != 'left_blub' return v._key"</span>);
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>As you can see, combining two <code>FILTER</code> statements with an <code>AND</code> has the same result.</p>
+<h2 id="comparing-outbound--inbound--any">Comparing OUTBOUND / INBOUND / ANY<a class="anchorjs-link " href="#comparing-outbound--inbound--any" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>All our previous examples traversed the graph in <em>OUTBOUND</em> edge direction.
+    You may however want to also traverse in reverse direction (<em>INBOUND</em>) or
+    both (<em>ANY</em>). Since <code>circles/A</code> only has outbound edges, we start our queries
+    from <code>circles/E</code>:</p>
+<div id="GRAPHTRAV_06_traverse_reverse_6_container">
+    <div id="GRAPHTRAV_06_traverse_reverse_6_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 OUTBOUND 'circles/E' GRAPH 'traversalGraph' return v._key"</span>);
+[
+  <span class="hljs-string">"F"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 INBOUND 'circles/E' GRAPH 'traversalGraph' return v._key"</span>);
+[
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"A"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 ANY 'circles/E' GRAPH 'traversalGraph' return v._key"</span>);
+[
+  <span class="hljs-string">"F"</span>,
+  <span class="hljs-string">"B"</span>,
+  <span class="hljs-string">"C"</span>,
+  <span class="hljs-string">"D"</span>,
+  <span class="hljs-string">"A"</span>,
+  <span class="hljs-string">"G"</span>
+]
+[object ArangoQueryCursor, <span class="hljs-attr">count</span>: <span class="hljs-number">6</span>, <span class="hljs-attr">hasMore</span>: <span class="hljs-literal">false</span>]
+</pre>
+    </div>
+    <div id="GRAPHTRAV_06_traverse_reverse_6_short" onclick="$('#GRAPHTRAV_06_traverse_reverse_6_short').hide(); $('#GRAPHTRAV_06_traverse_reverse_6_long').show();">
+<pre>arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 OUTBOUND 'circles/E' GRAPH 'traversalGraph' return v._key"</span>);
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 INBOUND 'circles/E' GRAPH 'traversalGraph' return v._key"</span>);
+arangosh&gt; db._query(<span class="hljs-string">"FOR v IN 1..3 ANY 'circles/E' GRAPH 'traversalGraph' return v._key"</span>);
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>The first traversal will only walk in the forward (<em>OUTBOUND</em>) direction.
+    Therefore from <strong>E</strong> we only can see <strong>F</strong>. Walking in reverse direction
+    (<em>INBOUND</em>), we see the path to <strong>A</strong>: <strong>B</strong> → <strong>A</strong>.</p>
+<p>Walking in forward and reverse direction (<em>ANY</em>) we can see a more diverse result.
+    First of all, we see the simple paths to <strong>F</strong> and <strong>A</strong>. However, these vertices
+    have edges in other directions and they will be traversed.</p>
+<p><strong>Note</strong>: The traverser may use identical edges multiple times. For instance,
+    if it walks from <strong>E</strong> to <strong>F</strong>, it will continue to walk from <strong>F</strong> to
+    <strong>E</strong>
+    using the same edge once again. Due to this we will see duplicate nodes in the result.</p>
+<p>Please note that the direction can't be passed in by a bind parameter.</p>
+<h2 id="use-the-aql-explainer-for-optimizations">Use the AQL explainer for optimizations<a class="anchorjs-link " href="#use-the-aql-explainer-for-optimizations" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p>Now let's have a look what the optimizer does behind the curtain and inspect
+    traversal queries using <a href="../ExecutionAndPerformance/Optimizer.html">the explainer</a>:</p>
+<div id="GRAPHTRAV_07_traverse_7_container">
+    <div id="GRAPHTRAV_07_traverse_7_long" onclick="" style="Display: none;">
+<pre>arangosh&gt; db._explain("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' LET localScopeVar = RAND() &gt; 0.5 FILTER p.edges[0].theTruth != localScopeVar RETURN v._key", {}, {colors: false});
+Query string:
+ FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' LET localScopeVar = RAND() &gt; 0.5
+ FILTER p.edges[0].theTruth != localScopeVar RETURN v._key
+
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'circles/A' /* startnode */  GRAPH 'traversalGraph'
+  3   CalculationNode      1     - LET localScopeVar = (RAND() &gt; 0.5)   /* simple expression */
+  4   CalculationNode      1     - LET #6 = (p.`edges`[0].`theTruth` != localScopeVar)   /* simple expression */
+  5   FilterNode           1     - FILTER #6
+  6   CalculationNode      1     - LET #8 = v.`_key`   /* attribute expression */
+  7   ReturnNode           1     - RETURN #8
+
+Indexes used:
+ By   Type   Collection   Unique   Sparse   Selectivity   Fields               Ranges
+  2   edge   edges        false    false        85.00 %   [ `_from`, `_to` ]   base OUTBOUND
+
+Traversals on graphs:
+ Id   Depth   Vertex collections   Edge collections   Options                                   Filter conditions
+  2   1..3    circles              edges              uniqueVertices: none, uniqueEdges: path
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   optimize-traversals
+  3   move-calculations-down
+
+arangosh&gt; db._explain("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label == 'right_foo' RETURN v._key", {}, {colors: false});
+Query string:
+ FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label == 'right_foo'
+ RETURN v._key
+
+Execution plan:
+ Id   NodeType          Est.   Comment
+  1   SingletonNode        1   * ROOT
+  2   TraversalNode        1     - FOR v  /* vertex */, p  /* paths */ IN 1..3  /* min..maxPathDepth */ OUTBOUND 'circles/A' /* startnode */  GRAPH 'traversalGraph'
+  3   CalculationNode      1     - LET #5 = (p.`edges`[0].`label` == "right_foo")   /* simple expression */
+  4   FilterNode           1     - FILTER #5
+  5   CalculationNode      1     - LET #7 = v.`_key`   /* attribute expression */
+  6   ReturnNode           1     - RETURN #7
+
+Indexes used:
+ By   Type   Collection   Unique   Sparse   Selectivity   Fields               Ranges
+  2   edge   edges        false    false        85.00 %   [ `_from`, `_to` ]   base OUTBOUND
+  2   edge   edges        false    false        85.00 %   [ `_from`, `_to` ]   level 0 OUTBOUND
+
+Traversals on graphs:
+ Id   Depth   Vertex collections   Edge collections   Options                                   Filter conditions
+  2   1..3    circles              edges              uniqueVertices: none, uniqueEdges: path   (#3.`label` == "right_foo")
+
+Optimization rules applied:
+ Id   RuleName
+  1   move-calculations-up
+  2   move-filters-up
+  3   move-calculations-up-2
+  4   move-filters-up-2
+  5   optimize-traversals
+
+</pre>
+    </div>
+    <div id="GRAPHTRAV_07_traverse_7_short" onclick="$('#GRAPHTRAV_07_traverse_7_short').hide(); $('#GRAPHTRAV_07_traverse_7_long').show();">
+<pre>arangosh&gt; db._explain("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' LET localScopeVar = RAND() &gt; 0.5 FILTER p.edges[0].theTruth != localScopeVar RETURN v._key", {}, {colors: false});
+arangosh&gt; db._explain("FOR v,e,p IN 1..3 OUTBOUND 'circles/A' GRAPH 'traversalGraph' FILTER p.edges[0].label == 'right_foo' RETURN v._key", {}, {colors: false});
+</pre>
+        <div class="example_show_button">show execution results</div>
+    </div>
+</div>
+
+
+<p>We now see two queries: In one we add a variable <em>localScopeVar</em>, which is outside
+    the scope of the traversal itself - it is not known inside of the traverser.
+    Therefore, this filter can only be executed after the traversal, which may be
+    undesired in large graphs. The second query on the other hand only operates on the
+    path, and therefore this condition can be used during the execution of the traversal.
+    Paths that are filtered out by this condition won't be processed at all.</p>
+<p>And finally clean it up again:</p>
+<div id="GRAPHTRAV_99_drop_graph_container">
+    <div id="GRAPHTRAV_99_drop_graph_long">
+<pre>arangosh&gt; <span class="hljs-keyword">var</span> examples = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@arangodb/graph-examples/example-graph.js"</span>);
+arangosh&gt; examples.dropGraph(<span class="hljs-string">"traversalGraph"</span>);
+<span class="hljs-literal">true</span>
+</pre>
+    </div>
+</div>
+
+
+<p>If this traversal is not powerful enough for your needs, like you cannot describe
+    your conditions as AQL filter statements, then you might want to have a look at
+    <a href="../../Manual/Graphs/Traversals/index.html">manually crafted traversers</a>.</p>
+<p>Also see how to <a href="../Examples/CombiningGraphTraversals.html">combine graph traversals</a>.</p>
+<p></p>
+<div id="page-footer" class="localized-footer">
+    <hr>
+</div>
 </body>
 </html>
