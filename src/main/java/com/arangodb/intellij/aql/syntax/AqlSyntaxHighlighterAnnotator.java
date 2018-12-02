@@ -26,7 +26,6 @@ public class AqlSyntaxHighlighterAnnotator implements Annotator {
             if (aqlType == AqlMixinType.KEYWORD) {
                 annotate(element, holder, AqlSyntaxColors.KEYWORD);
             } else if (aqlType == AqlMixinType.SYSTEM_PROPERTY) {
-                log.info("SYSTEM {}", aqlType);
                 annotate(element, holder, AqlSyntaxColors.SYSTEM_PROPERTY);
             } else if (aqlType == AqlMixinType.FUNCTION) {
                 annotate(element, holder, AqlSyntaxColors.FUNCTION);
@@ -48,9 +47,9 @@ public class AqlSyntaxHighlighterAnnotator implements Annotator {
                 annotate(element, holder, AqlSyntaxColors.LINE_COMMENT);
             } else if (element instanceof AqlBlockComment) {
                 annotate(element, holder, AqlSyntaxColors.BLOCK_COMMENT);
-            } else {
+            }/* else {
                 log.info("MISSING ELEMENT {}", element);
-            }
+            }*/
         }
 
 

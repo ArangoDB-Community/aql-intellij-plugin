@@ -1,8 +1,8 @@
 package com.arangodb.intellij.aql.lang;
 
 import com.arangodb.intellij.aql.file.AqlFile;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
-import com.intellij.ide.projectView.PresentationData;
+import com.arangodb.intellij.aql.util.Icons;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.ide.structureView.StructureViewTreeElement;
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
@@ -10,11 +10,15 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AqlStructureViewElement implements  StructureViewTreeElement, SortableTreeElement {
+    private static final Logger log = LoggerFactory.getLogger(AqlStructureViewElement.class);
     private NavigatablePsiElement element;
     public AqlStructureViewElement(NavigatablePsiElement element) {
         this.element = element;
@@ -51,19 +55,41 @@ public class AqlStructureViewElement implements  StructureViewTreeElement, Sorta
     @Override
     public ItemPresentation getPresentation() {
         final ItemPresentation presentation = element.getPresentation();
-        return presentation != null ? presentation : new PresentationData();
+        if (presentation != null) {
+            return presentation;
+        }
+        return  new ItemPresentation() {
+            @NotNull
+            @Override
+            public String getPresentableText() {
+                return element.getText();
+            }
+
+            @NotNull
+            @Override
+            public String getLocationString() {
+                return element.getContainingFile().getName();
+            }
+
+            @NotNull
+            @Override
+            public Icon getIcon(boolean unused) {
+                return Icons.ICON_ARANGO_SMALL;
+            }
+        };
+
     }
 
     @NotNull
     @Override
     public TreeElement[] getChildren() {
         if (element instanceof AqlFile) {
-            final AqlNamedElement[] elements = PsiTreeUtil.getChildrenOfType(element, AqlNamedElement.class);
+            final ASTWrapperPsiElement[] elements = PsiTreeUtil.getChildrenOfType(element, ASTWrapperPsiElement.class);
             if (elements == null) {
                 return EMPTY_ARRAY;
             }
             final List<TreeElement> treeElements = new ArrayList<>(elements.length);
-            for (AqlNamedElement element : elements) {
+            for (ASTWrapperPsiElement element : elements) {
                 treeElements.add(new AqlStructureViewElement(element));
             }
             return treeElements.toArray(new TreeElement[treeElements.size()]);
