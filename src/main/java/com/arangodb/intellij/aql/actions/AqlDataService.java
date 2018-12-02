@@ -6,6 +6,7 @@ import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.*;
 import com.arangodb.intellij.aql.db.AqlDatabaseService;
 import com.arangodb.intellij.aql.exc.AqlDataSourceException;
+import com.arangodb.intellij.aql.model.AqlQuery;
 import com.arangodb.intellij.aql.model.ArangoDbDatabase;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.arangodb.intellij.aql.ui.DataWindowState;
@@ -46,6 +47,7 @@ public final class AqlDataService {
         this.stateComponent = project.getComponent(DataWindowState.class);
     }
 
+
     public boolean hasValidSettings() {
         final ArangoDbServer state = stateComponent.getState();
         if (Strings.isNullOrEmpty(state.getUser())
@@ -64,6 +66,11 @@ public final class AqlDataService {
 
     public AqlDataService executeQuery(final String query) {
         return executeQuery(query, Collections.emptyMap(), QueryType.QUERY);
+    }
+
+    public AqlDataService saveQuery(final AqlQuery query) {
+       stateComponent.getState().addQuery(query);
+        return this;
     }
 
     public AqlDataService explainQuery(final String query) {

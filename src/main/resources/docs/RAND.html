@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RAND</title>
+</head>
+<body>
+<h2 id="rand">RAND()<a class="anchorjs-link " href="#rand" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>RAND() → randomNumber</code></p>
+<p>Return a pseudo-random number between 0 and 1.</p>
+<ul>
+    <li>returns <strong>randomNumber</strong> (number): a number greater than 0 and less than 1</li>
+</ul>
+<pre><code class="lang-js">RAND() <span class="hljs-comment">// 0.3503170117504508</span>
+RAND() <span class="hljs-comment">// 0.6138226173882478</span>
+</code></pre>
+<p>Complex example:</p>
+<pre><code class="lang-js">LET coinFlips = (
+    FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.100000</span>
+    RETURN RAND() &gt; <span class="hljs-number">0.5</span> ? <span class="hljs-string">"heads"</span> : <span class="hljs-string">"tails"</span>
+)
+RETURN MERGE(
+    FOR flip IN coinFlips
+        COLLECT f = flip WITH COUNT INTO count
+        RETURN { [f]: count }
+)
+</code></pre>
+<p>Result:</p>
+<pre><code class="lang-json">[
+  {
+    <span class="hljs-string">"heads"</span>: <span class="hljs-number">49902</span>,
+    <span class="hljs-string">"tails"</span>: <span class="hljs-number">50098</span>
+  }
+]
+</code></pre>
+</body>
+</html>

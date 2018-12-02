@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FAIL</title>
+</head>
+<body>
+<h3 id="fail">FAIL()<a class="anchorjs-link " href="#fail" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>FAIL(reason)</code></p>
+<p>Let a query fail on purpose. Can be used in a conditional branch, or to verify
+    if lazy evaluation / short circuiting is used for instance.</p>
+<ul>
+    <li><strong>reason</strong> (string): an error message</li>
+    <li>returns nothing, because the query is aborted</li>
+</ul>
+<pre><code class="lang-js">RETURN <span class="hljs-number">1</span> == <span class="hljs-number">1</span> ? <span class="hljs-string">"okay"</span> : FAIL(<span class="hljs-string">"error"</span>) <span class="hljs-comment">// "okay"</span>
+RETURN <span class="hljs-number">1</span> == <span class="hljs-number">1</span> || FAIL(<span class="hljs-string">"error"</span>) ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span> <span class="hljs-comment">// true</span>
+RETURN <span class="hljs-number">1</span> == <span class="hljs-number">2</span> &amp;&amp; FAIL(<span class="hljs-string">"error"</span>) ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span> <span class="hljs-comment">// false</span>
+RETURN <span class="hljs-number">1</span> == <span class="hljs-number">1</span> &amp;&amp; FAIL(<span class="hljs-string">"error"</span>) ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span> <span class="hljs-comment">// aborted with error</span></code></pre>
+</body>
+</html>

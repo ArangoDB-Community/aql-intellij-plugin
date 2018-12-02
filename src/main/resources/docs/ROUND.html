@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ROUND</title>
+</head>
+<body>
+<h2 id="round">ROUND()<a class="anchorjs-link " href="#round" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>ROUND(value) → roundedValue</code></p>
+<p>Return the integer closest to <em>value</em>.</p>
+<ul>
+    <li><strong>value</strong> (number): any number</li>
+    <li>returns <strong>roundedValue</strong> (number): the value rounded to the closest integer</li>
+</ul>
+<pre><code class="lang-js">ROUND(<span class="hljs-number">2.49</span>) <span class="hljs-comment">// 2</span>
+ROUND(<span class="hljs-number">2.50</span>) <span class="hljs-comment">// 3</span>
+ROUND(<span class="hljs-number">-2.50</span>) <span class="hljs-comment">// -2</span>
+ROUND(<span class="hljs-number">-2.51</span>) <span class="hljs-comment">// -3</span>
+</code></pre>
+<p>Rounding towards zero, also known as <em>trunc()</em> in C/C++, can be achieved with
+    a combination of the <a href="../Operators.html#ternary-operator">ternary operator</a>,
+    <a href="#ceil">CEIL()</a>
+    and <a href="#floor">FLOOR()</a>:</p>
+<pre><code class="lang-js">LET rounded = value &gt;= <span class="hljs-number">0</span> ? FLOOR(value) : CEIL(value)</code></pre>
+</body>
+</html>

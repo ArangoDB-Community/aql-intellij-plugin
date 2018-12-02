@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NOOPT</title>
+</head>
+<body>
+<h3 id="noopt">NOOPT()<a class="anchorjs-link " href="#noopt" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>NOOPT(value) → retVal</code></p>
+<p>No-operation that prevents certain query compile-time and run-time optimizations.
+    Constant expressions can be forced to be evaluated at runtime with this.
+    This function is marked as non-deterministic so its argument withstands
+    query optimization. There is no need to call this function explicitly, it is
+    mainly used for internal testing.</p>
+<ul>
+    <li><strong>value</strong> (any): a value of arbitrary type</li>
+    <li>returns <strong>retVal</strong> (any): <em>value</em></li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-comment">// differences in execution plan (explain)</span>
+FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> RETURN (<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)      <span class="hljs-comment">// const assignment</span>
+FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> RETURN NOOPT(<span class="hljs-number">1</span> + <span class="hljs-number">1</span>) <span class="hljs-comment">// simple expression</span>
+
+NOOPT( <span class="hljs-number">123</span> ) <span class="hljs-comment">// evaluates 123 at runtime</span>
+NOOPT( CONCAT(<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>) ) <span class="hljs-comment">// evaluates concatenation at runtime</span></code></pre>
+</body>
+</html>

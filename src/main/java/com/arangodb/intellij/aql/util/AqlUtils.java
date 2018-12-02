@@ -3,6 +3,9 @@ package com.arangodb.intellij.aql.util;
 import com.arangodb.entity.AqlExecutionExplainEntity;
 import com.arangodb.intellij.aql.file.AqlFileType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import com.intellij.json.JsonFileType;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
@@ -13,6 +16,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import static com.arangodb.intellij.aql.util.log.*;
@@ -58,5 +62,11 @@ public final class AqlUtils {
 
     public static void popupDataSourceFix(final String message, final Project project) {
         errorAction(message, "Fix ArangoDB data source", new DataSourceWindowCallback(project));
+    }
+
+    @NotNull
+    public static String createHash(final Project project, final String query, final Map<String, Object> data) {
+        final String clean = CharMatcher.whitespace().removeFrom(query);
+        return Hashing.sha256().newHasher().putString(clean, Charsets.UTF_8).hash().toString();
     }
 }

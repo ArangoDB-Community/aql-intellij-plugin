@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MIN_MATCH</title>
+</head>
+<body>
+<h3 id="minmatch">MIN_MATCH()<a class="anchorjs-link " href="#minmatch" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>MIN_MATCH(searchExpression [, searchExpression]*, minMatchCount)</code></p>
+<p>Match documents where at least <strong>minMatchCount</strong> of the specified
+    <strong>searchExpression</strong>s are satisfied.</p>
+<ul>
+    <li><em>searchExpression</em> - any valid search expression</li>
+    <li><em>minMatchCount</em> - minimum number of <em>searchExpression</em>s that should be
+        satisfied
+    </li>
+</ul>
+<p>For example,</p>
+<pre><code class="lang-js">MIN_MATCH(doc.text == <span class="hljs-string">'quick'</span>, doc.text == <span class="hljs-string">'brown'</span>, doc.text == <span class="hljs-string">'fox'</span>, <span class="hljs-number">2</span>)
+</code></pre>
+<p>if <code>doc.text</code>, as analyzed by the current analyzer, contains 2 out of 'quick',
+    'brown' and 'fox', it will be included as matched one.</p>
+<h3 id="searching-examples">Searching examples<a class="anchorjs-link " href="#searching-examples" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>to match documents which have a 'name' attribute</p>
+<pre><code>FOR doc IN someView SEARCH EXISTS(doc.name)
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH EXISTS(doc['name'])
+  RETURN doc
+</code></pre>
+<p>to match documents where 'body' was analyzed via the 'text_en' analyzer</p>
+<pre><code>FOR doc IN someView SEARCH EXISTS(doc.body, 'analyzer', 'text_en')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH EXISTS(doc['body'], 'analyzer', 'text_en')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH ANALYZER(EXISTS(doc['body'], 'analyzer'), 'text_en')
+  RETURN doc
+</code></pre>
+<p>to match documents which have an 'age' attribute of type number</p>
+<pre><code>FOR doc IN someView SEARCH EXISTS(doc.age, 'numeric')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH EXISTS(doc['age'], 'numeric')
+  RETURN doc
+</code></pre>
+<p>to match documents where 'description' contains word 'quick' or word
+    'brown' and has been analyzed with 'text_en' analyzer</p>
+<pre><code>FOR doc IN someView SEARCH ANALYZER(doc.description == 'quick' OR doc.description == 'brown', 'text_en')
+  RETURN doc
+</code></pre>
+<p>to match documents where 'description' contains at least 2 of 3 words 'quick',
+    'brown', 'fox' and has been analyzed with 'text_en' analyzer</p>
+<pre><code>FOR doc IN someView SEARCH ANALYZER(
+    MIN_MATCH(doc.description == 'quick', doc.description == 'brown', doc.description == 'fox', 2),
+    'text_en'
+  )
+  RETURN doc
+</code></pre>
+<p>to match documents where 'description' contains a phrase 'quick brown'</p>
+<pre><code>FOR doc IN someView SEARCH PHRASE(doc.description, [ 'quick brown' ], 'text_en')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH PHRASE(doc['description'], [ 'quick brown' ], 'text_en')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH ANALYZER(PHRASE(doc['description'], [ 'quick brown' ]), 'text_en')
+  RETURN doc
+</code></pre>
+<p>to match documents where 'body' contains the phrase consisting of a sequence
+    like this:
+    'quick' * 'fox jumps' (where the asterisk can be any single word)</p>
+<pre><code>FOR doc IN someView SEARCH PHRASE(doc.body, [ 'quick', 1, 'fox jumps' ], 'text_en')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH PHRASE(doc['body'], [ 'quick', 1, 'fox jumps' ], 'text_en')
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH ANALYZER(PHRASE(doc['body'], [ 'quick', 1, 'fox jumps' ]), 'text_en')
+  RETURN doc
+</code></pre>
+<p>to match documents where 'story' starts with 'In the beginning'</p>
+<pre><code>FOR doc IN someView SEARCH STARTS_WITH(doc.story, 'In the beginning')
+  RETURN DOC
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView SEARCH STARTS_WITH(doc['story'], 'In the beginning')
+  RETURN DOC
+</code></pre>
+<p>to watch the analyzer doing its work</p>
+<pre><code>RETURN TOKENS('a quick brown fox', 'text_en')
+</code></pre>
+<p>to match documents where 'description' best matches 'a quick brown fox'</p>
+<pre><code>FOR doc IN someView SEARCH ANALYZER(doc.description IN TOKENS('a quick brown fox', 'text_en'), 'text_en')
+  RETURN doc
+</code></pre>
+</body>
+</html>

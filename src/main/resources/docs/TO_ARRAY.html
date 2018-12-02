@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TO_ARRAY</title>
+</head>
+<body>
+<h3 id="toarray">TO_ARRAY()<a class="anchorjs-link " href="#toarray" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>TO_ARRAY(value) → array</code></p>
+<p>Take an input <em>value</em> of any type and convert it into an array value.</p>
+<ul>
+    <li><strong>value</strong> (any): input of arbitrary type</li>
+    <li>returns <strong>array</strong> (array):
+        <ul>
+            <li><em>null</em> is converted to an empty array</li>
+            <li>Boolean values, numbers and strings are converted to an array containing
+                the original value as its single element
+            </li>
+            <li>Arrays keep their original value</li>
+            <li>Objects / documents are converted to an array containing their attribute
+                <strong>values</strong> as array elements, just like <a href="Document.html#values">VALUES()</a></li>
+        </ul>
+    </li>
+</ul>
+<pre><code class="lang-js">TO_ARRAY(<span class="hljs-literal">null</span>) <span class="hljs-comment">// []</span>
+TO_ARRAY(<span class="hljs-literal">false</span>) <span class="hljs-comment">// [false]</span>
+TO_ARRAY(<span class="hljs-literal">true</span>) <span class="hljs-comment">// [true]</span>
+TO_ARRAY(<span class="hljs-number">5</span>) <span class="hljs-comment">// [5]</span>
+TO_ARRAY(<span class="hljs-string">"foo"</span>) <span class="hljs-comment">// ["foo"]</span>
+TO_ARRAY([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"foo"</span>]) <span class="hljs-comment">// [1, 2, "foo"]</span>
+TO_ARRAY({foo: <span class="hljs-number">1</span>, bar: <span class="hljs-number">2</span>, baz: [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]}) <span class="hljs-comment">// [1, 2, [3, 4, 5]]</span>
+</code></pre>
+<h3 id="tolist"></h3>
+</body>
+</html>

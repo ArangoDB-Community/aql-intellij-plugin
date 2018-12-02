@@ -3,7 +3,9 @@ package com.arangodb.intellij.aql.model;
 import com.intellij.util.xmlb.annotations.Transient;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ArangoDbServer {
@@ -19,6 +21,7 @@ public class ArangoDbServer {
     private ArangoDbDatabase selectedDatabase;
     private String name;
     private String selectedDatabaseName;
+    private Map<String, AqlQuery> queries;
 
 
     public ArangoDbServer() {
@@ -126,5 +129,19 @@ public class ArangoDbServer {
         this.name = name;
     }
 
+    public void addQuery(final AqlQuery query) {
+        if (queries == null) {
+            queries = new HashMap<>();
+        }
+        queries.put(query.getName(), query);
+    }
+
+    public Map<String, AqlQuery> getQueries() {
+        return queries;
+    }
+
+    public void setQueries(final Map<String, AqlQuery> queries) {
+        this.queries = queries;
+    }
 }
 

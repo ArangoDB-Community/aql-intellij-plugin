@@ -1,5 +1,6 @@
 package com.arangodb.intellij.aql.actions;
 
+import com.arangodb.intellij.aql.model.AqlQuery;
 import com.arangodb.intellij.aql.ui.dialogs.AqlParameterDialog;
 import com.arangodb.intellij.aql.ui.windows.AqlConsoleWindow;
 import com.arangodb.intellij.aql.util.AqlUtils;
@@ -29,6 +30,8 @@ public class AqlExecuteQueryAction extends AqlQueryAction {
             return;
         }
         final Set<String> names = AqlUtils.extractParameterNames(charSequence, project);
+        final AqlDataService service = AqlDataService.with(project);
+        final String query = charSequence.toString();
         if (names.size() > 0) {
             final AqlParameterDialog dialog = new AqlParameterDialog(project, names);
 
@@ -36,12 +39,18 @@ public class AqlExecuteQueryAction extends AqlQueryAction {
             if (ok) {
                 log.error("ok {}");
                 final Map<String, Object> data = dialog.getData();
-                AqlDataService.with(project).executeQuery(charSequence.toString(), data);
+                service.executeQuery(query, data);
+                showConsole(project);
+                final String hash = AqlUtils.createHash(project, query, data);
+                service.saveQuery(new AqlQuery(hash, query, data));
+
+                return;
             }
+            log.error("No parameters defined");
          return;
         }
 
-        AqlDataService.with(project).executeQuery(charSequence.toString());
+        service.executeQuery(query);
       /*  final String title = "";
         CommandProcessor.getInstance().executeCommand(project, () -> {
             final Runnable action = () -> {
@@ -51,11 +60,15 @@ public class AqlExecuteQueryAction extends AqlQueryAction {
         }, title, null);*/
         // TODO add parameters
         // TODO move window itself
+        showConsole(project);
+
+
+    }
+
+    private void showConsole(final Project project) {
         assert project != null;
         final ToolWindow window = ToolWindowManager.getInstance(project).getToolWindow(AqlConsoleWindow.WINDOW_ID);
         window.activate(null, true);
-
-
     }
 
 

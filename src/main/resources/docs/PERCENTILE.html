@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PERCENTILE</title>
+</head>
+<body>
+<h2 id="percentile">PERCENTILE()<a class="anchorjs-link " href="#percentile" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>PERCENTILE(numArray, n, method) → percentile</code></p>
+<p>Return the <em>n</em>th percentile of the values in <em>numArray</em>.</p>
+<ul>
+    <li><strong>numArray</strong> (array): an array of numbers, <em>null</em> values are ignored</li>
+    <li><strong>n</strong> (number): must be between 0 (excluded) and 100 (included)</li>
+    <li><strong>method</strong> (string, <em>optional</em>): "rank" (default) or "interpolation"</li>
+    <li>returns <strong>percentile</strong> (number|null): the <em>n</em>th percentile, or <em>null</em> if the
+        array is empty or only <em>null</em> values are contained in it or the percentile
+        cannot be calculated
+    </li>
+</ul>
+<pre><code class="lang-js">PERCENTILE( [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], <span class="hljs-number">50</span> ) <span class="hljs-comment">// 2</span>
+PERCENTILE( [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], <span class="hljs-number">50</span>, <span class="hljs-string">"rank"</span> ) <span class="hljs-comment">// 2</span>
+PERCENTILE( [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], <span class="hljs-number">50</span>, <span class="hljs-string">"interpolation"</span> ) <span class="hljs-comment">// 2.5</span>
+</code></pre>
+</body>
+</html>

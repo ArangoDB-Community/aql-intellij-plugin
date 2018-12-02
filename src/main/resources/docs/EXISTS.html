@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EXISTS</title>
+</head>
+<body>
+<h3 id="exists">EXISTS()<a class="anchorjs-link " href="#exists" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>Note: Will only match values when the specified attribute has been processed
+    with the link property <strong>storeValues</strong> set to <strong>"id"</strong> (by default it's
+    <strong>"none"</strong>).</p>
+<p><code>EXISTS(doc.someAttr)</code></p>
+<p>Match documents <strong>doc</strong> where the attribute <strong>someAttr</strong> exists in the
+    document.</p>
+<p>This also works with sub-attributes, e.g.</p>
+<p><code>EXISTS(doc.someAttr.anotherAttr)</code></p>
+<p>as long as the field is processed by the view with <strong>storeValues</strong> not
+    <strong>none</strong>.</p>
+<p><code>EXISTS(doc.someAttr, "analyzer", analyzer)</code></p>
+<p>Match documents where <strong>doc.someAttr</strong> exists in the document <em>and</em> was indexed
+    by the specified <strong>analyzer</strong>. <strong>analyzer</strong> is optional and defaults to the
+    current context analyzer (e.g. specified by <code>ANALYZER</code> function).</p>
+<p><code>EXISTS(doc.someAttr, type)</code></p>
+<p>Match documents where the <strong>doc.someAttr</strong> exists in the document
+    and is of the specified type.</p>
+<ul>
+    <li><em>doc.someAttr</em> - the path of the attribute to exist in the document</li>
+    <li><em>analyzer</em> - string with the analyzer used, i.e. <em>"text_en"</em> or one of the
+        other <a href="../../../Manual/Views/ArangoSearch/Analyzers.html">available string analyzers</a></li>
+    <li><em>type</em> - data type as string; one of:
+        <ul>
+            <li><strong>bool</strong></li>
+            <li><strong>boolean</strong></li>
+            <li><strong>numeric</strong></li>
+            <li><strong>null</strong></li>
+            <li><strong>string</strong></li>
+        </ul>
+    </li>
+</ul>
+<p>In case if <strong>analyzer</strong> isn't specified, current context analyzer (e.g.
+    specified by <code>ANALYZER</code> function) will be used.</p>
+<h3 id="phrase"></h3>
+</body>
+</html>

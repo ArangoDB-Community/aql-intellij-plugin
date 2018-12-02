@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TFIDF</title>
+</head>
+<body>
+<h3 id="tfidf">TFIDF()<a class="anchorjs-link " href="#tfidf" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>TFIDF(doc, withNorms)</code></p>
+<ul>
+    <li><em>doc</em> (document): must be emitted by <code>FOR doc IN someView</code></li>
+    <li><em>withNorms</em> (bool, <em>optional</em>): specifying whether scores should be
+        normalized, the default is <em>false</em></li>
+</ul>
+<p>Sorts documents using the
+    <a href="https://en.wikipedia.org/wiki/TF-IDF" target="_blank"><strong>term frequency–inverse document frequency</strong> algorithm</a>.
+    See the
+    <a href="../../../Manual/Views/ArangoSearch/Scorers.html"><code>TFIDF()</code> section in ArangoSearch Scorers</a>
+    for details.</p>
+<h3 id="sorting-examples">Sorting examples<a class="anchorjs-link " href="#sorting-examples" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>to sort documents by the value of the 'name' attribute</p>
+<pre><code>FOR doc IN someView
+  SORT doc.name
+  RETURN doc
+</code></pre>
+<p>or</p>
+<pre><code>FOR doc IN someView
+  SORT doc['name']
+  RETURN doc
+</code></pre>
+<p>to sort documents via the
+    <a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank">BM25 algorithm</a></p>
+<pre><code>FOR doc IN someView
+  SORT BM25(doc)
+  RETURN doc
+</code></pre>
+<p>to sort documents via the
+    <a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank">BM25 algorithm</a>
+    with 'k' = 1.2 and 'b' = 0.75</p>
+<pre><code>FOR doc IN someView
+  SORT BM25(doc, 1.2, 0.75)
+  RETURN doc
+</code></pre>
+<p>to sort documents via the
+    <a href="https://en.wikipedia.org/wiki/TF-IDF" target="_blank">TFIDF algorithm</a></p>
+<pre><code>FOR doc IN someView
+  SORT TFIDF(doc)
+  RETURN doc
+</code></pre>
+<p>to sort documents via the
+    <a href="https://en.wikipedia.org/wiki/TF-IDF" target="_blank">TFIDF algorithm</a> with norms</p>
+<pre><code>FOR doc IN someView
+  SORT TFIDF(doc, true)
+  RETURN doc
+</code></pre>
+<p>to sort documents by value of 'name' and then by the
+    <a href="https://en.wikipedia.org/wiki/TF-IDF" target="_blank">TFIDF algorithm</a> where 'name' values are
+    equivalent</p>
+<pre><code>FOR doc IN someView
+  SORT doc.name, TFIDF(doc)
+  RETURN doc
+</code></pre>
+<h2 id="use-cases">Use cases<a class="anchorjs-link " href="#use-cases" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<h3 id="prefix-search">Prefix search<a class="anchorjs-link " href="#prefix-search" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p>The data contained in our view looks like that:</p>
+<pre><code class="lang-json">{ <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>, <span class="hljs-string">"body"</span>: <span class="hljs-string">"ThisIsAVeryLongWord"</span> }
+{ <span class="hljs-string">"id"</span>: <span class="hljs-number">2</span>, <span class="hljs-string">"body"</span>: <span class="hljs-string">"ThisIsNotSoLong"</span> }
+{ <span class="hljs-string">"id"</span>: <span class="hljs-number">3</span>, <span class="hljs-string">"body"</span>: <span class="hljs-string">"ThisIsShorter"</span> }
+{ <span class="hljs-string">"id"</span>: <span class="hljs-number">4</span>, <span class="hljs-string">"body"</span>: <span class="hljs-string">"ThisIs"</span> }
+{ <span class="hljs-string">"id"</span>: <span class="hljs-number">5</span>, <span class="hljs-string">"body"</span>: <span class="hljs-string">"ButNotThis"</span> }
+</code></pre>
+<p>We now want to search for documents where the attribute <code>body</code> starts with "ThisIs",</p>
+<p>A simple AQL query executing this prefix search:</p>
+<pre><code>FOR doc IN someView SEARCH STARTS_WITH(doc.body, 'ThisIs')
+  RETURN doc
+</code></pre>
+<p>It will find the documents with the ids <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, but not
+    <code>5</code>.</p>
+</body>
+</html>

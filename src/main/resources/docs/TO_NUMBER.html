@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TO_NUMBER</title>
+</head>
+<body>
+<h3 id="tonumber">TO_NUMBER()<a class="anchorjs-link " href="#tonumber" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>TO_NUMBER(value) → number</code></p>
+<p>Take an input <em>value</em> of any type and convert it into a numeric value.</p>
+<ul>
+    <li><strong>value</strong> (any): input of arbitrary type</li>
+    <li><p>returns <strong>number</strong> (number):</p>
+        <ul>
+            <li><em>null</em> and <em>false</em> are converted to the value <em>0</em></li>
+            <li><em>true</em> is converted to <em>1</em></li>
+            <li>Numbers keep their original value</li>
+            <li>Strings are converted to their numeric equivalent if the string contains a
+                valid representation of a number. Whitespace at the start and end of the string
+                is allowed. String values that do not contain any valid representation of a number
+                will be converted to the number <em>0</em>.
+            </li>
+            <li>An empty array is converted to <em>0</em>, an array with one member is converted into the
+                result of <code>TO_NUMBER()</code> for its sole member. An array with two or more members is
+                converted to the number <em>0</em>.
+            </li>
+            <li><p>An object / document is converted to the number <em>0</em>.</p>
+                <p>A unary plus will also cast to a number, but <code>TO_NUMBER()</code> is the preferred way:</p>
+                <pre><code class="lang-js">+<span class="hljs-string">'5'</span> <span class="hljs-comment">// 5</span>
++[<span class="hljs-number">8</span>] <span class="hljs-comment">// 8</span>
++[<span class="hljs-number">8</span>,<span class="hljs-number">9</span>] <span class="hljs-comment">// 0</span>
++{} <span class="hljs-comment">// 0</span>
+</code></pre>
+                <p>A unary minus works likewise, except that a numeric value is also negated:</p>
+                <pre><code class="lang-js">-<span class="hljs-string">'5'</span> <span class="hljs-comment">// -5</span>
+-[<span class="hljs-number">8</span>] <span class="hljs-comment">// -8</span>
+-[<span class="hljs-number">8</span>,<span class="hljs-number">9</span>] <span class="hljs-comment">// 0</span>
+-{} <span class="hljs-comment">// 0</span>
+</code></pre>
+            </li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>

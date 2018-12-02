@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOCUMENT</title>
+</head>
+<body>
+<h3 id="document">DOCUMENT()<a class="anchorjs-link " href="#document" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>DOCUMENT(collection, id) → doc</code></p>
+<p>Return the document which is uniquely identified by its <em>id</em>. ArangoDB will
+    try to find the document using the <em>_id</em> value of the document in the specified
+    collection. </p>
+<p>If there is a mismatch between the <em>collection</em> passed and the
+    collection specified in <em>id</em>, then <em>null</em> will be returned. Additionally,
+    if the <em>collection</em> matches the collection value specified in <em>id</em> but the
+    document cannot be found, <em>null</em> will be returned.</p>
+<p>This function also allows <em>id</em> to be an array of ids. In this case, the
+    function will return an array of all documents that could be found.</p>
+<p>It is also possible to specify a document key instead of an id, or an array
+    of keys to return all documents that can be found.</p>
+<ul>
+    <li><strong>collection</strong> (string): name of a collection</li>
+    <li><strong>id</strong> (string|array): a document handle string (consisting of collection
+        name and document key), a document key, or an array of both document handle
+        strings and document keys
+    </li>
+    <li>returns <strong>doc</strong> (document|array|null): the content of the found document,
+        an array of all found documents or <em>null</em> if nothing was found
+    </li>
+</ul>
+<pre><code class="lang-js">DOCUMENT( users, <span class="hljs-string">"users/john"</span> )
+DOCUMENT( users, <span class="hljs-string">"john"</span> )
+
+DOCUMENT( users, [ <span class="hljs-string">"users/john"</span>, <span class="hljs-string">"users/amy"</span> ] )
+DOCUMENT( users, [ <span class="hljs-string">"john"</span>, <span class="hljs-string">"amy"</span> ] )
+</code></pre>
+<p><code>DOCUMENT(id) → doc</code></p>
+<p>The function can also be used with a single parameter <em>id</em> as follows:</p>
+<ul>
+    <li><strong>id</strong> (string|array): either a document handle string (consisting of
+        collection name and document key) or an array of document handle strings
+    </li>
+    <li>returns <strong>doc</strong> (document|null): the content of the found document
+        or <em>null</em> if nothing was found
+    </li>
+</ul>
+<pre><code class="lang-js">DOCUMENT(<span class="hljs-string">"users/john"</span>)
+DOCUMENT( [ <span class="hljs-string">"users/john"</span>, <span class="hljs-string">"users/amy"</span> ] )
+</code></pre>
+<p>Please also consider <a href="../Operations/With.html">to use <code>DOCUMENT</code> in conjunction with
+    <code>WITH</code></a></p>
+</body>
+</html>

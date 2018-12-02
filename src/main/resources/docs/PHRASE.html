@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHRASE</title>
+</head>
+<body>
+<h3 id="phrase">PHRASE()<a class="anchorjs-link " href="#phrase" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<pre><code>PHRASE(doc.someAttr,
+       phrasePart [, skipTokens] [, phrasePart | , phrasePart, skipTokens]*
+       [, analyzer])
+</code></pre>
+<p>Search for a phrase in the referenced attributes. </p>
+<p>The phrase can be expressed as an arbitrary number of <em>phraseParts</em> separated by
+    <em>skipToken</em> number of tokens.</p>
+<ul>
+    <li><em>doc.someAttr</em> - the path of the attribute to compare against in the document</li>
+    <li><em>phrasePart</em> - a string to search in the token stream; may consist of several
+        words; will be split using the specified <em>analyzer</em></li>
+    <li><em>skipTokens</em> number of words or tokens to treat as wildcards</li>
+    <li><em>analyzer</em> - string with the analyzer used, i.e. <em>"text_en"</em> or one of the
+        other <a href="../../../Manual/Views/ArangoSearch/Analyzers.html">available string analyzers
+        </a></li>
+</ul>
+<p>For example, given a document <code>doc</code> containing the text <code>"Lorem ipsum dolor sit
+    amet, consectetur adipiscing elit"</code>, the following expression will be <code>true</code>:</p>
+<pre><code class="lang-js">PHRASE(doc.text, <span class="hljs-string">"ipsum"</span>, <span class="hljs-number">1</span>, <span class="hljs-string">"sit"</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"adipiscing"</span>, <span class="hljs-string">"text_de"</span>)
+</code></pre>
+<p>Specifying deep attributes like <code>doc.some.deep.attr</code> is also allowed. The
+    attribute has to be processed by the view as specified in the link.</p>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MEDIAN</title>
+</head>
+<body>
+<h2 id="median">MEDIAN()<a class="anchorjs-link " href="#median" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>MEDIAN(numArray) → median</code></p>
+<p>Return the median value of the values in <em>array</em>.</p>
+<p>The array is sorted and the element in the middle is returned. If the array has an
+    even length of elements, the two center-most elements are interpolated by calculating
+    the average value (arithmetic mean).</p>
+<ul>
+    <li><strong>numArray</strong> (array): an array of numbers, <em>null</em> values are ignored</li>
+    <li>returns <strong>median</strong> (number|null): the median of <em>numArray</em>. If the array is
+        empty or contains <em>null</em> values only, the function will return <em>null</em>.
+    </li>
+</ul>
+<pre><code class="lang-js">MEDIAN( [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] ) <span class="hljs-comment">// 2</span>
+MEDIAN( [ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ] ) <span class="hljs-comment">// 2.5</span>
+MEDIAN( [ <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span> ] ) <span class="hljs-comment">// 2.5</span>
+MEDIAN( [ <span class="hljs-number">999</span>, <span class="hljs-number">80</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span> ] ) <span class="hljs-comment">// 4</span></code></pre>
+</body>
+</html>

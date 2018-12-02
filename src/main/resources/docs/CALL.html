@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CALL</title>
+</head>
+<body>
+<h3 id="call">CALL()<a class="anchorjs-link " href="#call" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>CALL(funcName, arg1, arg2, ... argN) → retVal</code></p>
+<p>Dynamically call the function <em>funcName</em> with the arguments specified.
+    Arguments are given as multiple parameters and passed as separate
+    parameters to the called function.</p>
+<p>Both built-in and user-defined functions can be called.</p>
+<ul>
+    <li><strong>funcName</strong> (string): a function name</li>
+    <li><strong>args</strong> (any, <em>repeatable</em>): an arbitrary number of elements as
+        multiple arguments, can be omitted
+    </li>
+    <li>returns <strong>retVal</strong> (any): the return value of the called function</li>
+</ul>
+<pre><code class="lang-js">CALL( <span class="hljs-string">"SUBSTRING"</span>, <span class="hljs-string">"this is a test"</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span> )
+<span class="hljs-comment">// "this"</span>
+</code></pre>
+<h2 id="internal-functions"></h2>
+</body>
+</html>

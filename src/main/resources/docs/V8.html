@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>V8</title>
+</head>
+<body>
+<h3 id="v8">V8()<a class="anchorjs-link " href="#v8" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>V8(expression) → retVal</code></p>
+<p>No-operation that enforces the usage of the V8 JavaScript engine. There is
+    no need to call this function explicitly, it is mainly used for internal
+    testing.</p>
+<ul>
+    <li><strong>expression</strong> (any): arbitrary expression</li>
+    <li>returns <strong>retVal</strong> (any): the return value of the <em>expression</em></li>
+</ul>
+<pre><code class="lang-js"><span class="hljs-comment">// differences in execution plan (explain)</span>
+FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> RETURN (<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)          <span class="hljs-comment">// const assignment</span>
+FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> RETURN V8(<span class="hljs-number">1</span> + <span class="hljs-number">1</span>)        <span class="hljs-comment">// simple expression</span>
+</code></pre>
+</body>
+</html>

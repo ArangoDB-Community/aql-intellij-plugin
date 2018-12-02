@@ -64,7 +64,7 @@ public class AqlParameterDialog extends DialogWrapper {
     public Map<String, Object> getData() {
         final Map<String, Object> map = new HashMap<>();
         for (Map.Entry<String, JBTextField> entry : fields.entrySet()) {
-            map.put(entry.getKey().replaceAll("@",""), entry.getValue().getText());
+            map.put(entry.getKey().replaceAll("@", ""), Integer.parseInt(entry.getValue().getText()));
         }
         return map;
     }

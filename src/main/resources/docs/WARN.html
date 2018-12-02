@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WARN</title>
+</head>
+<body>
+<h3 id="assert--warn">ASSERT() / WARN()<a class="anchorjs-link " href="#assert--warn" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>ASSERT(expression, message) → retVal</code></p>
+<p>The 2 functions evaluate an expression. In case the expression evaluates to
+    <em>true</em> both functions will return <em>true</em>. If the expression evaluates to
+    <em>false</em> <em>ASSERT</em> will throw an error and <em>WARN</em> will issue a warning and return
+    <em>false</em>. This behavior allows the use of <em>ASSERT</em> and <em>WARN</em> in <em>FILTER</em>
+    conditions.</p>
+<ul>
+    <li><strong>expression</strong> (AqlValue): AQL expression to be evaluated</li>
+    <li>
+        <strong>message</strong> (string): message that will be used in exception or warning if expression evaluates to false
+    </li>
+    <li>returns <strong>retVal</strong> (bool): returns true if expression evaluates to true</li>
+</ul>
+<pre><code class="lang-js">FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> FILTER ASSERT(i &gt; <span class="hljs-number">0</span>, <span class="hljs-string">"i is not greater 0"</span>) RETURN i
+FOR i IN <span class="hljs-number">1.</span><span class="hljs-number">.3</span> FILTER WARN(i &lt; <span class="hljs-number">2</span>, <span class="hljs-string">"i is not smaller 2"</span>) RETURN i
+</code></pre>
+<h3 id="call"></h3>
+</body>
+</html>

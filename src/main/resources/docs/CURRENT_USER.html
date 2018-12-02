@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CURRENT_USER</title>
+</head>
+<body>
+<h3 id="currentuser">CURRENT_USER()<a class="anchorjs-link " href="#currentuser" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>CURRENT_USER() → userName</code></p>
+<p>Return the name of the current user.</p>
+<p>The current user is the user account name that was specified in the
+    <em>Authorization</em> HTTP header of the request. It will only be populated if
+    authentication on the server is turned on, and if the query was executed inside
+    a request context. Otherwise, the return value of this function will be <em>null</em>.</p>
+<ul>
+    <li>returns <strong>userName</strong> (string|null): the current user name, or <em>null</em> if
+        authentication is disabled
+    </li>
+</ul>
+</body>
+</html>

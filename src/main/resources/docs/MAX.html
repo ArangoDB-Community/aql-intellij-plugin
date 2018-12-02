@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MAX</title>
+</head>
+<body>
+<h2 id="max">MAX()<a class="anchorjs-link " href="#max" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>MAX(anyArray) → max</code></p>
+<p>Return the greatest element of <em>anyArray</em>. The array is not limited to numbers.
+    Also see <a href="../Fundamentals/TypeValueOrder.html">type and value order</a>.</p>
+<ul>
+    <li><strong>anyArray</strong> (array): an array of numbers, <em>null</em> values are ignored</li>
+    <li>returns <strong>max</strong> (any|null): the element with the greatest value. If the array is
+        empty or contains <em>null</em> values only, the function will return <em>null</em>.
+    </li>
+</ul>
+<pre><code class="lang-js">MAX( [<span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">-2</span>, <span class="hljs-literal">null</span>, <span class="hljs-number">1</span>] ) <span class="hljs-comment">// 9</span>
+MAX( [ <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span> ] ) <span class="hljs-comment">// null</span>
+</code></pre>
+</body>
+</html>

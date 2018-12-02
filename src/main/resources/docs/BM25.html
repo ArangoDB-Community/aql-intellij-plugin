@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BM25</title>
+</head>
+<body>
+<h3 id="bm25">BM25()<a class="anchorjs-link " href="#bm25" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>BM25(doc, k, b)</code></p>
+<ul>
+    <li><em>k</em> (number, <em>optional</em>): calibrates the text term frequency scaling, the default is
+        <em>1.2</em>. A <em>k</em> value of <em>0</em> corresponds to a binary model (no term frequency), and a large
+        value corresponds to using raw term frequency
+    </li>
+    <li><em>b</em> (number, <em>optional</em>): determines the scaling by the total text length, the default
+        is <em>0.75</em>. At the extreme values of the coefficient <em>b</em>, BM25 turns into ranking
+        functions known as BM11 (for <em>b</em> = <code>1</code>, corresponds to fully scaling the term weight by
+        the total text length) and BM15 (for <em>b</em> = <code>0</code>, corresponds to no length normalization)
+    </li>
+</ul>
+<p>Sorts documents using the
+    <a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank"><strong>Best Matching 25</strong> algorithm</a>.
+    See the
+    <a href="../../../Manual/Views/ArangoSearch/Scorers.html"><code>BM25()</code> section in ArangoSearch Scorers</a>
+    for details.</p>
+</body>
+</html>

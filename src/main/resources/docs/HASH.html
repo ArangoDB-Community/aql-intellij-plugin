@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HASH</title>
+</head>
+<body>
+<p><code>HASH(value) → hashNumber</code></p>
+<p>Calculate a hash value for <em>value</em>.</p>
+<ul>
+    <li><strong>value</strong> (any): an element of arbitrary type</li>
+    <li>returns <strong>hashNumber</strong> (number): a hash value of <em>value</em></li>
+</ul>
+<p><em>value</em> is not required to be a string, but can have any data type. The calculated
+    hash value will take the data type of <em>value</em> into account, so for example the
+    number <em>1</em> and the string <em>"1"</em> will have different hash values. For arrays the
+    hash values will be equal if the arrays contain exactly the same values
+    (including value types) in the same order. For objects the same hash values will
+    be created if the objects have exactly the same attribute names and values
+    (including value types). The order in which attributes appear inside objects
+    is not important for hashing.</p>
+<p>The hash value returned by this function is a number. The hash algorithm is not
+    guaranteed to remain the same in future versions of ArangoDB. The hash values
+    should therefore be used only for temporary calculations, e.g. to compare if two
+    documents are the same, or for grouping values in queries.</p>
+</body>
+</html>

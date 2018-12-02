@@ -7,6 +7,8 @@ import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 @State(name = "ArangoDB.DataSource", storages = {@Storage("ArangoDB_DataSource.xml")})
 public class DataWindowState implements ProjectComponent, PersistentStateComponent<ArangoDbServer> {
 
@@ -37,5 +39,22 @@ public class DataWindowState implements ProjectComponent, PersistentStateCompone
     @Override
     public String getComponentName() {
         return "ArangoDB.DataSource";
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final DataWindowState that = (DataWindowState) o;
+        return Objects.equals(getState(), that.state);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getState());
     }
 }

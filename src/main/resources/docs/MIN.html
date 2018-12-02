@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MIN</title>
+</head>
+<body>
+<h2 id="min">MIN()<a class="anchorjs-link " href="#min" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h2>
+<p><code>MIN(anyArray) → min</code></p>
+<p>Return the smallest element of <em>anyArray</em>. The array is not limited to numbers.
+    Also see <a href="../Fundamentals/TypeValueOrder.html">type and value order</a>.</p>
+<ul>
+    <li><strong>anyArray</strong> (array): an array of numbers, <em>null</em> values are ignored</li>
+    <li>returns <strong>min</strong> (any|null): the element with the smallest value. If the array is
+        empty or contains <em>null</em> values only, the function will return <em>null</em>.
+    </li>
+</ul>
+<pre><code class="lang-js">MIN( [<span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">-2</span>, <span class="hljs-literal">null</span>, <span class="hljs-number">1</span>] ) <span class="hljs-comment">// -2</span>
+MIN( [ <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span> ] ) <span class="hljs-comment">// null</span></code></pre>
+</body>
+</html>

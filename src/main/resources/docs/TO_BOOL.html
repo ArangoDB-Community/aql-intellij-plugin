@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TO_BOOL</title>
+</head>
+<body>
+<h3 id="tobool">TO_BOOL()<a class="anchorjs-link " href="#tobool" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>TO_BOOL(value) → bool</code></p>
+<p>Take an input <em>value</em> of any type and convert it into the appropriate
+    boolean value.</p>
+<ul>
+    <li><strong>value</strong> (any): input of arbitrary type</li>
+    <li>returns <strong>bool</strong> (boolean):
+        <ul>
+            <li><em>null</em> is converted to <em>false</em></li>
+            <li>Numbers are converted to <em>true</em>, except for 0, which is converted to <em>false</em></li>
+            <li>Strings are converted to <em>true</em> if they are non-empty, and to <em>false</em> otherwise</li>
+            <li>Arrays are always converted to <em>true</em> (even if empty)</li>
+            <li>Objects / documents are always converted to <em>true</em></li>
+        </ul>
+    </li>
+</ul>
+<p>It's also possible to use double negation to cast to boolean:</p>
+<pre><code class="lang-js">!!<span class="hljs-number">1</span> <span class="hljs-comment">// true</span>
+!!<span class="hljs-number">0</span> <span class="hljs-comment">// false</span>
+!!<span class="hljs-number">-0.0</span> <span class="hljs-comment">// false</span>
+not not <span class="hljs-number">1</span> <span class="hljs-comment">// true</span>
+!!<span class="hljs-string">"non-empty string"</span> <span class="hljs-comment">// true</span>
+!!<span class="hljs-string">""</span> <span class="hljs-comment">// false</span>
+</code></pre>
+<p><code>TO_BOOL()</code> is preferred however, because it states the intention clearer.</p>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>APPLY</title>
+</head>
+<body>
+<h3 id="apply">APPLY()<a class="anchorjs-link " href="#apply" aria-label="Anchor" data-anchorjs-icon="" style="font: 1em/1 anchorjs-icons; padding-left: 0.375em;"></a>
+</h3>
+<p><code>APPLY(functionName, arguments) → retVal</code></p>
+<p>Dynamically call the function <em>funcName</em> with the arguments specified.
+    Arguments are given as array and are passed as separate parameters to
+    the called function.</p>
+<p>Both built-in and user-defined functions can be called. </p>
+<ul>
+    <li><strong>funcName</strong> (string): a function name</li>
+    <li><strong>arguments</strong> (array, <em>optional</em>): an array with elements of arbitrary type</li>
+    <li>returns <strong>retVal</strong> (any): the return value of the called function</li>
+</ul>
+<pre><code class="lang-js">APPLY( <span class="hljs-string">"SUBSTRING"</span>, [ <span class="hljs-string">"this is a test"</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span> ] )
+<span class="hljs-comment">// "this is"</span>
+</code></pre>
+</body>
+</html>
