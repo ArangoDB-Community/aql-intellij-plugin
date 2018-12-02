@@ -562,6 +562,7 @@ NamedFunctions::= FunAbs
                                        getName
                                        getFunctionName
                                        setName
+                                       getPresentation
            ]
      mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin"
  }
@@ -597,6 +598,7 @@ KeywordStatements ::=    T_SHORTEST_PATH
                           methods=[
                             getName
                             setName
+                            getPresentation
                           ]
                           mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin"
 }
@@ -655,6 +657,7 @@ NamedKeywordStatements ::= KeywordStatements {
   methods=[
     getName
     setName
+    getPresentation
   ]
   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin"
 }
@@ -1042,7 +1045,7 @@ BooleanType ::= T_TRUE | T_FALSE
 
 VariablePlaceHolder ::=  (T_PLACHOLDER_START ObjectExpression T_OBJECT_CLOSE){
                     pin=2
-                   methods=[ getName setName]
+                   methods=[ getName setName getPresentation]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqPlaceholderVariableMixin"
 }
 
@@ -1052,7 +1055,7 @@ VariablePlaceHolder ::=  (T_PLACHOLDER_START ObjectExpression T_OBJECT_CLOSE){
 
 PropertyLookup ::=   PropertyName | SystemProperty
 {
-                   methods=[ getName setName]
+                   methods=[ getName setName getPresentation]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlPropertyLookupMixin"
 }
 
@@ -1060,25 +1063,25 @@ private property_lookup ::= DOT PropertyLookup
 
 ObjectExpression ::=  PropertyName (property_lookup)* {
                    pin= 2;
-                   methods=[ getName setName]
+                   methods=[ getName setName getPresentation]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlObjectExpressionMixin"
 }
 
 
 ParameterVariable ::= (N_AT  PropertyName){
    pin=2
-   methods=[ getName setName]
+   methods=[ getName setName getPresentation]
    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqParameterVariableMixin"
 }
 
 Sequence ::= IntegerType T_RANGE IntegerType
 
 SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO {
-                   methods=[ getName setName]
+                   methods=[ getName setName getPresentation]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlSystemPropertyMixin"
 }
 PropertyName ::= ID {
-                   methods=[ getName setName]
+                   methods=[ getName setName getPresentation]
                    mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin"
 }
 

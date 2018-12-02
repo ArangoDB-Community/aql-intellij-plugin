@@ -6,6 +6,7 @@ import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin;
 import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -1175,6 +1176,10 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
+  }
+
+  public ItemPresentation getPresentation() {
+    return AqlPsiUtil.getPresentation(this);
   }
 
 }

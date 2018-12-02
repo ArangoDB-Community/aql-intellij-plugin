@@ -18,6 +18,8 @@ public final class Icons {
     public static final Icon ICON_ARANGO_SMALL = IconLoader.getIcon("/icons/aql-small.png");
 
     public static final Icon ICON_VIEW = IconLoader.getIcon("/icons/view.png");
+    
+    public static final Icon ICON_TEXT = IconLoader.getIcon("/icons/text.svg");
 
     public static final Icon ICON_COLLECTION = IconLoader.getIcon("/icons/collection.png");
 

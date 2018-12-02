@@ -1,7 +1,9 @@
 package com.arangodb.intellij.aql.util;
 
 import com.arangodb.entity.AqlExecutionExplainEntity;
+import com.arangodb.intellij.aql.file.AqlFile;
 import com.arangodb.intellij.aql.file.AqlFileType;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Charsets;
@@ -9,15 +11,18 @@ import com.google.common.hash.Hashing;
 import com.intellij.json.JsonFileType;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.indexing.FileBasedIndex;
+import com.intellij.util.indexing.ID;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static com.arangodb.intellij.aql.util.log.*;
 
@@ -68,5 +73,47 @@ public final class AqlUtils {
     public static String createHash(final Project project, final String query, final Map<String, Object> data) {
         final String clean = CharMatcher.whitespace().removeFrom(query);
         return Hashing.sha256().newHasher().putString(clean, Charsets.UTF_8).hash().toString();
+    }
+
+    public static List<AqlNamedElement> findNamedElements(final Project project) {
+        final Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance()
+                .getContainingFiles(ID.create("filetypes"),
+                        AqlFileType.INSTANCE,
+                        GlobalSearchScope.allScope(project));
+        final List<AqlNamedElement> result = new ArrayList<>();
+        for (final VirtualFile virtualFile : virtualFiles) {
+            final AqlFile aqlFile = (AqlFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (aqlFile != null) {
+                final AqlNamedElement[] elements = PsiTreeUtil.getChildrenOfType(aqlFile, AqlNamedElement.class);
+                if (elements != null) {
+                    Collections.addAll(result, elements);
+                }
+            }
+        }
+        return result;
+
+    }
+
+    public static List<AqlNamedElement> findNamedElements(final Project project, final String name) {
+        final Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance()
+                .getContainingFiles(ID.create("filetypes"),
+                        AqlFileType.INSTANCE,
+                        GlobalSearchScope.allScope(project));
+        final List<AqlNamedElement> result = new ArrayList<>();
+        for (final VirtualFile virtualFile : virtualFiles) {
+            final AqlFile aqlFile = (AqlFile) PsiManager.getInstance(project).findFile(virtualFile);
+            if (aqlFile != null) {
+                final AqlNamedElement[] elements = PsiTreeUtil.getChildrenOfType(aqlFile, AqlNamedElement.class);
+                if (elements != null) {
+                    for (AqlNamedElement element : elements) {
+                        if (name.equals(element.getName())) {
+                            result.add(element);
+                        }
+                    }
+
+                }
+            }
+        }
+        return result;
     }
 }

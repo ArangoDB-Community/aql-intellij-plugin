@@ -7,6 +7,7 @@ import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyName;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,10 @@ public class AqlPropertyNameImpl extends AqlIdMixin implements AqlPropertyName {
 
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
+  }
+
+  public ItemPresentation getPresentation() {
+    return AqlPsiUtil.getPresentation(this);
   }
 
 }

@@ -8,6 +8,7 @@ import com.arangodb.intellij.aql.grammar.generated.psi.AqlObjectExpression;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVariablePlaceHolder;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,10 @@ public class AqlVariablePlaceHolderImpl extends AqPlaceholderVariableMixin imple
 
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
+  }
+
+  public ItemPresentation getPresentation() {
+    return AqlPsiUtil.getPresentation(this);
   }
 
 }

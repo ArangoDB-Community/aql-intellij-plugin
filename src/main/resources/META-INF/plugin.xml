@@ -38,6 +38,8 @@
     <colorSettingsPage implementation="com.arangodb.intellij.aql.settings.AqlColorSettingsPage"/>
     <additionalTextAttributes scheme="Default" file="colors/AQLDefault.xml"/>
     <psi.referenceContributor implementation="com.arangodb.intellij.aql.lang.AqlPsiReferenceContributor"/>
+    <gotoSymbolContributor implementation="com.arangodb.intellij.aql.lang.AqlChooseByNameContributor"/>
+    <lang.psiStructureViewFactory language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlPsiStructureViewFactory"/>
     <lang.findUsagesProvider language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlFindUsagesProvider"/>
     <lang.documentationProvider language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlDocumentationProvider"/>
     <lang.syntaxHighlighterFactory language="AQL" implementationClass="com.arangodb.intellij.aql.syntax.AqlSyntaxHighlighterFactory"/>

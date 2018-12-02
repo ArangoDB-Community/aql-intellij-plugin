@@ -2,7 +2,10 @@ package com.arangodb.intellij.aql.ui.windows;
 
 import com.arangodb.intellij.aql.actions.ActionBusEvent;
 import com.arangodb.intellij.aql.actions.ActionEventData;
+import com.arangodb.intellij.aql.actions.AqlDataService;
+import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.arangodb.intellij.aql.ui.panels.JsonPanel;
+import com.arangodb.intellij.aql.ui.renderers.AqlQueryRenderer;
 import com.arangodb.intellij.aql.util.log;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionGroup;
@@ -14,10 +17,12 @@ import com.intellij.ui.JBTabsPaneImpl;
 import com.intellij.ui.border.CustomLineBorder;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.tabs.impl.JBTabsImpl;
+import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.ui.JBEmptyBorder;
 import com.intellij.util.ui.JBUI;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 
 
@@ -28,6 +33,9 @@ public class AqlConsoleWindow implements Disposable {
     private JBTabbedPane tabContainer;
     private JPanel jsonResults;
     private JPanel jsonTabPanel;
+    private JPanel queryHistory;
+    private JPanel graphPanel;
+    private Tree queryTree;
     private JBTabsImpl consoleTabs;
 
     private JBTabsPaneImpl tabPanel;
@@ -50,8 +58,21 @@ public class AqlConsoleWindow implements Disposable {
         jsonTabPanel.add(consoleToolbar.getComponent(), BorderLayout.NORTH);
         jsonTabPanel.setBorder(new CustomLineBorder(0, 0, 0, 1));
         jsonTabPanel.validate();
-        // clear
+
+        fillTree();
     }
+
+    private void fillTree() {
+        queryTree.setCellRenderer(new AqlQueryRenderer());
+        queryTree.setRootVisible(false);
+        queryTree.setShowsRootHandles(false);
+        final AqlDataService service = AqlDataService.with(project);
+        final ArangoDbServer server = service.server();
+        final DefaultTreeModel treeModel = service.populateTree(server);
+        queryTree.setModel(treeModel);
+
+    }
+
 
     private void emptyLog(final ActionEventData actionEventData) {
         jsonPanel.onClean(project);

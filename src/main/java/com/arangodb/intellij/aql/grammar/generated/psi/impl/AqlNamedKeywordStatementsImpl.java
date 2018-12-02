@@ -8,6 +8,7 @@ import com.arangodb.intellij.aql.grammar.generated.psi.AqlKeywordStatements;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlNamedKeywordStatements;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.lang.ASTNode;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +39,10 @@ public class AqlNamedKeywordStatementsImpl extends AqlKeywordMixin implements Aq
 
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
+  }
+
+  public ItemPresentation getPresentation() {
+    return AqlPsiUtil.getPresentation(this);
   }
 
 }

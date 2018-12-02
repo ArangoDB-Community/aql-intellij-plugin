@@ -2,6 +2,7 @@
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
+import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
@@ -582,5 +583,7 @@ public interface AqlNamedFunctions extends PsiElement {
   String getFunctionName();
 
   AqlNamedElement setName(String newName);
+
+  ItemPresentation getPresentation();
 
 }
