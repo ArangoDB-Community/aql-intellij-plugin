@@ -41,3 +41,27 @@ intellij {
     version '2017.3'
     pluginName 'aql'
 }
+
+release {
+    revertOnFail = true
+    failOnCommitNeeded = true
+    failOnPublishNeeded = true
+    failOnUpdateNeeded = true
+    failOnSnapshotDependencies = true
+    failOnUnversionedFiles = true
+    pushReleaseVersionBranch = false
+    failOnUnversionedFiles = true
+
+    buildTasks = ['build']
+
+    tagTemplate = '$name-$version'
+    preCommitText = '[Gradle release]'
+    preTagCommitMessage = 'Gradle Pre tag commit: '
+    tagCommitMessage = 'Gradle Creating tag: '
+    newVersionCommitMessage = ' New version commit: '
+
+    git {
+        requireBranch = 'master'
+        pushToRemote = 'origin'
+    }
+}
