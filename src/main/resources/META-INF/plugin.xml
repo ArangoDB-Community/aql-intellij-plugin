@@ -8,7 +8,15 @@
   <vendor email="marijan@apache.org" url="https://www.machak.com">machak</vendor>
 
   <description><![CDATA[
-      AQL (ArangoDB) language plugin (file support, syntax highlighting and autocompletion)
+      <p>AQL <a href="https://www.arangodb.com/"> ArangoDB</a> Query Language support</p>
+      <ul>
+        <li>Syntax highlighting</li>
+        <li>Find usages</li>
+        <li>Refactorings</li>
+        <li>Quick docs</li>
+        <li>Go to usages</li>
+        <li>Execute queries</li>
+      </ul>
     ]]></description>
 
   <change-notes><![CDATA[

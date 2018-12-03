@@ -10,7 +10,7 @@ apply plugin: 'java'
 apply plugin: 'net.researchgate.release'
 
 group 'com.arangodb'
-version '1.0.0-SNAPSHOT'
+version '1.0.1'     
 
 sourceCompatibility = 1.8
 
