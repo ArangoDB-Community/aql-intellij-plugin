@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface AqlFunDateISO8601 extends PsiElement {
 
+  @Nullable
+  AqlAnyType getAnyType();
+
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
 
@@ -23,9 +26,6 @@ public interface AqlFunDateISO8601 extends PsiElement {
 
   @Nullable
   AqlPropertyName getPropertyName();
-
-  @Nullable
-  AqlStringType getStringType();
 
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();

@@ -264,6 +264,7 @@ public interface AqlTypes {
   IElementType D_SECOND_S = new AqlTokenType("D_SECOND_S");
   IElementType D_YEAR_D = new AqlTokenType("D_YEAR_D");
   IElementType D_YEAR_S = new AqlTokenType("D_YEAR_S");
+  IElementType FUNCTION_NAMES = new AqlTokenType("function_names");
   IElementType F_ABS = new AqlTokenType("F_ABS");
   IElementType F_ACOS = new AqlTokenType("F_ACOS");
   IElementType F_ANALYZER = new AqlTokenType("F_ANALYZER");

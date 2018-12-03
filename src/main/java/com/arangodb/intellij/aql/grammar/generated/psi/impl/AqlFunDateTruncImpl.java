@@ -31,6 +31,12 @@ public class AqlFunDateTruncImpl extends ASTWrapperPsiElement implements AqlFunD
 
   @Override
   @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
+
+  @Override
+  @Nullable
   public AqlDateUnit getDateUnit() {
     return findChildByClass(AqlDateUnit.class);
   }
@@ -39,30 +45,6 @@ public class AqlFunDateTruncImpl extends ASTWrapperPsiElement implements AqlFunD
   @NotNull
   public List<AqlIntegerType> getIntegerTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlParameterVariable getParameterVariable() {
-    return findChildByClass(AqlParameterVariable.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlStringType getStringType() {
-    return findChildByClass(AqlStringType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override

@@ -10,22 +10,25 @@ import java.util.List;
 public interface AqlFunDateSubtract extends PsiElement {
 
   @Nullable
+  AqlAnyType getAnyType();
+
+  @Nullable
   AqlDateUnit getDateUnit();
 
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
 
-  @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
   @Nullable
   AqlStringType getStringType();
 
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @Nullable
   PsiElement getFDateSubtract();

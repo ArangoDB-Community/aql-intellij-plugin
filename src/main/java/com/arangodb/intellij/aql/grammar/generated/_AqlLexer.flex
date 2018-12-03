@@ -151,7 +151,7 @@ F_VALUES=([Vv])([Aa])([Ll])([Uu])([Ee])([Ss])
 F_LEFT=([Ll])([Ee])([Ff])([Tt])
 F_V8=([Vv])([8])
 F_IS_BOOL=([Ii])([Ss])([_])([Bb])([Oo])([Oo])([Ll])
-F_DATE_ISO8601=([Dd])([Aa])([Tt])([Ee])([_])([Ii])([Ss])([Oo])([8])([6])([0])([1])
+F_DATE_ISO8601=([Dd])([Aa])([Tt])([Ee])([_])([Ii])([Ss])([Oo])(8601)
 F_ASIN=([Aa])([Ss])([Ii])([Nn])
 F_IS_ARRAY=([Ii])([Ss])([_])([Aa])([Rr])([Rr])([Aa])([Yy])
 F_TO_NUMBER=([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])
@@ -333,6 +333,7 @@ SPACE=[ \t\n\x0B\f\r]+
   "F_WITHIN_RECTANGLE"          { return F_WITHIN_RECTANGLE; }
   "T_NIN"                       { return T_NIN; }
   "A_TEXT_FR"                   { return A_TEXT_FR; }
+  "function_names"              { return FUNCTION_NAMES; }
 
   {T_SEARCH}                    { return T_SEARCH; }
   {T_SHORTEST_PATH}             { return T_SHORTEST_PATH; }

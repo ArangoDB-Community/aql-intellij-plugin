@@ -146,7 +146,7 @@ F_VALUES = "regexp:([Vv])([Aa])([Ll])([Uu])([Ee])([Ss])"
 F_LEFT = "regexp:([Ll])([Ee])([Ff])([Tt])"
 F_V8 = "regexp:([Vv])([8])"
 F_IS_BOOL = "regexp:([Ii])([Ss])([_])([Bb])([Oo])([Oo])([Ll])"
-F_DATE_ISO8601 = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ii])([Ss])([Oo])([8])([6])([0])([1])"
+F_DATE_ISO8601 = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ii])([Ss])([Oo])(8601)"
 F_ASIN = "regexp:([Aa])([Ss])([Ii])([Nn])"
 F_IS_ARRAY = "regexp:([Ii])([Ss])([_])([Aa])([Rr])([Rr])([Aa])([Yy])"
 F_TO_NUMBER = "regexp:([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
@@ -367,7 +367,7 @@ private arithmetic_operators ::=  T_PLUS
 
 
 
-private function_names ::=  F_SUBSTITUTE
+private keyword_functions ::=  F_SUBSTITUTE
                                 | F_MD5
                                 | F_GEO_POINT
                                 | F_FIRST_LIST
@@ -560,15 +560,6 @@ private function_names ::=  F_SUBSTITUTE
                                 | F_GEO_MULTIPOINT
                                 | F_SLICE
                                 | F_ASIN
-                                {
-                                     methods=[
-                                                                       getName
-                                                                       getFunctionName
-                                                                       setName
-                                                                       getPresentation
-                                           ]
-                                     mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin"
-}
 
 NamedFunctions::= FunAbs
               | FunStdDevSample
@@ -760,7 +751,7 @@ NamedFunctions::= FunAbs
               | FunRound
               | FunVariance
               | FunConcatSeparator
-              | function_names
+
 {
      methods=[
                                        getName
@@ -771,7 +762,7 @@ NamedFunctions::= FunAbs
      mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin"
  }
 
-KeywordStatements ::= reserved_keywords | reserved_function_lookahead {
+KeywordStatements ::= reserved_keywords  {
 
                           methods=[
                             getName
@@ -854,8 +845,8 @@ Statement ::= NamedKeywordStatements
               | NumberType
               | BooleanType
               | VariablePlaceHolder
-              | FunctionExpression
               | ExpressionType
+              | FunctionExpression
               | Comment
 
 
@@ -905,7 +896,6 @@ ExpressionType ::= ArrayRef
                 | SystemProperty
                 | ObjectExpression
                 | NumberType
-                | NamedFunctions
                 | ArrayType
                 | AnalyzerType
                 | StringType
@@ -916,8 +906,8 @@ ExpressionType ::= ArrayRef
                 | arithmetic_operators
                 | ReservedWords
                 | PropertyName
-
-                //| keyword_functions
+                | NamedFunctions
+                | keyword_functions
 
 // foo, bar, 'test'
 //ExpressionArray ::= ExpressionType (',' ExpressionType)*
@@ -974,7 +964,7 @@ private single_tuple ::=  '(' QueryItem ')'
   //consumeTokenMethod = 'consumeTokenFast'
   pin = 1
 }
-private tuple ::= '(' single_tuple (',' single_tuple)* ')'
+private tuple ::= '(' single_tuple (',' single_tuple )* ')'
 {
   //consumeTokenMethod = 'consumeTokenFast'
 }
@@ -989,7 +979,7 @@ private integer_argument::= (ObjectExpression | IntegerType | ParameterVariable 
 private possible_number_array::= (NumberType | ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
 private number_argument::= NumberType | objects_argument
-private date_argument::= (StringType | objects_argument| ("*" IntegerType)+)
+private date_argument::= (AnyType | ('*' IntegerType)+)
 private number_argument_array ::= (repeatable_tuple | possible_number_array | "[" number_argument (',' number_argument)* "]")
 private integer_argument_array ::= (possible_number_array | "[" integer_argument (',' integer_argument)* "]")
 private expression_argument::= objects_argument | ExpressionType | JsonType
@@ -1003,7 +993,7 @@ private expression_argument::= objects_argument | ExpressionType | JsonType
 // DATE
 //############################################
  FunDateNow ::=  (F_DATE_NOW "("  ")"){pin=2}
- FunDateISO8601 ::=  (F_DATE_ISO8601 "(" date_argument | integer_argument_array")"){pin=2}
+ FunDateISO8601 ::=  (F_DATE_ISO8601 "(" date_argument | integer_argument_array ")"){pin=2}
  FunDateTimeStamp ::=  (F_DATE_TIMESTAMP "("  date_argument | integer_argument_array ")"){pin=2}
  FunIsDateString ::=  (F_IS_DATESTRING "("  AnyType ")"){pin=2}
  FunDateOfWeek ::=  (F_DATE_DAYOFWEEK "("  date_argument ")"){pin=2}

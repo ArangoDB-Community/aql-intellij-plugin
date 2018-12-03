@@ -30,6 +30,12 @@ public class AqlFunDateTimeStampImpl extends ASTWrapperPsiElement implements Aql
   }
 
   @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
+
+  @Override
   @NotNull
   public List<AqlIntegerType> getIntegerTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
@@ -57,12 +63,6 @@ public class AqlFunDateTimeStampImpl extends ASTWrapperPsiElement implements Aql
   @Nullable
   public AqlPropertyName getPropertyName() {
     return findChildByClass(AqlPropertyName.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlStringType getStringType() {
-    return findChildByClass(AqlStringType.class);
   }
 
   @Override

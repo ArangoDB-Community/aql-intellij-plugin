@@ -9,22 +9,13 @@ import java.util.List;
 public interface AqlFunDateCompare extends PsiElement {
 
   @NotNull
+  List<AqlAnyType> getAnyTypeList();
+
+  @NotNull
   List<AqlDateUnit> getDateUnitList();
 
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
-
-  @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
-
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
-
-  @NotNull
-  List<AqlStringType> getStringTypeList();
-
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
   @NotNull
   PsiElement getFDateCompare();

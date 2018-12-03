@@ -30,6 +30,12 @@ public class AqlFunDateDiffImpl extends ASTWrapperPsiElement implements AqlFunDa
   }
 
   @Override
+  @NotNull
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  }
+
+  @Override
   @Nullable
   public AqlBooleanType getBooleanType() {
     return findChildByClass(AqlBooleanType.class);
@@ -48,27 +54,21 @@ public class AqlFunDateDiffImpl extends ASTWrapperPsiElement implements AqlFunDa
   }
 
   @Override
-  @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlStringType> getStringTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override

@@ -968,7 +968,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                 | SystemProperty
   //                 | ObjectExpression
   //                 | NumberType
-  //                 | NamedFunctions
   //                 | ArrayType
   //                 | AnalyzerType
   //                 | StringType
@@ -979,6 +978,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                 | arithmetic_operators
   //                 | ReservedWords
   //                 | PropertyName
+  //                 | NamedFunctions
+  //                 | keyword_functions
   public static boolean ExpressionType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ExpressionType")) return false;
     boolean r;
@@ -987,7 +988,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = SystemProperty(b, l + 1);
     if (!r) r = ObjectExpression(b, l + 1);
     if (!r) r = NumberType(b, l + 1);
-    if (!r) r = NamedFunctions(b, l + 1);
     if (!r) r = ArrayType(b, l + 1);
     if (!r) r = AnalyzerType(b, l + 1);
     if (!r) r = StringType(b, l + 1);
@@ -998,6 +998,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = arithmetic_operators(b, l + 1);
     if (!r) r = ReservedWords(b, l + 1);
     if (!r) r = PropertyName(b, l + 1);
+    if (!r) r = NamedFunctions(b, l + 1);
+    if (!r) r = keyword_functions(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1852,7 +1854,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_DATE_ISO8601 "(" date_argument | integer_argument_array")"
+  // F_DATE_ISO8601 "(" date_argument | integer_argument_array ")"
   public static boolean FunDateISO8601(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateISO8601")) return false;
     boolean r;
@@ -1874,7 +1876,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // integer_argument_array")"
+  // integer_argument_array ")"
   private static boolean FunDateISO8601_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateISO8601_1")) return false;
     boolean r;
@@ -5622,13 +5624,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // reserved_keywords | reserved_function_lookahead
+  // reserved_keywords
   public static boolean KeywordStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "KeywordStatements")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, KEYWORD_STATEMENTS, "<keyword statements>");
     r = reserved_keywords(b, l + 1);
-    if (!r) r = reserved_function_lookahead(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -5836,7 +5837,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | FunRound
   //               | FunVariance
   //               | FunConcatSeparator
-  //               | function_names
   public static boolean NamedFunctions(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedFunctions")) return false;
     boolean r;
@@ -6031,7 +6031,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = FunRound(b, l + 1);
     if (!r) r = FunVariance(b, l + 1);
     if (!r) r = FunConcatSeparator(b, l + 1);
-    if (!r) r = function_names(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -6360,8 +6359,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | NumberType
   //               | BooleanType
   //               | VariablePlaceHolder
-  //               | FunctionExpression
   //               | ExpressionType
+  //               | FunctionExpression
   //               | Comment
   public static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
@@ -6378,8 +6377,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = NumberType(b, l + 1);
     if (!r) r = BooleanType(b, l + 1);
     if (!r) r = VariablePlaceHolder(b, l + 1);
-    if (!r) r = FunctionExpression(b, l + 1);
     if (!r) r = ExpressionType(b, l + 1);
+    if (!r) r = FunctionExpression(b, l + 1);
     if (!r) r = Comment(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -6517,36 +6516,35 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // StringType | objects_argument| ("*" IntegerType)+
+  // AnyType | ('*' IntegerType)+
   static boolean date_argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "date_argument")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = StringType(b, l + 1);
-    if (!r) r = objects_argument(b, l + 1);
-    if (!r) r = date_argument_2(b, l + 1);
+    r = AnyType(b, l + 1);
+    if (!r) r = date_argument_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // ("*" IntegerType)+
-  private static boolean date_argument_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "date_argument_2")) return false;
+  // ('*' IntegerType)+
+  private static boolean date_argument_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "date_argument_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = date_argument_2_0(b, l + 1);
+    r = date_argument_1_0(b, l + 1);
     while (r) {
       int c = current_position_(b);
-      if (!date_argument_2_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "date_argument_2", c)) break;
+      if (!date_argument_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "date_argument_1", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // "*" IntegerType
-  private static boolean date_argument_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "date_argument_2_0")) return false;
+  // '*' IntegerType
+  private static boolean date_argument_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "date_argument_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_TIMES);
@@ -6604,8 +6602,66 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "function_lookahead_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = function_names(b, l + 1);
-    r = r && consumeToken(b, T_OPEN);
+    r = consumeTokens(b, 0, FUNCTION_NAMES, T_OPEN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ObjectExpression | IntegerType | ParameterVariable | VariablePlaceHolder
+  static boolean integer_argument(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "integer_argument")) return false;
+    boolean r;
+    r = ObjectExpression(b, l + 1);
+    if (!r) r = IntegerType(b, l + 1);
+    if (!r) r = ParameterVariable(b, l + 1);
+    if (!r) r = VariablePlaceHolder(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // possible_number_array | "[" integer_argument (',' integer_argument)* "]"
+  static boolean integer_argument_array(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "integer_argument_array")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = possible_number_array(b, l + 1);
+    if (!r) r = integer_argument_array_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // "[" integer_argument (',' integer_argument)* "]"
+  private static boolean integer_argument_array_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "integer_argument_array_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_ARRAY_OPEN);
+    r = r && integer_argument(b, l + 1);
+    r = r && integer_argument_array_1_2(b, l + 1);
+    r = r && consumeToken(b, T_ARRAY_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (',' integer_argument)*
+  private static boolean integer_argument_array_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "integer_argument_array_1_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!integer_argument_array_1_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "integer_argument_array_1_2", c)) break;
+    }
+    return true;
+  }
+
+  // ',' integer_argument
+  private static boolean integer_argument_array_1_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "integer_argument_array_1_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && integer_argument(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -6804,8 +6860,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                                 | F_GEO_MULTIPOINT
   //                                 | F_SLICE
   //                                 | F_ASIN
-  static boolean function_names(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "function_names")) return false;
+  static boolean keyword_functions(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "keyword_functions")) return false;
     boolean r;
     r = consumeToken(b, F_SUBSTITUTE);
     if (!r) r = consumeToken(b, F_MD5);
@@ -7000,65 +7056,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, F_GEO_MULTIPOINT);
     if (!r) r = consumeToken(b, F_SLICE);
     if (!r) r = consumeToken(b, F_ASIN);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // ObjectExpression | IntegerType | ParameterVariable | VariablePlaceHolder
-  static boolean integer_argument(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "integer_argument")) return false;
-    boolean r;
-    r = ObjectExpression(b, l + 1);
-    if (!r) r = IntegerType(b, l + 1);
-    if (!r) r = ParameterVariable(b, l + 1);
-    if (!r) r = VariablePlaceHolder(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // possible_number_array | "[" integer_argument (',' integer_argument)* "]"
-  static boolean integer_argument_array(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "integer_argument_array")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = possible_number_array(b, l + 1);
-    if (!r) r = integer_argument_array_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // "[" integer_argument (',' integer_argument)* "]"
-  private static boolean integer_argument_array_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "integer_argument_array_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_ARRAY_OPEN);
-    r = r && integer_argument(b, l + 1);
-    r = r && integer_argument_array_1_2(b, l + 1);
-    r = r && consumeToken(b, T_ARRAY_CLOSE);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (',' integer_argument)*
-  private static boolean integer_argument_array_1_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "integer_argument_array_1_2")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!integer_argument_array_1_2_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "integer_argument_array_1_2", c)) break;
-    }
-    return true;
-  }
-
-  // ',' integer_argument
-  private static boolean integer_argument_array_1_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "integer_argument_array_1_2_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_COMMA);
-    r = r && integer_argument(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -7542,7 +7539,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '(' single_tuple (',' single_tuple)* ')'
+  // '(' single_tuple (',' single_tuple )* ')'
   // {
   //   //consumeTokenMethod = 'consumeTokenFast'
   // }
@@ -7560,7 +7557,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (',' single_tuple)*
+  // (',' single_tuple )*
   private static boolean tuple_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tuple_2")) return false;
     while (true) {

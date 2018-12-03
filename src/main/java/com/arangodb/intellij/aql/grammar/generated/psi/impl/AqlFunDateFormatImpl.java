@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -29,33 +30,39 @@ public class AqlFunDateFormatImpl extends ASTWrapperPsiElement implements AqlFun
   }
 
   @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
+
+  @Override
   @NotNull
   public List<AqlIntegerType> getIntegerTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlStringType> getStringTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override

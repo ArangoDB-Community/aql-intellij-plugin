@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface AqlFunDateDiff extends PsiElement {
 
+  @NotNull
+  List<AqlAnyType> getAnyTypeList();
+
   @Nullable
   AqlBooleanType getBooleanType();
 
@@ -18,17 +21,14 @@ public interface AqlFunDateDiff extends PsiElement {
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
 
-  @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-  @NotNull
-  List<AqlStringType> getStringTypeList();
-
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @NotNull
   PsiElement getFDateDiff();

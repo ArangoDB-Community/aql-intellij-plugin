@@ -1,7 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnyType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunDateMonth;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlIntegerType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
@@ -30,33 +33,15 @@ public class AqlFunDateMonthImpl extends ASTWrapperPsiElement implements AqlFunD
   }
 
   @Override
+  @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
+
+  @Override
   @NotNull
   public List<AqlIntegerType> getIntegerTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlParameterVariable getParameterVariable() {
-    return findChildByClass(AqlParameterVariable.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlStringType getStringType() {
-    return findChildByClass(AqlStringType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override

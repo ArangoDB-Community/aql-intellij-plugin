@@ -9,20 +9,11 @@ import java.util.List;
 
 public interface AqlFunDateDaysInMonth extends PsiElement {
 
+  @Nullable
+  AqlAnyType getAnyType();
+
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
-
-  @Nullable
-  AqlObjectExpression getObjectExpression();
-
-  @Nullable
-  AqlParameterVariable getParameterVariable();
-
-  @Nullable
-  AqlStringType getStringType();
-
-  @Nullable
-  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @NotNull
   PsiElement getFDateDaysInMonth();

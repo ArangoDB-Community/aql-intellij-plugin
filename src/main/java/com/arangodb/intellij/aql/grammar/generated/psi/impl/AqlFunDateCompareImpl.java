@@ -30,6 +30,12 @@ public class AqlFunDateCompareImpl extends ASTWrapperPsiElement implements AqlFu
 
   @Override
   @NotNull
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  }
+
+  @Override
+  @NotNull
   public List<AqlDateUnit> getDateUnitList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlDateUnit.class);
   }
@@ -38,30 +44,6 @@ public class AqlFunDateCompareImpl extends ASTWrapperPsiElement implements AqlFu
   @NotNull
   public List<AqlIntegerType> getIntegerTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlStringType> getStringTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
   }
 
   @Override

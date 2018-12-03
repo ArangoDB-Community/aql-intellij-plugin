@@ -3,25 +3,29 @@ package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public interface AqlFunDateFormat extends PsiElement {
 
+  @Nullable
+  AqlAnyType getAnyType();
+
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
 
-  @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
-  @NotNull
-  List<AqlStringType> getStringTypeList();
+  @Nullable
+  AqlStringType getStringType();
 
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @NotNull
   PsiElement getFDateFormat();

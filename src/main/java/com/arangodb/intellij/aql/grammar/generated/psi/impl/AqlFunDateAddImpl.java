@@ -31,6 +31,12 @@ public class AqlFunDateAddImpl extends ASTWrapperPsiElement implements AqlFunDat
 
   @Override
   @Nullable
+  public AqlAnyType getAnyType() {
+    return findChildByClass(AqlAnyType.class);
+  }
+
+  @Override
+  @Nullable
   public AqlDateUnit getDateUnit() {
     return findChildByClass(AqlDateUnit.class);
   }
@@ -42,15 +48,15 @@ public class AqlFunDateAddImpl extends ASTWrapperPsiElement implements AqlFunDat
   }
 
   @Override
-  @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
   }
 
   @Override
@@ -60,9 +66,9 @@ public class AqlFunDateAddImpl extends ASTWrapperPsiElement implements AqlFunDat
   }
 
   @Override
-  @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override
