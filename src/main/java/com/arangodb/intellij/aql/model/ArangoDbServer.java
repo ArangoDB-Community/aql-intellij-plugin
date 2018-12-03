@@ -133,10 +133,15 @@ public class ArangoDbServer {
         if (queries == null) {
             queries = new HashMap<>();
         }
+
         queries.put(query.getName(), query);
     }
 
+    @NotNull
     public Map<String, AqlQuery> getQueries() {
+        if (queries == null) {
+            return new HashMap<>();
+        }
         return queries;
     }
 

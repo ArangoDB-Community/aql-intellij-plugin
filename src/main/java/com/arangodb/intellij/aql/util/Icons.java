@@ -7,9 +7,17 @@ import javax.swing.*;
 public final class Icons {
 
 
+    public static final Icon ICON_PROFILE = IconLoader.getIcon("/icons/profile.svg");
+
+    public static final Icon ICON_RUN = IconLoader.getIcon("/icons/run.svg");
+
+    public static final Icon ICON_DELETE = IconLoader.getIcon("/icons/trash.svg");
+
     public static final Icon ICON_SELECTED = IconLoader.getIcon("/icons/selected.png");
 
     public static final Icon ICON_SYSTEM_ATTRIBUTE = IconLoader.getIcon("/icons/system_attribute.svg");
+
+    public static final Icon ICON_QUERY = IconLoader.getIcon("/icons/query.svg");
 
     public static final Icon ICON_ERROR = IconLoader.getIcon("/icons/error.png");
 
@@ -38,6 +46,8 @@ public final class Icons {
     public static final Icon ICON_DATABASE = IconLoader.getIcon("/icons/database.png");
 
     public static final Icon ICON_SERVER = IconLoader.getIcon("/icons/server.png");
+    
+    public static final Icon ICON_EDIT = IconLoader.getIcon("/icons/edit.svg");
 
     public static final Icon ICON_FUNCTION = IconLoader.getIcon("/icons/function.png");
 

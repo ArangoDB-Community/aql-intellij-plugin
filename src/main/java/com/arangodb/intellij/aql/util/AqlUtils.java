@@ -5,9 +5,11 @@ import com.arangodb.intellij.aql.file.AqlFile;
 import com.arangodb.intellij.aql.file.AqlFileType;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
+import com.arangodb.intellij.aql.model.AqlQuery;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
+import com.google.common.primitives.Ints;
 import com.intellij.json.JsonFileType;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
@@ -32,6 +34,36 @@ public final class AqlUtils {
 
     private AqlUtils() {
     }
+
+    public static Object convertToBindVariable(final String value) {
+        if (value == null) {
+            return "";
+        }
+        final Integer integer = Ints.tryParse(value);
+        if (integer != null) {
+            return integer;
+        }
+        return value;
+    }
+
+    public static String createFileName(final String name, final Map<String, AqlQuery> existing) {
+         AqlQuery aqlQueryModel = existing.get(name);
+        if (aqlQueryModel != null) {
+            // check if 
+            int idx = 1;
+            String newName = name + idx;
+            aqlQueryModel = existing.get(newName);
+            while (aqlQueryModel != null) {
+                idx++;
+                newName = name + idx;
+                aqlQueryModel = existing.get(newName);
+            }
+            return newName;
+        }
+        return name;
+
+    }
+
 
     public static PsiFile createDummyJsonFile(@NotNull CharSequence text, final Project project) {
         return createDummyFile(JsonFileType.INSTANCE, text, project);
@@ -115,5 +147,14 @@ public final class AqlUtils {
             }
         }
         return result;
+    }
+
+    public static String guessValueForParameter(final String name, final PsiElement element) {
+        //TODO find context in PSI tree and guess type (limit, sequence etc)
+        //PsiTreeUtil
+        if (name.indexOf("limit") > 0 || name.indexOf("count") > 0) {
+            return "10";
+        }
+        return "";
     }
 }

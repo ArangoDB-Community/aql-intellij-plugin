@@ -1,5 +1,8 @@
 package com.arangodb.intellij.aql.grammar.custom.psi;
 
+import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin;
+import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin;
+import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlSystemPropertyMixin;
 import com.arangodb.intellij.aql.util.Icons;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.impl.PsiImplUtil;
@@ -28,10 +31,18 @@ public final class AqlPsiUtil {
             @NotNull
             @Override
             public Icon getIcon(boolean unused) {
+                if (element instanceof AqlNamedFunctionMixin) {
+                    return Icons.ICON_FUNCTION;
+                } else if (element instanceof AqlIdMixin) {
+                    return Icons.ICON_ID;
+                } else if (element instanceof AqlSystemPropertyMixin) {
+                    return Icons.ICON_PROPERTY;
+                }
                 return Icons.ICON_ARANGO_SMALL;
             }
         };
     }
+
     //############################################
     // BNF used methods
     //############################################

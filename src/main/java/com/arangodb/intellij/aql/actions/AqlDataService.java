@@ -12,6 +12,7 @@ import com.arangodb.intellij.aql.model.ArangoDbServer;
 import com.arangodb.intellij.aql.ui.DataWindowState;
 import com.arangodb.intellij.aql.ui.dialogs.AqlServerDialog;
 import com.arangodb.intellij.aql.ui.renderers.AqlNodeModel;
+import com.arangodb.intellij.aql.ui.renderers.AqlQueryModel;
 import com.arangodb.intellij.aql.util.AqlUtils;
 import com.arangodb.intellij.aql.util.log;
 import com.arangodb.model.AqlQueryExplainOptions;
@@ -22,6 +23,7 @@ import com.intellij.ui.CheckedTreeNode;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.Topic;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.tree.DefaultTreeModel;
 import java.util.*;
@@ -36,7 +38,10 @@ public final class AqlDataService {
     private final MessageBus messageBus;
     private final DataWindowState stateComponent;
 
-    private enum QueryType {
+
+
+
+    public enum QueryType {
         QUERY, EXPLAIN_QUERY
     }
 
@@ -47,6 +52,39 @@ public final class AqlDataService {
         this.stateComponent = project.getComponent(DataWindowState.class);
     }
 
+
+    public void deleteQuery(final String name) {
+        final AqlQuery aqlQuery = getQueries().get(name);
+        if (aqlQuery == null) {
+            log.error("No query found for: " + name);
+        } else {
+            final AqlQuery remove = getQueries().remove(name);
+            if (remove != null) {
+                log.info("Query: " + name + " deleted");
+                sendEmptyMessage(ActionBusEvent.AQL_QUERY_TREE_CHANGE);
+            } else {
+                log.error("Failed to remove query: " + name);
+            }
+        }
+    }
+
+    @Nullable
+    public AqlQuery getExistingQueryForValue(final String value) {
+        final Collection<AqlQuery> values = getQueries().values();
+        final AqlQuery our = new AqlQuery("", value);
+        for (AqlQuery aqlQuery : values) {
+            if (aqlQuery.equals(our)) {
+                return aqlQuery;
+            }
+
+        }
+        return null;
+    }
+
+    @Nullable
+    public AqlQuery getExistingQueryForName(final String name) {
+        return getQueries().get(name);
+    }
 
     public boolean hasValidSettings() {
         final ArangoDbServer state = stateComponent.getState();
@@ -69,7 +107,16 @@ public final class AqlDataService {
     }
 
     public AqlDataService saveQuery(final AqlQuery query) {
-       stateComponent.getState().addQuery(query);
+        final ArangoDbServer state = stateComponent.getState();
+        // check if exists:
+        if (state.getQueries().containsValue(query)) {
+            return this;
+        }
+        final String name = AqlUtils.createFileName(query.getName(), state.getQueries());
+        query.setName(name);
+        query.setHash(AqlUtils.createHash(project, query.getQuery(), query.getParameters()));
+        state.addQuery(query);
+        sendEmptyMessage(ActionBusEvent.AQL_QUERY_TREE_CHANGE);
         return this;
     }
 
@@ -111,6 +158,8 @@ public final class AqlDataService {
             final ActionEventData data = new ActionEventData(ActionEventData.KEY_QUERY, query);
             data.set(ActionEventData.KEY_RESULT, result);
             queryPlanEvent.onEvent(data);
+            // save query
+
         } catch (ArangoDBException | AqlDataSourceException e) {
             queryPlanEvent.onEvent(new ActionEventData(ActionEventData.KEY_RESULT, e.getMessage()));
         }
@@ -124,6 +173,11 @@ public final class AqlDataService {
         }
         // return empty server
         return stateComponent.getState();
+    }
+
+    public void sendEmptyMessage(final Topic<ActionBusEvent> topic) {
+        final ActionBusEvent event = messageBus.syncPublisher(topic);
+        event.onEvent(ActionEventData.EMPTY);
     }
 
     public AqlDataService refreshSchema() {
@@ -148,6 +202,12 @@ public final class AqlDataService {
         messageBus.connect().subscribe(topic, event);
         return this;
 
+    }
+
+    @NotNull
+    public Map<String, AqlQuery> getQueries() {
+        final ArangoDbServer state = stateComponent.getState();
+        return state.getQueries();
     }
 
 
@@ -186,9 +246,25 @@ public final class AqlDataService {
 
     }
 
+    public DefaultTreeModel populateQueryTree() {
+        final String name = stateComponent.getState().getName();
+        final AqlQueryModel queryModel = new AqlQueryModel(name, AqlQueryModel.Type.ROOT);
+        final CheckedTreeNode root = new CheckedTreeNode(queryModel);
+        root.setChecked(true);
+        final Map<String, AqlQuery> queries = getQueries();
+        for (Map.Entry<String, AqlQuery> entry : queries.entrySet()) {
+            final CheckedTreeNode queryNode = new CheckedTreeNode();
+            queryNode.setUserObject(new AqlQueryModel(entry.getKey(), AqlQueryModel.Type.WITH_PARAMS));
+            root.add(queryNode);
+
+        }
+        return new DefaultTreeModel(root);
+    }
+
+
     public DefaultTreeModel populateTree(@NotNull final ArangoDbServer server) {
-        final AqlNodeModel userObject = new AqlNodeModel(server.getName(), server.getHost(), AqlNodeModel.Type.SERVER);
-        final CheckedTreeNode root = new CheckedTreeNode(userObject);
+        final AqlNodeModel serverObject = new AqlNodeModel(server.getName(), server.getHost(), AqlNodeModel.Type.SERVER);
+        final CheckedTreeNode root = new CheckedTreeNode(serverObject);
         root.setChecked(true);
         final ArangoDbDatabase selectedDatabase = server.getSelectedDatabase() != null ? server.getSelectedDatabase() : new ArangoDbDatabase();
         final Set<ArangoDbDatabase> databases = server.getDatabases();

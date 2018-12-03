@@ -10,7 +10,7 @@ public class AqlQueryModel {
 
 
     public enum Type {
-        WITH_PARAMS, TEXT_ONLY, EXPLAIN, PROFILE
+        ROOT, WITH_PARAMS, TEXT_ONLY, EXPLAIN, PROFILE
     }
 
     private String name;
@@ -33,7 +33,7 @@ public class AqlQueryModel {
     public void setName(final String name) {
         this.name = name;
     }
-    
+
     public Type getType() {
         return type;
     }
@@ -43,10 +43,12 @@ public class AqlQueryModel {
         if (type == null) {
             return Icons.ICON_TEXT;
         }
-        if (type == Type.TEXT_ONLY) {
+        else if (type == Type.TEXT_ONLY) {
             return Icons.ICON_TEXT;
         } else if (type == Type.WITH_PARAMS) {
             return Icons.ICON_PARAMETER;
+        } else if (type == Type.ROOT) {
+            return Icons.ICON_QUERY;
         }
         return Icons.ICON_TEXT;
 
@@ -60,7 +62,7 @@ public class AqlQueryModel {
 
         if (type.equals(Type.EXPLAIN) || type.equals(Type.PROFILE)) {
             return SimpleTextAttributes.REGULAR_ITALIC_ATTRIBUTES;
-        } 
+        }
         return SimpleTextAttributes.REGULAR_ATTRIBUTES;
     }
 

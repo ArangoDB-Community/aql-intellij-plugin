@@ -3,7 +3,7 @@ package com.arangodb.intellij.aql.ui.windows;
 import com.arangodb.intellij.aql.actions.ActionBusEvent;
 import com.arangodb.intellij.aql.actions.ActionEventData;
 import com.arangodb.intellij.aql.actions.AqlDataService;
-import com.arangodb.intellij.aql.model.ArangoDbServer;
+import com.arangodb.intellij.aql.ui.actions.*;
 import com.arangodb.intellij.aql.ui.panels.JsonPanel;
 import com.arangodb.intellij.aql.ui.renderers.AqlQueryRenderer;
 import com.arangodb.intellij.aql.util.log;
@@ -11,9 +11,11 @@ import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
+import com.intellij.openapi.actionSystem.ActionToolbarPosition;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.JBTabsPaneImpl;
+import com.intellij.ui.ToolbarDecorator;
 import com.intellij.ui.border.CustomLineBorder;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.tabs.impl.JBTabsImpl;
@@ -41,6 +43,7 @@ public class AqlConsoleWindow implements Disposable {
     private JBTabsPaneImpl tabPanel;
     private JsonPanel jsonPanel;
     private final Project project;
+    private ToolbarDecorator toolbarDecorator;
 
 
     public AqlConsoleWindow(final Project project, final ToolWindow toolWindow) {
@@ -53,22 +56,31 @@ public class AqlConsoleWindow implements Disposable {
         //tabContainer.setVisible(false);
         project.getMessageBus().connect().subscribe(ActionBusEvent.AQL_QUERY_RESULT, this::processQuery);
         project.getMessageBus().connect().subscribe(ActionBusEvent.AQL_SYSTEM_EMPTY_LOG, this::emptyLog);
+        project.getMessageBus().connect().subscribe(ActionBusEvent.AQL_QUERY_TREE_CHANGE, this::fillTree);
         final ActionGroup consoleActionGroup = (ActionGroup) ActionManager.getInstance().getAction(ActionBusEvent.ACTION_CONSOLE);
         final ActionToolbar consoleToolbar = ActionManager.getInstance().createActionToolbar(WINDOW_ID, consoleActionGroup, false);
         jsonTabPanel.add(consoleToolbar.getComponent(), BorderLayout.NORTH);
         jsonTabPanel.setBorder(new CustomLineBorder(0, 0, 0, 1));
         jsonTabPanel.validate();
-
-        fillTree();
+        toolbarDecorator = ToolbarDecorator.createDecorator(queryTree);
+        toolbarDecorator.setPanelBorder(BorderFactory.createEmptyBorder());
+        toolbarDecorator.setToolbarPosition(ActionToolbarPosition.TOP);
+        toolbarDecorator.addExtraAction(new ExpandAllAction(queryTree));
+        toolbarDecorator.addExtraAction(new CollapseAllAction(queryTree));
+        toolbarDecorator.addExtraAction(new DeleteQueryAction(project, queryTree));
+        toolbarDecorator.addExtraAction(new EditQueryAction(project, queryTree));
+        toolbarDecorator.addExtraAction(new ExplainQueryAction(project, queryTree));
+        toolbarDecorator.addExtraAction(new ExecuteQueryAction(project, queryTree));
+        queryHistory.add(toolbarDecorator.createPanel());
+        fillTree(null);
     }
 
-    private void fillTree() {
+    private void fillTree(final ActionEventData empty) {
         queryTree.setCellRenderer(new AqlQueryRenderer());
-        queryTree.setRootVisible(false);
+        queryTree.setRootVisible(true);
         queryTree.setShowsRootHandles(false);
         final AqlDataService service = AqlDataService.with(project);
-        final ArangoDbServer server = service.server();
-        final DefaultTreeModel treeModel = service.populateTree(server);
+        final DefaultTreeModel treeModel = service.populateQueryTree();
         queryTree.setModel(treeModel);
 
     }

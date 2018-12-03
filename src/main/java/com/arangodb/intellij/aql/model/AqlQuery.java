@@ -1,5 +1,7 @@
 package com.arangodb.intellij.aql.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,6 +10,7 @@ public class AqlQuery {
 
     private String name;
     private String query;
+    private String hash;
     private Map<String, Object> parameters;
 
     public AqlQuery() {
@@ -47,12 +50,24 @@ public class AqlQuery {
         this.query = query;
     }
 
+    @NotNull
     public Map<String, Object> getParameters() {
+        if (parameters == null) {
+            return new HashMap<>();
+        }
         return parameters;
     }
 
     public void setParameters(final Map<String, Object> parameters) {
         this.parameters = parameters;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(final String hash) {
+        this.hash = hash;
     }
 
     @Override
@@ -64,12 +79,11 @@ public class AqlQuery {
             return false;
         }
         final AqlQuery aqlQuery = (AqlQuery) o;
-        return Objects.equals(name, aqlQuery.name) &&
-                Objects.equals(query, aqlQuery.query);
+        return Objects.equals(hash, aqlQuery.hash);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, query);
+        return Objects.hash(hash);
     }
 }
