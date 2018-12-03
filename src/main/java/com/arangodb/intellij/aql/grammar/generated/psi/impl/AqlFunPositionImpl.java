@@ -48,9 +48,9 @@ public class AqlFunPositionImpl extends ASTWrapperPsiElement implements AqlFunPo
   }
 
   @Override
-  @NotNull
-  public List<AqlNumberType> getNumberTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
+  @Nullable
+  public AqlNumberType getNumberType() {
+    return findChildByClass(AqlNumberType.class);
   }
 
   @Override
@@ -69,6 +69,12 @@ public class AqlFunPositionImpl extends ASTWrapperPsiElement implements AqlFunPo
   @Nullable
   public AqlPropertyName getPropertyName() {
     return findChildByClass(AqlPropertyName.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AqlQueryItem> getQueryItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
   }
 
   @Override

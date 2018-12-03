@@ -11,4 +11,7 @@ public interface AqlSequence extends PsiElement {
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
 
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
+
 }

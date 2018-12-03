@@ -44,7 +44,10 @@ public final class AqlKeywords {
             "_key",
             "_id",
             "_from",
-            "_to"
+            "_to",
+            "edges",
+            "vertices",
+            "attributes"
     );
     public static final Collection<String> FUNCTIONS = Sets.newHashSet(
             "TFIDF",

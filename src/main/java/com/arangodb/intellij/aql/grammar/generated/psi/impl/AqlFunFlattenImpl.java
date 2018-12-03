@@ -36,21 +36,21 @@ public class AqlFunFlattenImpl extends ASTWrapperPsiElement implements AqlFunFla
   }
 
   @Override
-  @NotNull
-  public List<AqlNumberType> getNumberTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
+  @Nullable
+  public AqlNumberType getNumberType() {
+    return findChildByClass(AqlNumberType.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
   }
 
   @Override
@@ -61,8 +61,14 @@ public class AqlFunFlattenImpl extends ASTWrapperPsiElement implements AqlFunFla
 
   @Override
   @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  public List<AqlQueryItem> getQueryItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override

@@ -11,6 +11,9 @@ import java.util.List;
 public interface AqlObjectExpression extends PsiElement {
 
   @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
+
+  @NotNull
   List<AqlPropertyLookup> getPropertyLookupList();
 
   @NotNull

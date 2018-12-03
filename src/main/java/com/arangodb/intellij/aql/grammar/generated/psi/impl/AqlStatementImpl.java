@@ -5,8 +5,11 @@ import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStatement {
 
@@ -81,6 +84,12 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
   @Nullable
   public AqlOperatorStatements getOperatorStatements() {
     return findChildByClass(AqlOperatorStatements.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AqlQueryItem> getQueryItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
   }
 
   @Override

@@ -21,6 +21,9 @@ public interface AqlFunInterSection extends PsiElement {
   List<AqlPropertyName> getPropertyNameList();
 
   @NotNull
+  List<AqlQueryItem> getQueryItemList();
+
+  @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
   @NotNull

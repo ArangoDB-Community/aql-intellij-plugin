@@ -21,6 +21,9 @@ public interface AqlFunReverse extends PsiElement {
   @NotNull
   List<AqlPropertyName> getPropertyNameList();
 
+  @NotNull
+  List<AqlQueryItem> getQueryItemList();
+
   @Nullable
   AqlStringType getStringType();
 

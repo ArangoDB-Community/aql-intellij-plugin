@@ -18,8 +18,8 @@ public interface AqlFunRemoveValue extends PsiElement {
   @Nullable
   AqlJsonType getJsonType();
 
-  @NotNull
-  List<AqlNumberType> getNumberTypeList();
+  @Nullable
+  AqlNumberType getNumberType();
 
   @NotNull
   List<AqlObjectExpression> getObjectExpressionList();
@@ -29,6 +29,9 @@ public interface AqlFunRemoveValue extends PsiElement {
 
   @Nullable
   AqlPropertyName getPropertyName();
+
+  @NotNull
+  List<AqlQueryItem> getQueryItemList();
 
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();

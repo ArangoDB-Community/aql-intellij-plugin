@@ -779,34 +779,16 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_PLUS
-  //                     | T_MINUS
-  //                     | T_TIMES
-  //                     | T_DIV
-  //                     | T_MOD
-  static boolean ArithmeticOperators(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ArithmeticOperators")) return false;
-    boolean r;
-    r = consumeToken(b, T_PLUS);
-    if (!r) r = consumeToken(b, T_MINUS);
-    if (!r) r = consumeToken(b, T_TIMES);
-    if (!r) r = consumeToken(b, T_DIV);
-    if (!r) r = consumeToken(b, T_MOD);
-    return r;
-  }
-
-  /* ********************************************************** */
   // ObjectExpression "[" ExpressionType "]"
   public static boolean ArrayRef(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ArrayRef")) return false;
-    if (!nextTokenIs(b, ID)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, ARRAY_REF, "<array ref>");
     r = ObjectExpression(b, l + 1);
     r = r && consumeToken(b, T_ARRAY_OPEN);
     r = r && ExpressionType(b, l + 1);
     r = r && consumeToken(b, T_ARRAY_CLOSE);
-    exit_section_(b, m, ARRAY_REF, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -983,6 +965,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // ArrayRef
+  //                 | SystemProperty
   //                 | ObjectExpression
   //                 | NumberType
   //                 | NamedFunctions
@@ -993,8 +976,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                 | VariablePlaceHolder
   //                 | FunctionExpression
   //                 | ParameterVariable
-  //                 | SystemProperty
-  //                 | ArithmeticOperators
+  //                 | arithmetic_operators
   //                 | ReservedWords
   //                 | PropertyName
   public static boolean ExpressionType(PsiBuilder b, int l) {
@@ -1002,6 +984,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION_TYPE, "<expression type>");
     r = ArrayRef(b, l + 1);
+    if (!r) r = SystemProperty(b, l + 1);
     if (!r) r = ObjectExpression(b, l + 1);
     if (!r) r = NumberType(b, l + 1);
     if (!r) r = NamedFunctions(b, l + 1);
@@ -1012,8 +995,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = VariablePlaceHolder(b, l + 1);
     if (!r) r = FunctionExpression(b, l + 1);
     if (!r) r = ParameterVariable(b, l + 1);
-    if (!r) r = SystemProperty(b, l + 1);
-    if (!r) r = ArithmeticOperators(b, l + 1);
+    if (!r) r = arithmetic_operators(b, l + 1);
     if (!r) r = ReservedWords(b, l + 1);
     if (!r) r = PropertyName(b, l + 1);
     exit_section_(b, l, m, r, false, null);
@@ -1200,7 +1182,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_ATTRIBUTES  "(" document_argument ("," boolean_argument)? ("," boolean_argument)? ")"
+  // F_ATTRIBUTES "(" document_argument ("," boolean_argument)? ("," boolean_argument)? ")"
   public static boolean FunAttributes(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunAttributes")) return false;
     if (!nextTokenIs(b, F_ATTRIBUTES)) return false;
@@ -5566,26 +5548,37 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // NamedFunctions  T_OPEN ExpressionArray* T_CLOSE
+  // NamedFunctions  T_OPEN ExpressionArray* T_CLOSE  | NamedFunctions
   public static boolean FunctionExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunctionExpression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FUNCTION_EXPRESSION, "<function expression>");
-    r = NamedFunctions(b, l + 1);
-    r = r && consumeToken(b, T_OPEN);
-    r = r && FunctionExpression_2(b, l + 1);
-    r = r && consumeToken(b, T_CLOSE);
+    r = FunctionExpression_0(b, l + 1);
+    if (!r) r = NamedFunctions(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // NamedFunctions  T_OPEN ExpressionArray* T_CLOSE
+  private static boolean FunctionExpression_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunctionExpression_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = NamedFunctions(b, l + 1);
+    r = r && consumeToken(b, T_OPEN);
+    r = r && FunctionExpression_0_2(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   // ExpressionArray*
-  private static boolean FunctionExpression_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FunctionExpression_2")) return false;
+  private static boolean FunctionExpression_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunctionExpression_0_2")) return false;
     while (true) {
       int c = current_position_(b);
       if (!ExpressionArray(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "FunctionExpression_2", c)) break;
+      if (!empty_element_parsed_guard_(b, "FunctionExpression_0_2", c)) break;
     }
     return true;
   }
@@ -5629,64 +5622,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_SHORTEST_PATH
-  //                         | T_SEARCH
-  //                         | T_REPLACE
-  //                         | T_ASC
-  //                         | T_AGGREGATE
-  //                         | T_FILTER
-  //                         | T_DESC
-  //                         | T_IN
-  //                         | T_INTO
-  //                         | T_LIMIT
-  //                         | T_UPDATE
-  //                         | T_SORT
-  //                         | T_GRAPH
-  //                         | T_FOR
-  //                         | T_LET
-  //                         | T_COLLECT
-  //                         | T_WITH
-  //                         | T_DISTINCT
-  //                         | T_RETURN
-  //                         | T_UPSERT
-  //                         | T_REMOVE
-  //                         | T_INSERT
-  //                         | T_OUTBOUND
-  //                         | T_INBOUND
-  //                         | T_ANY
-  //                         | T_ALL
-  //                         | T_NONE
+  // reserved_keywords | reserved_function_lookahead
   public static boolean KeywordStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "KeywordStatements")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, KEYWORD_STATEMENTS, "<keyword statements>");
-    r = consumeToken(b, T_SHORTEST_PATH);
-    if (!r) r = consumeToken(b, T_SEARCH);
-    if (!r) r = consumeToken(b, T_REPLACE);
-    if (!r) r = consumeToken(b, T_ASC);
-    if (!r) r = consumeToken(b, T_AGGREGATE);
-    if (!r) r = consumeToken(b, T_FILTER);
-    if (!r) r = consumeToken(b, T_DESC);
-    if (!r) r = consumeToken(b, T_IN);
-    if (!r) r = consumeToken(b, T_INTO);
-    if (!r) r = consumeToken(b, T_LIMIT);
-    if (!r) r = consumeToken(b, T_UPDATE);
-    if (!r) r = consumeToken(b, T_SORT);
-    if (!r) r = consumeToken(b, T_GRAPH);
-    if (!r) r = consumeToken(b, T_FOR);
-    if (!r) r = consumeToken(b, T_LET);
-    if (!r) r = consumeToken(b, T_COLLECT);
-    if (!r) r = consumeToken(b, T_WITH);
-    if (!r) r = consumeToken(b, T_DISTINCT);
-    if (!r) r = consumeToken(b, T_RETURN);
-    if (!r) r = consumeToken(b, T_UPSERT);
-    if (!r) r = consumeToken(b, T_REMOVE);
-    if (!r) r = consumeToken(b, T_INSERT);
-    if (!r) r = consumeToken(b, T_OUTBOUND);
-    if (!r) r = consumeToken(b, T_INBOUND);
-    if (!r) r = consumeToken(b, T_ANY);
-    if (!r) r = consumeToken(b, T_ALL);
-    if (!r) r = consumeToken(b, T_NONE);
+    r = reserved_keywords(b, l + 1);
+    if (!r) r = reserved_function_lookahead(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -5894,6 +5836,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | FunRound
   //               | FunVariance
   //               | FunConcatSeparator
+  //               | function_names
   public static boolean NamedFunctions(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedFunctions")) return false;
     boolean r;
@@ -6088,6 +6031,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = FunRound(b, l + 1);
     if (!r) r = FunVariance(b, l + 1);
     if (!r) r = FunConcatSeparator(b, l + 1);
+    if (!r) r = function_names(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -6117,35 +6061,77 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PropertyName (property_lookup)*
+  // (PropertyName (property_lookup)*) | (PropertyName (ParameterVariable)*)
   public static boolean ObjectExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression")) return false;
-    if (!nextTokenIs(b, ID)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, OBJECT_EXPRESSION, "<object expression>");
+    r = ObjectExpression_0(b, l + 1);
+    if (!r) r = ObjectExpression_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // PropertyName (property_lookup)*
+  private static boolean ObjectExpression_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectExpression_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = PropertyName(b, l + 1);
-    r = r && ObjectExpression_1(b, l + 1);
-    exit_section_(b, m, OBJECT_EXPRESSION, r);
+    r = r && ObjectExpression_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
   // (property_lookup)*
-  private static boolean ObjectExpression_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectExpression_1")) return false;
+  private static boolean ObjectExpression_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectExpression_0_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!ObjectExpression_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ObjectExpression_1", c)) break;
+      if (!ObjectExpression_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ObjectExpression_0_1", c)) break;
     }
     return true;
   }
 
   // (property_lookup)
-  private static boolean ObjectExpression_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectExpression_1_0")) return false;
+  private static boolean ObjectExpression_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectExpression_0_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = property_lookup(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // PropertyName (ParameterVariable)*
+  private static boolean ObjectExpression_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectExpression_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = PropertyName(b, l + 1);
+    r = r && ObjectExpression_1_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (ParameterVariable)*
+  private static boolean ObjectExpression_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectExpression_1_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!ObjectExpression_1_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ObjectExpression_1_1", c)) break;
+    }
+    return true;
+  }
+
+  // (ParameterVariable)
+  private static boolean ObjectExpression_1_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ObjectExpression_1_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = ParameterVariable(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -6170,16 +6156,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                        | T_COLON
   //                        | T_SCOPE
   //                        | T_RANGE
-  //                        //TODO remove
   //                       | T_COMMA
   //                       | T_OPEN
-  //                        | T_CLOSE
-  //                         //| T_OBJECT_OPEN
-  //                      /*  | T_ARRAY_OPEN
-  //                        | T_ARRAY_CLOSE*/
-  //                        //| T_PLACHOLDER_START
-  //                        //| T_OBJECT_CLOSE
-  //                        | DOT
+  //                       | T_CLOSE
+  //                       | T_TIMES
+  //                       | T_OBJECT_OPEN
+  //                       | T_ARRAY_OPEN
+  //                       | T_ARRAY_CLOSE
+  //                       | T_OBJECT_CLOSE
+  //                       | DOT
   public static boolean OperatorStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperatorStatements")) return false;
     boolean r;
@@ -6206,21 +6191,47 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_COMMA);
     if (!r) r = consumeToken(b, T_OPEN);
     if (!r) r = consumeToken(b, T_CLOSE);
+    if (!r) r = consumeToken(b, T_TIMES);
+    if (!r) r = consumeToken(b, T_OBJECT_OPEN);
+    if (!r) r = consumeToken(b, T_ARRAY_OPEN);
+    if (!r) r = consumeToken(b, T_ARRAY_CLOSE);
+    if (!r) r = consumeToken(b, T_OBJECT_CLOSE);
     if (!r) r = consumeToken(b, DOT);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // N_AT  PropertyName
+  // ("@"  PropertyName) | ("@@"  PropertyName)
   public static boolean ParameterVariable(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ParameterVariable")) return false;
-    if (!nextTokenIs(b, N_AT)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PARAMETER_VARIABLE, "<parameter variable>");
+    r = ParameterVariable_0(b, l + 1);
+    if (!r) r = ParameterVariable_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // "@"  PropertyName
+  private static boolean ParameterVariable_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ParameterVariable_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, N_AT);
+    r = consumeToken(b, "@");
     r = r && PropertyName(b, l + 1);
-    exit_section_(b, m, PARAMETER_VARIABLE, r);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // "@@"  PropertyName
+  private static boolean ParameterVariable_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ParameterVariable_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "@@");
+    r = r && PropertyName(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -6237,14 +6248,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ID
+  // ID | T_SYS_EDGES | T_SYS_VERTICES
   public static boolean PropertyName(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PropertyName")) return false;
-    if (!nextTokenIs(b, ID)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY_NAME, "<property name>");
     r = consumeToken(b, ID);
-    exit_section_(b, m, PROPERTY_NAME, r);
+    if (!r) r = consumeToken(b, T_SYS_EDGES);
+    if (!r) r = consumeToken(b, T_SYS_VERTICES);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -6284,16 +6296,33 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IntegerType T_RANGE IntegerType
+  // (IntegerType | ParameterVariable) T_RANGE (IntegerType | ParameterVariable)
   public static boolean Sequence(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Sequence")) return false;
-    if (!nextTokenIs(b, NUMBER_INTEGER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = IntegerType(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, SEQUENCE, "<sequence>");
+    r = Sequence_0(b, l + 1);
     r = r && consumeToken(b, T_RANGE);
-    r = r && IntegerType(b, l + 1);
-    exit_section_(b, m, SEQUENCE, r);
+    r = r && Sequence_2(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // IntegerType | ParameterVariable
+  private static boolean Sequence_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Sequence_0")) return false;
+    boolean r;
+    r = IntegerType(b, l + 1);
+    if (!r) r = ParameterVariable(b, l + 1);
+    return r;
+  }
+
+  // IntegerType | ParameterVariable
+  private static boolean Sequence_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "Sequence_2")) return false;
+    boolean r;
+    r = IntegerType(b, l + 1);
+    if (!r) r = ParameterVariable(b, l + 1);
     return r;
   }
 
@@ -6322,6 +6351,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   /* ********************************************************** */
   // NamedKeywordStatements
   //               | OperatorStatements
+  //               | tuple
   //               | Sequence
   //               | AnalyzerType
   //               | StringType
@@ -6339,6 +6369,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = NamedKeywordStatements(b, l + 1);
     if (!r) r = OperatorStatements(b, l + 1);
+    if (!r) r = tuple(b, l + 1);
     if (!r) r = Sequence(b, l + 1);
     if (!r) r = AnalyzerType(b, l + 1);
     if (!r) r = StringType(b, l + 1);
@@ -6368,7 +6399,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO
+  // T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO | F_ATTRIBUTES | T_SYS_VERTICES | T_SYS_EDGES
   public static boolean SystemProperty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "SystemProperty")) return false;
     boolean r;
@@ -6377,6 +6408,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_ID);
     if (!r) r = consumeToken(b, T_SYS_FROM);
     if (!r) r = consumeToken(b, T_SYS_TO);
+    if (!r) r = consumeToken(b, F_ATTRIBUTES);
+    if (!r) r = consumeToken(b, T_SYS_VERTICES);
+    if (!r) r = consumeToken(b, T_SYS_EDGES);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -6406,6 +6440,23 @@ public class AqlParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "aql", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // T_PLUS
+  //                     | T_MINUS
+  //                     | T_TIMES
+  //                     | T_DIV
+  //                     | T_MOD
+  static boolean arithmetic_operators(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "arithmetic_operators")) return false;
+    boolean r;
+    r = consumeToken(b, T_PLUS);
+    if (!r) r = consumeToken(b, T_MINUS);
+    if (!r) r = consumeToken(b, T_TIMES);
+    if (!r) r = consumeToken(b, T_DIV);
+    if (!r) r = consumeToken(b, T_MOD);
+    return r;
   }
 
   /* ********************************************************** */
@@ -6455,6 +6506,17 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // &('(')
+  static boolean brace_lookahead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "brace_lookahead")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _AND_);
+    r = consumeToken(b, T_OPEN);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // StringType | objects_argument| ("*" IntegerType)+
   static boolean date_argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "date_argument")) return false;
@@ -6494,6 +6556,16 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // function_lookahead | variable_lookahead
+  static boolean declaration_lookahead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "declaration_lookahead")) return false;
+    boolean r;
+    r = function_lookahead(b, l + 1);
+    if (!r) r = variable_lookahead(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
   // ObjectExpression | JsonType | ParameterVariable | VariablePlaceHolder
   static boolean document_argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "document_argument")) return false;
@@ -6513,6 +6585,421 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = objects_argument(b, l + 1);
     if (!r) r = ExpressionType(b, l + 1);
     if (!r) r = JsonType(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // &(function_names '(')
+  static boolean function_lookahead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "function_lookahead")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _AND_);
+    r = function_lookahead_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // function_names '('
+  private static boolean function_lookahead_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "function_lookahead_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = function_names(b, l + 1);
+    r = r && consumeToken(b, T_OPEN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // F_SUBSTITUTE
+  //                                 | F_MD5
+  //                                 | F_GEO_POINT
+  //                                 | F_FIRST_LIST
+  //                                 | F_DATE_SUBTRACT
+  //                                 | F_DATE_MINUTE
+  //                                 | F_SPLIT
+  //                                 | F_WARN
+  //                                 | F_DATE_LEAPYEAR
+  //                                 | F_STDDEV_SAMPLE
+  //                                 | F_TAN
+  //                                 | F_IS_BOOL
+  //                                 | F_TO_LIST
+  //                                 | F_REGEX_SPLIT
+  //                                 | F_MATCHES
+  //                                 | F_CURRENT_DATABASE
+  //                                 | F_VARIANCE_SAMPLE
+  //                                 | F_UNSET
+  //                                 | F_JSON_PARSE
+  //                                 | F_DEGREES
+  //                                 | F_GEO_MULTILINESTRING
+  //                                 | F_DATE_DAYOFYEAR
+  //                                 | F_LAST
+  //                                 | F_VALUES
+  //                                 | F_CONCAT_SEPARATOR
+  //                                 | F_DATE_DAY
+  //                                 | F_STDDEV
+  //                                 | F_DATE_DAYS_IN_MONTH
+  //                                 | F_NEAR
+  //                                 | F_LTRIM
+  //                                 | F_REVERSE
+  //                                 | F_RANGE
+  //                                 | F_FIRST
+  //                                 | F_LENGTH
+  //                                 | F_UNSET_RECURSIVE
+  //                                 | F_PARSE_IDENTIFIER
+  //                                 | F_TO_BASE64
+  //                                 | F_IS_DATESTRING
+  //                                 | F_INTERSECTION
+  //                                 | F_MINUS
+  //                                 | F_IS_IN_POLYGON
+  //                                 | F_IS_OBJECT
+  //                                 | F_STARTS_WITH
+  //                                 | F_DATE_DAYOFWEEK
+  //                                 | F_LOG10
+  //                                 | F_TFIDF
+  //                                 | F_DATE_ISO8601
+  //                                 | F_DATE_TRUNC
+  //                                 | F_IS_LIST
+  //                                 | F_NOOPT
+  //                                 | F_ATTRIBUTES
+  //                                 | F_CALL
+  //                                 | F_LEVENSHTEIN_DISTANCE
+  //                                 | F_REMOVE_VALUE
+  //                                 | F_DATE_FORMAT
+  //                                 | F_EXP
+  //                                 | F_RADIANS
+  //                                 | F_OUTERSECTION
+  //                                 | F_UNION
+  //                                 | F_KEYS
+  //                                 | F_COLLECTION_COUNT
+  //                                 | F_BOOST
+  //                                 | F_REGEX_MATCHES
+  //                                 | F_DISTANCE
+  //                                 | F_CHAR_LENGTH
+  //                                 | F_MERGE_RECURSIVE
+  //                                 | F_VARIANCE_POPULATION
+  //                                 | F_UPPER
+  //                                 | F_RAND
+  //                                 | F_MIN_MATCH
+  //                                 | F_GEO_EQUALS
+  //                                 | F_TRIM
+  //                                 | F_LEFT
+  //                                 | F_PI
+  //                                 | F_NOT_NULL
+  //                                 | F_SUM
+  //                                 | F_VERSION
+  //                                 | F_POW
+  //                                 | F_SLEEP
+  //                                 | F_POP
+  //                                 | F_MIN
+  //                                 | F_UUID
+  //                                 | F_TO_NUMBER
+  //                                 | F_FIND_FIRST
+  //                                 | F_DATE_ISOWEEK
+  //                                 | F_LOWER
+  //                                 | F_GEO_CONTAINS
+  //                                 | F_TRANSLATE
+  //                                 | F_GEO_LINESTRING
+  //                                 | F_APPLY
+  //                                 | F_ABS
+  //                                 | F_EXP2
+  //                                 | F_DATE_SECOND
+  //                                 | F_BM25
+  //                                 | F_DATE_MONTH
+  //                                 | F_SHIFT
+  //                                 | F_CONCAT
+  //                                 | F_SUBSTRING
+  //                                 | F_CURRENT_USER
+  //                                 | F_CONTAINS_ARRAY
+  //                                 | F_HAS
+  //                                 | F_KEEP
+  //                                 | F_TO_STRING
+  //                                 | F_ACOS
+  //                                 | F_V8
+  //                                 | F_PREGEL_RESULT
+  //                                 | F_UNION_DISTINCT
+  //                                 | F_LIKE
+  //                                 | F_COUNT_UNIQUE
+  //                                 | F_WITHIN
+  //                                 | F_IS_STRING
+  //                                 | F_REGEX_TEST
+  //                                 | F_REMOVE_VALUES
+  //                                 | F_GEO_INTERSECTS
+  //                                 | F_ATAN
+  //                                 | F_LOG2
+  //                                 | F_SIN
+  //                                 | F_IS_DOCUMENT
+  //                                 | F_REGEX_REPLACE
+  //                                 | F_AVG
+  //                                 | F_SORTED_UNIQUE
+  //                                 | F_TYPENAME
+  //                                 | F_DATE_ADD
+  //                                 | F_REMOVE_NTH
+  //                                 | F_APPEND
+  //                                 | F_FLATTEN
+  //                                 | F_GEO_POLYGON
+  //                                 | F_COUNT
+  //                                 | F_DATE_MILLISECOND
+  //                                 | F_WITHIN_RECTANGLE
+  //                                 | F_SOUNDEX
+  //                                 | F_TOKENS
+  //                                 | F_AVERAGE
+  //                                 | F_DATE_QUARTER
+  //                                 | F_IS_NULL
+  //                                 | F_COLLECTIONS
+  //                                 | F_ANALYZER
+  //                                 | F_PHRASE
+  //                                 | F_DATE_NOW
+  //                                 | F_MEDIAN
+  //                                 | F_TO_ARRAY
+  //                                 | F_RIGHT
+  //                                 | F_RTRIM
+  //                                 | F_DOCUMENT
+  //                                 | F_GEO_DISTANCE
+  //                                 | F_PASSTHRU
+  //                                 | F_ROUND
+  //                                 | F_ZIP
+  //                                 | F_TO_HEX
+  //                                 | F_FULLTEXT
+  //                                 | F_UNIQUE
+  //                                 | F_IS_KEY
+  //                                 | F_ATAN2
+  //                                 | F_CEIL
+  //                                 | F_IS_ARRAY
+  //                                 | F_SHA512
+  //                                 | F_DATE_COMPARE
+  //                                 | F_IS_SAME_COLLECTION
+  //                                 | F_PUSH
+  //                                 | F_DATE_YEAR
+  //                                 | F_HASH
+  //                                 | F_COUNT_DISTINCT
+  //                                 | F_SHA1
+  //                                 | F_SQRT
+  //                                 | F_LOG
+  //                                 | F_POSITION
+  //                                 | F_MERGE
+  //                                 | F_DATE_TIMESTAMP
+  //                                 | F_ENCODE_URI_COMPONENT
+  //                                 | F_CONTAINS
+  //                                 | F_FAIL
+  //                                 | F_FLOOR
+  //                                 | F_PERCENTILE
+  //                                 | F_MAX
+  //                                 | F_EXISTS
+  //                                 | F_NTH
+  //                                 | F_TO_BOOL
+  //                                 | F_DATE_HOUR
+  //                                 | F_JSON_STRINGIFY
+  //                                 | F_FIRST_DOCUMENT
+  //                                 | F_RANDOM_TOKEN
+  //                                 | F_FIND_LAST
+  //                                 | F_STDDEV_POPULATION
+  //                                 | F_COS
+  //                                 | F_VARIANCE
+  //                                 | F_IS_NUMBER
+  //                                 | F_SORTED
+  //                                 | F_DATE_DIFF
+  //                                 | F_UNSHIFT
+  //                                 | F_ASSERT
+  //                                 | F_GEO_MULTIPOINT
+  //                                 | F_SLICE
+  //                                 | F_ASIN
+  static boolean function_names(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "function_names")) return false;
+    boolean r;
+    r = consumeToken(b, F_SUBSTITUTE);
+    if (!r) r = consumeToken(b, F_MD5);
+    if (!r) r = consumeToken(b, F_GEO_POINT);
+    if (!r) r = consumeToken(b, F_FIRST_LIST);
+    if (!r) r = consumeToken(b, F_DATE_SUBTRACT);
+    if (!r) r = consumeToken(b, F_DATE_MINUTE);
+    if (!r) r = consumeToken(b, F_SPLIT);
+    if (!r) r = consumeToken(b, F_WARN);
+    if (!r) r = consumeToken(b, F_DATE_LEAPYEAR);
+    if (!r) r = consumeToken(b, F_STDDEV_SAMPLE);
+    if (!r) r = consumeToken(b, F_TAN);
+    if (!r) r = consumeToken(b, F_IS_BOOL);
+    if (!r) r = consumeToken(b, F_TO_LIST);
+    if (!r) r = consumeToken(b, F_REGEX_SPLIT);
+    if (!r) r = consumeToken(b, F_MATCHES);
+    if (!r) r = consumeToken(b, F_CURRENT_DATABASE);
+    if (!r) r = consumeToken(b, F_VARIANCE_SAMPLE);
+    if (!r) r = consumeToken(b, F_UNSET);
+    if (!r) r = consumeToken(b, F_JSON_PARSE);
+    if (!r) r = consumeToken(b, F_DEGREES);
+    if (!r) r = consumeToken(b, F_GEO_MULTILINESTRING);
+    if (!r) r = consumeToken(b, F_DATE_DAYOFYEAR);
+    if (!r) r = consumeToken(b, F_LAST);
+    if (!r) r = consumeToken(b, F_VALUES);
+    if (!r) r = consumeToken(b, F_CONCAT_SEPARATOR);
+    if (!r) r = consumeToken(b, F_DATE_DAY);
+    if (!r) r = consumeToken(b, F_STDDEV);
+    if (!r) r = consumeToken(b, F_DATE_DAYS_IN_MONTH);
+    if (!r) r = consumeToken(b, F_NEAR);
+    if (!r) r = consumeToken(b, F_LTRIM);
+    if (!r) r = consumeToken(b, F_REVERSE);
+    if (!r) r = consumeToken(b, F_RANGE);
+    if (!r) r = consumeToken(b, F_FIRST);
+    if (!r) r = consumeToken(b, F_LENGTH);
+    if (!r) r = consumeToken(b, F_UNSET_RECURSIVE);
+    if (!r) r = consumeToken(b, F_PARSE_IDENTIFIER);
+    if (!r) r = consumeToken(b, F_TO_BASE64);
+    if (!r) r = consumeToken(b, F_IS_DATESTRING);
+    if (!r) r = consumeToken(b, F_INTERSECTION);
+    if (!r) r = consumeToken(b, F_MINUS);
+    if (!r) r = consumeToken(b, F_IS_IN_POLYGON);
+    if (!r) r = consumeToken(b, F_IS_OBJECT);
+    if (!r) r = consumeToken(b, F_STARTS_WITH);
+    if (!r) r = consumeToken(b, F_DATE_DAYOFWEEK);
+    if (!r) r = consumeToken(b, F_LOG10);
+    if (!r) r = consumeToken(b, F_TFIDF);
+    if (!r) r = consumeToken(b, F_DATE_ISO8601);
+    if (!r) r = consumeToken(b, F_DATE_TRUNC);
+    if (!r) r = consumeToken(b, F_IS_LIST);
+    if (!r) r = consumeToken(b, F_NOOPT);
+    if (!r) r = consumeToken(b, F_ATTRIBUTES);
+    if (!r) r = consumeToken(b, F_CALL);
+    if (!r) r = consumeToken(b, F_LEVENSHTEIN_DISTANCE);
+    if (!r) r = consumeToken(b, F_REMOVE_VALUE);
+    if (!r) r = consumeToken(b, F_DATE_FORMAT);
+    if (!r) r = consumeToken(b, F_EXP);
+    if (!r) r = consumeToken(b, F_RADIANS);
+    if (!r) r = consumeToken(b, F_OUTERSECTION);
+    if (!r) r = consumeToken(b, F_UNION);
+    if (!r) r = consumeToken(b, F_KEYS);
+    if (!r) r = consumeToken(b, F_COLLECTION_COUNT);
+    if (!r) r = consumeToken(b, F_BOOST);
+    if (!r) r = consumeToken(b, F_REGEX_MATCHES);
+    if (!r) r = consumeToken(b, F_DISTANCE);
+    if (!r) r = consumeToken(b, F_CHAR_LENGTH);
+    if (!r) r = consumeToken(b, F_MERGE_RECURSIVE);
+    if (!r) r = consumeToken(b, F_VARIANCE_POPULATION);
+    if (!r) r = consumeToken(b, F_UPPER);
+    if (!r) r = consumeToken(b, F_RAND);
+    if (!r) r = consumeToken(b, F_MIN_MATCH);
+    if (!r) r = consumeToken(b, F_GEO_EQUALS);
+    if (!r) r = consumeToken(b, F_TRIM);
+    if (!r) r = consumeToken(b, F_LEFT);
+    if (!r) r = consumeToken(b, F_PI);
+    if (!r) r = consumeToken(b, F_NOT_NULL);
+    if (!r) r = consumeToken(b, F_SUM);
+    if (!r) r = consumeToken(b, F_VERSION);
+    if (!r) r = consumeToken(b, F_POW);
+    if (!r) r = consumeToken(b, F_SLEEP);
+    if (!r) r = consumeToken(b, F_POP);
+    if (!r) r = consumeToken(b, F_MIN);
+    if (!r) r = consumeToken(b, F_UUID);
+    if (!r) r = consumeToken(b, F_TO_NUMBER);
+    if (!r) r = consumeToken(b, F_FIND_FIRST);
+    if (!r) r = consumeToken(b, F_DATE_ISOWEEK);
+    if (!r) r = consumeToken(b, F_LOWER);
+    if (!r) r = consumeToken(b, F_GEO_CONTAINS);
+    if (!r) r = consumeToken(b, F_TRANSLATE);
+    if (!r) r = consumeToken(b, F_GEO_LINESTRING);
+    if (!r) r = consumeToken(b, F_APPLY);
+    if (!r) r = consumeToken(b, F_ABS);
+    if (!r) r = consumeToken(b, F_EXP2);
+    if (!r) r = consumeToken(b, F_DATE_SECOND);
+    if (!r) r = consumeToken(b, F_BM25);
+    if (!r) r = consumeToken(b, F_DATE_MONTH);
+    if (!r) r = consumeToken(b, F_SHIFT);
+    if (!r) r = consumeToken(b, F_CONCAT);
+    if (!r) r = consumeToken(b, F_SUBSTRING);
+    if (!r) r = consumeToken(b, F_CURRENT_USER);
+    if (!r) r = consumeToken(b, F_CONTAINS_ARRAY);
+    if (!r) r = consumeToken(b, F_HAS);
+    if (!r) r = consumeToken(b, F_KEEP);
+    if (!r) r = consumeToken(b, F_TO_STRING);
+    if (!r) r = consumeToken(b, F_ACOS);
+    if (!r) r = consumeToken(b, F_V8);
+    if (!r) r = consumeToken(b, F_PREGEL_RESULT);
+    if (!r) r = consumeToken(b, F_UNION_DISTINCT);
+    if (!r) r = consumeToken(b, F_LIKE);
+    if (!r) r = consumeToken(b, F_COUNT_UNIQUE);
+    if (!r) r = consumeToken(b, F_WITHIN);
+    if (!r) r = consumeToken(b, F_IS_STRING);
+    if (!r) r = consumeToken(b, F_REGEX_TEST);
+    if (!r) r = consumeToken(b, F_REMOVE_VALUES);
+    if (!r) r = consumeToken(b, F_GEO_INTERSECTS);
+    if (!r) r = consumeToken(b, F_ATAN);
+    if (!r) r = consumeToken(b, F_LOG2);
+    if (!r) r = consumeToken(b, F_SIN);
+    if (!r) r = consumeToken(b, F_IS_DOCUMENT);
+    if (!r) r = consumeToken(b, F_REGEX_REPLACE);
+    if (!r) r = consumeToken(b, F_AVG);
+    if (!r) r = consumeToken(b, F_SORTED_UNIQUE);
+    if (!r) r = consumeToken(b, F_TYPENAME);
+    if (!r) r = consumeToken(b, F_DATE_ADD);
+    if (!r) r = consumeToken(b, F_REMOVE_NTH);
+    if (!r) r = consumeToken(b, F_APPEND);
+    if (!r) r = consumeToken(b, F_FLATTEN);
+    if (!r) r = consumeToken(b, F_GEO_POLYGON);
+    if (!r) r = consumeToken(b, F_COUNT);
+    if (!r) r = consumeToken(b, F_DATE_MILLISECOND);
+    if (!r) r = consumeToken(b, F_WITHIN_RECTANGLE);
+    if (!r) r = consumeToken(b, F_SOUNDEX);
+    if (!r) r = consumeToken(b, F_TOKENS);
+    if (!r) r = consumeToken(b, F_AVERAGE);
+    if (!r) r = consumeToken(b, F_DATE_QUARTER);
+    if (!r) r = consumeToken(b, F_IS_NULL);
+    if (!r) r = consumeToken(b, F_COLLECTIONS);
+    if (!r) r = consumeToken(b, F_ANALYZER);
+    if (!r) r = consumeToken(b, F_PHRASE);
+    if (!r) r = consumeToken(b, F_DATE_NOW);
+    if (!r) r = consumeToken(b, F_MEDIAN);
+    if (!r) r = consumeToken(b, F_TO_ARRAY);
+    if (!r) r = consumeToken(b, F_RIGHT);
+    if (!r) r = consumeToken(b, F_RTRIM);
+    if (!r) r = consumeToken(b, F_DOCUMENT);
+    if (!r) r = consumeToken(b, F_GEO_DISTANCE);
+    if (!r) r = consumeToken(b, F_PASSTHRU);
+    if (!r) r = consumeToken(b, F_ROUND);
+    if (!r) r = consumeToken(b, F_ZIP);
+    if (!r) r = consumeToken(b, F_TO_HEX);
+    if (!r) r = consumeToken(b, F_FULLTEXT);
+    if (!r) r = consumeToken(b, F_UNIQUE);
+    if (!r) r = consumeToken(b, F_IS_KEY);
+    if (!r) r = consumeToken(b, F_ATAN2);
+    if (!r) r = consumeToken(b, F_CEIL);
+    if (!r) r = consumeToken(b, F_IS_ARRAY);
+    if (!r) r = consumeToken(b, F_SHA512);
+    if (!r) r = consumeToken(b, F_DATE_COMPARE);
+    if (!r) r = consumeToken(b, F_IS_SAME_COLLECTION);
+    if (!r) r = consumeToken(b, F_PUSH);
+    if (!r) r = consumeToken(b, F_DATE_YEAR);
+    if (!r) r = consumeToken(b, F_HASH);
+    if (!r) r = consumeToken(b, F_COUNT_DISTINCT);
+    if (!r) r = consumeToken(b, F_SHA1);
+    if (!r) r = consumeToken(b, F_SQRT);
+    if (!r) r = consumeToken(b, F_LOG);
+    if (!r) r = consumeToken(b, F_POSITION);
+    if (!r) r = consumeToken(b, F_MERGE);
+    if (!r) r = consumeToken(b, F_DATE_TIMESTAMP);
+    if (!r) r = consumeToken(b, F_ENCODE_URI_COMPONENT);
+    if (!r) r = consumeToken(b, F_CONTAINS);
+    if (!r) r = consumeToken(b, F_FAIL);
+    if (!r) r = consumeToken(b, F_FLOOR);
+    if (!r) r = consumeToken(b, F_PERCENTILE);
+    if (!r) r = consumeToken(b, F_MAX);
+    if (!r) r = consumeToken(b, F_EXISTS);
+    if (!r) r = consumeToken(b, F_NTH);
+    if (!r) r = consumeToken(b, F_TO_BOOL);
+    if (!r) r = consumeToken(b, F_DATE_HOUR);
+    if (!r) r = consumeToken(b, F_JSON_STRINGIFY);
+    if (!r) r = consumeToken(b, F_FIRST_DOCUMENT);
+    if (!r) r = consumeToken(b, F_RANDOM_TOKEN);
+    if (!r) r = consumeToken(b, F_FIND_LAST);
+    if (!r) r = consumeToken(b, F_STDDEV_POPULATION);
+    if (!r) r = consumeToken(b, F_COS);
+    if (!r) r = consumeToken(b, F_VARIANCE);
+    if (!r) r = consumeToken(b, F_IS_NUMBER);
+    if (!r) r = consumeToken(b, F_SORTED);
+    if (!r) r = consumeToken(b, F_DATE_DIFF);
+    if (!r) r = consumeToken(b, F_UNSHIFT);
+    if (!r) r = consumeToken(b, F_ASSERT);
+    if (!r) r = consumeToken(b, F_GEO_MULTIPOINT);
+    if (!r) r = consumeToken(b, F_SLICE);
+    if (!r) r = consumeToken(b, F_ASIN);
     return r;
   }
 
@@ -6630,44 +7117,45 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // possible_number_array | "[" number_argument (',' number_argument)* "]"
+  // repeatable_tuple | possible_number_array | "[" number_argument (',' number_argument)* "]"
   static boolean number_argument_array(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "number_argument_array")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = possible_number_array(b, l + 1);
-    if (!r) r = number_argument_array_1(b, l + 1);
+    r = repeatable_tuple(b, l + 1);
+    if (!r) r = possible_number_array(b, l + 1);
+    if (!r) r = number_argument_array_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // "[" number_argument (',' number_argument)* "]"
-  private static boolean number_argument_array_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_1")) return false;
+  private static boolean number_argument_array_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_argument_array_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_ARRAY_OPEN);
     r = r && number_argument(b, l + 1);
-    r = r && number_argument_array_1_2(b, l + 1);
+    r = r && number_argument_array_2_2(b, l + 1);
     r = r && consumeToken(b, T_ARRAY_CLOSE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (',' number_argument)*
-  private static boolean number_argument_array_1_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_1_2")) return false;
+  private static boolean number_argument_array_2_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_argument_array_2_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!number_argument_array_1_2_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "number_argument_array_1_2", c)) break;
+      if (!number_argument_array_2_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "number_argument_array_2_2", c)) break;
     }
     return true;
   }
 
   // ',' number_argument
-  private static boolean number_argument_array_1_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_1_2_0")) return false;
+  private static boolean number_argument_array_2_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_argument_array_2_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_COMMA);
@@ -6800,6 +7288,141 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // single_tuple (',' single_tuple)*
+  static boolean repeatable_tuple(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "repeatable_tuple")) return false;
+    if (!nextTokenIs(b, T_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = single_tuple(b, l + 1);
+    r = r && repeatable_tuple_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (',' single_tuple)*
+  private static boolean repeatable_tuple_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "repeatable_tuple_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!repeatable_tuple_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "repeatable_tuple_1", c)) break;
+    }
+    return true;
+  }
+
+  // ',' single_tuple
+  private static boolean repeatable_tuple_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "repeatable_tuple_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && single_tuple(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // &(reserved_keywords '(')
+  static boolean reserved_function_lookahead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "reserved_function_lookahead")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _AND_);
+    r = reserved_function_lookahead_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // reserved_keywords '('
+  private static boolean reserved_function_lookahead_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "reserved_function_lookahead_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = reserved_keywords(b, l + 1);
+    r = r && consumeToken(b, T_OPEN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // T_SHORTEST_PATH
+  //                         | T_SEARCH
+  //                         | T_REPLACE
+  //                         | T_ASC
+  //                         | T_AGGREGATE
+  //                         | T_FILTER
+  //                         | T_DESC
+  //                         | T_IN
+  //                         | T_INTO
+  //                         | T_LIMIT
+  //                         | T_UPDATE
+  //                         | T_SORT
+  //                         | T_GRAPH
+  //                         | T_FOR
+  //                         | T_LET
+  //                         | T_COLLECT
+  //                         | T_CURRENT
+  //                         | T_WITH
+  //                         | T_DISTINCT
+  //                         | T_RETURN
+  //                         | T_UPSERT
+  //                         | T_REMOVE
+  //                         | T_INSERT
+  //                         | T_OUTBOUND
+  //                         | T_INBOUND
+  //                         | T_ANY
+  //                         | T_ALL
+  //                         | T_NONE
+  static boolean reserved_keywords(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "reserved_keywords")) return false;
+    boolean r;
+    r = consumeToken(b, T_SHORTEST_PATH);
+    if (!r) r = consumeToken(b, T_SEARCH);
+    if (!r) r = consumeToken(b, T_REPLACE);
+    if (!r) r = consumeToken(b, T_ASC);
+    if (!r) r = consumeToken(b, T_AGGREGATE);
+    if (!r) r = consumeToken(b, T_FILTER);
+    if (!r) r = consumeToken(b, T_DESC);
+    if (!r) r = consumeToken(b, T_IN);
+    if (!r) r = consumeToken(b, T_INTO);
+    if (!r) r = consumeToken(b, T_LIMIT);
+    if (!r) r = consumeToken(b, T_UPDATE);
+    if (!r) r = consumeToken(b, T_SORT);
+    if (!r) r = consumeToken(b, T_GRAPH);
+    if (!r) r = consumeToken(b, T_FOR);
+    if (!r) r = consumeToken(b, T_LET);
+    if (!r) r = consumeToken(b, T_COLLECT);
+    if (!r) r = consumeToken(b, T_CURRENT);
+    if (!r) r = consumeToken(b, T_WITH);
+    if (!r) r = consumeToken(b, T_DISTINCT);
+    if (!r) r = consumeToken(b, T_RETURN);
+    if (!r) r = consumeToken(b, T_UPSERT);
+    if (!r) r = consumeToken(b, T_REMOVE);
+    if (!r) r = consumeToken(b, T_INSERT);
+    if (!r) r = consumeToken(b, T_OUTBOUND);
+    if (!r) r = consumeToken(b, T_INBOUND);
+    if (!r) r = consumeToken(b, T_ANY);
+    if (!r) r = consumeToken(b, T_ALL);
+    if (!r) r = consumeToken(b, T_NONE);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '(' QueryItem ')'
+  static boolean single_tuple(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "single_tuple")) return false;
+    if (!nextTokenIs(b, T_OPEN)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = consumeToken(b, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, QueryItem(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // !(
   //                         Statement
   //                     )
@@ -6915,6 +7538,87 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, T_COMMA);
     r = r && StringType(b, l + 1);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '(' single_tuple (',' single_tuple)* ')'
+  // {
+  //   //consumeTokenMethod = 'consumeTokenFast'
+  // }
+  static boolean tuple(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple")) return false;
+    if (!nextTokenIs(b, T_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_OPEN);
+    r = r && single_tuple(b, l + 1);
+    r = r && tuple_2(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    r = r && tuple_4(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (',' single_tuple)*
+  private static boolean tuple_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!tuple_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "tuple_2", c)) break;
+    }
+    return true;
+  }
+
+  // ',' single_tuple
+  private static boolean tuple_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && single_tuple(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // {
+  //   //consumeTokenMethod = 'consumeTokenFast'
+  // }
+  private static boolean tuple_4(PsiBuilder b, int l) {
+    return true;
+  }
+
+  /* ********************************************************** */
+  // &(PropertyName '(')
+  static boolean tuple_lookahead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_lookahead")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _AND_);
+    r = tuple_lookahead_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // PropertyName '('
+  private static boolean tuple_lookahead_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_lookahead_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = PropertyName(b, l + 1);
+    r = r && consumeToken(b, T_OPEN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // &ID
+  static boolean variable_lookahead(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_lookahead")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _AND_);
+    r = consumeToken(b, ID);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

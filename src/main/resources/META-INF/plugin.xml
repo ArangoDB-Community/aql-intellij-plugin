@@ -1,6 +1,6 @@
 <idea-plugin>
   <id>com.arangodb.intellij.aql</id>
-  <name>AQL</name>
+  <name>AQL (ArangoDB Query Language)</name>
   <!--
     note: version is managed by gradle plugin
   -->
@@ -12,7 +12,10 @@
     ]]></description>
 
   <change-notes><![CDATA[
-     1.0.0 initial release (syntax highlighting, autocompletion, refactorings, spring data query language injection)
+  
+     <p>1.0.1 bug fixes (syntax highlighting, documentation)</p>
+     <p>1.0.0 initial release (syntax highlighting, autocompletion, refactorings, spring data query language injection)</p>
+
     ]]>
   </change-notes>
 

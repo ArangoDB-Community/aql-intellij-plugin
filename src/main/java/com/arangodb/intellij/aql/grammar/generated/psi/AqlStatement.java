@@ -2,7 +2,10 @@
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public interface AqlStatement extends PsiElement {
 
@@ -35,6 +38,9 @@ public interface AqlStatement extends PsiElement {
 
   @Nullable
   AqlOperatorStatements getOperatorStatements();
+
+  @NotNull
+  List<AqlQueryItem> getQueryItemList();
 
   @Nullable
   AqlSequence getSequence();

@@ -11,6 +11,7 @@ import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
@@ -30,9 +31,9 @@ public class AqlPropertyNameImpl extends AqlIdMixin implements AqlPropertyName {
   }
 
   @Override
-  @NotNull
+  @Nullable
   public PsiElement getId() {
-    return findNotNullChildByType(ID);
+    return findChildByType(ID);
   }
 
   public String getName() {

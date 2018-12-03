@@ -347,6 +347,7 @@ public interface AqlTypes {
   IElementType F_IS_BOOL = new AqlTokenType("F_IS_BOOL");
   IElementType F_IS_DATESTRING = new AqlTokenType("F_IS_DATESTRING");
   IElementType F_IS_DOCUMENT = new AqlTokenType("F_IS_DOCUMENT");
+  IElementType F_IS_IN_POLYGON = new AqlTokenType("F_IS_IN_POLYGON");
   IElementType F_IS_KEY = new AqlTokenType("F_IS_KEY");
   IElementType F_IS_LIST = new AqlTokenType("F_IS_LIST");
   IElementType F_IS_NULL = new AqlTokenType("F_IS_NULL");
@@ -377,6 +378,7 @@ public interface AqlTypes {
   IElementType F_MIN = new AqlTokenType("F_MIN");
   IElementType F_MINUS = new AqlTokenType("F_MINUS");
   IElementType F_MIN_MATCH = new AqlTokenType("F_MIN_MATCH");
+  IElementType F_NEAR = new AqlTokenType("F_NEAR");
   IElementType F_NOOPT = new AqlTokenType("F_NOOPT");
   IElementType F_NOT_NULL = new AqlTokenType("F_NOT_NULL");
   IElementType F_NTH = new AqlTokenType("F_NTH");
@@ -453,12 +455,13 @@ public interface AqlTypes {
   IElementType F_VARIANCE_SAMPLE = new AqlTokenType("F_VARIANCE_SAMPLE");
   IElementType F_VERSION = new AqlTokenType("F_VERSION");
   IElementType F_WARN = new AqlTokenType("F_WARN");
+  IElementType F_WITHIN = new AqlTokenType("F_WITHIN");
+  IElementType F_WITHIN_RECTANGLE = new AqlTokenType("F_WITHIN_RECTANGLE");
   IElementType F_ZIP = new AqlTokenType("F_ZIP");
   IElementType ID = new AqlTokenType("ID");
   IElementType L_COMMENT = new AqlTokenType("L_COMMENT");
   IElementType NUMBER = new AqlTokenType("NUMBER");
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
-  IElementType N_AT = new AqlTokenType("@");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
   IElementType TEXT_FR = new AqlTokenType("TEXT_FR");
@@ -474,6 +477,7 @@ public interface AqlTypes {
   IElementType T_COLLECT = new AqlTokenType("T_COLLECT");
   IElementType T_COLON = new AqlTokenType(":");
   IElementType T_COMMA = new AqlTokenType(",");
+  IElementType T_CURRENT = new AqlTokenType("T_CURRENT");
   IElementType T_DESC = new AqlTokenType("T_DESC");
   IElementType T_DISTINCT = new AqlTokenType("T_DISTINCT");
   IElementType T_DIV = new AqlTokenType("/");
@@ -522,8 +526,10 @@ public interface AqlTypes {
   IElementType T_SEARCH = new AqlTokenType("T_SEARCH");
   IElementType T_SHORTEST_PATH = new AqlTokenType("T_SHORTEST_PATH");
   IElementType T_SORT = new AqlTokenType("T_SORT");
+  IElementType T_SYS_EDGES = new AqlTokenType("edges");
   IElementType T_SYS_FROM = new AqlTokenType("_from");
   IElementType T_SYS_TO = new AqlTokenType("_to");
+  IElementType T_SYS_VERTICES = new AqlTokenType("vertices");
   IElementType T_TIMES = new AqlTokenType("*");
   IElementType T_TRUE = new AqlTokenType("true");
   IElementType T_UPDATE = new AqlTokenType("T_UPDATE");

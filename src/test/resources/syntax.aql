@@ -1,0 +1,11 @@
+// collection bind parameter:
+FOR u IN @@collection FILTER u.active == true RETURN u
+//chaned bind parameter
+LET doc = { a: { b: { c: 1 } } } RETURN doc.@attr.@attrx
+
+
+FOR vertices, edges IN OUTBOUND SHORTEST_PATH @world_id TO @skill_id
+  GRAPH 's_hierarchy'
+  FOR v, e, p IN 0..@steps outbound @skill_id GRAPH 's_hierarchy'
+    FILTER LENGTH(p.edges[* FILTER CURRENT.type != 'child']) == 0
+    RETURN {vertices: APPEND(vertices, SLICE(p.vertices, 1)), edges: APPEND(edges, SLICE(p.edges, 1))) }

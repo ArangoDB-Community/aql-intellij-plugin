@@ -69,7 +69,7 @@ public class AqlDocumentationProvider extends AbstractDocumentationProvider {
                 name = ((AqlNamedElement) element).getName();
             }
             if (name != null) {
-                return loadDocumentForName(name);
+                return loadDocumentForName(name.toUpperCase());
             }
         }
         return "<no documentation>";

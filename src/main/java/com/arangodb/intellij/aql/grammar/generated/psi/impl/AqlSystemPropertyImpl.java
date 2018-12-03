@@ -8,8 +8,12 @@ import com.arangodb.intellij.aql.grammar.generated.psi.AqlSystemProperty;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 public class AqlSystemPropertyImpl extends AqlSystemPropertyMixin implements AqlSystemProperty {
 
@@ -24,6 +28,12 @@ public class AqlSystemPropertyImpl extends AqlSystemPropertyMixin implements Aql
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getFAttributes() {
+    return findChildByType(F_ATTRIBUTES);
   }
 
   public String getName() {

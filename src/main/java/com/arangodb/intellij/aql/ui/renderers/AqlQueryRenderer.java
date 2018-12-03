@@ -41,13 +41,13 @@ public class AqlQueryRenderer extends ColoredTreeCellRenderer {
              return name;
         }
         final StringBuilder builder = new StringBuilder();
-        builder.append(" (");
+        builder.append(" ( ");
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             Object value = entry.getValue();
             if (value == null) {
                 value = "";
             }
-            builder.append(entry.getKey()).append(':').append(value);
+            builder.append(entry.getKey()).append(':').append(value).append(' ');
         }
         builder.append(')');
         return name + builder;

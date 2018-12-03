@@ -41,6 +41,7 @@ T_GRAPH=([Gg])([Rr])([Aa])([Pp])([Hh])
 T_FOR=([Ff])([Oo])([Rr])
 T_LET=([Ll])([Ee])([Tt])
 T_COLLECT=([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])
+T_CURRENT=([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])
 T_WITH=([Ww])([Ii])([Tt])([Hh])
 T_DISTINCT=([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 T_RETURN=([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])
@@ -288,7 +289,8 @@ SPACE=[ \t\n\x0B\f\r]+
   "_id"                         { return T_ID; }
   "_from"                       { return T_SYS_FROM; }
   "_to"                         { return T_SYS_TO; }
-  "@"                           { return N_AT; }
+  "edges"                       { return T_SYS_EDGES; }
+  "vertices"                    { return T_SYS_VERTICES; }
   "true"                        { return T_TRUE; }
   "false"                       { return T_FALSE; }
   "not"                         { return T_NOT; }
@@ -325,6 +327,10 @@ SPACE=[ \t\n\x0B\f\r]+
   "\""                          { return DOUBLE_QUOTE; }
   "$"                           { return DOLLAR; }
   "${"                          { return T_PLACHOLDER_START; }
+  "F_NEAR"                      { return F_NEAR; }
+  "F_IS_IN_POLYGON"             { return F_IS_IN_POLYGON; }
+  "F_WITHIN"                    { return F_WITHIN; }
+  "F_WITHIN_RECTANGLE"          { return F_WITHIN_RECTANGLE; }
   "T_NIN"                       { return T_NIN; }
   "A_TEXT_FR"                   { return A_TEXT_FR; }
 
@@ -344,6 +350,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {T_FOR}                       { return T_FOR; }
   {T_LET}                       { return T_LET; }
   {T_COLLECT}                   { return T_COLLECT; }
+  {T_CURRENT}                   { return T_CURRENT; }
   {T_WITH}                      { return T_WITH; }
   {T_DISTINCT}                  { return T_DISTINCT; }
   {T_RETURN}                    { return T_RETURN; }

@@ -62,6 +62,12 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
 
   @Override
   @Nullable
+  public PsiElement getTCurrent() {
+    return findChildByType(T_CURRENT);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getTDesc() {
     return findChildByType(T_DESC);
   }

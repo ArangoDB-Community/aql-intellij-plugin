@@ -38,7 +38,6 @@ public abstract class AqlPsiReference extends PsiReferenceBase<PsiElement> imple
     public ResolveResult[] multiResolve(final boolean incompleteCode) {
         if (myElement instanceof AqlNamedElement) {
             final AqlNamedElement namedElement = (AqlNamedElement) myElement;
-
             final IElementType elementType = PsiUtilCore.getElementType(myElement);
             if (elementType == null) {
                 return ResolveResult.EMPTY_ARRAY;

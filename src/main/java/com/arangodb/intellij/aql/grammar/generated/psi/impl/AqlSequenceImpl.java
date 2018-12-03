@@ -2,6 +2,7 @@
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlIntegerType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlSequence;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
@@ -31,6 +32,12 @@ public class AqlSequenceImpl extends ASTWrapperPsiElement implements AqlSequence
   @NotNull
   public List<AqlIntegerType> getIntegerTypeList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
   }
 
 }
