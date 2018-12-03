@@ -1,5 +1,6 @@
 package com.arangodb.intellij.aql.ui.renderers;
 
+import com.google.common.base.Strings;
 import com.intellij.ui.ColoredTreeCellRenderer;
 import com.intellij.ui.SimpleTextAttributes;
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +34,9 @@ public class AqlQueryRenderer extends ColoredTreeCellRenderer {
 
     private String extractName(final String name, final Map<String, String> parameters) {
 
+        if (Strings.isNullOrEmpty(name)) {
+            return "<unknown>";
+        }
         if (parameters.size() == 0) {
              return name;
         }
