@@ -83,7 +83,7 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
                 return KEYWORD;
             }
         }
-        log.info("settings: {}", type);
+        //log.info("settings: {}", type);
         return EMPTY;
     }
 }

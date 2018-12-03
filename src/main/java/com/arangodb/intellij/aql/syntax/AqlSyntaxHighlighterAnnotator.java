@@ -37,9 +37,9 @@ public class AqlSyntaxHighlighterAnnotator implements Annotator {
                 annotate(element, holder, AqlSyntaxColors.PARAMETER_VARIABLE);
             } else if (aqlType == AqlMixinType.ID) {
                 annotate(element, holder, AqlSyntaxColors.VARIABLE);
-            } else {
+            } /*else {
                 log.info("Missing aqlType {}", aqlType);
-            }
+            }*/
 
         } else {
 

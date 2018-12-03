@@ -5,6 +5,8 @@ import com.intellij.ui.SimpleTextAttributes;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.util.Collections;
+import java.util.Map;
 
 public class AqlQueryModel {
 
@@ -15,11 +17,15 @@ public class AqlQueryModel {
 
     private String name;
     private boolean selected;
+    private Map<String, String> parameters;
 
     private Type type = Type.TEXT_ONLY;
 
-    public AqlQueryModel() {
+    public AqlQueryModel(final String name, final Map<String, String> parameters, final Type type) {
+        this(name, type);
+        this.parameters = parameters;
     }
+
 
     public AqlQueryModel(final String name, final Type type) {
         this.name = name;
@@ -36,6 +42,18 @@ public class AqlQueryModel {
 
     public Type getType() {
         return type;
+    }
+
+    @NotNull
+    public Map<String, String> getParameters() {
+        if (parameters == null) {
+            return Collections.emptyMap();
+        }
+        return parameters;
+    }
+
+    public void setParameters(final Map<String, String> parameters) {
+        this.parameters = parameters;
     }
 
     @NotNull

@@ -56,7 +56,7 @@ public abstract class AqlQueryAction extends AnAction {
 
             final boolean ok = dialog.showAndGet();
             if (ok) {
-                final Map<String, Object> data = dialog.getData();
+                final Map<String, String> data = dialog.getData();
                 execute(type, service, query, data);
                 showConsole(project);
                 saveQuery(event, service, query, data);
@@ -71,7 +71,7 @@ public abstract class AqlQueryAction extends AnAction {
         showConsole(project);
     }
 
-    private void execute(final AqlDataService.QueryType type, final AqlDataService service, final String query, final Map<String, Object> data) {
+    private void execute(final AqlDataService.QueryType type, final AqlDataService service, final String query, final Map<String, String> data) {
         if (type == AqlDataService.QueryType.QUERY) {
             service.executeQuery(query, data);
         } else {
@@ -79,7 +79,9 @@ public abstract class AqlQueryAction extends AnAction {
         }
     }
 
-    protected void saveQuery(@NotNull final AnActionEvent event, final AqlDataService service, final String query, final Map<String, Object> data) {
+
+
+    protected void saveQuery(@NotNull final AnActionEvent event, final AqlDataService service, final String query, final Map<String, String> data) {
         final VirtualFile file = event.getDataContext().getData(PlatformDataKeys.VIRTUAL_FILE);
         final String name = file == null ? "Query" : file.getName() + "_query";
         service.saveQuery(new AqlQuery(name, query, data));

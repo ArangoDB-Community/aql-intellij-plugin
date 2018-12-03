@@ -64,11 +64,11 @@ public class AqlParameterDialog extends DialogWrapper {
         // TODO: place custom component creation code here
     }
 
-    public Map<String, Object> getData() {
-        final Map<String, Object> map = new HashMap<>();
+    public Map<String, String> getData() {
+        final Map<String, String> map = new HashMap<>();
         for (Map.Entry<String, JBTextField> entry : fields.entrySet()) {
             final String text = entry.getValue().getText();
-            map.put(PATTERN_AT.matcher(entry.getKey()).replaceAll(""), AqlUtils.convertToBindVariable(text));
+            map.put(PATTERN_AT.matcher(entry.getKey()).replaceAll(""), text);
         }
         return map;
     }

@@ -102,7 +102,7 @@ public final class AqlUtils {
     }
 
     @NotNull
-    public static String createHash(final Project project, final String query, final Map<String, Object> data) {
+    public static String createHash(final Project project, final String query, final Map<String, String> data) {
         final String clean = CharMatcher.whitespace().removeFrom(query);
         return Hashing.sha256().newHasher().putString(clean, Charsets.UTF_8).hash().toString();
     }
@@ -156,5 +156,16 @@ public final class AqlUtils {
             return "10";
         }
         return "";
+    }
+
+    public static Map<String, Object> convertValues(final Map<String, String> bindVars) {
+        if (bindVars == null) {
+            return Collections.emptyMap();
+        }
+        final Map<String, Object> map = new HashMap<>();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            map.put(entry.getKey(), convertToBindVariable(String.valueOf(entry.getValue())));
+        }
+        return map;
     }
 }

@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.Map;
 
 public class AqlQueryRenderer extends ColoredTreeCellRenderer {
     @Override
@@ -20,7 +21,7 @@ public class AqlQueryRenderer extends ColoredTreeCellRenderer {
         if (userObject instanceof AqlQueryModel) {
             final AqlQueryModel model = (AqlQueryModel) userObject;
 
-            final String name = model.getName();
+            final String name = extractName(model.getName(), model.getParameters());
             append(name, model.getStyle(), true);
             setIcon(model.getIcon());
             setToolTipText(model.getType().name());
@@ -30,6 +31,23 @@ public class AqlQueryRenderer extends ColoredTreeCellRenderer {
         }
     }
 
+    private String extractName(final String name, final Map<String, String> parameters) {
+
+        if (parameters.size() == 0) {
+             return name;
+        }
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" (");
+        for (Map.Entry<String, String> entry : parameters.entrySet()) {
+            Object value = entry.getValue();
+            if (value == null) {
+                value = "";
+            }
+            builder.append(entry.getKey()).append(':').append(value);
+        }
+        builder.append(')');
+        return name + builder;
+    }
 
 
 }

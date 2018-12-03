@@ -11,7 +11,7 @@ public class AqlQuery {
     private String name;
     private String query;
     private String hash;
-    private Map<String, Object> parameters;
+    private Map<String, String> parameters;
 
     public AqlQuery() {
     }
@@ -21,13 +21,13 @@ public class AqlQuery {
         this.query = query;
     }
 
-    public AqlQuery(final String name, final String query, final Map<String, Object> parameters) {
+    public AqlQuery(final String name, final String query, final Map<String, String> parameters) {
         this.name = name;
         this.query = query;
         this.parameters = parameters;
     }
 
-    public void addParameter(final String key, final Object value) {
+    public void addParameter(final String key, final String value) {
         if (parameters == null) {
             parameters = new HashMap<>();
         }
@@ -51,14 +51,14 @@ public class AqlQuery {
     }
 
     @NotNull
-    public Map<String, Object> getParameters() {
+    public Map<String, String> getParameters() {
         if (parameters == null) {
             return new HashMap<>();
         }
         return parameters;
     }
 
-    public void setParameters(final Map<String, Object> parameters) {
+    public void setParameters(final Map<String, String> parameters) {
         this.parameters = parameters;
     }
 

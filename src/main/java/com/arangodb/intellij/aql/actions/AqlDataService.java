@@ -124,13 +124,13 @@ public final class AqlDataService {
         return executeQuery(query, Collections.emptyMap(), QueryType.EXPLAIN_QUERY);
     }
 
-    public AqlDataService explainQuery(final String query, final Map<String, Object> bindVars) {
+    public AqlDataService explainQuery(final String query, final Map<String, String> bindVars) {
 
-        return executeQuery(query, bindVars, QueryType.EXPLAIN_QUERY);
+        return executeQuery(query, AqlUtils.convertValues(bindVars), QueryType.EXPLAIN_QUERY);
     }
 
-    public AqlDataService executeQuery(final String query, final Map<String, Object> bindVars) {
-        return executeQuery(query, bindVars, QueryType.QUERY);
+    public AqlDataService executeQuery(final String query, final Map<String, String> bindVars) {
+        return executeQuery(query, AqlUtils.convertValues(bindVars), QueryType.QUERY);
     }
 
     private AqlDataService executeQuery(final String query, final Map<String, Object> bindVars, final QueryType type) {
@@ -254,7 +254,7 @@ public final class AqlDataService {
         final Map<String, AqlQuery> queries = getQueries();
         for (Map.Entry<String, AqlQuery> entry : queries.entrySet()) {
             final CheckedTreeNode queryNode = new CheckedTreeNode();
-            queryNode.setUserObject(new AqlQueryModel(entry.getKey(), AqlQueryModel.Type.WITH_PARAMS));
+            queryNode.setUserObject(new AqlQueryModel(entry.getKey(),entry.getValue().getParameters(), AqlQueryModel.Type.WITH_PARAMS));
             root.add(queryNode);
 
         }
