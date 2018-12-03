@@ -49,7 +49,7 @@ release {
     failOnUpdateNeeded = true
     failOnSnapshotDependencies = true
     failOnUnversionedFiles = true
-    pushReleaseVersionBranch = false
+   /* pushReleaseVersionBranch = false*/ 
     failOnUnversionedFiles = true
 
     buildTasks = ['build']
