@@ -72,6 +72,7 @@ public final class AqlDataService {
     public AqlQuery getExistingQueryForValue(final String value) {
         final Collection<AqlQuery> values = getQueries().values();
         final AqlQuery our = new AqlQuery("", value);
+        our.setHash(AqlUtils.createHash(project, value, Collections.emptyMap()));
         for (AqlQuery aqlQuery : values) {
             if (aqlQuery.equals(our)) {
                 return aqlQuery;

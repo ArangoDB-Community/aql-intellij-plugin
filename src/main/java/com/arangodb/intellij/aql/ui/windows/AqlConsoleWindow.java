@@ -6,7 +6,6 @@ import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.ui.actions.*;
 import com.arangodb.intellij.aql.ui.panels.JsonPanel;
 import com.arangodb.intellij.aql.ui.renderers.AqlQueryRenderer;
-import com.arangodb.intellij.aql.util.log;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
@@ -92,7 +91,6 @@ public class AqlConsoleWindow implements Disposable {
 
     private void processQuery(final ActionEventData data) {
         jsonPanel.onMessage(data, project);
-        log.info("query {}", data.get(ActionEventData.KEY_QUERY));
     }
 
 
