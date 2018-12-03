@@ -163,8 +163,8 @@ public final class AqlUtils {
             return Collections.emptyMap();
         }
         final Map<String, Object> map = new HashMap<>();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            map.put(entry.getKey(), convertToBindVariable(String.valueOf(entry.getValue())));
+        for (Map.Entry<String, String> entry : bindVars.entrySet()) {
+            map.put(entry.getKey(), convertToBindVariable(entry.getValue()));
         }
         return map;
     }
