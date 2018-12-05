@@ -42,6 +42,11 @@ intellij {
     pluginName 'aql'
 }
 
+/*
+* Works like maven release plugin, see:
+* https://github.com/researchgate/gradle-release
+* 
+* */
 release {
     revertOnFail = true
     failOnCommitNeeded = true
