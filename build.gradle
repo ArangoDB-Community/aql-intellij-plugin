@@ -33,7 +33,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
 }
 patchPluginXml{
-    sinceBuild '163'
+    sinceBuild '172'
     untilBuild '184'
 }
 
