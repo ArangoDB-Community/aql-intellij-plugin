@@ -21,7 +21,8 @@
 
   <change-notes><![CDATA[
   
-     <p>1.0.2 bug fixes, create SpringData Repository interface intention</p>
+     <p>1.0.3 bug fixes, create SpringData Repository interface intention</p>
+     <p>1.0.2 bug fixes</p>
      <p>1.0.1 bug fixes (syntax highlighting, documentation)</p>
      <p>1.0.0 initial release (syntax highlighting, autocompletion, refactorings, spring data query language injection)</p>
 
