@@ -1,0 +1,4 @@
+@Repository
+public interface XRepository extends ArangoRepository<X, String> {
+
+}

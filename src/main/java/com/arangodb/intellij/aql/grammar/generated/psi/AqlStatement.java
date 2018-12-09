@@ -37,6 +37,9 @@ public interface AqlStatement extends PsiElement {
   AqlNumberType getNumberType();
 
   @Nullable
+  AqlObjectExpression getObjectExpression();
+
+  @Nullable
   AqlOperatorStatements getOperatorStatements();
 
   @NotNull
@@ -47,6 +50,9 @@ public interface AqlStatement extends PsiElement {
 
   @Nullable
   AqlStringType getStringType();
+
+  @Nullable
+  AqlSystemProperty getSystemProperty();
 
   @Nullable
   AqlVariablePlaceHolder getVariablePlaceHolder();

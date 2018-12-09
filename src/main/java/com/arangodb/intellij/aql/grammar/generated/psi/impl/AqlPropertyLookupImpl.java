@@ -4,10 +4,7 @@ package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlPropertyLookupMixin;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyLookup;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyName;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlSystemProperty;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
+import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
@@ -27,6 +24,12 @@ public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements Aql
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @Nullable
+  public AqlExpressionType getExpressionType() {
+    return findChildByClass(AqlExpressionType.class);
   }
 
   @Override

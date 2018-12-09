@@ -1,0 +1,8 @@
+package $PACKAGE_NAME$;
+import org.springframework.stereotype.Repository;
+import com.arangodb.springframework.repository.ArangoRepository;
+
+@Repository
+public interface $NAME extends ArangoRepository<$INTERFACE_NAME, String> {
+
+}

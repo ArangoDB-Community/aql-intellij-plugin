@@ -1,0 +1,1300 @@
+{
+// https://github.com/JetBrains/Grammar-Kit/blob/master/HOWTO.md
+// https://github.com/arangodb/arangodb/blob/devel/arangod/Aql/grammar.y
+    psiClassPrefix="Aql"
+    psiImplClassSuffix="Impl"
+    //
+    parserUtilClass="com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil"
+    parserClass="com.arangodb.intellij.aql.grammar.generated.AqlParser"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+    elementTypeHolderClass="com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes"
+    elementTypeClass="com.arangodb.intellij.aql.grammar.custom.AqlElementType"
+    tokenTypeClass="com.arangodb.intellij.aql.grammar.custom.AqlTokenType"
+    psiImplUtilClass="com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil"
+    psiPackage="com.arangodb.intellij.aql.grammar.generated.psi"
+    psiImplPackage="com.arangodb.intellij.aql.grammar.generated.psi.impl"
+    
+tokens = [
+    // system:
+T_SEARCH = "regexp:([Ss])([Ee])([Aa])([Rr])([Cc])([Hh])"
+T_SHORTEST_PATH = "regexp:([Ss])([Hh])([Oo])([Rr])([Tt])([Ee])([Ss])([Tt])([Pp])([Aa])([Tt])([Hh])"
+T_REPLACE = "regexp:([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])"
+T_ASC = "regexp:([Aa])([Ss])([Cc])"
+T_AGGREGATE = "regexp:([Aa])([Gg])([Gg])([Rr])([Ee])([Gg])([Aa])([Tt])([Ee])"
+T_FILTER = "regexp:([Ff])([Ii])([Ll])([Tt])([Ee])([Rr])"
+T_DESC = "regexp:([Dd])([Ee])([Ss])([Cc])"
+T_IN = "regexp:([Ii])([Nn])"
+T_INTO = "regexp:([Ii])([Nn])([Tt])([Oo])"
+T_LIMIT = "regexp:([Ll])([Ii])([Mm])([Ii])([Tt])"
+T_UPDATE = "regexp:([Uu])([Pp])([Dd])([Aa])([Tt])([Ee])"
+T_SORT = "regexp:([Ss])([Oo])([Rr])([Tt])"
+T_GRAPH = "regexp:([Gg])([Rr])([Aa])([Pp])([Hh])"
+T_FOR = "regexp:([Ff])([Oo])([Rr])"
+T_LET = "regexp:([Ll])([Ee])([Tt])"
+T_COLLECT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])"
+T_CURRENT = "regexp:([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])"
+T_WITH = "regexp:([Ww])([Ii])([Tt])([Hh])"
+T_DISTINCT = "regexp:([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+T_RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
+T_UPSERT = "regexp:([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])"
+T_REMOVE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])"
+T_INSERT = "regexp:([Ii])([Nn])([Ss])([Ee])([Rr])([Tt])"
+T_OUTBOUND = "regexp:([Oo])([Uu])([Tt])([Bb])([Oo])([Uu])([Nn])([Dd])"
+T_INBOUND = "regexp:([Ii])([Nn])([Bb])([Ou])([Uu])([Nn])([Dd])"
+T_ANY = "regexp:([Aa])([Nn])([Yy])"
+T_ALL = "regexp:([Aa])([Ll])([Ll])"
+T_NULL = "regexp:([n])([u])([l])([l])"
+T_AND = "regexp:([Aa])([Nn])([Dd])"
+// functions
+F_TFIDF = "regexp:([Tt])([Ff])([Ii])([Dd])([Ff])"
+F_MIN_MATCH = "regexp:([Mm])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])"
+F_PHRASE = "regexp:([Pp])([Hh])([Rr])([Aa])([Ss])([Ee])"
+F_EXISTS = "regexp:([Ee])([Xx])([Ii])([Ss])([Tt])([Ss])"
+F_TOKENS = "regexp:([Tt])([Oo])([Kk])([Ee])([Nn])([Ss])"
+//F_WITHIN_RECTANGLE = "regexp:([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])([_])([Rr])([Ee])([Cc])([Tt])([Aa])([Nn])([Gg])([Ll])([Ee])"
+F_WARN = "regexp:([Ww])([Aa])([Rr])([Nn])"
+//F_WITHIN = "regexp:([Ww])([Ii])([Tt])([Hh])([Ii])([Nn])"
+F_PREGEL_RESULT = "regexp:([Pp])([Rr])([Ee])([Gg])([Ee])([Ll])([_])([Rr])([Ee])([Ss])([Uu])([Ll])([Tt])"
+F_NOOPT = "regexp:([Nn])([Oo])([Oo])([Pp])([Tt])"
+F_VERSION = "regexp:([Vv])([Ee])([Rr])([Ss])([Ii])([Oo])([Nn])"
+F_FULLTEXT = "regexp:([Ff])([Uu])([Ll])([Ll])([Tt])([Ee])([Xx])([Tt])"
+F_COLLECTIONS = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])([Ss])"
+F_PARSE_IDENTIFIER = "regexp:([Pp])([Aa])([Rr])([Ss])([Ee])([_])([Ii])([Dd])([Ee])([Nn])([Tt])([Ii])([Ff])([Ii])([Ee])([Rr])"
+F_FIRST_DOCUMENT = "regexp:([Ff])([Ii])([Rr])([Ss])([Tt])([_])([Dd])([Oo])([Cc])([Uu])([Mm])([Ee])([Nn])([Tt])"
+F_NOT_NULL = "regexp:([Nn])([Oo])([Tt])([_])([Nn])([Uu])([Ll])([Ll])"
+F_DATE_COMPARE = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Cc])([Oo])([Mm])([Pp])([Aa])([Rr])([Ee])"
+F_DATE_ADD = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Aa])([Dd])([Dd])"
+//F_NEAR = "regexp:([Nn])([Ee])([Aa])([Rr])"
+F_DATE_DAYS_IN_MONTH = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Aa])([Yy])([Ss])([_])([Ii])([Nn])([_])([Mm])([Oo])([Nn])([Tt])([Hh])"
+F_DATE_FORMAT = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ff])([Oo])([Rr])([Mm])([Aa])([Tt])"
+F_DATE_LEAPYEAR = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ll])([Ee])([Aa])([Pp])([Yy])([Ee])([Aa])([Rr])"
+F_DATE_DAYOFYEAR = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Aa])([Yy])([Oo])([Ff])([Yy])([Ee])([Aa])([Rr])"
+F_DATE_SECOND = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])"
+F_DATE_YEAR = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Yy])([Ee])([Aa])([Rr])"
+F_ASSERT = "regexp:([Aa])([Ss])([Ss])([Ee])([Rr])([Tt])"
+F_DATE_TIMESTAMP = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Ii])([Mm])([Ee])([Ss])([Tt])([Aa])([Mm])([Pp])"
+F_GEO_MULTILINESTRING = "regexp:([Gg])([Ee])([Oo])([_])([Mm])([Uu])([Ll])([Tt])([Ii])([Ll])([Ii])([Nn])([Ee])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_GEO_LINESTRING = "regexp:([Gg])([Ee])([Oo])([_])([Ll])([Ii])([Nn])([Ee])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_GEO_POLYGON = "regexp:([Gg])([Ee])([Oo])([_])([Pp])([Oo])([Ll])([Yy])([Gg])([Oo])([Nn])"
+F_DISTANCE = "regexp:([Dd])([Ii])([Ss])([Tt])([Aa])([Nn])([Cc])([Ee])"
+F_DOCUMENT = "regexp:([Dd])([Oo])([Cc])([Uu])([Mm])([Ee])([Nn])([Tt])"
+F_ZIP = "regexp:([Zz])([Ii])([Pp])"
+F_TRANSLATE = "regexp:([Tt])([Rr])([Aa])([Nn])([Ss])([Ll])([Aa])([Tt])([Ee])"
+F_KEEP = "regexp:([Kk])([Ee])([Ee])([Pp])"
+F_UNSET_RECURSIVE = "regexp:([Uu])([Nn])([Ss])([Ee])([Tt])([_])([Rr])([Ee])([Cc])([Uu])([Rr])([Ss])([Ii])([Vv])([Ee])"
+F_GEO_EQUALS = "regexp:([Gg])([Ee])([Oo])([_])([Ee])([Qq])([Uu])([Aa])([Ll])([Ss])"
+F_UNSET = "regexp:([Uu])([Nn])([Ss])([Ee])([Tt])"
+F_MATCHES = "regexp:([Mm])([Aa])([Tt])([Cc])([Hh])([Ee])([Ss])"
+F_BOOST = "regexp:([Bb])([Oo])([Oo])([Ss])([Tt])"
+F_MERGE = "regexp:([Mm])([Ee])([Rr])([Gg])([Ee])"
+F_CURRENT_DATABASE = "regexp:([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])([_])([Dd])([Aa])([Tt])([Aa])([Bb])([Aa])([Ss])([Ee])"
+F_KEYS = "regexp:([Kk])([Ee])([Yy])([Ss])"
+F_HAS = "regexp:([Hh])([Aa])([Ss])"
+F_DATE_DAYOFWEEK = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Aa])([Yy])([Oo])([Ff])([Ww])([Ee])([Ee])([Kk])"
+F_CALL = "regexp:([Cc])([Aa])([Ll])([Ll])"
+F_REMOVE_NTH = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])([_])([Nn])([Tt])([Hh])"
+F_REMOVE_VALUES = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])([_])([Vv])([Aa])([Ll])([Uu])([Ee])([Ss])"
+F_SHIFT = "regexp:([Ss])([Hh])([Ii])([Ff])([Tt])"
+F_CONTAINS_ARRAY = "regexp:([Cc])([Oo])([Nn])([Tt])([Aa])([Ii])([Nn])([Ss])([_])([Aa])([Rr])([Rr])([Aa])([Yy])"
+F_POSITION = "regexp:([Pp])([Oo])([Ss])([Ii])([Tt])([Ii])([Oo])([Nn])"
+F_GEO_DISTANCE = "regexp:([Gg])([Ee])([Oo])([_])([Dd])([Ii])([Ss])([Tt])([Aa])([Nn])([Cc])([Ee])"
+F_NTH = "regexp:([Nn])([Tt])([Hh])"
+F_REMOVE_VALUE = "regexp:([Rr])([Ee])([Mm])([Oo])([Vv])([Ee])([_])([Vv])([Aa])([Ll])([Uu])([Ee])"
+F_FIRST = "regexp:([Ff])([Ii])([Rr])([Ss])([Tt])"
+F_DATE_HOUR = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Hh])([Oo])([Uu])([Rr])"
+F_REVERSE = "regexp:([Rr])([Ee])([Vv])([Ee])([Rr])([Ss])([Ee])"
+F_SLICE = "regexp:([Ss])([Ll])([Ii])([Cc])([Ee])"
+F_ANALYZER = "regexp:([Aa])([Nn])([Aa])([Ll])([Yy])([Zz])([Ee])([Rr])"
+F_LEVENSHTEIN_DISTANCE = "regexp:([Ll])([Ee])([Vv])([Ee])([Nn])([Ss])([Hh])([Tt])([Ee])([Ii])([Nn])([_])([Dd])([Ii])([Ss])([Tt])([Aa])([Nn])([Cc])([Ee])"
+F_DATE_ISOWEEK = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ii])([Ss])([Oo])([Ww])([Ee])([Ee])([Kk])"
+F_SOUNDEX = "regexp:([Ss])([Oo])([Uu])([Nn])([Dd])([Ee])([Xx])"
+F_SIN = "regexp:([Ss])([Ii])([Nn])"
+F_EXP2 = "regexp:([Ee])([Xx])([Pp])([2])"
+F_ENCODE_URI_COMPONENT = "regexp:([Ee])([Nn])([Cc])([Oo])([Dd])([Ee])([_])([Uu])([Rr])([Ii])([_])([Cc])([Oo])([Mm])([Pp])([Oo])([Nn])([Ee])([Nn])([Tt])"
+F_SHA512 = "regexp:([Ss])([Hh])([Aa])([5])([1])([2])"
+F_PUSH = "regexp:([Pp])([Uu])([Ss])([Hh])"
+F_SHA1 = "regexp:([Ss])([Hh])([Aa])([1])"
+F_SUBSTITUTE = "regexp:([Ss])([Uu])([Bb])([Ss])([Tt])([Ii])([Tt])([Uu])([Tt])([Ee])"
+F_FLOOR = "regexp:([Ff])([Ll])([Oo])([Oo])([Rr])"
+F_DATE_MILLISECOND = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])"
+F_TO_BASE64 = "regexp:([Tt])([Oo])([_])([Bb])([Aa])([Ss])([Ee])([6])([4])"
+F_HASH = "regexp:([Hh])([Aa])([Ss])([Hh])"
+F_IS_SAME_COLLECTION = "regexp:([Ii])([Ss])([_])([Ss])([Aa])([Mm])([Ee])([_])([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
+F_PASSTHRU = "regexp:([Pp])([Aa])([Ss])([Ss])([Tt])([Hh])([Rr])([Uu])"
+F_GEO_CONTAINS = "regexp:([Gg])([Ee])([Oo])([_])([Cc])([Oo])([Nn])([Tt])([Aa])([Ii])([Nn])([Ss])"
+F_LTRIM = "regexp:([Ll])([Tt])([Rr])([Ii])([Mm])"
+F_FIND_FIRST = "regexp:([Ff])([Ii])([Nn])([Dd])([_])([Ff])([Ii])([Rr])([Ss])([Tt])"
+F_RTRIM = "regexp:([Rr])([Tt])([Rr])([Ii])([Mm])"
+F_UNION = "regexp:([Uu])([Nn])([Ii])([Oo])([Nn])"
+F_UNIQUE = "regexp:([Uu])([Nn])([Ii])([Qq])([Uu])([Ee])"
+F_SUM = "regexp:([Ss])([Uu])([Mm])"
+F_REGEX_REPLACE = "regexp:([Rr])([Ee])([Gg])([Ee])([Xx])([_])([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])"
+F_REGEX_SPLIT = "regexp:([Rr])([Ee])([Gg])([Ee])([Xx])([_])([Ss])([Pp])([Ll])([Ii])([Tt])"
+F_DATE_DIFF = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Ii])([Ff])([Ff])"
+F_APPLY = "regexp:([Aa])([Pp])([Pp])([Ll])([Yy])"
+F_SQRT = "regexp:([Ss])([Qq])([Rr])([Tt])"
+F_LIKE = "regexp:([Ll])([Ii])([Kk])([Ee])"
+F_SPLIT = "regexp:([Ss])([Pp])([Ll])([Ii])([Tt])"
+F_REGEX_MATCHES = "regexp:([Rr])([Ee])([Gg])([Ee])([Xx])([_])([Mm])([Aa])([Tt])([Cc])([Hh])([Ee])([Ss])"
+F_CONTAINS = "regexp:([Cc])([Oo])([Nn])([Tt])([Aa])([Ii])([Nn])([Ss])"
+F_DATE_NOW = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Nn])([Oo])([Ww])"
+F_VARIANCE_POPULATION = "regexp:([Vv])([Aa])([Rr])([Ii])([Aa])([Nn])([Cc])([Ee])([_])([Pp])([Oo])([Pp])([Uu])([Ll])([Aa])([Tt])([Ii])([Oo])([Nn])"
+F_FAIL = "regexp:([Ff])([Aa])([Ii])([Ll])"
+F_VARIANCE = "regexp:([Vv])([Aa])([Rr])([Ii])([Aa])([Nn])([Cc])([Ee])"
+F_SORTED_UNIQUE = "regexp:([Ss])([Oo])([Rr])([Tt])([Ee])([Dd])([_])([Uu])([Nn])([Ii])([Qq])([Uu])([Ee])"
+F_VALUES = "regexp:([Vv])([Aa])([Ll])([Uu])([Ee])([Ss])"
+F_LEFT = "regexp:([Ll])([Ee])([Ff])([Tt])"
+F_V8 = "regexp:([Vv])([8])"
+F_IS_BOOL = "regexp:([Ii])([Ss])([_])([Bb])([Oo])([Oo])([Ll])"
+F_DATE_ISO8601 = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ii])([Ss])([Oo])(8601)"
+F_ASIN = "regexp:([Aa])([Ss])([Ii])([Nn])"
+F_IS_ARRAY = "regexp:([Ii])([Ss])([_])([Aa])([Rr])([Rr])([Aa])([Yy])"
+F_TO_NUMBER = "regexp:([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
+F_COLLECTION_COUNT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])([_])([Cc])([Oo])([Uu])([Nn])([Tt])"
+//F_IS_IN_POLYGON = "regexp:([Ii])([Ss])([_])([Ii])([Nn])([_])([Pp])([Oo])([Ll])([Yy])([Gg])([Oo])([Nn])"
+F_IS_STRING = "regexp:([Ii])([Ss])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_MD5 = "regexp:([Mm])([Dd])([5])"
+F_CEIL = "regexp:([Cc])([Ee])([Ii])([Ll])"
+F_TYPENAME = "regexp:([Tt])([Yy])([Pp])([Ee])([Nn])([Aa])([Mm])([Ee])"
+F_STARTS_WITH = "regexp:([Ss])([Tt])([Aa])([Rr])([Tt])([Ss])([_])([Ww])([Ii])([Tt])([Hh])"
+F_JSON_PARSE = "regexp:([Jj])([Ss])([Oo])([Nn])([_])([Pp])([Aa])([Rr])([Ss])([Ee])"
+F_FLATTEN = "regexp:([Ff])([Ll])([Aa])([Tt])([Tt])([Ee])([Nn])"
+F_APPEND = "regexp:([Aa])([Pp])([Pp])([Ee])([Nn])([Dd])"
+F_UPPER = "regexp:([Uu])([Pp])([Pp])([Ee])([Rr])"
+F_RIGHT = "regexp:([Rr])([Ii])([Gg])([Hh])([Tt])"
+F_ROUND = "regexp:([Rr])([Oo])([Uu])([Nn])([Dd])"
+F_TAN = "regexp:([Tt])([Aa])([Nn])"
+F_TAN2 = "regexp:([Tt])([Aa])([Nn])([2])"
+F_MAX = "regexp:([Mm])([Aa])([Xx])"
+F_TO_BOOL = "regexp:([Tt])([Oo])([_])([Bb])([Oo])([Oo])([Ll])"
+F_IS_NUMBER = "regexp:([Ii])([Ss])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
+F_TO_ARRAY = "regexp:([Tt])([Oo])([_])([Aa])([Rr])([Rr])([Aa])([Yy])"
+F_STDDEV_POPULATION = "regexp:([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Pp])([Oo])([Pp])([Uu])([Ll])([Aa])([Tt])([Ii])([Oo])([Nn])"
+F_MEDIAN = "regexp:([Mm])([Ee])([Dd])([Ii])([Aa])([Nn])"
+F_IS_KEY = "regexp:([Ii])([Ss])([_])([Kk])([Ee])([Yy])"
+F_IS_NULL = "regexp:([Ii])([Ss])([_])([Nn])([Uu])([Ll])([Ll])"
+F_DATE_DAY = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Dd])([Aa])([Yy])"
+F_TO_LIST = "regexp:([Tt])([Oo])([_])([Ll])([Ii])([Ss])([Tt])"
+F_JSON_STRINGIFY = "regexp:([Jj])([Ss])([Oo])([Nn])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])([Ii])([Ff])([Yy])"
+F_FIND_LAST = "regexp:([Ff])([Ii])([Nn])([Dd])([_])([Ll])([Aa])([Ss])([Tt])"
+F_GEO_POINT = "regexp:([Gg])([Ee])([Oo])([_])([Pp])([Oo])([Ii])([Nn])([Tt])"
+F_TO_STRING = "regexp:([Tt])([Oo])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_CONCAT = "regexp:([Cc])([Oo])([Nn])([Cc])([Aa])([Tt])"
+F_GEO_MULTIPOINT = "regexp:([Gg])([Ee])([Oo])([_])([Mm])([Uu])([Ll])([Tt])([Ii])([Pp])([Oo])([Ii])([Nn])([Tt])"
+F_SORTED = "regexp:([Ss])([Oo])([Rr])([Tt])([Ee])([Dd])"
+F_CHAR_LENGTH = "regexp:([Cc])([Hh])([Aa])([Rr])([_])([Ll])([Ee])([Nn])([Gg])([Tt])([Hh])"
+F_CONCAT_SEPARATOR = "regexp:([Cc])([Oo])([Nn])([Cc])([Aa])([Tt])([_])([Ss])([Ee])([Pp])([Aa])([Rr])([Aa])([Tt])([Oo])([Rr])"
+F_SUBSTRING = "regexp:([Ss])([Uu])([Bb])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_COS = "regexp:([Cc])([Oo])([Ss])"
+F_MIN = "regexp:([Mm])([Ii])([Nn])"
+F_LOWER = "regexp:([Ll])([Oo])([Ww])([Ee])([Rr])"
+F_COUNT_UNIQUE = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Uu])([Nn])([Ii])([Qq])([Uu])([Ee])"
+F_RANDOM_TOKEN = "regexp:([Rr])([Aa])([Nn])([Dd])([Oo])([Mm])([_])([Tt])([Oo])([Kk])([Ee])([Nn])"
+F_UUID = "regexp:([Uu])([Uu])([Ii])([Dd])"
+F_ABS = "regexp:([Aa])([Bb])([Ss])"
+F_LOG = "regexp:([Ll])([Oo])([Gg])"
+F_RADIANS = "regexp:([Rr])([Aa])([Dd])([Ii])([Aa])([Nn])([Ss])"
+F_VARIANCE_SAMPLE = "regexp:([Vv])([Aa])([Rr])([Ii])([Aa])([Nn])([Cc])([Ee])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])"
+F_LOG2 = "regexp:([Ll])([Oo])([Gg])([2])"
+F_GEO_INTERSECTS = "regexp:([Gg])([Ee])([Oo])([_])([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ss])"
+F_POW = "regexp:([Pp])([Oo])([Ww])"
+F_LOG10 = "regexp:([Ll])([Oo])([Gg])([1])([0])"
+F_ATTRIBUTES = "regexp:([Aa])([Tt])([Tt])([Rr])([Ii])([Bb])([Uu])([Tt])([Ee])([Ss])"
+F_LAST = "regexp:([Ll])([Aa])([Ss])([Tt])"
+F_TRIM = "regexp:([Tt])([Rr])([Ii])([Mm])"
+F_EXP = "regexp:([Ee])([Xx])([Pp])"
+F_FIRST_LIST = "regexp:([Ff])([Ii])([Rr])([Ss])([Tt])([_])([Ll])([Ii])([Ss])([Tt])"
+F_LENGTH = "regexp:([Ll])([Ee])([Nn])([Gg])([Tt])([Hh])"
+F_IS_LIST = "regexp:([Ii])([Ss])([_])([Ll])([Ii])([Ss])([Tt])"
+F_ACOS = "regexp:([Aa])([Cc])([Oo])([Ss])"
+F_ATAN = "regexp:([Aa])([Tt])([Aa])([Nn])"
+F_ATAN2 = "regexp:([Aa])([Tt])([Aa])([Nn])([2])"
+F_DATE_QUARTER = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Qq])([Uu])([Aa])([Rr])([Tt])([Ee])([Rr])"
+F_COUNT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])"
+F_CURRENT_USER = "regexp:([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])([_])([Uu])([Ss])([Ee])([Rr])"
+F_MERGE_RECURSIVE = "regexp:([Mm])([Ee])([Rr])([Gg])([Ee])([_])([Rr])([Ee])([Cc])([Uu])([Rr])([Ss])([Ii])([Vv])([Ee])"
+F_DEGREES = "regexp:([Dd])([Ee])([Gg])([Rr])([Ee])([Ee])([Ss])"
+F_PI = "regexp:([Pp])([Ii])"
+F_RAND = "regexp:([Rr])([Aa])([Nn])([Dd])"
+F_PERCENTILE = "regexp:([Pp])([Ee])([Rr])([Cc])([Ee])([Nn])([Tt])([Ii])([Ll])([Ee])"
+F_BM25 = "regexp:([Bb])([Mm])([2])([5])"
+F_RANGE = "regexp:([Rr])([Aa])([Nn])([Gg])([Ee])"
+F_SLEEP = "regexp:([Ss])([Ll])([Ee])([Ee])([Pp])"
+F_UNION_DISTINCT = "regexp:([Uu])([Nn])([Ii])([Oo])([Nn])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+F_STDDEV = "regexp:([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])"
+F_DATE_MONTH = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Mm])([Oo])([Nn])([Tt])([Hh])"
+F_IS_DOCUMENT = "regexp:([Ii])([Ss])([_])([Dd])([Oo])([Cc])([Uu])([Mm])([Ee])([Nn])([Tt])"
+F_MINUS = "regexp:([Mm])([Ii])([Nn])([Uu])([Ss])"
+F_UNSHIFT = "regexp:([Uu])([Nn])([Ss])([Hh])([Ii])([Ff])([Tt])"
+F_POP = "regexp:([Pp])([Oo])([Pp])"
+F_REGEX_TEST = "regexp:([Rr])([Ee])([Gg])([Ee])([Xx])([_])([Tt])([Ee])([Ss])([Tt])"
+F_OUTERSECTION = "regexp:([Oo])([Uu])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
+F_DATE_SUBTRACT = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ss])([Uu])([Bb])([Tt])([Rr])([Aa])([Cc])([Tt])"
+F_TO_HEX = "regexp:([Tt])([Oo])([_])([Hh])([Ee])([Xx])"
+F_INTERSECTION = "regexp:([Ii])([Nn])([Tt])([Ee])([Rr])([Ss])([Ee])([Cc])([Tt])([Ii])([Oo])([Nn])"
+F_AVERAGE = "regexp:([Aa])([Vv])([Ee])([Rr])([Aa])([Gg])([Ee])"
+F_DATE_MINUTE = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])"
+F_IS_DATESTRING = "regexp:([Ii])([Ss])([_])([Dd])([Aa])([Tt])([Ee])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_AVG = "regexp:([Aa])([Vv])([Gg])"
+F_DATE_TRUNC = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Rr])([Uu])([Nn])([Cc])"
+F_IS_OBJECT = "regexp:([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])"
+F_STDDEV_SAMPLE = "regexp:([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])"
+F_COUNT_DISTINCT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+
+
+DOT = "."
+T_KEY = "_key"
+T_ID = "_id"
+T_SYS_FROM = "_from"
+T_SYS_TO = "_to"
+//T_SYS_ATTRIBUTES = "attributes"
+T_SYS_EDGES = "edges"
+T_SYS_VERTICES = "vertices"
+    // operators
+
+//############################################
+// ANALYZERS
+//############################################
+
+A_IDENTITY="regexp:('identity')|(\"identity\")"
+A_TEXT_DE="regexp:('text_de')|(\"text_de\")"
+A_TEXT_EN="regexp:('text_en')|(\"text_en\")"
+A_TEXT_ES="regexp:('text_es')|(\"text_es\")"
+A_TEXT_FI="regexp:('text_fi')|(\"text_fi\")"
+TEXT_FR="regexp:('text_fr')|(\"text_fr\")"
+A_TEXT_IT="regexp:('text_it')|(\"text_it\")"
+A_TEXT_NL="regexp:('text_nl')|(\"text_nl\")"
+A_TEXT_NO="regexp:('text_no')|(\"text_no\")"
+A_TEXT_PT="regexp:('text_pt')|(\"text_pt\")"
+A_TEXT_RU="regexp:('text_ru')|(\"text_ru\")"
+A_TEXT_SV="regexp:('text_sv')|(\"text_sv\")"
+A_TEXT_ZH="regexp:('text_zh')|(\"text_zh\")"
+
+D_YEAR_S="regexp:(['])([Yy])([Ea])([Aa])([Rr])(['])|(['])([Yy])([Ea])([Aa])([Rr])([Ss])(['])|(['])([Yy])(['])"
+D_YEAR_D="regexp:([\"])([Yy])([Ea])([Aa])([Rr])([\"])|([\"])([Yy])([Ea])([Aa])([Rr])([Ss])([\"])|([\"])([Yy])([\"])"
+D_MONTH_S="regexp:(['])([Mm])([Oo])([Nn])([Tt])([Hh])(['])|(['])([Mm])([Oo])([Nn])([Tt])([Hh])([Ss])(['])|(['])([Mm])(['])"
+D_MONTH_D="regexp:([\"])([Mm])([Oo])([Nn])([Tt])([Hh])([\"])|([\"])([Mm])([Oo])([Nn])([Tt])([Hh])([Ss])([\"])|([\"])([Mm])([\"])"
+D_DAY_S="regexp:(['])([Dd])([Aa])([Yy])(['])|(['])([Dd])([Aa])([Yy])([Ss])(['])|(['])([Dd])(['])"
+D_DAY_D="regexp:([\"])([Dd])([Aa])([Yy])([\"])|([\"])([Dd])([Aa])([Yy])([Ss])([\"])|(['])([Dd])([\"])"
+D_HOUR_S="regexp:(['])([Hh])([Oo])([Uu])([Rr])(['])|(['])([Hh])([Oo])([Uu])([Rr])([Ss])(['])|(['])([Hh])(['])"
+D_HOUR_D="regexp:([\"])([Hh])([Oo])([Uu])([Rr])([\"])|([\"])([Hh])([Oo])([Uu])([Rr])([Ss])([\"])|(['])([Hh])([\"])"
+D_MINUTE_S="regexp:(['])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])(['])|(['])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([Ss])(['])|(['])([Ii])(['])"
+D_MINUTE_D="regexp:([\"])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([\"])|([\"])([Mm])([Ii])([Nn])([Uu])([Tt])([Ee])([Ss])([\"])|([\"])([Ii])([\"])"
+D_SECOND_S="regexp:(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ss])(['])"
+D_SECOND_D="regexp:([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ss])([\"])"
+D_MILLISECOND_S="regexp:(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ff])(['])"
+D_MILLISECOND_D="regexp:([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ff])([\"])"
+//############################################
+// NONE_TOKENS
+//############################################
+T_TRUE = "true"
+T_FALSE = "false"
+T_NOT = "not"
+
+T_LOGICAL_AND = "&&"
+T_OR = "||"
+T_REGEX_MATCH = "~="
+T_REGEX_NON_MATCH = "~!"
+T_EQ = "=="
+T_IS = "="
+T_NE = "!="
+T_LT = "<"
+T_GT = ">"
+T_LE = "<="
+T_GE = ">="
+T_LIKE = "like"
+T_PLUS = "+"
+T_MINUS = "-"
+T_TIMES = "*"
+T_DIV = "/"
+T_MOD = "%"
+T_QUESTION = "?"
+T_COLON = ":"
+T_SCOPE = "::"
+T_RANGE = ".."
+T_COMMA = ","
+T_OPEN = "("
+T_CLOSE = ")"
+T_OBJECT_OPEN = "{"
+T_OBJECT_CLOSE = "}"
+T_ARRAY_OPEN = "["
+T_ARRAY_CLOSE = "]"
+
+T_NONE = "none"
+    // my
+    SINGLE_QUOTE="'"
+    DOUBLE_QUOTE="\""
+    DOLLAR="$"
+    T_PLACHOLDER_START="${"
+    NUMBER_INTEGER="regexp:\d+"
+    //NUMBER_DOUBLE="regexp:\d+\.\d+"
+    //EXPONENT_INDICATOR="regexp:([Ee])"
+
+
+    B_COMMENT="regexp:/\*([^*]|\*+[^*/])*(\*+/)?"
+    L_COMMENT='regexp://.*'
+    TEXT_SINGLE ="regexp:'(''|[^']*)'"
+    //TEXT_DOUBLE ="regexp:\"([^\"\\]|\\.)*\")"
+    TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
+    // identifier
+    NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
+    //NUMBER_RANGE='regexp:[1-9][0-9]?|100'
+    ID = 'regexp:[a-zA-Z_]([[a-zA-Z_0-9]]\w*)?'
+    SPACE='regexp:\s+'
+]
+    
+}
+
+
+aql ::= QueryItem *
+LineComment ::= L_COMMENT
+BlockComment ::=  B_COMMENT
+Comment ::= LineComment | BlockComment
+QueryItem ::= !<<eof>> Statement {pin=1 recoverWhile=statement_recover}
+private statement_recover::= !(Statement)
+
+Statement ::= Comment
+              | ForType
+              | LetType
+              | JsonType
+              | ArrayRef
+              | ReturnType
+              //| ExpressionType*
+
+
+
+
+LetType ::= T_LET ObjectExpression '=' ExpressionType*  {pin=2}
+FilterType ::= (T_FILTER ExpressionType *)  {pin=1}
+ForType ::=  (T_FOR ExpressionType*)   {pin=1}
+ReturnType ::= (T_RETURN JsonType)
+//                | (T_RETURN '(' ExpressionType* ')')
+                | (T_RETURN ExpressionType*)
+
+                {pin=1}
+
+
+ExpressionType ::=
+                 Comment
+                | FilterType
+                | ReturnType
+                | VariablePlaceHolder
+                | ParameterVariable
+                | ArrayRef
+                | ObjectExpression
+                | SystemProperty
+                | StringType
+                | IntegerType
+                | NumberType
+                | Sequence
+                | JsonType
+                | ArrayType
+                | AnalyzerType
+                | BooleanType
+                | arithmetic_operators
+                | ReservedWords
+                | PropertyName
+                | NamedFunctions
+                | NamedKeywordStatements
+                | keyword_functions
+                | reserved_keywords
+                | expression_operators
+                | OperatorStatements
+
+
+private single_tuple ::=  '(' AnyType+ ')'{
+  //consumeTokenMethod = 'consumeTokenFast'
+  pin = 2
+}
+
+TupleType ::=  single_tuple (',' single_tuple )*
+{
+  //consumeTokenMethod = 'consumeTokenFast'
+}
+private object_element ::= property (','|&'}') {
+  recoverWhile = not_brace_or_next_value
+  pin = 1
+}
+private property_name::= objects_argument | StringType  | ArrayRef
+
+private property ::= property_name ":" AnyType+ {
+pin(".*")=1
+}
+
+JsonType ::= '{' object_element* '}' {pin=1}
+
+private not_brace_or_next_value ::= !('}'| (ExpressionType))
+
+
+AnyType::= ExpressionType | JsonType
+
+//ArrayType ::= T_ARRAY_OPEN ExpressionArray* T_ARRAY_CLOSE
+
+ArrayRef ::= ObjectExpression "[" ExpressionType "]"
+
+private expression_operators ::= ('*') ? (reserved_keywords | FilterType)
+private array_element ::= (expression_operators | ExpressionArray) (',' |& ']') {
+  recoverWhile = not_bracket_or_next_value
+  pin=1
+}
+ArrayType ::= '[' array_element* ']' {pin=1}
+
+private not_bracket_or_next_value ::= !(']'|ExpressionArray)
+
+private ExpressionArray ::= ExpressionType (',' ExpressionType)*
+
+//FunctionExpression ::= NamedFunctions  T_OPEN ExpressionArray* T_CLOSE  | NamedFunctions
+
+//############################################
+// FUNCTIONS  (more strict error checking)
+//############################################
+
+
+
+
+//private number_argument_array_and_null ::= (T_NULL | NumberType)  (',' T_NULL | NumberType)+
+private objects_argument::= (ObjectExpression  | ParameterVariable | VariablePlaceHolder)
+private document_argument::= (ObjectExpression | JsonType | ParameterVariable | VariablePlaceHolder)
+private string_argument::= (ObjectExpression | StringType | ParameterVariable | VariablePlaceHolder)
+private boolean_argument::= (ObjectExpression | BooleanType | ParameterVariable | VariablePlaceHolder)
+private integer_argument::= (ObjectExpression | IntegerType | ParameterVariable | VariablePlaceHolder)
+private possible_number_array::= (TupleType | NumberType | ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
+private possible_array::= (ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder)
+private number_argument::= NumberType | objects_argument
+private date_argument::= (AnyType | ('*' IntegerType)+)
+private number_argument_array ::= (  possible_number_array ("," possible_number_array)* | "[" number_argument (',' number_argument)* "]")
+private integer_argument_array ::= (possible_number_array | "[" integer_argument (',' integer_argument)* "]")
+private expression_argument::= objects_argument | ExpressionType | JsonType
+
+//*************************************************************************************
+// FUNCTIONS 
+//*************************************************************************************
+//############################################
+
+//############################################
+// DATE
+//############################################
+ FunDateNow ::=  (F_DATE_NOW "("  ")"){pin=2}
+ FunDateISO8601 ::=  (F_DATE_ISO8601 "(" date_argument | integer_argument_array ")"){pin=2}
+ FunDateTimeStamp ::=  (F_DATE_TIMESTAMP "("  date_argument | integer_argument_array ")"){pin=2}
+ FunIsDateString ::=  (F_IS_DATESTRING "("  AnyType ")"){pin=2}
+ FunDateOfWeek ::=  (F_DATE_DAYOFWEEK "("  date_argument ")"){pin=2}
+ FunDateYear ::=  (F_DATE_YEAR "("  date_argument ")"){pin=2}
+ FunDateMonth ::=  (F_DATE_MONTH "("  date_argument ")"){pin=2}
+ FunDateDay ::=  (F_DATE_DAY "("  date_argument ")"){pin=2}
+ FunDateHour ::=  (F_DATE_HOUR "("  date_argument ")"){pin=2}
+ FunDateMinute ::=  (F_DATE_MINUTE "("  date_argument ")"){pin=2}
+ FunDateSecond ::=  (F_DATE_SECOND "("  date_argument ")"){pin=2}
+ FunDateMillisecond ::=  (F_DATE_MILLISECOND "("  date_argument ")"){pin=2}
+ FunDateDayOfYear ::=  (F_DATE_DAYOFYEAR "("  date_argument ")"){pin=2}
+ FunDateIsoWeek ::=  (F_DATE_ISOWEEK "("  date_argument ")"){pin=2}
+ FunDateLeapYear ::=  (F_DATE_LEAPYEAR "("  date_argument ")"){pin=2}
+ FunDateQuarter ::=  (F_DATE_QUARTER "("  date_argument ")"){pin=2}
+ FunDateDaysInMonth ::=  (F_DATE_DAYS_IN_MONTH "("  date_argument ")"){pin=2}
+ FunDateTrunc ::=  (F_DATE_TRUNC "("  date_argument "," DateUnit ")"){pin=2}
+ FunDateFormat ::=  (F_DATE_FORMAT "("  date_argument "," string_argument ")"){pin=2}
+ FunDateAdd ::=  (F_DATE_ADD "("  date_argument "," integer_argument | string_argument "," DateUnit")"){pin=2}
+ FunDateSubtract ::=  (F_DATE_SUBTRACT "("  date_argument "," integer_argument | string_argument "," DateUnit")"){pin=2}
+ FunDateDiff ::=  (F_DATE_DIFF "("  date_argument "," date_argument "," DateUnit ("," boolean_argument)? ")"){pin=2}
+ FunDateCompare ::=  (F_DATE_COMPARE "("  date_argument "," date_argument "," DateUnit ("," DateUnit)? ")"){pin=2}
+
+//############################################
+// TYPE CAST
+//############################################
+
+
+FunToBool ::=  (F_TO_BOOL "(" AnyType ")"){pin=2}
+FunToNumber ::=  (F_TO_NUMBER "(" AnyType ")"){pin=2}
+FunToString ::=  (F_TO_STRING "(" AnyType ")"){pin=2}
+FunToArray ::=  (F_TO_ARRAY "(" AnyType ")"){pin=2}
+FunToList ::=  (F_TO_LIST "(" AnyType ")"){pin=2}
+FunIsNull ::=  (F_IS_NULL "(" AnyType ")"){pin=2}
+FunIsBool ::=  (F_IS_BOOL "(" AnyType ")"){pin=2}
+FunIsNumber ::=  (F_IS_NUMBER "(" AnyType ")"){pin=2}
+FunIsString ::=  (F_IS_STRING "(" AnyType ")"){pin=2}
+FunIsArray ::=  (F_IS_ARRAY "(" AnyType ")"){pin=2}
+FunIsList ::=  (F_IS_LIST "(" AnyType ")"){pin=2}
+FunIsObject ::=  (F_IS_OBJECT "(" AnyType ")"){pin=2}
+FunIsDocument ::=  (F_IS_DOCUMENT "(" AnyType ")"){pin=2}
+FunIsKey ::=  (F_IS_KEY "(" AnyType ")"){pin=2}
+FunTypename ::=  (F_TYPENAME "(" AnyType ")"){pin=2}
+
+//############################################
+// SEARCH
+//############################################
+
+FunFullText ::=  (F_FULLTEXT "(" possible_array "," string_argument  "," string_argument  ("," integer_argument)? ")"){pin=2}
+FunStartsWith ::=  (F_STARTS_WITH "(" PropertyName property_lookup "," string_argument ")"){pin=2}
+FunMinMatch ::=  (F_MIN_MATCH "(" AnyType  "," integer_argument ")"){pin=2}
+FunBm25 ::=  (F_BM25 "(" document_argument  ("," number_argument)? ("," boolean_argument) ")"){pin=2}
+FunTfDiff ::=  (F_TFIDF "(" document_argument  ("," boolean_argument) ")"){pin=2}
+FunPhrase ::=  (F_PHRASE "(" PropertyName property_lookup ","  string_argument_array | number_argument_array ")"){pin=2}
+// TODO check args
+FunExists ::=  (F_EXISTS "(" PropertyName property_lookup ("," string_argument)? ","  AnyType ")"){pin=2}
+FunBoost ::=  (F_BOOST "(" AnyType  ("," number_argument)?  ")"){pin=2}
+FunAnalyzer ::=  (F_ANALYZER "(" AnyType  "," AnalyzerType ")"){pin=2}
+
+
+
+
+FunAbs ::=  (F_ABS "(" number_argument ")"){pin=1}
+FunStdDevSample ::=  (F_STDDEV_SAMPLE "(" number_argument_array ")"){pin=1}
+FunCos ::=  (F_COS "(" number_argument ")"){pin=1}
+FunAcos ::=  (F_ACOS "(" number_argument ")"){pin=1}
+FunAsin ::=  (F_ASIN "(" number_argument ")"){pin=1}
+FunSin ::=  (F_SIN "(" number_argument ")"){pin=1}
+FunAtan ::=  (F_ATAN "(" number_argument ")"){pin=1}
+FunTan ::=  (F_TAN "(" number_argument ")"){pin=1}
+FunTan2 ::=  (F_TAN2 "(" number_argument ")"){pin=1}
+FunAtan2 ::=  (F_ATAN2 "(" number_argument ")"){pin=1}
+FunAvg ::=  (F_AVG "(" number_argument_array ")"){pin=1}
+FunAverage  ::=  (F_AVERAGE  "(" number_argument_array ")"){pin=1}
+FunCeil  ::=  (F_CEIL  "(" number_argument ")"){pin=1}
+FunDegrees  ::=  (F_DEGREES  "(" number_argument ")"){pin=1}
+FunExp  ::=  (F_EXP  "(" number_argument ")"){pin=1}
+FunExp2  ::=  (F_EXP2  "(" number_argument ")"){pin=1}
+FunFloor  ::=  (F_FLOOR  "(" number_argument ")"){pin=1}
+FunLog  ::=  (F_LOG  "(" number_argument ")"){pin=1}
+FunLog2  ::=  (F_LOG2  "(" number_argument ")"){pin=1}
+FunLog10  ::=  (F_LOG10  "(" number_argument ")"){pin=1}
+
+FunMax  ::=  (F_MAX  "(" number_argument_array ")"){pin=2}
+FunMedian  ::=  (F_MEDIAN  "(" number_argument_array ")"){pin=2}
+FunMin  ::=  (F_MIN  "(" number_argument_array ")"){pin=2}
+
+//############################################
+// DOCUMENT
+//############################################
+private string_array ::= "[" StringType ("," StringType)* "]"
+private string_list ::= StringType ("," StringType)*
+private string_argument_array ::= (possible_array | string_array)
+
+FunAttributes  ::=  (F_ATTRIBUTES "(" document_argument ("," boolean_argument)? ("," boolean_argument)? ")"){pin=2}
+FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
+FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
+FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
+FunMatches  ::=  (F_MATCHES  "(" document_argument "," (expression_argument | JsonType) ("," boolean_argument)?")"){pin=2}
+FunMerge  ::=  (F_MERGE  "(" document_argument "," (document_argument)* ")"){pin=2}
+FunMergeRecursive  ::=  (F_MERGE_RECURSIVE  "(" document_argument "," (document_argument)* ")"){pin=2}
+FunParseIdentifier  ::=  (F_PARSE_IDENTIFIER  "(" StringType | document_argument  ")"){pin=2}
+FunTranslate  ::=  (F_TRANSLATE  "(" string_argument "," objects_argument ("," AnyType)? ")"){pin=2}
+FunUnset  ::=  (F_UNSET "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
+FunUnsetRecursive  ::=  (F_UNSET_RECURSIVE "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
+FunValues  ::=  (F_VALUES "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
+FunZip  ::=  (F_ZIP "(" ArrayType "," ArrayType ")"){pin=2}
+
+//############################################
+// ARRAY
+//############################################
+
+
+FunPosition  ::=  (F_POSITION  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunContainsArray  ::=  (F_CONTAINS_ARRAY  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunAppend  ::=  (F_APPEND  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunPush  ::=  (F_PUSH  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin =2}
+FunUnShift  ::=  (F_UNSHIFT  "(" number_argument_array "," expression_argument ("," boolean_argument)? ")"){pin=2}
+FunRemoveValue  ::=  (F_REMOVE_VALUE  "(" number_argument_array "," expression_argument ("," IntegerType)? ")"){pin=2}
+FunRemoveValues  ::=  (F_REMOVE_VALUES  "(" number_argument_array "," number_argument_array ")"){pin=2}
+// also for doc
+FunLength  ::=  (F_LENGTH  "(" number_argument_array | document_argument | string_argument ")"){pin=2}
+FunShift  ::=  (F_SHIFT  "(" number_argument_array ")"){pin=2}
+FunSlice  ::=  (F_SLICE  "(" ExpressionType "," IntegerType ("," IntegerType)? ")" ) {pin=1}
+// TODO check for misc
+FunCount  ::=  (F_COUNT  "(" number_argument_array ")"){pin=2}
+FunSorted  ::=  (F_SORTED  "(" number_argument_array ")"){pin=2}
+FunSortedUnique  ::=  (F_SORTED_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunCountDistinct  ::=  (F_COUNT_DISTINCT  "(" number_argument_array ")"){pin=2}
+FunCountUnique  ::=  (F_COUNT_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunFirst  ::=  (F_FIRST  "(" number_argument_array ")"){pin=2}
+FunLast  ::=  (F_LAST  "(" number_argument_array ")"){pin=2}
+FunUnique  ::=  (F_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunFlatten  ::=  (F_FLATTEN  "(" number_argument_array ("," IntegerType)? ")"){pin=2}
+
+FunInterSection  ::=  (F_INTERSECTION  "(" (number_argument_array)+ ")"){pin=2}
+FunOuterSection  ::=  (F_OUTERSECTION  "(" (number_argument_array)+ ")"){pin=2}
+FunMinus  ::=  (F_MINUS  "(" (number_argument_array)+ ")"){pin=2}
+FunUnion  ::=  (F_UNION  "(" (number_argument_array)+ ")"){pin=2}
+FunUnionDistinct  ::=  (F_UNION_DISTINCT  "(" (number_argument_array)+ ")"){pin=2}
+FunPop  ::=  (F_POP  "(" (number_argument_array)+ ")"){pin=2}
+FunReverse  ::=  (F_REVERSE  "(" string_argument | (number_argument_array)+ ")"){pin=2}
+FunNTH  ::=  (F_NTH  "(" (number_argument_array) "," IntegerType ")"){pin=2}
+
+FunRemoveNTH  ::=  (F_REMOVE_NTH  "(" (number_argument_array) "," IntegerType ")"){pin=2}
+
+
+// TODO fix range
+//external external_percentile_range_rule ::= parsePercentileRange
+//FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," external_percentile_range_rule ("," StringType)? ")"){
+FunPercentile  ::=  (F_PERCENTILE  "(" number_argument_array "," IntegerType ("," StringType)? ")"){pin=2}
+FunPi  ::=  (F_PI "(" ")")
+FunRand  ::=  (F_RAND "(" ")")
+FunPow  ::=  (F_POW "(" number_argument "," number_argument ")"){pin=2}
+FunRadians  ::=  (F_RADIANS "(" number_argument ")"){pin=2}
+FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")"){pin=2}
+FunRound  ::=  (F_ROUND "(" number_argument ")"){pin=2}
+FunSQRT  ::=  (F_SQRT "(" number_argument ")"){pin=2}
+FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){pin=2}
+FunStddev  ::=  (F_STDDEV "(" number_argument_array ")"){pin=2}
+FunSum  ::=  (F_SUM "(" number_argument_array ")"){pin=2}
+FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")"){pin=2}
+FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){pin=2}
+FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){pin=2}
+
+//############################################
+// STRING
+//############################################
+// TODO check any params
+FunCharLength ::=  (F_CHAR_LENGTH "(" AnyType ")"){pin=2}
+FunConcatSeparator ::=  (F_CONCAT_SEPARATOR "(" string_argument "," ExpressionArray+ ")"){pin=2}
+FunConcat ::=  (F_CONCAT "(" AnyType+ ")"){pin=2}
+FunContains ::=  (F_CONTAINS "(" string_argument "," string_argument ("," boolean_argument)? ")"){pin=2}
+FunEncodeUriComponent ::=  (F_ENCODE_URI_COMPONENT "(" string_argument ")"){pin=2}
+//TODO arg limit
+FunFindFirst ::=  (F_FIND_FIRST "(" string_argument "," string_argument ("," integer_argument)* ")"){pin=2}
+FunFindLast ::=  (F_FIND_LAST "(" string_argument "," string_argument ("," integer_argument)* ")"){pin=2}
+FunJsonParse ::=  (F_JSON_PARSE "(" string_argument ")"){pin=2}
+FunJsonStringify ::=  (F_JSON_STRINGIFY "(" AnyType ")"){pin=2}
+FunLeft ::=  (F_LEFT "(" string_argument "," integer_argument ")"){pin=2}
+FunLevenshteinDistance ::=  (F_LEVENSHTEIN_DISTANCE "(" string_argument "," string_argument ")"){pin=2}
+FunLike ::=  (F_LIKE "(" string_argument "," string_argument ("," boolean_argument)? ")"){pin=2}
+FunLower ::=  (F_LOWER "(" string_argument ")"){pin=2}
+FunLtrim ::=  (F_LTRIM "(" string_argument ("," string_argument)?")"){pin=2}
+FunMd5 ::=  (F_MD5 "(" string_argument ")"){pin=2}
+FunRandomToken ::=  (F_RANDOM_TOKEN "(" integer_argument ")"){pin=2}
+//TODO check if boolean is optional
+FunRegexMatches ::=  (F_REGEX_MATCHES "(" string_argument "," string_argument ("," boolean_argument)?  ")"){pin=2}
+FunRegexSplit ::=  (F_REGEX_SPLIT "(" string_argument "," string_argument "," boolean_argument ("," integer_argument)? ")"){pin=2}
+FunRegexTest ::=  (F_REGEX_TEST "(" string_argument "," string_argument  ("," boolean_argument)? ")"){pin=2}
+FunRegexReplace ::=  (F_REGEX_REPLACE "(" string_argument "," string_argument "," string_argument  ("," boolean_argument)? ")"){pin=2}
+FunRight ::=  (F_RIGHT "(" string_argument "," integer_argument ")"){pin=2}
+FunRtrim ::=  (F_RTRIM "(" string_argument ("," string_argument)? ")"){pin=2}
+FunSha1 ::=  (F_SHA1 "(" string_argument  ")"){pin=2}
+FunSha512 ::=  (F_SHA512 "(" string_argument  ")"){pin=2}
+FunSplit ::=  (F_SPLIT "(" string_argument "," string_argument  ("," integer_argument)? ")"){pin=2}
+FunSoundex ::=  (F_SOUNDEX "(" string_argument ")"){pin=2}
+FunSubstitute ::=  (F_SUBSTITUTE "(" string_argument  ("," string_argument | string_array) ("," string_argument | string_array)? ("," integer_argument)?  ")"){pin=2}
+FunSubstring ::=  (F_SUBSTRING "(" string_argument "," integer_argument ("," integer_argument)?  ")"){pin=2}
+FunTokens ::=  (F_TOKENS "(" string_argument "," AnalyzerType ")"){pin=3}
+FunToBase64 ::=  (F_TO_BASE64 "(" string_argument ")"){pin=2}
+FunToHex ::=  (F_TO_HEX "(" string_argument ")"){pin=2}
+FunTrim ::=  (F_TRIM "(" string_argument (("," string_argument) | ("," integer_argument)?)  ")"){pin=2}
+FunUpper ::=  (F_UPPER "(" string_argument ")"){pin=2}
+FunUuid ::=  (F_UUID "(" ")"){pin=2}
+
+
+//############################################
+// MISCELLANEOUS
+//############################################
+
+FunNotNull ::=  (F_NOT_NULL "(" AnyType ("," AnyType)* ")"){pin=2}
+FunFirstList ::=  (F_FIRST_LIST "(" AnyType ("," AnyType)* ")"){pin=2}
+FunFirstDocument ::=  (F_FIRST_DOCUMENT "(" AnyType ("," AnyType)* ")"){pin=2}
+// TODO check
+FunCollectionCount ::=  (F_COLLECTION_COUNT "(" number_argument_array ")"){pin=2}
+FunCollections ::=  (F_COLLECTIONS "(" ")"){pin=2}
+FunCurrentUser ::=  (F_CURRENT_USER "(" ")"){pin=2}
+FunDocument ::=  (F_DOCUMENT "(" property_name "," StringType | ArrayType ")"){pin=2}
+FunHash ::=  (F_HASH "(" AnyType ")"){pin=2}
+FunApply ::=  (F_APPLY "(" StringType ("," ArrayType)? ")"){pin=2}
+FunAssert ::=  (F_ASSERT "(" AnyType "," StringType  ")"){pin=2}
+FunWarn ::=  (F_WARN "(" AnyType "," StringType ")"){pin=2}
+FunCall ::=  (F_CALL "(" StringType ("," AnyType)* ")"){pin=2}
+FunFail ::=  (F_FAIL "(" StringType ")"){pin=2}
+FunNoopt ::=  (F_NOOPT "(" AnyType ")"){pin=2}
+FunPassThru ::=  (F_PASSTHRU "(" AnyType ")"){pin=2}
+FunSleep ::=  (F_SLEEP "(" IntegerType ")"){pin=2}
+FunV8 ::=  (F_V8 "(" expression_argument ")"){pin=2}
+FunVersion ::=  (F_VERSION "("  ")"){pin=2}
+FunCurrentDatabase ::=  (F_CURRENT_DATABASE "("  ")"){pin=2}
+// TODO check arg
+FunPregelResult ::=  (F_PREGEL_RESULT "(" AnyType ")"){pin=2}
+FunKeys ::=  (F_KEYS "(" AnyType ")"){pin=2}
+
+//############################################
+// GEO
+//############################################
+ FunDistance ::=  (F_DISTANCE "(" NumberType "," NumberType "," NumberType "," NumberType ")"){pin=2}
+ FunGeoContains ::=  (F_GEO_CONTAINS "(" JsonType "," JsonType ")"){pin=2}
+ FunGeoDistance ::=  (F_GEO_DISTANCE"(" JsonType "," JsonType ")"){pin=2}
+ FunGeoEquals ::=  (F_GEO_EQUALS"(" JsonType "," JsonType ")"){pin=2}
+ FunGeoIntersects ::=  (F_GEO_INTERSECTS"(" JsonType "," JsonType ")"){pin=2}
+ FunGeoLineString ::=  (F_GEO_LINESTRING "(" ArrayType ("," ArrayType)* ")"){pin=2}
+ FunGeoMultiLineString ::=  (F_GEO_MULTILINESTRING "(" ArrayType ("," ArrayType)* ")"){pin=2}
+ FunGeoMultiPoint ::=  (F_GEO_MULTIPOINT "(" ArrayType ("," ArrayType)* ")"){pin=2}
+ FunGeoPoint ::=  (F_GEO_POINT "(" NumberType "," NumberType ")"){pin=2}
+ FunGeoPolygon ::=  (F_GEO_POLYGON "(" ArrayType ("," ArrayType)* ")"){pin=2}
+
+                                
+
+StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
+IntegerType ::= NUMBER_INTEGER
+SignedInteger ::= ((T_PLUS | T_MINUS) IntegerType)
+
+AnyNumber ::= NUMBER | (T_PLUS | T_MINUS) NUMBER
+
+NumberType ::= IntegerType | AnyNumber | SignedInteger
+
+BooleanType ::= T_TRUE | T_FALSE
+
+
+VariablePlaceHolder ::=  (T_PLACHOLDER_START ObjectExpression T_OBJECT_CLOSE){
+                    pin=2
+                   methods=[ getName setName getPresentation]
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqPlaceholderVariableMixin"
+}
+
+
+
+
+
+PropertyLookup ::=   (PropertyName | SystemProperty | ParameterVariable | VariablePlaceHolder) ("[" ExpressionType "]")?
+{
+                   methods=[ getName setName getPresentation]
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlPropertyLookupMixin"
+}
+
+private property_lookup ::= DOT PropertyLookup
+private extra_property ::= T_CURRENT
+
+ObjectExpression ::=  (extra_property (property_lookup)*) | (PropertyName (property_lookup)*) | (PropertyName (ParameterVariable)*) {
+                   pin= 2;
+                   methods=[ getName setName getPresentation]
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlObjectExpressionMixin"
+}
+
+NamedKeywordStatements ::= reserved_keywords {
+                          methods=[
+                            getName
+                            setName
+                            getPresentation
+                          ]
+                          mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin"
+}
+
+ParameterVariable ::= (("@"  PropertyName) | ("@@"  PropertyName)){
+   pin=2
+   methods=[ getName setName getPresentation]
+   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqParameterVariableMixin"
+}
+
+Sequence ::= (IntegerType | ParameterVariable) T_RANGE (IntegerType | ParameterVariable)
+
+SystemProperty ::=  T_KEY | T_ID  | T_SYS_FROM  | T_SYS_TO | F_ATTRIBUTES | T_SYS_VERTICES | T_SYS_EDGES  {
+                   methods=[ getName setName getPresentation]
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlSystemPropertyMixin"
+}
+PropertyName ::= ID | T_SYS_EDGES | T_SYS_VERTICES {
+                   methods=[ getName setName getPresentation]
+                   mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin"
+}
+
+// recover states
+//private not_bracket_or_next_value ::= !(']' | expression_argument)
+//private not_property_lookup ::= !(PropertyLookup)
+//private not_comma_or_next_value ::=   !(',' | expression_argument)
+//private not_brace_or_next_value ::=  !('}'  | expression_argument)
+
+private declaration_lookahead ::= function_lookahead | variable_lookahead
+private variable_lookahead ::= &ID
+private function_lookahead ::= &(function_names '(')
+private reserved_function_lookahead ::= &(reserved_keywords '('){pin=2}
+private brace_lookahead ::= &('('){pin=2}
+private tuple_lookahead ::= &(PropertyName '('){pin=1}
+
+
+ReservedWords ::= T_NULL
+
+AnalyzerType ::= A_IDENTITY
+                 |A_TEXT_DE
+                 |A_TEXT_EN
+                 |A_TEXT_ES
+                 |A_TEXT_FI
+                 |A_TEXT_FR
+                 |A_TEXT_IT
+                 |A_TEXT_NL
+                 |A_TEXT_NO
+                 |A_TEXT_PT
+                 |A_TEXT_RU
+                 |A_TEXT_SV
+                 |A_TEXT_ZH
+
+DateUnit ::=  D_YEAR_S
+                       |D_YEAR_D
+                       |D_MONTH_S
+                       |D_MONTH_D
+                       |D_DAY_S
+                       |D_DAY_D
+                       |D_HOUR_S
+                       |D_HOUR_D
+                       |D_MINUTE_S
+                       |D_MINUTE_D
+                       |D_SECOND_S
+                       |D_SECOND_D
+                       |D_MILLISECOND_S
+                       |D_MILLISECOND_D
+
+private arithmetic_operators ::=  T_PLUS
+                    | T_MINUS
+                    | T_TIMES
+                    | T_DIV
+                    | T_MOD
+                    | T_EQ
+                    | T_IS
+
+
+private keyword_functions ::=  F_SUBSTITUTE
+                                | F_MD5
+                                | F_GEO_POINT
+                                | F_FIRST_LIST
+                                | F_DATE_SUBTRACT
+                                | F_DATE_MINUTE
+                                | F_SPLIT
+                                | F_WARN
+                                | F_DATE_LEAPYEAR
+                                | F_STDDEV_SAMPLE
+                                | F_TAN
+                                | F_IS_BOOL
+                                | F_TO_LIST
+                                | F_REGEX_SPLIT
+                                | F_MATCHES
+                                | F_CURRENT_DATABASE
+                                | F_VARIANCE_SAMPLE
+                                | F_UNSET
+                                | F_JSON_PARSE
+                                | F_DEGREES
+                                | F_GEO_MULTILINESTRING
+                                | F_DATE_DAYOFYEAR
+                                | F_LAST
+                                | F_VALUES
+                                | F_CONCAT_SEPARATOR
+                                | F_DATE_DAY
+                                | F_STDDEV
+                                | F_DATE_DAYS_IN_MONTH
+                                | F_NEAR
+                                | F_LTRIM
+                                | F_REVERSE
+                                | F_RANGE
+                                | F_FIRST
+                                | F_LENGTH
+                                | F_UNSET_RECURSIVE
+                                | F_PARSE_IDENTIFIER
+                                | F_TO_BASE64
+                                | F_IS_DATESTRING
+                                | F_INTERSECTION
+                                | F_MINUS
+                                | F_IS_IN_POLYGON
+                                | F_IS_OBJECT
+                                | F_STARTS_WITH
+                                | F_DATE_DAYOFWEEK
+                                | F_LOG10
+                                | F_TFIDF
+                                | F_DATE_ISO8601
+                                | F_DATE_TRUNC
+                                | F_IS_LIST
+                                | F_NOOPT
+                                | F_ATTRIBUTES
+                                | F_CALL
+                                | F_LEVENSHTEIN_DISTANCE
+                                | F_REMOVE_VALUE
+                                | F_DATE_FORMAT
+                                | F_EXP
+                                | F_RADIANS
+                                | F_OUTERSECTION
+                                | F_UNION
+                                | F_KEYS
+                                | F_COLLECTION_COUNT
+                                | F_BOOST
+                                | F_REGEX_MATCHES
+                                | F_DISTANCE
+                                | F_CHAR_LENGTH
+                                | F_MERGE_RECURSIVE
+                                | F_VARIANCE_POPULATION
+                                | F_UPPER
+                                | F_RAND
+                                | F_MIN_MATCH
+                                | F_GEO_EQUALS
+                                | F_TRIM
+                                | F_LEFT
+                                | F_PI
+                                | F_NOT_NULL
+                                | F_SUM
+                                | F_VERSION
+                                | F_POW
+                                | F_SLEEP
+                                | F_POP
+                                | F_MIN
+                                | F_UUID
+                                | F_TO_NUMBER
+                                | F_FIND_FIRST
+                                | F_DATE_ISOWEEK
+                                | F_LOWER
+                                | F_GEO_CONTAINS
+                                | F_TRANSLATE
+                                | F_GEO_LINESTRING
+                                | F_APPLY
+                                | F_ABS
+                                | F_EXP2
+                                | F_DATE_SECOND
+                                | F_BM25
+                                | F_DATE_MONTH
+                                | F_SHIFT
+                                | F_CONCAT
+                                | F_SUBSTRING
+                                | F_CURRENT_USER
+                                | F_CONTAINS_ARRAY
+                                | F_HAS
+                                | F_KEEP
+                                | F_TO_STRING
+                                | F_ACOS
+                                | F_V8
+                                | F_PREGEL_RESULT
+                                | F_UNION_DISTINCT
+                                | F_LIKE
+                                | F_COUNT_UNIQUE
+                                | F_WITHIN
+                                | F_IS_STRING
+                                | F_REGEX_TEST
+                                | F_REMOVE_VALUES
+                                | F_GEO_INTERSECTS
+                                | F_ATAN
+                                | F_LOG2
+                                | F_SIN
+                                | F_IS_DOCUMENT
+                                | F_REGEX_REPLACE
+                                | F_AVG
+                                | F_SORTED_UNIQUE
+                                | F_TYPENAME
+                                | F_DATE_ADD
+                                | F_REMOVE_NTH
+                                | F_APPEND
+                                | F_FLATTEN
+                                | F_GEO_POLYGON
+                                | F_COUNT
+                                | F_DATE_MILLISECOND
+                                | F_WITHIN_RECTANGLE
+                                | F_SOUNDEX
+                                | F_TOKENS
+                                | F_AVERAGE
+                                | F_DATE_QUARTER
+                                | F_IS_NULL
+                                | F_COLLECTIONS
+                                | F_ANALYZER
+                                | F_PHRASE
+                                | F_DATE_NOW
+                                | F_MEDIAN
+                                | F_TO_ARRAY
+                                | F_RIGHT
+                                | F_RTRIM
+                                | F_DOCUMENT
+                                | F_GEO_DISTANCE
+                                | F_PASSTHRU
+                                | F_ROUND
+                                | F_ZIP
+                                | F_TO_HEX
+                                | F_FULLTEXT
+                                | F_UNIQUE
+                                | F_IS_KEY
+                                | F_ATAN2
+                                | F_CEIL
+                                | F_IS_ARRAY
+                                | F_SHA512
+                                | F_DATE_COMPARE
+                                | F_IS_SAME_COLLECTION
+                                | F_PUSH
+                                | F_DATE_YEAR
+                                | F_HASH
+                                | F_COUNT_DISTINCT
+                                | F_SHA1
+                                | F_SQRT
+                                | F_LOG
+                                | F_POSITION
+                                | F_MERGE
+                                | F_DATE_TIMESTAMP
+                                | F_ENCODE_URI_COMPONENT
+                                | F_CONTAINS
+                                | F_FAIL
+                                | F_FLOOR
+                                | F_PERCENTILE
+                                | F_MAX
+                                | F_EXISTS
+                                | F_NTH
+                                | F_TO_BOOL
+                                | F_DATE_HOUR
+                                | F_JSON_STRINGIFY
+                                | F_FIRST_DOCUMENT
+                                | F_RANDOM_TOKEN
+                                | F_FIND_LAST
+                                | F_STDDEV_POPULATION
+                                | F_COS
+                                | F_VARIANCE
+                                | F_IS_NUMBER
+                                | F_SORTED
+                                | F_DATE_DIFF
+                                | F_UNSHIFT
+                                | F_ASSERT
+                                | F_GEO_MULTIPOINT
+                                | F_SLICE
+                                | F_ASIN
+
+private reserved_keywords ::=    T_SHORTEST_PATH
+                        | T_SEARCH
+                        | T_REPLACE
+                        | T_ASC
+                        | T_AGGREGATE
+                        //| T_FILTER
+                        | T_DESC
+                        | T_IN
+                        | T_INTO
+                        | T_LIMIT
+                        | T_UPDATE
+                        | T_SORT
+                        | T_GRAPH
+                        | T_FOR
+                        | T_LET
+                        | T_COLLECT
+                        | T_CURRENT
+                        | T_WITH
+                        | T_DISTINCT
+                        //| T_RETURN
+                        | T_UPSERT
+                        | T_REMOVE
+                        | T_INSERT
+                        | T_OUTBOUND
+                        | T_INBOUND
+                        | T_ANY
+                        | T_ALL
+                        | T_NONE
+
+
+
+OperatorStatements ::=
+                        T_IS
+                       | T_NOT
+                       | T_AND
+                       | T_LOGICAL_AND
+                       | T_OR
+                       | T_NIN
+                       | T_REGEX_MATCH
+                       | T_REGEX_NON_MATCH
+                       | T_EQ
+                       | T_NE
+                       | T_LT
+                       | T_GT
+                       | T_LE
+                       | T_GE
+                       | T_LIKE
+                       | T_QUESTION
+                       | T_COLON
+                       | T_SCOPE
+                       | T_RANGE
+                      | T_COMMA
+                      | T_OPEN
+                      | T_CLOSE
+                      | T_TIMES
+                      | T_ARRAY_OPEN
+                      | T_ARRAY_CLOSE
+                      //| T_OBJECT_OPEN
+                      //| T_OBJECT_CLOSE
+                      | DOT
+                       //| T_PLACHOLDER_START
+
+NamedFunctions::= FunAbs
+              | FunStdDevSample
+              | FunCurrentDatabase
+              | FunPregelResult
+              | FunKeys
+              | FunDateNow
+              | FunDateISO8601
+              | FunDateTimeStamp
+              | FunIsDateString
+              | FunDateOfWeek
+              | FunDateYear
+              | FunDateMonth
+              | FunDateDay
+              | FunDateHour
+              | FunDateMinute
+              | FunDateSecond
+              | FunDateMillisecond
+              | FunDateDayOfYear
+              | FunDateIsoWeek
+              | FunDateLeapYear
+              | FunDateQuarter
+              | FunDateDaysInMonth
+              | FunDateTrunc
+              | FunDateFormat
+              | FunDateAdd
+              | FunDateSubtract
+              | FunDateDiff
+              | FunDateCompare
+              | FunStartsWith
+              | FunMinMatch
+              | FunBm25
+              | FunTfDiff
+              | FunPhrase
+              | FunExists
+              | FunBoost
+              | FunAnalyzer
+              | FunConcat
+              | FunContains
+              | FunEncodeUriComponent
+              | FunFindFirst
+              | FunFindLast
+              | FunJsonParse
+              | FunJsonStringify
+              | FunLeft
+              | FunLevenshteinDistance
+              | FunLike
+              | FunLower
+              | FunLtrim
+              | FunMd5
+              | FunRandomToken
+              | FunRegexMatches
+              | FunRegexSplit
+              | FunRegexTest
+              | FunRegexReplace
+              | FunRight
+              | FunRtrim
+              | FunSha1
+              | FunSha512
+              | FunSplit
+              | FunSoundex
+              | FunSubstitute
+              | FunSubstring
+              | FunTokens
+              | FunToBase64
+              | FunToHex
+              | FunTrim
+              | FunUpper
+              | FunUuid
+              | FunDistance
+              | FunGeoContains
+              | FunGeoDistance
+              | FunGeoEquals
+              | FunGeoIntersects
+              | FunGeoLineString
+              | FunGeoMultiLineString
+              | FunGeoMultiPoint
+              | FunGeoPoint
+              | FunGeoPolygon
+              | FunNotNull
+              | FunFirstList
+              | FunFirstDocument
+              | FunCollectionCount
+              | FunCollections
+              | FunCurrentUser
+              | FunDocument
+              | FunHash
+              | FunApply
+              | FunAssert
+              | FunWarn
+              | FunCall
+              | FunFail
+              | FunNoopt
+              | FunPassThru
+              | FunSleep
+              | FunV8
+              | FunVersion
+              | FunCharLength
+              | FunAttributes
+              | FunMerge
+              | FunMergeRecursive
+              | FunParseIdentifier
+              | FunTranslate
+              | FunUnset
+              | FunValues
+              | FunZip
+              | FunUnsetRecursive
+              | FunIsSameCollection
+              | FunHas
+              | FunKeep
+              | FunFullText
+              | FunMatches
+              | FunAcos
+              | FunToBool
+              | FunToString
+              | FunToNumber
+              | FunToArray
+              | FunToList
+              | FunIsNull
+              | FunIsBool
+              | FunIsNumber
+              | FunIsString
+              | FunIsArray
+              | FunIsList
+              | FunIsObject
+              | FunIsDocument
+              | FunIsKey
+              | FunTypename
+              | FunAsin
+              | FunAvg
+              | FunAverage
+              | FunTan
+              | FunTan2
+              | FunAtan
+              | FunSin
+              | FunAtan2
+              | FunCos
+              | FunDegrees
+              | FunMin
+              | FunPosition
+              | FunContainsArray
+              | FunAppend
+              | FunLength
+              | FunCount
+              | FunCountDistinct
+              | FunCountUnique
+              | FunFirst
+              | FunLast
+              | FunFlatten
+              | FunInterSection
+              | FunMinus
+              | FunNTH
+              | FunRemoveNTH
+              | FunOuterSection
+              | FunRemoveValue
+              | FunPop
+              | FunRemoveValues
+              | FunPush
+              | FunReverse
+              | FunShift
+              | FunSlice
+              | FunSorted
+              | FunSortedUnique
+              | FunUnion
+              | FunUnionDistinct
+              | FunUnique
+              | FunUnShift
+              | FunMedian
+              | FunLog10
+              | FunMax
+              | FunSQRT
+              | FunPercentile
+              | FunPi
+              | FunLog2
+              | FunLog
+              | FunFloor
+              | FunExp2
+              | FunExp
+              | FunCeil
+              | FunRand
+              | FunSum
+              | FunStddev
+              | FunPow
+              | FunVarianceSample
+              | FunStddevPopulation
+              | FunVariancePopulation
+              | FunRadians
+              | FunRange
+              | FunRound
+              | FunVariance
+              | FunConcatSeparator
+
+{
+     methods=[
+                                       getName
+                                       getFunctionName
+                                       setName
+                                       getPresentation
+           ]
+     mixin="com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin"
+ }

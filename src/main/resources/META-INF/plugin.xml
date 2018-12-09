@@ -73,7 +73,14 @@
     <toolWindow id="ArangoDB" anchor="right" secondary="false" factoryClass="com.arangodb.intellij.aql.ui.ServerWindowFactory" icon="/icons/toolbarArangoDB.png"/>
     <toolWindow id="ArangoDB Console" anchor="bottom" secondary="false" factoryClass="com.arangodb.intellij.aql.ui.ConsoleWindowFactory" icon="/icons/toolbarArangoDB.png"/>
     <intentionAction>
+      <category>AQL</category>
       <className>com.arangodb.intellij.aql.intentions.AqlCreateConnectionIntention</className>
+    </intentionAction>
+    <intentionAction>
+      <category>AQL</category>
+<!--      <bundleName>com.arangodb.intellij.aql.intentions.AqlIntentionsBundle</bundleName>
+      <categoryKey>intention.aql.create.repository</categoryKey>-->
+      <className>com.arangodb.intellij.aql.intentions.AqlCreateRepositoryIntention</className>
     </intentionAction>
   </extensions>
 

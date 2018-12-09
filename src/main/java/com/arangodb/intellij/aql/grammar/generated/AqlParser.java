@@ -6235,14 +6235,42 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // PropertyName | SystemProperty
+  // (PropertyName | SystemProperty) ("[" ExpressionType "]")?
   public static boolean PropertyLookup(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PropertyLookup")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROPERTY_LOOKUP, "<property lookup>");
+    r = PropertyLookup_0(b, l + 1);
+    r = r && PropertyLookup_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // PropertyName | SystemProperty
+  private static boolean PropertyLookup_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "PropertyLookup_0")) return false;
+    boolean r;
     r = PropertyName(b, l + 1);
     if (!r) r = SystemProperty(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // ("[" ExpressionType "]")?
+  private static boolean PropertyLookup_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "PropertyLookup_1")) return false;
+    PropertyLookup_1_0(b, l + 1);
+    return true;
+  }
+
+  // "[" ExpressionType "]"
+  private static boolean PropertyLookup_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "PropertyLookup_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_ARRAY_OPEN);
+    r = r && ExpressionType(b, l + 1);
+    r = r && consumeToken(b, T_ARRAY_CLOSE);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -6349,12 +6377,14 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // NamedKeywordStatements
+  //               | ArrayType
+  //               | SystemProperty
+  //               | ObjectExpression
   //               | OperatorStatements
   //               | tuple
   //               | Sequence
   //               | AnalyzerType
   //               | StringType
-  //               | ArrayType
   //               | JsonType
   //               | NumberType
   //               | BooleanType
@@ -6367,12 +6397,14 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = NamedKeywordStatements(b, l + 1);
+    if (!r) r = ArrayType(b, l + 1);
+    if (!r) r = SystemProperty(b, l + 1);
+    if (!r) r = ObjectExpression(b, l + 1);
     if (!r) r = OperatorStatements(b, l + 1);
     if (!r) r = tuple(b, l + 1);
     if (!r) r = Sequence(b, l + 1);
     if (!r) r = AnalyzerType(b, l + 1);
     if (!r) r = StringType(b, l + 1);
-    if (!r) r = ArrayType(b, l + 1);
     if (!r) r = JsonType(b, l + 1);
     if (!r) r = NumberType(b, l + 1);
     if (!r) r = BooleanType(b, l + 1);
@@ -7420,9 +7452,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !(
-  //                         Statement
-  //                     )
+  // !(Statement)
   static boolean statement_recover(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement_recover")) return false;
     boolean r;
@@ -7432,9 +7462,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (
-  //                         Statement
-  //                     )
+  // (Statement)
   private static boolean statement_recover_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement_recover_0")) return false;
     boolean r;

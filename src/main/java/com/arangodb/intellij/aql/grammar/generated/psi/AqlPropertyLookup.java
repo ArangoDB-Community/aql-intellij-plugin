@@ -9,6 +9,9 @@ import org.jetbrains.annotations.Nullable;
 public interface AqlPropertyLookup extends PsiElement {
 
   @Nullable
+  AqlExpressionType getExpressionType();
+
+  @Nullable
   AqlPropertyName getPropertyName();
 
   @Nullable
