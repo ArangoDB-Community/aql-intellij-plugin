@@ -21,6 +21,7 @@
 
   <change-notes><![CDATA[
   
+     <p>1.0.2 bug fixes, create SpringData Repository interface intention</p>
      <p>1.0.1 bug fixes (syntax highlighting, documentation)</p>
      <p>1.0.0 initial release (syntax highlighting, autocompletion, refactorings, spring data query language injection)</p>
 
@@ -32,11 +33,13 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
+  <!-- uncomment to enable plugin in all products  -->
   <depends>com.intellij.modules.lang</depends>
-  -->
+
 
   <depends optional="true" config-file="aql-language.xml">org.intellij.intelliLang</depends>
+  <depends optional="true">com.intellij.modules.java</depends>
+
   <extensions defaultExtensionNs="com.intellij">
     <!--
       //############################################
