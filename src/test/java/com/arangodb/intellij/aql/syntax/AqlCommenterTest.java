@@ -26,6 +26,6 @@ public class AqlCommenterTest extends LightPlatformCodeInsightTestCase {
     @NotNull
     @Override
     protected String getTestDataPath() {
-        return TestHelper.getTestResourcePath("/comment");
+        return TestHelper.getTestDataPath() +"comment";
     }
 }

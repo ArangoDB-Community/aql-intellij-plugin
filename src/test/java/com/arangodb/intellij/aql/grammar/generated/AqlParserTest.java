@@ -26,7 +26,7 @@ public class AqlParserTest extends ParsingTestCase {
 
     @Override
     protected String getTestDataPath() {
-        return TestHelper.getTestResourcePath("/psi");
+        return TestHelper.getTestDataPath() + "psi";
 
     }
 

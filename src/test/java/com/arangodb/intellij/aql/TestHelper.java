@@ -13,10 +13,10 @@ public final class TestHelper {
     private TestHelper() {
     }
 
-    public static String getTestResourcePath(final String path) {
+    public static String getTestDataPath() {
         final ClassLoader classLoader = TestHelper.class.getClassLoader();
         final URL resource = classLoader.getResource("test.txt");
         final File file = new File(resource.getFile());
-        return file.getParentFile().getAbsolutePath() + path;
+        return file.getParentFile().getAbsolutePath() +File.separatorChar + "testData" + File.separatorChar;
     }
 }

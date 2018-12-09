@@ -16,7 +16,7 @@ public class TestHelpFiles {
     private static final Logger log = LoggerFactory.getLogger(TestHelpFiles.class);
     @Test
     public void testFiles() {
-        try (final InputStream stream = getClass().getResourceAsStream("/functions.json")) {
+        try (final InputStream stream = getClass().getResourceAsStream("/testData/functions.json")) {
 
 
             final String string = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8));
