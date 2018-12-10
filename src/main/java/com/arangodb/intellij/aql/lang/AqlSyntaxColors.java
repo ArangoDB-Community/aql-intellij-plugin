@@ -26,6 +26,7 @@ public final class AqlSyntaxColors {
     public static final TextAttributesKey COMMA = createTextAttributesKey("AQL_COMMA", DefaultLanguageHighlighterColors.COMMA);
     public static final TextAttributesKey VARIABLE = createTextAttributesKey("AQL_VARIABLE", TextAttributesKey.createTextAttributesKey("DEFAULT_VARIABLE"));
     public static final TextAttributesKey DOT = createTextAttributesKey("AQL_DOT", DefaultLanguageHighlighterColors.DOT);
+    public static final TextAttributesKey ESCAPE_CHARACTERS = createTextAttributesKey("AQL_ESCAPE_CHARACTERS", TextAttributesKey.createTextAttributesKey("ESCAPE_CHARACTERS"));
     //public static final TextAttributesKey OBJECT_EXPRESSION = createTextAttributesKey("AQL_OBJECT_EXPRESSION", TextAttributesKey.createTextAttributesKey("OBJECT_EXPRESSION"));
 
 

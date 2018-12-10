@@ -35,6 +35,7 @@ public class AqlColorSettingsPage implements ColorSettingsPage {
             new AttributesDescriptor("Braces", AqlSyntaxColors.SQUARE_BRACES),
             new AttributesDescriptor("Comma", AqlSyntaxColors.COMMA),
             new AttributesDescriptor("Dot", AqlSyntaxColors.DOT),
+            new AttributesDescriptor("EscapeCharacters", AqlSyntaxColors.ESCAPE_CHARACTERS),
             // new AttributesDescriptor("Expression", AqlSyntaxColors.OBJECT_EXPRESSION),
             new AttributesDescriptor("System Property", AqlSyntaxColors.SYSTEM_PROPERTY)
 

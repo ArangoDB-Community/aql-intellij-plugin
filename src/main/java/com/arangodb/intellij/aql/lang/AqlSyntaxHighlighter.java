@@ -30,6 +30,7 @@ public class AqlSyntaxHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] BRACKETS = new TextAttributesKey[]{AqlSyntaxColors.AQL_BRACES};
     private static final TextAttributesKey[] NUMBER = new TextAttributesKey[]{AqlSyntaxColors.NUMBER};
     private static final TextAttributesKey[] VARIABLE = new TextAttributesKey[]{AqlSyntaxColors.VARIABLE};
+    //private static final TextAttributesKey[] ESCAPE_CHARACTERS = new TextAttributesKey[]{AqlSyntaxColors.ESCAPE_CHARACTERS};
     //private static final TextAttributesKey[] OBJECT_EXPRESSION = new TextAttributesKey[]{AqlSyntaxColors.OBJECT_EXPRESSION};
 
     @NotNull
