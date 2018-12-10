@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SEARCH</title>
+</head>
+<body>
+<a  href="https://docs.arangodb.com/3.4/Manual/Views/ArangoSearch/GettingStarted.html">Online docs</a>
+<h3 style="text-align: left" class="vc_custom_heading">Basic querying</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>Let’s try to find some movies:</p>
+    <div id="crayon-5c0ebc4e81e7e274390674" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e7e274390674-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e7e274390674-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"RETURN LENGTH(FOR d IN v_imdb SEARCH d.type == 'Movie' RETURN d)"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>The query above returns 12862 documents.</p>
+    <p>We can specify search criteria to get only drama movies:</p>
+    <div id="crayon-5c0ebc4e81e7f781493998" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e7f781493998-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e7f781493998-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH d.type == 'Movie' AND d.genre == 'Drama' RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>The query above returns 2690 documents.</p>
+    <p>Or even get drama movies that are relatively short, between 10 and 50 minutes:</p>
+    <div id="crayon-5c0ebc4e81e80653313987" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e80653313987-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e80653313987-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH d.type == 'Movie' AND d.genre == 'Drama' AND d.runtime IN 10..50 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>The query above returns only 35 documents.</p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">SEARCH vs FILTER</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>Curious user may note that we used <code>SEARCH</code> statement instead of familiar
+      <code>FILTER</code> in the examples above, there is subtle but fundamental difference between the keywords.</p>
+    <p>In the context of ArangoSeach view <code>FILTER</code> always means
+      <strong>post-processing</strong>, it doesn’t use any indices, but rather performs a full-scan over the result produced by a corresponding view expression.
+    </p>
+    <p>
+      <code>SEARCH</code> keyword does guarantee to use ArangoSearch indices allowing the most efficient execution plan.
+    </p>
+    <p>SEARCH expression has the following noticeable differences compared to FILTER expressions:</p>
+    <ul>
+      <li>SEARCH expression, in contrast to <code>FILTER</code>, is meant to be treated as a part of the
+        <code>FOR</code> operation, not as an individual statement
+      </li>
+      <li>There may be only one <code>SEARCH</code> expression related to a corresponding
+        <code>ArangoSearch view</code> expression
+      </li>
+      <li>Though <code>ArangoSearch view</code> contains documents having at least 1 indexed field,
+        <code>SEARCH</code> expression works only with indexed attributes (see
+        <a href="https://docs.arangodb.com/3.4/Manual/Views/ArangoSearch/DetailedOverview.html#link-properties" target="_blank" rel="noopener">Link properties</a>), non-indexed attributes are treated as non-existent
+      </li>
+      <li>Data source specific AQL extensions (e.g. <code>PHRASE</code>, <code>STARTS_WITH</code>,
+        <code>BOOST</code>) are allowed only within a context of <code>SEARCH</code> expression
+      </li>
+    </ul>
+    <p>It’s always recommended to prefer <code>SEARCH</code> expression over the
+      <code>FILTER</code> expression, that’s almost always possible.</p>
+    <p>The following query gives you an example of how <code>SEARCH</code> and
+      <code>FILTER</code> expressions can be combined. It will return all drama movies within a random duration interval:
+    </p>
+    <div id="crayon-5c0ebc4e81e81348746704" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e81348746704-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e81348746704-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH d.type == 'Movie' AND d.genre == 'Drama' FILTER d.runtime IN RAND()*10..RAND()*100 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>To learn more about <code>SEARCH</code> expressions and its fundamental differences compared to
+      <code>FILTER</code> expression please check our
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/" target="_blank" rel="noopener">AQL documentation</a>.
+    </p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Phrase search</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>With a phrase search one can <strong>search</strong> for documents containing an exact sentence or
+      <strong>phrase</strong> rather than comparing a set of keywords in random order. In ArangoSearch phrase search is available via
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/#phrase" target="_blank" rel="noopener">PHRASE function</a>.
+    </p>
+    <p>The following example gives me documents that contain phrase “Star wars” in the description:</p>
+    <div id="crayon-5c0ebc4e81e83445697392" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e83445697392-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e83445697392-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH PHRASE(d.description, 'Star wars', 'text_en') RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p></p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Proximity search</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>Proximity searching is a way to search for two or more words that occur within a certain number of words from each other.<br>
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/#phrase" target="_blank" rel="noopener">PHRASE function</a> described above allows performing complex proximity queries as well.
+    </p>
+    <p>In the next example I’m looking for the word sequence to be present in the description of a movie:
+      <code>in &lt;any word&gt; galaxy</code></p>
+    <div id="crayon-5c0ebc4e81e84622038476" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e84622038476-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e84622038476-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH PHRASE(d.description, 'in', 1, 'galaxy', 'text_en') RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>The following snippet gathers results of several parameterized proximity searches:</p>
+    <div id="crayon-5c0ebc4e81e85565956083" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-1">1</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-2">2</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-3">3</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-4">4</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-5">5</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-6">6</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e85565956083-7">7</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-1">
+                  <span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">res</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-r">new</span><span class="crayon-h"> </span><span class="crayon-t">Array</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-2">
+                  <span class="crayon-st">for</span><span class="crayon-h"> </span><span class="crayon-sy">(</span><span class="crayon-t">var</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">=</span><span class="crayon-h"> </span><span class="crayon-cn">1</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-v">i</span><span class="crayon-h"> </span><span class="crayon-o">&lt;=</span><span class="crayon-h"> </span><span class="crayon-cn">5</span><span class="crayon-sy">;</span><span class="crayon-h"> </span><span class="crayon-o">++</span><span class="crayon-v">i</span><span class="crayon-sy">)</span><span class="crayon-h"> </span><span class="crayon-sy">{</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-3"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-v">res</span><span class="crayon-sy">.</span><span class="crayon-e">push</span><span class="crayon-sy">(</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-4">
+                  <span class="crayon-h">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH PHRASE(d.description, 'in', @prox, 'galaxy', 'text_en') RETURN d"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-v">prox</span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-i">i</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-sy">)</span><span class="crayon-sy">.</span><span class="crayon-e">toArray</span><span class="crayon-sy">(</span><span class="crayon-sy">)</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-5"><span class="crayon-h">&nbsp;&nbsp;</span><span class="crayon-sy">)</span><span class="crayon-sy">;</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-6"><span class="crayon-sy">}</span></div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e85565956083-7">&nbsp;</div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>With a
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/#phrase" target="_blank" rel="noopener">PHRASE function</a> you can perform really complex proximity searches, e.g.
+      <code>story &lt;any word&gt; &lt;any word&gt; man &lt;any word&gt; &lt;any word&gt; undercover</code>:</p>
+    <div id="crayon-5c0ebc4e81e87759406046" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e87759406046-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e87759406046-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH PHRASE(d.description, 'story', 2, 'man', 2, 'undercover', 'text_en') RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p></p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Min match</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/#minmatch" target="_blank" rel="noopener">MIN_MATCH function</a> is another very interesting and useful ArangoSearch extensions. Essentially that is something in between of disjunction and conjunction. It accepts multiple
+      <code>SEARCH</code> expressions and numeric value denoting a minimum number of search expressions to be satisfied. The function matches documents where at least a specified number of search expressions are true.
+    </p>
+    <p>In the following example we’re looking for 2 episodes of “Stars Wars” saga, namely “Phantom Menace” and “New hope”:</p>
+    <div id="crayon-5c0ebc4e81e88878015827" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e88878015827-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e88878015827-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH MIN_MATCH(PHRASE(d.description, 'Phantom Menace', 'text_en'), PHRASE(d.description, 'Star Wars', 'text_en'), PHRASE(d.description, 'New Hope', 'text_en'), 2) RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p></p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Analyzer</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>In last example we used
+      <code>PHRASE</code> functions 3 times with the same analyzer. The query above can be simplified with the help of special
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/#analyzer" target="_blank" rel="noopener">ANALYZER function</a>:
+    </p>
+    <div id="crayon-5c0ebc4e81e89064335529" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e89064335529-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e89064335529-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH ANALYZER(MIN_MATCH(PHRASE(d.description, 'Phantom Menace'), PHRASE(d.description, 'Star Wars'), PHRASE(d.description, 'New Hope'), 2), 'text_en') RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>The query above will produce the same output as the previous one.</p>
+    <p>
+      <a href="https://docs.arangodb.com/3.4/AQL/Views/ArangoSearch/#analyzer" target="_blank" rel="noopener">ANALYZER function</a> does nothing but overrides analyzer in a context of SEARCH expression with another one, denoted by a specified analyzer, making it available for search functions. By default every SEARCH function that accepts analyzer as a parameter has identity analyzer in its context.
+    </p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Ranking in ArangoSearch</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <div class="alert alert-warning">
+      <strong>Note:</strong> due to the restriction in cluster-wide ArangoSearch views in 3.4 one may get different query results compared to the given below. To achieve the exactly same results, please ensure you’re using single server or cluster collection with only 1 shard.
+    </div>
+    <p>In the beginning of the tutorial, we’ve described
+      <a href="https://cran.r-project.org/web/packages/labelrank/vignettes/labelrank.html" target="_blank" rel="noopener">naive ranking similarity measure</a>. Of course, it doesn’t work well in real-world use cases. Though understanding of how ranking works requires some advanced knowledge, in this section we’re going to give you an overview on ranking model AragnoSearch uses for measuring documents relevance.
+    </p>
+    <p>The ranking, in general, is the process of evaluating document rank/score according to specified search criteria. For text processing, ArangoSearch uses
+      <a href="https://en.wikipedia.org/wiki/Vector_space_model" target="_blank" rel="noopener">Vector Space Model</a>.<br>
+      It postulates the following: in the space formed by the terms of the query the document vectors that are closer to a query vector are more relevant.
+    </p>
+    <p>Practically the closeness is expressed as the cosine of the angle between two vectors, namely cosine similarity.</p>
+
+  </div>
+</div>
+
+<div class="wpb_single_image wpb_content_element vc_align_left">
+
+  <figure class="wpb_wrapper vc_figure">
+    <div class="vc_single_image-wrapper   vc_box_border_grey">
+      <img src="https://www.arangodb.com/wp-content/uploads/2018/12/image2-1.png" class="vc_single_image-img attachment-full" alt="ArangoSearch Tutorial image 2" width="250" height="246">
+    </div>
+  </figure>
+</div>
+
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>In other words, we treat documents and search criteria as vectors and evaluate cosine of the angle between them. Then we can sort documents by the evaluated cosine score value and finally retrieve documents that are closer (more relevant) to a specified query than the others.</p>
+    <p>Let’s consider the following example:</p>
+    <p>Assume we have 3 documents in a collection:</p>
+    <div id="crayon-5c0ebc4e81e8b653234074" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e8b653234074-1">1</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e8b653234074-2">2</div>
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e8b653234074-3">3</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e8b653234074-1">
+                  <span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-s">"text"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"quick dog"</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-c">// doc1</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e8b653234074-2">
+                  <span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-s">"text"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"brown fox"</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-c">// doc2</span>
+                </div>
+                <div class="crayon-line" id="crayon-5c0ebc4e81e8b653234074-3">
+                  <span class="crayon-sy">{</span><span class="crayon-h"> </span><span class="crayon-s">"text"</span><span class="crayon-h"> </span><span class="crayon-o">:</span><span class="crayon-h"> </span><span class="crayon-s">"quick brown fox"</span><span class="crayon-h"> </span><span class="crayon-sy">}</span><span class="crayon-h"> </span><span class="crayon-c">// doc3</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>Now imagine we have a query:</p>
+    <div id="crayon-5c0ebc4e81e8c026197995" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e8c026197995-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e8c026197995-1">
+                  <span class="crayon-st">FOR</span><span class="crayon-h"> </span><span class="crayon-i">d</span><span class="crayon-h"> </span><span class="crayon-st">in</span><span class="crayon-h"> </span><span class="crayon-e">myView </span><span class="crayon-i">SEARCH</span><span class="crayon-h"> </span><span class="crayon-v">d</span><span class="crayon-sy">.</span><span class="crayon-e">text </span><span class="crayon-st">IN</span><span class="crayon-h"> </span><span class="crayon-sy">[</span><span class="crayon-s">"quick"</span><span class="crayon-sy">,</span><span class="crayon-h"> </span><span class="crayon-s">"fox"</span><span class="crayon-sy">]</span><span class="crayon-h"> </span><span class="crayon-st">RETURN</span><span class="crayon-h"> </span><span class="crayon-v">d</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>For this query let’s imagine two dimensional space formed by words <em>quick</em> and <em>fox</em></p>
+
+  </div>
+</div>
+
+<div class="wpb_single_image wpb_content_element vc_align_left">
+
+  <figure class="wpb_wrapper vc_figure">
+    <div class="vc_single_image-wrapper   vc_box_border_grey">
+      <img src="https://www.arangodb.com/wp-content/uploads/2018/12/image4.png" class="vc_single_image-img attachment-full" alt="ArangoSearch Tutorial image 4" srcset="https://www.arangodb.com/wp-content/uploads/2018/12/image4.png 334w, https://www.arangodb.com/wp-content/uploads/2018/12/image4-300x159.png 300w" sizes="(max-width: 334px) 100vw, 334px" width="334" height="177">
+    </div>
+  </figure>
+</div>
+
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>Then let’s put every document to the graph above:</p>
+
+  </div>
+</div>
+
+<div class="wpb_single_image wpb_content_element vc_align_left">
+
+  <figure class="wpb_wrapper vc_figure">
+    <div class="vc_single_image-wrapper   vc_box_border_grey">
+      <img src="https://www.arangodb.com/wp-content/uploads/2018/12/image1-2.png" class="vc_single_image-img attachment-full" alt="ArangoSearch Tutorial image 1" srcset="https://www.arangodb.com/wp-content/uploads/2018/12/image1-2.png 334w, https://www.arangodb.com/wp-content/uploads/2018/12/image1-2-300x154.png 300w" sizes="(max-width: 334px) 100vw, 334px" width="334" height="171">
+    </div>
+  </figure>
+</div>
+
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>From the plot above it’s clear that doc3 is the most relevant to the given query.</p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Ranking in AQL</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>In order to compute cosine, we have to evaluate vector components at first. There are a number of probability/statistical weighting models but for now, ArangoSearch provides two, probably the most famous schemes:</p>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank" rel="noopener">Okapi BM25</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" target="_blank" rel="noopener">TFIDF</a></li>
+    </ul>
+    <p>Under the hood both models rely on 2 main components:<br>
+      Term frequency (TF) – in the simplest case defined as the number of times that term
+      <strong>t</strong> occurs in document
+      <strong>d</strong>. Inverse document frequency (IDF) is a measure of how much information the word provides, i.e. whether the term is common or rare across all documents.
+    </p>
+    <p>In AQL both weighting methods are exposed via corresponding functions:
+      <a href="https://docs.arangodb.com/devel/AQL/Views/ArangoSearch/#bm25" target="_blank" rel="noopener">BM25</a>,
+      <a href="https://docs.arangodb.com/devel/AQL/Views/ArangoSearch/#tfidf" target="_blank" rel="noopener">TFIDF</a>. Note that both function accept AQL corresponding loop variable as the first argument. In 3.4 these functions have the following limitation: that’s not possible to use evaluated score value in generic AQL expressions (e.g. filters or calculations), the aforementioned functions must be used in SORT statement related to an ArangoSearch view.
+    </p>
+    <p>Let’s imagine that we’re extremely interested in a nice sci-fi movie. I want to find something that matches the following set of keywords: “amazing, action, world, alien, sci-fi, science, documental, galaxy”:</p>
+    <div id="crayon-5c0ebc4e81e8e614897859" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81e8e614897859-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81e8e614897859-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH ANALYZER(d.description IN TOKENS('amazing action world alien sci-fi science documental galaxy', 'text_en'), 'text_en') LIMIT 10 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>Without any ranking I got
+      <em>“The Prime of Miss Jean Brodie”</em> in the very beginning of result set. That’s is definitely not what I did want to watch. Nevertheless, you may get different results, that’s non-deterministic since we haven’t specified any sorting condition there.
+    </p>
+    <p>Let’s rank result with
+      <a href="https://en.wikipedia.org/wiki/Vector_space_model" target="_blank" rel="noopener">VSM</a> and
+      <a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank" rel="noopener">BM25</a> algorithm:</p>
+    <div id="crayon-5c0ebc4e81ea9305150898" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81ea9305150898-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81ea9305150898-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH ANALYZER(d.description IN TOKENS('amazing action world alien sci-fi science documental galaxy', 'text_en'), 'text_en') SORT BM25(d) LIMIT 10 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>After inspecting result set you note that first place is taken by
+      <em>“Religulous”</em> movie. That’s again something that is not particularly relevant to our original query. The reason is the following: in the query above, we didn’t explicitly specified sorting order. Default value is ASC which means that we implicitly asked ArangoDB to show us the
+      <strong>most irrelevant</strong> results first. Let’s fix it by explicitly specifying our intention to get the most relevant docs in the beginning of result set:
+    </p>
+    <div id="crayon-5c0ebc4e81eaf941649143" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81eaf941649143-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81eaf941649143-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH ANALYZER(d.description IN TOKENS('amazing action world alien sci-fi science documental galaxy', 'text_en'), 'text_en') SORT BM25(d) DESC LIMIT 10 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>And now the most relevant document is
+      <em>“AVPR: Aliens vs. Predator – Requiem”</em>. Yes, that’s definitely better.</p>
+
+  </div>
+</div>
+<h3 style="text-align: left" class="vc_custom_heading">Query time relevance tuning</h3>
+<div class="wpb_text_column wpb_content_element ">
+  <div class="wpb_wrapper">
+    <p>Another crucial point of ArangoSearch is the ability to fine-tune document scores evaluated by relevance models at query time. That functionality is exposed in AQL via
+      <a href="https://docs.arangodb.com/devel/AQL/Views/ArangoSearch/#boost" target="_blank" rel="noopener">BOOST function</a>. Similarly to
+      <a href="https://docs.arangodb.com/devel/AQL/Views/ArangoSearch/#analyzer" target="_blank" rel="noopener">ANALYZER function</a>, BOOST function accepts any other valid SEARCH expression and boost factor. It does nothing but imbues the provided boost value into SEARCH expression context making it available for scorer functions. The documents that match boosted part of search expression will get higher scores.
+    </p>
+    <p>Let’s continue playing with sci-fi movies. The results we got in previous section are already good enough, but what if we want something more relevant to outer space, the movie that can show us the beauty of distant interstellar galaxies. For the sake of our interest to sci-fi movies, we can ask ArangoSearch to prefer “galaxy” amongst the others keywords:</p>
+    <div id="crayon-5c0ebc4e81eb2225589945" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81eb2225589945-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81eb2225589945-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH ANALYZER(d.description IN TOKENS('amazing action world alien sci-fi science documental', 'text_en') || BOOST(d.description IN TOKENS('galaxy', 'text_en'), 5), 'text_en') SORT BM25(d) DESC LIMIT 10 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>And the winner is <em>“Star Trek Collection”</em>, super relevant result indeed.</p>
+    <p>For information retrieval experts ArangoSearch provides an easy and straightforward way of fine-tuning weighting schemes at query time, e.g.
+      <a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank" rel="noopener">BM25</a> accepts free coefficients as the parameters and may be turned into BM15:
+    </p>
+    <div id="crayon-5c0ebc4e81eb3733997973" class="crayon-syntax crayon-theme-arango crayon-font-droid-sans-mono crayon-os-pc print-yes notranslate" data-settings=" touchscreen minimize scroll-mouseover disable-anim" style="margin: 12px 12px 12px 10px; font-size: 12px !important; line-height: 15px !important; height: auto;">
+
+      <div class="crayon-plain-wrap"></div>
+      <div class="crayon-main" style="position: relative; z-index: 1;">
+        <table class="crayon-table" style="margin-left: -18px;">
+          <tbody>
+          <tr class="crayon-row">
+            <td class="crayon-nums " data-settings="hide">
+              <div class="crayon-nums-content" style="font-size: 12px !important; line-height: 15px !important;">
+                <div class="crayon-num" data-line="crayon-5c0ebc4e81eb3733997973-1">1</div>
+              </div>
+            </td>
+            <td class="crayon-code">
+              <div class="crayon-pre" style="font-size: 12px !important; line-height: 15px !important; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; tab-size:4;">
+                <div class="crayon-line" id="crayon-5c0ebc4e81eb3733997973-1">
+                  <span class="crayon-v">db</span><span class="crayon-sy">.</span><span class="crayon-e">_query</span><span class="crayon-sy">(</span><span class="crayon-s">"FOR d IN v_imdb SEARCH ANALYZER(d.description IN TOKENS('amazing action world alien sci-fi science documental', 'text_en') || BOOST(d.description IN TOKENS('galaxy', 'text_en'), 5), 'text_en') SORT BM25(d, 1.2, 0) DESC LIMIT 10 RETURN d"</span><span class="crayon-sy">)</span>
+                </div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p></p></div>
+</div>
+</body>
+</html>
