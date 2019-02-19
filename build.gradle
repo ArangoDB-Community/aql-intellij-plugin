@@ -33,7 +33,7 @@ dependencies {
 }
 patchPluginXml{
     sinceBuild '172'
-    untilBuild '184'
+    untilBuild '284'
 }
 
 intellij {
