@@ -1,5 +1,6 @@
 package com.arangodb.intellij.aql.model;
 
+import com.arangodb.intellij.aql.ui.PasswordManager;
 import com.intellij.util.xmlb.annotations.Transient;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,6 +15,7 @@ public class ArangoDbServer {
     private int port = DEFAULT_PORT;
     private boolean excludeSystemCollections = true;
     private String host = "127.0.0.1";
+    @Transient
     private String password;
     private String user;
     private Set<ArangoDbDatabase> databases;
@@ -36,6 +38,7 @@ public class ArangoDbServer {
         this.password = password;
         this.user = user;
         this.host = host;
+        PasswordManager.save(user + host, password);
     }
 
     public boolean isExcludeSystemCollections() {
@@ -63,12 +66,19 @@ public class ArangoDbServer {
         this.host = host;
     }
 
+    @Transient
     public String getPassword() {
+        if (password == null) {
+            password = PasswordManager.load(user + host);
+        }
         return password;
     }
 
+    @Transient
     public void setPassword(final String password) {
+
         this.password = password;
+        PasswordManager.save(user + host, password);
     }
 
     public String getUser() {
