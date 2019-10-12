@@ -21,7 +21,7 @@ apply plugin: 'net.researchgate.release'
 def ideaVersionExternDefinition = System.getenv("IDEA_VERSION")
 ideaVersion = ideaVersionExternDefinition ? ideaVersionExternDefinition : ideaVersion
 def isEAP = ideaVersion.contains("LATEST-EAP-SNAPSHOT") || ideaVersion.take(4).contains(".")
-def artifactVersion = pluginVersion + "-" + (isEAP ? "EAP" : ideaVersion)
+def artifactVersion = version + "-" + (isEAP ? "EAP" : ideaVersion)
 println "ideaVersion: ${ideaVersion}"
 println "artifactVersion: ${artifactVersion}"
 
