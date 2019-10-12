@@ -1,24 +1,36 @@
+
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.3.12'
+    id "org.jetbrains.intellij" version "0.4.10"
+    id "org.jetbrains.grammarkit" version "2019.2.1"
     id 'net.researchgate.release' version '2.6.0'
 }
 
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url "https://www.jitpack.io" }
+}
+
+
+apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
-apply plugin: 'java'
 apply plugin: 'net.researchgate.release'
+
+def ideaVersionExternDefinition = System.getenv("IDEA_VERSION")
+ideaVersion = ideaVersionExternDefinition ? ideaVersionExternDefinition : ideaVersion
+def isEAP = ideaVersion.contains("LATEST-EAP-SNAPSHOT") || ideaVersion.take(4).contains(".")
+def artifactVersion = pluginVersion + "-" + (isEAP ? "EAP" : ideaVersion)
+println "ideaVersion: ${ideaVersion}"
+println "artifactVersion: ${artifactVersion}"
+
 
 group 'com.arangodb'
 
 sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven { url 'https://jitpack.io' }
-    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
-}
+
 
 dependencies {
     
@@ -31,16 +43,22 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-core:2.9.7"
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
 }
-patchPluginXml{
-    sinceBuild '172'
-    untilBuild '284'
+patchPluginXml {
+    version artifactVersion
+    if (isEAP || (ideaVersion == lastReleaseVersion)) {
+        untilBuild ""
+    }
 }
-
 intellij {
-    version '2017.3'
-    pluginName 'aql'
-}
+    version ideaVersion
+    println "Intellij version: ${version}"
+    pluginName pluginName
+    updateSinceUntilBuild true
+    sameSinceUntilBuild false
+    sandboxDirectory = "${rootProject.projectDir}/idea-sandbox/idea-${ideaVersion}"
 
+    plugins 'java'
+}
 /*
 * Works like maven release plugin, see:
 * https://github.com/researchgate/gradle-release

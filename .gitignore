@@ -1,5 +1,7 @@
 build/
 .gradle/
+gradle/
+idea-sandbox/
 .idea
 *.iml
 gen
