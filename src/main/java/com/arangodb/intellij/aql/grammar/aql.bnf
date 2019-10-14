@@ -257,6 +257,11 @@ T_SYS_VERTICES = "vertices"
 //############################################
 
 A_IDENTITY="regexp:('identity')|(\"identity\")"
+A_DELIMITER="regexp:('delimiter')|(\"delimiter\")"
+A_STEM="regexp:('stem')|(\"stem\")"
+A_NORM="regexp:('stem')|(\"norm\")"
+A_NGRAM="regexp:('stem')|(\"ngram\")"
+//A_TEXT="regexp:('text')|(\"text\")"
 A_TEXT_DE="regexp:('text_de')|(\"text_de\")"
 A_TEXT_EN="regexp:('text_en')|(\"text_en\")"
 A_TEXT_ES="regexp:('text_es')|(\"text_es\")"
@@ -859,6 +864,11 @@ NamedKeywordStatements ::= KeywordStatements {
 ReservedWords ::= T_NULL
 
 AnalyzerType ::= A_IDENTITY
+                |A_DELIMITER
+                |A_STEM
+                |A_NORM
+                |A_NGRAM
+//|A_TEXT
                  |A_TEXT_DE
                  |A_TEXT_EN
                  |A_TEXT_ES
