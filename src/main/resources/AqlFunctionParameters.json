@@ -1,0 +1,116 @@
+{
+  "params": {
+    "ABS": [
+      "value (number): any number, positive or negative"
+    ],
+    "ACOS": [
+      "value (number): the input value"
+    ],
+    "ASIN": [
+      "value (number): the input value"
+    ],
+    "ATAN": [
+      "value (number): the input value"
+    ],
+    "ATAN2": [
+      "x: value (number): the input value",
+      "y: value (number): the input value"
+    ],
+    "AVERAGE": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "AVG": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "CEIL": [
+      "value (number): any number"
+    ],
+    "COS": [
+      "value (number): the input value"
+    ],
+    "DEGREES": [
+      "rad (number): the input value"
+    ],
+    "EXP": [
+      "value (number): the input value"
+    ],
+    "EXP2": [
+      "value (number): the input value"
+    ],
+    "FLOOR": [
+      "value (number): the input value"
+    ],
+    "LOG": [
+      "value (number): the input value"
+    ],
+    "LOG2": [
+      "value (number): the input value"
+    ],
+    "LOG10": [
+      "value (number): the input value"
+    ],
+    "MAG": [
+      "anyArray (array): an array of numbers, null values are ignored"
+    ],
+    "MEDIAN": [
+      "anyArray (array): an array of numbers, null values are ignored"
+    ],
+    "MIN": [
+      "anyArray (array): an array of numbers, null values are ignored"
+    ],
+    "PERCENTILE": [
+      "anyArray (array): an array of numbers, null values are ignored"
+    ],
+    "PI": [
+      "<no arguments>"
+    ],
+    "POW": [
+      "base (number): the base value",
+      "exp (number): the exponent value"
+    ],
+    "RADIANS": [
+      "deg (number): the input value"
+    ],
+    "RAND": [
+      "<no arguments>"
+    ],
+    "RANGE": [
+      "start (number): the value to start the range at (inclusive)",
+      "stop (number): the value to end the range with (inclusive)",
+      "step (number, optional): how much to increment in every step, the default is 1.0"
+    ],
+    "ROUND": [
+      "value (number): any number"
+    ],
+    "SIN": [
+      "value (number): the input value"
+    ],
+    "SQRT": [
+      "value (number): a number"
+    ],
+    "STDDEV_POPULATION": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "STDDEV_SAMPLE": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "STDDEV": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "SUM": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "TAN": [
+      "value (number): the input value"
+    ],
+    "VARIANCE_POPULATION": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "VARIANCE_SAMPLE": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "VARIANCE": [
+      "numArray (array): an array of numbers, null values are ignored"
+    ]
+  }
+}

@@ -4,6 +4,9 @@ package com.arangodb.intellij.aql.editor;
 
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunctionExpression;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlNamedFunctions;
+import com.arangodb.intellij.aql.util.JSON;
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.lang.parameterInfo.*;
 import com.intellij.psi.PsiElement;
@@ -12,10 +15,21 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.text.CharArrayUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 // TODO implement
 public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFunctions, AqlNamedFunctions> {
-
+    private static final Logger log = LoggerFactory.getLogger(AqlParameterInfoHandler.class);
+    private AqlParams params;
 
     @Nullable
     @Override
@@ -83,9 +97,41 @@ public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFun
 
     @Override
     public void updateUI(final AqlNamedFunctions p, @NotNull final ParameterInfoUIContext context) {
-        // TODO implement parameter lookups
-        boolean isDisabled = false;// context.getCurrentParameterIndex()
-        context.setupUIComponentPresentation("TEST", 1, 1, isDisabled, false, false, context.getDefaultParameterColor());
+        // TODO implement parameter offsets etc.
+        final String functionName = p.getFunctionName();
+        final List<String> params = getParameters(functionName);
+        boolean isDisabled = params.isEmpty();
+        int startOffset = 0;
+        int endOffset = 0;
+        final StringBuilder builder = new StringBuilder();
+        for (String param : params) {
+            builder.append(param).append(',');
+            if (endOffset == 0) {
+                endOffset = param.length();
+            }
+        }
+        context.setupUIComponentPresentation(builder.toString(), startOffset, endOffset, isDisabled, false, false, context.getDefaultParameterColor());
+    }
+
+    private List<String> getParameters(final String functionName) {
+        if (functionName != null) {
+            if (params == null) {
+                try (final InputStream stream = getClass().getResourceAsStream("/AqlFunctionParameters.json")) {
+                    if (stream == null) {
+                        return Collections.emptyList();
+                    }
+                    @SuppressWarnings("UnstableApiUsage") final String string = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8));
+                    params = JSON.fromJson(string, AqlParams.class);
+                } catch (IOException e) {
+                    log.error("Error reading arguments list", e);
+                }
+            }
+            if (params == null) {
+                return Collections.emptyList();
+            }
+            return params.forName(functionName);
+        }
+        return Collections.emptyList();
     }
 
     @Override
@@ -99,4 +145,25 @@ public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFun
         return null;
     }
 
+    private static class AqlParams {
+        Map<String, List<String>> params = new HashMap<>();
+
+        public Map<String, List<String>> getParams() {
+            return params;
+        }
+
+        public void setParams(final Map<String, List<String>> params) {
+            this.params = params;
+        }
+
+        public List<String> forName(final String functionName) {
+            if (params != null) {
+                final List<String> items = params.get(functionName);
+                if (items != null) {
+                    return items;
+                }
+            }
+            return Collections.emptyList();
+        }
+    }
 }
