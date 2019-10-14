@@ -50,6 +50,7 @@
       //############################################
     -->
 
+    <codeInsight.parameterNameHints language="AQL" implementationClass="com.arangodb.intellij.aql.editor.AqlParameterNameHints"/>
     <codeInsight.parameterInfo implementationClass="com.arangodb.intellij.aql.editor.AqlParameterInfoHandler" language="AQL"/>
     <fileType name="AQL file" implementationClass="com.arangodb.intellij.aql.file.AqlFileType" fieldName="INSTANCE" language="AQL" extensions="aql"/>
     <lang.parserDefinition language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlParserDefinition"/>
