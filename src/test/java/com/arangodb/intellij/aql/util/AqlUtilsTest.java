@@ -1,10 +1,11 @@
 package com.arangodb.intellij.aql.util;
 
-import com.intellij.testFramework.fixtures.LightPlatformCodeInsightFixtureTestCase;
+import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+
 
 import java.util.Set;
 
-public class AqlUtilsTest extends LightPlatformCodeInsightFixtureTestCase {
+public class AqlUtilsTest extends BasePlatformTestCase {
 
     public void testParameterNames() {
         final String parameterName = "@someName";

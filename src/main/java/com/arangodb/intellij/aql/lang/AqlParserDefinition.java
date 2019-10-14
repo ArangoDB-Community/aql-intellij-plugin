@@ -26,14 +26,9 @@ public class AqlParserDefinition implements ParserDefinition {
     public static final IFileElementType FILE = new IFileElementType(Language.findInstance(AqlLanguage.class));
 
 
-    //@Override
+    @Override
     public SpaceRequirements spaceExistenceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
         return SpaceRequirements.MAY;
-    }
-
-    @Override
-    public SpaceRequirements spaceExistanceTypeBetweenTokens(final ASTNode left, final ASTNode right) {
-        return this.spaceExistenceTypeBetweenTokens(left, right);
     }
 
 

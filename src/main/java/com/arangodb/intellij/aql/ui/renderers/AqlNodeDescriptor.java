@@ -8,7 +8,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ui.CellAppearanceEx;
 import com.intellij.openapi.roots.ui.util.CompositeAppearance;
 import com.intellij.openapi.util.Comparing;
-import com.intellij.ui.HtmlListCellRenderer;
 import com.intellij.ui.SimpleColoredComponent;
 import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
@@ -70,13 +69,7 @@ public class AqlNodeDescriptor extends NodeDescriptor implements CellAppearanceE
         component.setToolTipText(toolTipText);
     }
 
-    @Override
-    public void customize(@NotNull final HtmlListCellRenderer renderer) {
-        getHighlightedText().customize(renderer);
-        renderer.setIcon(Icons.ICON_DATABASE);
-        final String toolTipText = getTarget().getDisplayName();
-        renderer.setToolTipText(toolTipText);
-    }
+
 
 
     @Override

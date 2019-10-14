@@ -52,16 +52,7 @@ public class AqlParameterInfoHandler implements ParameterInfoHandler {
 
     }
 
-    @Nullable
-    @Override
-    public String getParameterCloseChars() {
-        return ")";
-    }
-
-    @Override
-    public boolean tracksParameterIndex() {
-        return false;
-    }
+    
 
 
 }

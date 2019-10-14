@@ -49,7 +49,8 @@
       // Language setup
       //############################################
     -->
-    <fileTypeFactory implementation="com.arangodb.intellij.aql.file.AqlFileTypeFactory"/>
+
+    <fileType name="AQL file" implementationClass="com.arangodb.intellij.aql.file.AqlFileType" fieldName="INSTANCE" language="AQL" extensions="aql"/>
     <lang.parserDefinition language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlParserDefinition"/>
     <internalFileTemplate name="templates.AQL Template"/>
     <colorSettingsPage implementation="com.arangodb.intellij.aql.settings.AqlColorSettingsPage"/>
