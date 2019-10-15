@@ -1,9 +1,22 @@
 package com.arangodb.intellij.aql.ui.windows;
 
+import java.awt.BorderLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.tree.DefaultTreeModel;
+
 import com.arangodb.intellij.aql.actions.ActionBusEvent;
 import com.arangodb.intellij.aql.actions.ActionEventData;
 import com.arangodb.intellij.aql.actions.AqlDataService;
-import com.arangodb.intellij.aql.ui.actions.*;
+import com.arangodb.intellij.aql.ui.actions.CollapseAllAction;
+import com.arangodb.intellij.aql.ui.actions.DeleteQueryAction;
+import com.arangodb.intellij.aql.ui.actions.EditQueryAction;
+import com.arangodb.intellij.aql.ui.actions.ExecuteQueryAction;
+import com.arangodb.intellij.aql.ui.actions.ExpandAllAction;
+import com.arangodb.intellij.aql.ui.actions.ExplainQueryAction;
 import com.arangodb.intellij.aql.ui.panels.JsonPanel;
 import com.arangodb.intellij.aql.ui.renderers.AqlQueryRenderer;
 import com.intellij.openapi.Disposable;
@@ -12,6 +25,7 @@ import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.actionSystem.ActionToolbarPosition;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.JBTabsPaneImpl;
 import com.intellij.ui.ToolbarDecorator;
@@ -21,10 +35,6 @@ import com.intellij.ui.tabs.impl.JBTabsImpl;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.ui.JBEmptyBorder;
 import com.intellij.util.ui.JBUI;
-
-import javax.swing.*;
-import javax.swing.tree.DefaultTreeModel;
-import java.awt.*;
 
 
 public class AqlConsoleWindow implements Disposable {
@@ -44,12 +54,12 @@ public class AqlConsoleWindow implements Disposable {
     private final Project project;
     private ToolbarDecorator toolbarDecorator;
 
-
     public AqlConsoleWindow(final Project project, final ToolWindow toolWindow) {
         this.project = project;
         final JBEmptyBorder border = JBUI.Borders.empty();
         jsonResults.setBorder(border);
         jsonPanel = new JsonPanel(project);
+
         jsonResults.add(jsonPanel, BorderLayout.CENTER);
         // TODO
         //tabContainer.setVisible(false);
@@ -97,6 +107,7 @@ public class AqlConsoleWindow implements Disposable {
     private void createUIComponents() {
         tabPanel = new JBTabsPaneImpl(null, SwingConstants.TOP, this);
         consoleTabs = (JBTabsImpl) tabPanel.getTabs();
+        Disposer.register(this, consoleTabs);
     }
 
     public JComponent getContent() {
@@ -105,7 +116,13 @@ public class AqlConsoleWindow implements Disposable {
 
     @Override
     public void dispose() {
-        // TODO
+        if (consoleTabs != null) {
+            consoleTabs.dispose();
+        }
+
+        if (jsonPanel != null) {
+            jsonPanel.dispose();
+        }
     }
 
 }

@@ -12,6 +12,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.Disposer;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleManager;
@@ -25,6 +26,7 @@ public class JsonPanel extends ConsoleViewImpl implements Disposable, MessageVie
     public JsonPanel(final Project project) {
         super(project, true);
         consoleComponent = getComponent();
+        Disposer.register(project, this);
 
 
 
