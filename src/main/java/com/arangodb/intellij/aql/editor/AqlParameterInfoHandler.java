@@ -111,21 +111,27 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
             // TODO implement parameter offsets etc.
             final String functionName = p.getFunctionName();
             final List<String> params = getParameters(functionName);
-            int endOffset = 0;
-            final StringBuilder builder = new StringBuilder();
+            boolean first = true;
+            final StringBuilder builder = new StringBuilder(params.size() * 20);
+            builder.insert(0, "<table>");
             for (String param : params) {
-                if (endOffset == 0) {
-                    endOffset = 1;
-                    builder.append("<b>");
-                    builder.append(param);
-                    builder.append("</b>");
+                if (first) {
+                    first = false;
+                    builder.append("<tr><td>")
+                            .append("<b>")
+                            .append(param).append("</b>")
+                            .append("</td></tr>");
+
                     continue;
                 }
-                builder.append(',');
-                builder.append(param);
-                builder.append("</b>");
+
+                builder.append("<tr><td>")
+                        .append(param)
+                        .append("</td></tr>");
+
 
             }
+            builder.append("</table>");
             context.setupRawUIComponentPresentation(builder.toString());
         }
 
