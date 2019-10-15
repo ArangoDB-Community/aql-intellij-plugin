@@ -1,8 +1,8 @@
 
 ![ArangoDB](img/arangodb.png)
 
-#  AQL (ArangoDB) language support plugin for Intellij IDEA 18.x IDE
-(might work in other Intellij products, I compiled it with 2017 version,  but have not tested it)
+#  AQL (ArangoDB) language support plugin for Intellij IDEA 2019.2+ IDE
+
 
 ## Build
 
@@ -31,6 +31,10 @@ gradle runIde
 ## Docs
  
 ![Docs](img/quickdoc.png)
+
+## Function arguments
+ 
+![Function arguments](img/arguments.png)
 
 
 ## File editing
