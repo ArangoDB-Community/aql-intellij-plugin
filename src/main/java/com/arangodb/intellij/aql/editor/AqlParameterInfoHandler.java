@@ -2,16 +2,22 @@
 
 package com.arangodb.intellij.aql.editor;
 
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunctionExpression;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlNamedFunctions;
+import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.generated.psi.impl.AqlParameterVariableImpl;
 import com.arangodb.intellij.aql.util.JSON;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.intellij.codeInsight.lookup.LookupElement;
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.ReadOnlyASTNode;
 import com.intellij.lang.parameterInfo.*;
+import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.JavaTokenType;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.text.CharArrayUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,15 +27,18 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // TODO implement
-public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFunctions, AqlNamedFunctions> {
+public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActionSupport<AqlNamedFunctions, Object, AqlParameterVariable> {
     private static final Logger log = LoggerFactory.getLogger(AqlParameterInfoHandler.class);
+    private static final ASTNode[] AST_NODES = new ASTNode[0];
+    private static final AqlParameterVariable[] EMPTY = new AqlParameterVariable[0];
     private AqlParams params;
+    private static final Set<Class> CLASS_SET = Collections.singleton(AqlNamedFunctions.class);
+
+    private static final Set<Class> ALLOWED_PARENT_CLASSES = ContainerUtil.newHashSet(
+            AqlNamedFunctions.class, AqlExpressionType.class);
 
     @Nullable
     @Override
@@ -96,6 +105,80 @@ public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFun
     }
 
     @Override
+    public void updateUI(final Object o, @NotNull final ParameterInfoUIContext context) {
+        if (o instanceof AqlNamedFunctions) {
+            final AqlNamedFunctions p = (AqlNamedFunctions) o;
+            // TODO implement parameter offsets etc.
+            final String functionName = p.getFunctionName();
+            final List<String> params = getParameters(functionName);
+            int endOffset = 0;
+            final StringBuilder builder = new StringBuilder();
+            for (String param : params) {
+                if (endOffset == 0) {
+                    endOffset = 1;
+                    builder.append("<b>");
+                    builder.append(param);
+                    builder.append("</b>");
+                    continue;
+                }
+                builder.append(',');
+                builder.append(param);
+                builder.append("</b>");
+
+            }
+            context.setupRawUIComponentPresentation(builder.toString());
+        }
+
+    }
+
+    @NotNull
+    @Override
+    public AqlParameterVariable[] getActualParameters(@NotNull final AqlNamedFunctions o) {
+
+        final List<String> parameters = getParameters(o.getFunctionName());
+        final List<AqlParameterVariable> variables = new ArrayList<>();
+        for (String parameter : parameters) {
+            final AqlParameterVariableImpl variable = new AqlParameterVariableImpl(new VariableNode(null, 0));
+            variable.setName(parameter);
+            variables.add(variable);
+        }
+        return variables.toArray(EMPTY);
+    }
+
+    @NotNull
+    @Override
+    public IElementType getActualParameterDelimiterType() {
+        return JavaTokenType.COMMA;
+    }
+
+    @NotNull
+    @Override
+    public IElementType getActualParametersRBraceType() {
+        return JavaTokenType.RBRACE;
+    }
+
+    @SuppressWarnings("rawtypes")
+    @NotNull
+    @Override
+    public Set<Class> getArgumentListAllowedParentClasses() {
+        return ALLOWED_PARENT_CLASSES;
+    }
+
+
+    @SuppressWarnings("rawtypes")
+    @NotNull
+    @Override
+    public Set<? extends Class> getArgListStopSearchClasses() {
+        return CLASS_SET;
+    }
+
+    @NotNull
+    @Override
+    public Class<AqlNamedFunctions> getArgumentListClass() {
+        return AqlNamedFunctions.class;
+    }
+
+    /*@Override
     public void updateUI(final AqlNamedFunctions p, @NotNull final ParameterInfoUIContext context) {
         // TODO implement parameter offsets etc.
         final String functionName = p.getFunctionName();
@@ -111,7 +194,7 @@ public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFun
             }
         }
         context.setupUIComponentPresentation(builder.toString(), startOffset, endOffset, isDisabled, false, false, context.getDefaultParameterColor());
-    }
+    }*/
 
     private List<String> getParameters(final String functionName) {
         if (functionName != null) {
@@ -164,6 +247,41 @@ public class AqlParameterInfoHandler implements ParameterInfoHandler<AqlNamedFun
                 }
             }
             return Collections.emptyList();
+        }
+    }
+
+    private class VariableNode extends ReadOnlyASTNode {
+
+        public VariableNode(@Nullable final ReadOnlyASTNode parent, final int index) {
+            super(parent, index);
+        }
+
+        @Override
+        protected ASTNode[] getChildArray() {
+            return AST_NODES;
+        }
+
+        @NotNull
+        @Override
+        public IElementType getElementType() {
+            // TODO fic
+            return AqlTypes.VARIABLE_PLACE_HOLDER;
+        }
+
+        @NotNull
+        @Override
+        public CharSequence getChars() {
+            return "";
+        }
+
+        @Override
+        public TextRange getTextRange() {
+            return null;
+        }
+
+        @Override
+        public PsiElement getPsi() {
+            return null;
         }
     }
 }
