@@ -29,14 +29,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-// TODO implement
+
 public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActionSupport<AqlNamedFunctions, Object, AqlParameterVariable> {
     private static final Logger log = LoggerFactory.getLogger(AqlParameterInfoHandler.class);
     private static final ASTNode[] AST_NODES = new ASTNode[0];
     private static final AqlParameterVariable[] EMPTY = new AqlParameterVariable[0];
     private AqlParams params;
+    @SuppressWarnings("rawtypes")
     private static final Set<Class> CLASS_SET = Collections.singleton(AqlNamedFunctions.class);
 
+    @SuppressWarnings("rawtypes")
     private static final Set<Class> ALLOWED_PARENT_CLASSES = ContainerUtil.newHashSet(
             AqlNamedFunctions.class, AqlExpressionType.class);
 
@@ -184,23 +186,7 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
         return AqlNamedFunctions.class;
     }
 
-    /*@Override
-    public void updateUI(final AqlNamedFunctions p, @NotNull final ParameterInfoUIContext context) {
-        // TODO implement parameter offsets etc.
-        final String functionName = p.getFunctionName();
-        final List<String> params = getParameters(functionName);
-        boolean isDisabled = params.isEmpty();
-        int startOffset = 0;
-        int endOffset = 0;
-        final StringBuilder builder = new StringBuilder();
-        for (String param : params) {
-            builder.append(param).append(',');
-            if (endOffset == 0) {
-                endOffset = param.length();
-            }
-        }
-        context.setupUIComponentPresentation(builder.toString(), startOffset, endOffset, isDisabled, false, false, context.getDefaultParameterColor());
-    }*/
+
 
     private List<String> getParameters(final String functionName) {
         if (functionName != null) {
@@ -256,7 +242,7 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
         }
     }
 
-    private class VariableNode extends ReadOnlyASTNode {
+    private static class VariableNode extends ReadOnlyASTNode {
 
         public VariableNode(@Nullable final ReadOnlyASTNode parent, final int index) {
             super(parent, index);
@@ -270,7 +256,6 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
         @NotNull
         @Override
         public IElementType getElementType() {
-            // TODO fic
             return AqlTypes.VARIABLE_PLACE_HOLDER;
         }
 

@@ -111,6 +111,616 @@
     ],
     "VARIANCE": [
       "numArray (array): an array of numbers, null values are ignored"
+    ],
+    "APPEND": [
+      "anyArray (array): array with elements of arbitrary type",
+      "values (array|any): array, whose elements shall be added to anyArray",
+      "unique (bool, optional): if set to true, only those values will be added that are not already contained in anyArray. The default is false."
+    ],
+    "CONTAINS_ARRAY": [
+      "anyArray (array): the haystack, an array with elements of arbitrary type",
+      "search (any): the needle, an element of arbitrary type",
+      "returnIndex (bool, optional): if set to true, the position of the match is returned instead of a boolean. The default is false."
+    ],
+    "POSITION": [
+      "anyArray (array): the haystack, an array with elements of arbitrary type",
+      "search (any): the needle, an element of arbitrary type",
+      "returnIndex (bool, optional): if set to true, the position of the match is returned instead of a boolean. The default is false."
+    ],
+    "COUNT_DISTINCT": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "COUNT_UNIQUE": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "FIRST": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "FLATTEN": [
+      "array (array): array with elements of arbitrary type, including nested arrays",
+      "depth (number, optional): flatten up to this many levels, the default is 1"
+    ],
+    "INTERSECTION": [
+      "arrays (array, repeatable): an arbitrary number of arrays as multiple arguments (at least 2)"
+    ],
+    "LAST": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "MINUS": [
+      "arrays (array, repeatable): an arbitrary number of arrays as multiple arguments (at least 2)"
+    ],
+    "NTH": [
+      "anyArray (array): array with elements of arbitrary type",
+      "position (number): position of desired element in array, positions start at 0"
+    ],
+    "OUTERSECTION": [
+      "arrays (array, repeatable): an arbitrary number of arrays as multiple arguments (at least 2)"
+    ],
+    "POP": [
+      "anyArray (array): an array with elements of arbitrary type"
+    ],
+    "PUSH": [
+      "anyArray (array): array with elements of arbitrary type",
+      "value (any): an element of arbitrary type",
+      "unique (bool): if set to true, then value is not added if already present in the array. The default is false."
+    ],
+    "REMOVE_NTH": [
+      "anyArray (array): array with elements of arbitrary type",
+      "position (number): the position of the element to remove. Positions start at 0. Negative positions are supported, with -1 being the last array element. If position is out of bounds, the array is returned unmodified."
+    ],
+    "REMOVE_VALUE": [
+      "anyArray (array): array with elements of arbitrary type",
+      "value (any): an element of arbitrary type",
+      "limit (number, optional): cap the number of removals to this value"
+    ],
+    "REMOVE_VALUES": [
+      "anyArray (array): array with elements of arbitrary type",
+      "values (array): an array with elements of arbitrary type, that shall be removed from anyArray"
+    ],
+    "REVERSE": [
+      "anyArray (array): array with elements of arbitrary type",
+      "-------or-------",
+      "value (string): a string"
+    ],
+    "SHIFT": [
+      "anyArray (array): array with elements with arbitrary type"
+    ],
+    "SLICE": [
+      "anyArray (array): array with elements of arbitrary type",
+      "start (number): start extraction at this element. Positions start at 0. Negative values indicate positions from the end of the array.",
+      "length (number, optional): extract up to length elements, or all elements from start up to length if negative (exclusive)"
+    ],
+    "SORTED": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "SORTED_UNIQUE": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "UNION": [
+      "arrays (array, repeatable): an arbitrary number of arrays as multiple arguments (at least 2)"
+    ],
+    "UNION_DISTINCT": [
+      "arrays (array, repeatable): an arbitrary number of arrays as multiple arguments (at least 2)"
+    ],
+    "UNIQUE": [
+      "anyArray (array): array with elements of arbitrary type"
+    ],
+    "UNSHIFT": [
+      "anyArray (array): array with elements of arbitrary type",
+      "value (any): an element of arbitrary type",
+      "unique (bool): if set to true, then value is not added if already present in the array. The default is false."
+    ],
+    "DATE_NOW": [
+      "<no arguments>"
+    ],
+    "DATE_ISO8601": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_TIMESTAMP": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "IS_DATESTRING": [
+      "value (string): an arbitrary string"
+    ],
+    "DATE_DAYOFWEEK": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_YEAR": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_MONTH": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_DAY": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_HOUR": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_MINUTE": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_SECOND": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_MILLISECOND": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_DAYOFYEAR": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_ISOWEEK": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_LEAPYEAR": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_QUARTER": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_DAYS_IN_MONTH": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_TRUNC": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string"
+    ],
+    "DATE_FORMAT": [
+      "date (string|number): a date string or timestamp",
+      "format (string): a format string, see below"
+    ],
+    "DATE_ADD": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string",
+      "amount (number|string): number of units to add (positive value) or subtract (negative value). It is recommended to use positive values only, and use DATE_SUBTRACT() for subtractions instead.",
+      "unit (string): either of the following to specify the time unit to add or subtract (case-insensitive):\ny, year, years\nm, month, months\nw, week, weeks\nd, day, days\nh, hour, hours\ni, minute, minutes\ns, second, seconds\nf, millisecond, milliseconds"
+    ],
+    "DATE_SUBTRACT": [
+      "date (number|string): numeric timestamp or ISO 8601 date time string",
+      "amount (number|string): number of units to subtract (positive value) or add (negative value). It is recommended to use positive values only, and use DATE_ADD() for additions instead.",
+      "unit (string): either of the following to specify the time unit to add or subtract (case-insensitive):\ny, year, years\nm, month, months\nw, week, weeks\nd, day, days\nh, hour, hours\ni, minute, minutes\ns, second, seconds\nf, millisecond, milliseconds"
+    ],
+    "DATE_DIFF": [
+      "date1 (number|string): numeric timestamp or ISO 8601 date time string",
+      "date2 (number|string): numeric timestamp or ISO 8601 date time string",
+      "unit (string): either of the following to specify the time unit to add or subtract (case-insensitive):\ny, year, years\nm, month, months\nw, week, weeks\nd, day, days\nh, hour, hours\ni, minute, minutes\ns, second, seconds\nf, millisecond, milliseconds"
+    ],
+    "DATE_COMPARE": [
+      "date1 (number|string): numeric timestamp or ISO 8601 date time string",
+      "date2 (number|string): numeric timestamp or ISO 8601 date time string",
+      "unitRangeStart (string): unit to start from, see below",
+      "unitRangeEnd (string, optional): unit to end with, leave out to only compare the component as specified by unitRangeStart. An error is raised if unitRangeEnd is a unit before unitRangeStart."
+    ],
+    "ATTRIBUTES": [
+      "document (object): an arbitrary document / object",
+      "removeInternal (bool, optional): whether all system attributes (_key, _id etc., every attribute key that starts with an underscore) shall be omitted in the result. The default is false.",
+      "sort (bool, optional): optionally sort the resulting array alphabetically. The default is false and will return the attribute names in any order."
+    ],
+    "COUNT": [
+      "doc (object): a document / object",
+      "-------or-------",
+      "anyArray (array): array with elements of arbitrary type",
+      "-------or-------",
+      "<no arguments> same as LENGTH" ,
+      "-------or-------",
+      "str (string): a string. If a number is passed, it will be casted to string first. (alias for LENGTH())"
+
+    ],
+    "LENGTH": [
+      "doc (object): a document / object",
+      "-------or-------",
+      "anyArray (array): array with elements of arbitrary type",
+      "-------or-------",
+      "<no arguments> same as LENGTH",
+      "-------or-------",
+      "str (string): a string. If a number is passed, it will be casted to string first. (alias for LENGTH())",
+      "-------or-------",
+      "coll (collection): a collection (not string)"
+    ],
+    "MATCHES": [
+      "document (object): document to determine whether it matches any example",
+      "examples (object|array): a single document, or an array of documents to compare against. Specifying an empty array is not allowed.",
+      "returnIndex (bool): by setting this flag to true, the index of the example that matched will be returned (starting at offset 0), or -1 if there was no match. The default is false and makes the function return a boolean."
+    ],
+    "MERGE": [
+      "documents (object, repeatable): an arbitrary number of documents as multiple arguments (at least 2)"
+    ],
+    "MERGE_RECURSIVE": [
+      "documents (object, repeatable): an arbitrary number of documents as multiple arguments (at least 2)"
+    ],
+    "PARSE_IDENTIFIER": [
+      "documentHandle (string|object): a document identifier string (e.g. _users/1234) or a regular document from a collection. Passing either a non-string or a non-document or a document without an _id attribute will result in an error."
+    ],
+    "TRANSLATE": [
+      "value (string): the value to encode according to the mapping",
+      "lookupDocument (object): a key/value mapping as document",
+      "defaultValue (any, optional): a fallback value in case value is not found"
+    ],
+    "UNSET": [
+      "document (object): a document / object",
+      "attributeNames (string, repeatable): an arbitrary number of attribute names as multiple arguments (at least 1)"
+    ],
+    "UNSET_RECURSIVE": [
+      "document (object): a document / object",
+      "attributeNameArray (array): an array of attribute names as strings"
+    ],
+    "VALUES": [
+      "document (object): a document / object",
+      "removeInternal (bool, optional): if set to true, then all internal attributes (such as _id, _key etc.) are removed from the result"
+    ],
+    "ZIP": [
+      "keys (array): an array of strings, to be used as attribute names in the result",
+      "values (array): an array with elements of arbitrary types, to be used as attribute values"
+    ],
+    "FULLTEXT": [
+      "coll (collection): a collection",
+      "attribute (string): the attribute name of the attribute to search in",
+      "query (string): a fulltext search expression as described below",
+      "limit (number, optional): if set to a non-zero value, it will cap the result to at most this number of documents"
+    ],
+    "DISTANCE": [
+      "latitude1 (number): the latitude portion of the first coordinate",
+      "longitude1 (number): the longitude portion of the first coordinate",
+      "latitude2 (number): the latitude portion of the second coordinate",
+      "longitude2 (number): the longitude portion of the second coordinate"
+    ],
+    "GEO_CONTAINS": [
+      "geoJsonA (object): first GeoJSON object or coordinate array (in longitude, latitude order)",
+      "geoJsonB (object): second GeoJSON object or coordinate array (in longitude, latitude order)"
+    ],
+    "GEO_DISTANCE": [
+      "geoJsonA (object): first GeoJSON object",
+      "geoJsonB (object): second GeoJSON object",
+      "ellipsoid (string, optional): reference ellipsoid to use. Supported are \"sphere\" (default) and \"wgs84\"."
+    ],
+    "GEO_AREA": [
+      "geoJson (object): a GeoJSON object",
+      "ellipsoid (string, optional): reference ellipsoid to use. Supported are \"sphere\" (default) and \"wgs84\""
+    ],
+    "GEO_EQUALS": [
+      "geoJsonA (object): first GeoJSON object",
+      "geoJsonB (object): second GeoJSON object."
+    ],
+    "GEO_INTERSECTS": [
+      "geoJsonA (object): first GeoJSON object",
+      "geoJsonB (object): second GeoJSON object."
+    ],
+    "IS_IN_POLYGON": [
+      "polygon (array): an array of arrays with 2 elements each, representing the points of the polygon in the format [lat, lon]",
+      "latitude (number): the latitude portion of the search coordinate",
+      "longitude (number): the longitude portion of the search coordinate",
+      "-------or------",
+      "polygon (array): an array of arrays with 2 elements each, representing the points of the polygon",
+      "coord (array): the search coordinate as a number array with two elements",
+      "useLonLat (bool, optional): if set to true, the coordinates in polygon and the search coordinate coord will be interpreted as [lon, lat] (GeoJSON). The default is false and the format [lat, lon] is expected."
+    ],
+    "GEO_LINESTRING": [
+      "points (array): number array of longitude/latitude pairs"
+    ],
+    "GEO_MULTILINESTRING": [
+      "points (array): array of LineStrings"
+    ],
+    "GEO_MULTIPOINT": [
+      "points (array): number array of longitude/latitude pairs"
+    ],
+    "GEO_POINT": [
+      "longitude (number): the longitude portion of the point",
+      "latitude (number): the latitude portion of the point"
+    ],
+    "GEO_POLYGON": [
+      "points (array): array of (arrays of) longitude/latitude pairs"
+    ],
+    "GEO_MULTIPOLYGON": [
+      "polygons (array): array of arrays of array of longitude/latitude pairs"
+    ],
+    "NEAR": [
+      " NEAR is a deprecated AQL function from version 3.4.0 on. Use DISTANCE() "
+    ],
+    "WITHIN": [
+      "WITHIN is a deprecated AQL function from version 3.4.0 on. Use DISTANCE() in a query like this instead:"
+    ],
+    "WITHIN_RECTANGLE": [
+      "WITHIN_RECTANGLE is a deprecated AQL function from version 3.4.0 on. Use GEO_CONTAINS and a GeoJSON polygon instead"
+    ],
+    "NOT_NULL": [
+      "alternative (any, repeatable): input of arbitrary type"
+    ],
+    "FIRST_LIST": [
+      "alternative (any, repeatable): input of arbitrary type"
+    ],
+    "FIRST_DOCUMENT": [
+      "alternative (any, repeatable): input of arbitrary type"
+    ],
+    "CHECK_DOCUMENT": [
+      "document (object): an arbitrary document / object"
+    ],
+    "COLLECTION_COUNT": [
+      "<no arguments> (use  LENGTH)"
+    ],
+    "COLLECTIONS": [
+      "<no arguments>"
+    ],
+    "CURRENT_USER": [
+      "<no arguments>"
+    ],
+    "DECODE_REV": [
+      "revision (string): revision ID string"
+    ],
+    "DOCUMENT": [
+      "collection (string): name of a collection",
+      "id (string|array): a document handle string (consisting of collection name and document key), a document key, or an array of both document handle strings and document keys",
+      "-------or-------",
+      "id (string|array): either a document handle string (consisting of collection name and document key) or an array of document handle strings"
+    ],
+    "HASH": [
+      "value (any): an element of arbitrary type"
+    ],
+    "APPLY": [
+      "funcName (string): a function name",
+      "arguments (array, optional): an array with elements of arbitrary type"
+    ],
+    "ASSERT": [
+      "expr (expression): AQL expression to be evaluated",
+      "message (string): message that will be used in exception or warning if expression evaluates to false"
+    ],
+    "WARN": [
+      "expr (expression): AQL expression to be evaluated",
+      "message (string): message that will be used in exception or warning if expression evaluates to false"
+    ],
+    "CALL": [
+      "funcName (string): a function name",
+      "args (any, repeatable): an arbitrary number of elements as multiple arguments, can be omitted"
+    ],
+    "FAIL": [
+      "reason (string): an error message"
+    ],
+    "NOOPT": [
+      "value (any): a value of arbitrary type"
+    ],
+    "PASSTHRU": [
+      "value (any): a value of arbitrary type"
+    ],
+    "SLEEP": [
+      "seconds (number): amount of time to wait"
+    ],
+    "V8": [
+      "expression (any): arbitrary expression"
+    ],
+    "VERSION": [
+      "<no arguments>"
+    ],
+    "ANALYZER": [
+      "expr (expression): any valid search expression",
+      "analyzer (string): name of an Analyzer"
+    ],
+    "BOOST": [
+      "expr (expression): any valid search expression",
+      "boost (number): numeric boost value"
+    ],
+    "EXISTS": [
+      "path (attribute path expression): the attribute to test in the document",
+      "OPTIONAL: type (string): data type to test for, can be one of: 'null' 'bool' / 'boolean' 'numeric' 'string' 'analyzer'",
+      "analyzer (string, optional): name of an Analyzer. Uses the Analyzer of a wrapping ANALYZER() call if not specified or defaults to 'identity'"
+    ],
+    "IN_RANGE": [
+      "path (attribute path expression): the path of the attribute to test in the document",
+      "low (number|string): minimum value of the desired range",
+      "high (number|string): maximum value of the desired range",
+      "includeLow (bool): whether the minimum value shall be included in the range (left-closed interval) or not (left-open interval)",
+      "includeHigh (bool): whether the maximum value shall be included in the range (right-closed interval) or not (right-open interval)"
+    ],
+    "MIN_MATCH": [
+      "expr (expression, repeatable): any valid search expression",
+      "minMatchCount (number): minimum number of search expressions that should be satisfied"
+    ],
+    "PHRASE": [
+      "path (attribute path expression): the attribute to test in the document",
+      "phrasePart (string): text to search for in the tokens. May consist of several words/tokens, which will be split using the specified analyzer",
+      "skipTokens (number, optional): amount of words/tokens to treat as wildcards",
+      "analyzer (string, optional): name of an Analyzer. Uses the Analyzer of a wrapping ANALYZER() call if not specified or defaults to 'identity'",
+      "returns nothing: the function can only be called in a SEARCH operation and throws an error otherwise"
+    ],
+    "STARTS_WITH": [
+      "path (attribute path expression): the path of the attribute to compare against in the document"
+    ],
+    "TOKENS": [
+      "input (string): text to tokenize",
+      "analyzer (string): name of an Analyzer."
+    ],
+    "BM25": [
+      "doc (document): must be emitted by FOR ... IN viewName",
+      "k (number, optional): calibrates the text term frequency scaling. The default is 1.2. A k value of 0 corresponds to a binary model (no term frequency), and a large value corresponds to using raw term frequency",
+      "b (number, optional): determines the scaling by the total text length. The default is 0.75. At the extreme values of the coefficient b, BM25 turns into the ranking functions known as:\nBM11 for b = 1 (corresponds to fully scaling the term weight by the total text length)\nBM15 for b = 0 (corresponds to no length normalization)"
+    ],
+    "TFIDF": [
+      "doc (document): must be emitted by FOR ... IN viewName",
+      "normalize (bool, optional): specifies whether scores should be normalized. The default is false."
+    ],
+    "CHAR_LENGTH": [
+      "value"
+    ],
+    "CONCAT": [
+      "values (any, repeatable): elements of arbitrary type (at least 1)"
+    ],
+    "CONCAT_SEPARATOR": [
+      "separator (string): an arbitrary separator string",
+      "values (string|array, repeatable): strings or arrays of strings as multiple arguments (at least 1)"
+    ],
+    "CONTAINS": [
+      "text (string): the haystack",
+      "search (string): the needle",
+      "returnIndex (bool, optional): if set to true, the character position of the match is returned instead of a boolean. The default is false."
+    ],
+    "CRC32": [
+      "text (string): a string"
+    ],
+    "ENCODE_URI_COMPONENT": [
+      "text (string): a string"
+    ],
+    "FIND_FIRST": [
+      "text (string): the haystack",
+      "search (string): the needle",
+      "start (number, optional): limit the search to a subset of the text, beginning at start",
+      "end (number, optional): limit the search to a subset of the text, ending at end"
+    ],
+    "FIND_LAST": [
+      "text (string): the haystack",
+      "search (string): the needle",
+      "start (number, optional): limit the search to a subset of the text, beginning at start",
+      "end (number, optional): limit the search to a subset of the text, ending at end"
+    ],
+    "FNV64": [
+      "text (string): a string"
+    ],
+    "JSON_PARSE": [
+      "text (string): the string to parse as JSON"
+    ],
+    "JSON_STRINGIFY": [
+      "value (mixed): the value to convert to a JSON string"
+    ],
+    "LEFT": [
+      "value (string): a string",
+      "n (number): how many characters to return"
+    ],
+    "LEVENSHTEIN_DISTANCE": [
+      "value1 (string): a string",
+      "value2 (string): a string"
+    ],
+    "LIKE": [
+      "text (string): the string to search in",
+      "search (string): a search pattern that can contain the wildcard characters % (meaning any sequence of characters, including none) and _ (any single character). Literal % and _ must be escaped with two backslashes (four in arangosh). search cannot be a variable or a document attribute. The actual value must be present at query parse time already.",
+      "caseInsensitive (bool, optional): if set to true, the matching will be case-insensitive. The default is false."
+    ],
+    "LOWER": [
+      "value (string): a string"
+    ],
+    "LTRIM": [
+      "value (string): a string",
+      "chars (string, optional): override the characters that should be removed from the string. It defaults to \\r\\n \\t (i.e. 0x0d, 0x0a, 0x20 and 0x09)."
+    ],
+    "MD5": [
+      "text (string): a string"
+    ],
+    "RANDOM_TOKEN": [
+      "length (number): desired string length for the token. It must be greater than 0 and at most 65536."
+    ],
+    "REGEX_MATCHES": [
+      "text (string): the string to search in",
+      "regex (string): a regular expression to use for matching the text"
+    ],
+    "REGEX_SPLIT": [
+      "text (string): the string to split",
+      "splitExpression (string): a regular expression to use for splitting the text",
+      "limit (number, optional): limit the number of split values in the result. If no limit is given, the number of splits returned is not bounded."
+    ],
+    "REGEX_TEST": [
+      "text (string): the string to search in",
+      "search (string): a regular expression search pattern",
+      "caseInsensitive (bool, optional): if set to true, the matching will be case-insensitive. The default is false."
+    ],
+    "REGEX_REPLACE": [
+      "text (string): the string to search in",
+      "search (string): a regular expression search pattern",
+      "replacement (string): the string to replace the search pattern with",
+      "caseInsensitive (bool, optional): if set to true, the matching will be case-insensitive. The default is false."
+    ],
+    "RIGHT": [
+      "value (string): a string"
+    ],
+    "RTRIM": [
+      "value (string): a string",
+      "chars (string, optional): override the characters that should be removed from the string. It defaults to \\r\\n \\t (i.e. 0x0d, 0x0a, 0x20 and 0x09)."
+    ],
+    "SHA1": [
+      "text (string): a string"
+    ],
+    "SHA512": [
+      "text (string): a string"
+    ],
+    "SPLIT": [
+      "value (string): a string",
+      "separator (string): either a string or a list of strings. If separator is an empty string, value will be split into a list of characters. If no separator is specified, value will be returned as array.",
+      "limit (number, optional): limit the number of split values in the result. If no limit is given, the number of splits returned is not bounded."
+    ],
+    "SOUNDEX": [
+      "value (string): a string"
+    ],
+    "SUBSTITUTE": [
+      "value (string): a string",
+      "search (string|array): if search is a string, all occurrences of search will be replaced in value. If search is an array of strings, each occurrence of a value contained in search will be replaced by the corresponding array element in replace. If replace has less list items than search, occurrences of unmapped search items will be replaced by an empty string.",
+      "replace (string|array, optional): a replacement string, or an array of strings to replace the corresponding elements of search with. Can have less elements than search or be left out to remove matches. If search is an array but replace is a string, then all matches will be replaced with replace.",
+      "limit (number, optional): cap the number of replacements to this value",
+      "-------or-------",
+      "value (string): a string",
+      "mapping (object): a lookup map with search strings as keys and replacement strings as values. Empty strings and null as values remove matches. Please note that no sequence of search strings can be warrantied by this; Means, if you have overlapping search results, one time the first may win, another time the second. If you need to ensure the precedence of the sequence choose the array based invocation method.",
+      "limit (number, optional): cap the number of replacements to this value"
+    ],
+    "SUBSTRING": [
+      "value (string): a string",
+      "offset (number): start at offset, offsets start at position 0",
+      "length (number, optional): at most length characters, omit to get the substring from offset to the end of the string"
+    ],
+    "TO_BASE64": [
+      "value (string): a string"
+    ],
+    "TO_HEX": [
+      "value (string): a string"
+    ],
+    "TRIM": [
+      "value (string): a string",
+      "type (number, optional): strip whitespace from the\n0 – start and end of the string (default)\n1 – start of the string only\n2 – end of the string only",
+      "-------or-------",
+      "value (string): a string",
+      "chars (string, optional): override the characters that should be removed from the string. It defaults to \\r\\n \\t (i.e. 0x0d, 0x0a, 0x20 and 0x09)."
+    ],
+    "UPPER": [
+      "value (string): a string"
+    ],
+    "UUID": [
+      "<no arguments>"
+    ],
+    "TO_BOOL": [
+      "value (any): input of arbitrary type"
+    ],
+    "TO_NUMBER": [
+      "value (any): input of arbitrary type"
+    ],
+    "TO_STRING": [
+      "value (any): input of arbitrary type"
+    ],
+    "TO_ARRAY": [
+      "value (any): input of arbitrary type"
+    ],
+    "TO_LIST": [
+      "value (any): input of arbitrary type (alias for TO_ARRAY())"
+    ],
+    "IS_NULL": [
+      "value (any): value to test"
+    ],
+    "IS_BOOL": [
+      "value (any): value to test"
+    ],
+    "IS_NUMBER": [
+      "value (any): value to test"
+    ],
+    "IS_STRING": [
+      "value (any): value to test"
+    ],
+    "IS_ARRAY": [
+      "value (any): value to test"
+    ],
+    "IS_LIST": [
+      "value (any): value to test (alias for IS_ARRAY())"
+    ],
+    "IS_OBJECT": [
+      "value (any): value to test"
+    ],
+    "IS_DOCUMENT": [
+      "value (any): value to test (alias for IS_OBJECT())"
+    ],
+    "IS_KEY": [
+      "str (string): document key to test"
+    ],
+    "TYPENAME": [
+      "value (any): input of arbitrary type"
     ]
   }
 }
