@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="AQL">
+  <template name="AQL: Select from collection" value="FOR $VARIABLE_NAME$ IN $COLLECTION_NAME$ RETURN $VARIABLE_NAME$" description="Select documents from collection" toReformat="false" toShortenFQNames="true">
+    <variable name="COLLECTION_NAME" expression="complete()" defaultValue="&quot;COLLECTION_NAME&quot;" alwaysStopAt="true"/>
+    <variable name="VARIABLE_NAME" expression="" defaultValue="&quot;doc&quot;" alwaysStopAt="true"/>
+    <context>
+      <option name="AQL" value="true"/>
+      <option name="JAVA_CODE" value="true"/>
+    </context>
+  </template>
+</templateSet>
+

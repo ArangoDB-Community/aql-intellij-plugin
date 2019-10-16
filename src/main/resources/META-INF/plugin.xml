@@ -21,7 +21,7 @@
 
   <change-notes><![CDATA[
   
-     <p>1.0.5 bug fixes, add missing analyzers  (grammar)</p>
+     <p>1.0.5 bug fixes, add missing analyzers (grammar), add function parameter hints (CTRL+P), add live template support</p>
      <p>1.0.4 Add 2019.2+ support, use password manager to store passwords</p>
      <p>1.0.3 bug fixes, create SpringData Repository interface intention</p>
      <p>1.0.2 bug fixes</p>
@@ -53,6 +53,8 @@
     <codeInsight.parameterNameHints language="AQL" implementationClass="com.arangodb.intellij.aql.editor.AqlParameterNameHints"/>
     <codeInsight.parameterInfo implementationClass="com.arangodb.intellij.aql.editor.AqlParameterInfoHandler" language="AQL"/>
     <fileType name="AQL file" implementationClass="com.arangodb.intellij.aql.file.AqlFileType" fieldName="INSTANCE" language="AQL" extensions="aql"/>
+    <defaultLiveTemplatesProvider implementation="com.arangodb.intellij.aql.templates.AqlTemplateProvider" />
+    <liveTemplateContext implementation="com.arangodb.intellij.aql.templates.AqlTemplateContext"/>
     <lang.parserDefinition language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlParserDefinition"/>
     <internalFileTemplate name="templates.AQL Template"/>
     <colorSettingsPage implementation="com.arangodb.intellij.aql.settings.AqlColorSettingsPage"/>
