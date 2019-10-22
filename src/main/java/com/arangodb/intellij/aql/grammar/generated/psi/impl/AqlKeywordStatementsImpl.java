@@ -1,6 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin;
@@ -10,8 +13,6 @@ import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
@@ -140,6 +141,12 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
 
   @Override
   @Nullable
+  public PsiElement getTPrune() {
+    return findChildByType(T_PRUNE);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getTRemove() {
     return findChildByType(T_REMOVE);
   }
@@ -192,14 +199,17 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
     return findChildByType(T_WITH);
   }
 
+  @Override
   public String getName() {
     return AqlPsiUtil.getName(this);
   }
 
+  @Override
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
   }
 
+  @Override
   public ItemPresentation getPresentation() {
     return AqlPsiUtil.getPresentation(this);
   }

@@ -1,6 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlIntegerType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlSequence;
@@ -9,9 +13,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class AqlSequenceImpl extends ASTWrapperPsiElement implements AqlSequence {
 

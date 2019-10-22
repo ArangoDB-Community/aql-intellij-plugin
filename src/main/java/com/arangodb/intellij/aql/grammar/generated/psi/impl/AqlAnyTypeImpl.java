@@ -1,6 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnyType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlExpressionType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlJsonType;
@@ -8,8 +11,6 @@ import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class AqlAnyTypeImpl extends ASTWrapperPsiElement implements AqlAnyType {
 

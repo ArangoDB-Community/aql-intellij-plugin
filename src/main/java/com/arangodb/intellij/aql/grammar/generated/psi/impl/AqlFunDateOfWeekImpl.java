@@ -1,6 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnyType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunDateOfWeek;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlIntegerType;
@@ -10,12 +15,8 @@ import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.F_DATE_DAYOFWEEK;
 
 public class AqlFunDateOfWeekImpl extends ASTWrapperPsiElement implements AqlFunDateOfWeek {
 

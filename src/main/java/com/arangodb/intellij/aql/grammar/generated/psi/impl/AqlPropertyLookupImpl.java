@@ -1,15 +1,20 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlPropertyLookupMixin;
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlExpressionType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyLookup;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlPropertyName;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlSystemProperty;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements AqlPropertyLookup {
 
@@ -44,14 +49,17 @@ public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements Aql
     return findChildByClass(AqlSystemProperty.class);
   }
 
+  @Override
   public String getName() {
     return AqlPsiUtil.getName(this);
   }
 
+  @Override
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
   }
 
+  @Override
   public ItemPresentation getPresentation() {
     return AqlPsiUtil.getPresentation(this);
   }

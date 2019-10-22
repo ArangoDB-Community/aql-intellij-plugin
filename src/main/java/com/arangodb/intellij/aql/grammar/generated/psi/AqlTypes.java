@@ -233,7 +233,11 @@ public interface AqlTypes {
   IElementType SYSTEM_PROPERTY = new AqlElementType("SYSTEM_PROPERTY");
   IElementType VARIABLE_PLACE_HOLDER = new AqlElementType("VARIABLE_PLACE_HOLDER");
 
+  IElementType A_DELIMITER = new AqlTokenType("A_DELIMITER");
   IElementType A_IDENTITY = new AqlTokenType("A_IDENTITY");
+  IElementType A_NGRAM = new AqlTokenType("A_NGRAM");
+  IElementType A_NORM = new AqlTokenType("A_NORM");
+  IElementType A_STEM = new AqlTokenType("A_STEM");
   IElementType A_TEXT_DE = new AqlTokenType("A_TEXT_DE");
   IElementType A_TEXT_EN = new AqlTokenType("A_TEXT_EN");
   IElementType A_TEXT_ES = new AqlTokenType("A_TEXT_ES");
@@ -516,6 +520,7 @@ public interface AqlTypes {
   IElementType T_OUTBOUND = new AqlTokenType("T_OUTBOUND");
   IElementType T_PLACHOLDER_START = new AqlTokenType("${");
   IElementType T_PLUS = new AqlTokenType("+");
+  IElementType T_PRUNE = new AqlTokenType("T_PRUNE");
   IElementType T_QUESTION = new AqlTokenType("?");
   IElementType T_RANGE = new AqlTokenType("..");
   IElementType T_REGEX_MATCH = new AqlTokenType("~=");

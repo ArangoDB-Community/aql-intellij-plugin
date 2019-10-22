@@ -30,6 +30,7 @@ T_UPDATE = "regexp:([Uu])([Pp])([Dd])([Aa])([Tt])([Ee])"
 T_SORT = "regexp:([Ss])([Oo])([Rr])([Tt])"
 T_GRAPH = "regexp:([Gg])([Rr])([Aa])([Pp])([Hh])"
 T_FOR = "regexp:([Ff])([Oo])([Rr])"
+T_PRUNE = "regexp:([Pp])([Rr])([Uu])([Nn])([Ee])"
 T_LET = "regexp:([Ll])([Ee])([Tt])"
 T_COLLECT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])"
 T_CURRENT = "regexp:([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])"
@@ -786,6 +787,7 @@ private reserved_keywords ::=    T_SHORTEST_PATH
                         | T_SORT
                         | T_GRAPH
                         | T_FOR
+                        | T_PRUNE
                         | T_LET
                         | T_COLLECT
                         | T_CURRENT

@@ -1,9 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
 
 public class AqlVisitor extends PsiElementVisitor {
 

@@ -1,12 +1,13 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlBooleanType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
 
 public class AqlBooleanTypeImpl extends ASTWrapperPsiElement implements AqlBooleanType {
 

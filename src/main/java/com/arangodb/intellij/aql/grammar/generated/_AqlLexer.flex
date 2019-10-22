@@ -39,6 +39,7 @@ T_UPDATE=([Uu])([Pp])([Dd])([Aa])([Tt])([Ee])
 T_SORT=([Ss])([Oo])([Rr])([Tt])
 T_GRAPH=([Gg])([Rr])([Aa])([Pp])([Hh])
 T_FOR=([Ff])([Oo])([Rr])
+T_PRUNE=([Pp])([Rr])([Uu])([Nn])([Ee])
 T_LET=([Ll])([Ee])([Tt])
 T_COLLECT=([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])
 T_CURRENT=([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])
@@ -245,6 +246,10 @@ F_IS_OBJECT=([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])
 F_STDDEV_SAMPLE=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])
 F_COUNT_DISTINCT=([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 A_IDENTITY=('identity')|(\"identity\")
+A_DELIMITER=('delimiter')|(\"delimiter\")
+A_STEM=('stem')|(\"stem\")
+A_NORM=('stem')|(\"norm\")
+A_NGRAM=('stem')|(\"ngram\")
 A_TEXT_DE=('text_de')|(\"text_de\")
 A_TEXT_EN=('text_en')|(\"text_en\")
 A_TEXT_ES=('text_es')|(\"text_es\")
@@ -349,6 +354,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {T_SORT}                      { return T_SORT; }
   {T_GRAPH}                     { return T_GRAPH; }
   {T_FOR}                       { return T_FOR; }
+  {T_PRUNE}                     { return T_PRUNE; }
   {T_LET}                       { return T_LET; }
   {T_COLLECT}                   { return T_COLLECT; }
   {T_CURRENT}                   { return T_CURRENT; }
@@ -555,6 +561,10 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_STDDEV_SAMPLE}             { return F_STDDEV_SAMPLE; }
   {F_COUNT_DISTINCT}            { return F_COUNT_DISTINCT; }
   {A_IDENTITY}                  { return A_IDENTITY; }
+  {A_DELIMITER}                 { return A_DELIMITER; }
+  {A_STEM}                      { return A_STEM; }
+  {A_NORM}                      { return A_NORM; }
+  {A_NGRAM}                     { return A_NGRAM; }
   {A_TEXT_DE}                   { return A_TEXT_DE; }
   {A_TEXT_EN}                   { return A_TEXT_EN; }
   {A_TEXT_ES}                   { return A_TEXT_ES; }

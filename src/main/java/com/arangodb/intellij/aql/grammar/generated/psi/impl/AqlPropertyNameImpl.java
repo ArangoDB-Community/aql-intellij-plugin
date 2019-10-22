@@ -1,6 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlIdMixin;
@@ -10,10 +13,8 @@ import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.ID;
 
 public class AqlPropertyNameImpl extends AqlIdMixin implements AqlPropertyName {
 
@@ -36,14 +37,17 @@ public class AqlPropertyNameImpl extends AqlIdMixin implements AqlPropertyName {
     return findChildByType(ID);
   }
 
+  @Override
   public String getName() {
     return AqlPsiUtil.getName(this);
   }
 
+  @Override
   public AqlNamedElement setName(String newName) {
     return AqlPsiUtil.setName(this, newName);
   }
 
+  @Override
   public ItemPresentation getPresentation() {
     return AqlPsiUtil.getPresentation(this);
   }

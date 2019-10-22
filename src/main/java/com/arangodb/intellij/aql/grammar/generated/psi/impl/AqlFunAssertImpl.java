@@ -1,6 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnyType;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunAssert;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlStringType;
@@ -9,10 +12,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.F_ASSERT;
 
 public class AqlFunAssertImpl extends ASTWrapperPsiElement implements AqlFunAssert {
 
