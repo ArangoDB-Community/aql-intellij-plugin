@@ -587,6 +587,12 @@ public class AqlExpressionTypeImpl extends ASTWrapperPsiElement implements AqlEx
 
   @Override
   @Nullable
+  public PsiElement getFInRange() {
+    return findChildByType(F_IN_RANGE);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getFIsArray() {
     return findChildByType(F_IS_ARRAY);
   }

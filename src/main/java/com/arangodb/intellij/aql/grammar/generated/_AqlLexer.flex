@@ -224,6 +224,7 @@ F_RAND=([Rr])([Aa])([Nn])([Dd])
 F_PERCENTILE=([Pp])([Ee])([Rr])([Cc])([Ee])([Nn])([Tt])([Ii])([Ll])([Ee])
 F_BM25=([Bb])([Mm])([2])([5])
 F_RANGE=([Rr])([Aa])([Nn])([Gg])([Ee])
+F_IN_RANGE=([Ii])([Nn])([_])([Rr])([Aa])([Nn])([Gg])([Ee])
 F_SLEEP=([Ss])([Ll])([Ee])([Ee])([Pp])
 F_UNION_DISTINCT=([Uu])([Nn])([Ii])([Oo])([Nn])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 F_STDDEV=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])
@@ -539,6 +540,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_PERCENTILE}                { return F_PERCENTILE; }
   {F_BM25}                      { return F_BM25; }
   {F_RANGE}                     { return F_RANGE; }
+  {F_IN_RANGE}                  { return F_IN_RANGE; }
   {F_SLEEP}                     { return F_SLEEP; }
   {F_UNION_DISTINCT}            { return F_UNION_DISTINCT; }
   {F_STDDEV}                    { return F_STDDEV; }

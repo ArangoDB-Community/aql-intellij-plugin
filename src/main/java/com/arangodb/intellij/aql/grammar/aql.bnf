@@ -220,6 +220,7 @@ F_RAND = "regexp:([Rr])([Aa])([Nn])([Dd])"
 F_PERCENTILE = "regexp:([Pp])([Ee])([Rr])([Cc])([Ee])([Nn])([Tt])([Ii])([Ll])([Ee])"
 F_BM25 = "regexp:([Bb])([Mm])([2])([5])"
 F_RANGE = "regexp:([Rr])([Aa])([Nn])([Gg])([Ee])"
+F_IN_RANGE = "regexp:([Ii])([Nn])([_])([Rr])([Aa])([Nn])([Gg])([Ee])"
 F_SLEEP = "regexp:([Ss])([Ll])([Ee])([Ee])([Pp])"
 F_UNION_DISTINCT = "regexp:([Uu])([Nn])([Ii])([Oo])([Nn])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
 F_STDDEV = "regexp:([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])"
@@ -400,6 +401,7 @@ private keyword_functions ::=  F_SUBSTITUTE
                                 | F_LTRIM
                                 | F_REVERSE
                                 | F_RANGE
+                                | F_IN_RANGE
                                 | F_FIRST
                                 | F_LENGTH
                                 | F_UNSET_RECURSIVE
@@ -748,6 +750,7 @@ NamedFunctions::= FunAbs
               | FunStddevPopulation
               | FunVariancePopulation
               | FunRadians
+              | FunInRange
               | FunRange
               | FunRound
               | FunVariance
@@ -1158,6 +1161,7 @@ FunRand  ::=  (F_RAND "(" ")")
 FunPow  ::=  (F_POW "(" number_argument "," number_argument ")"){pin=2}
 FunRadians  ::=  (F_RADIANS "(" number_argument ")"){pin=2}
 FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")"){pin=2}
+FunInRange  ::=  (F_IN_RANGE "(" AnyType "," number_argument "," number_argument  "," BooleanType  "," BooleanType ")"){pin=2}
 FunRound  ::=  (F_ROUND "(" number_argument ")"){pin=2}
 FunSQRT  ::=  (F_SQRT "(" number_argument ")"){pin=2}
 FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){pin=2}

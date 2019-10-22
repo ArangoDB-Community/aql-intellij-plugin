@@ -287,6 +287,9 @@ public interface AqlExpressionType extends PsiElement {
   PsiElement getFIntersection();
 
   @Nullable
+  PsiElement getFInRange();
+
+  @Nullable
   PsiElement getFIsArray();
 
   @Nullable

@@ -364,6 +364,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunInRange(@NotNull AqlFunInRange o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunInterSection(@NotNull AqlFunInterSection o) {
     visitPsiElement(o);
   }

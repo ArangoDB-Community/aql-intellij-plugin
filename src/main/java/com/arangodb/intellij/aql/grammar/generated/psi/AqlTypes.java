@@ -101,6 +101,7 @@ public interface AqlTypes {
   IElementType FUN_HAS = new AqlElementType("FUN_HAS");
   IElementType FUN_HASH = new AqlElementType("FUN_HASH");
   IElementType FUN_INTER_SECTION = new AqlElementType("FUN_INTER_SECTION");
+  IElementType FUN_IN_RANGE = new AqlElementType("FUN_IN_RANGE");
   IElementType FUN_IS_ARRAY = new AqlElementType("FUN_IS_ARRAY");
   IElementType FUN_IS_BOOL = new AqlElementType("FUN_IS_BOOL");
   IElementType FUN_IS_DATE_STRING = new AqlElementType("FUN_IS_DATE_STRING");
@@ -348,6 +349,7 @@ public interface AqlTypes {
   IElementType F_HAS = new AqlTokenType("F_HAS");
   IElementType F_HASH = new AqlTokenType("F_HASH");
   IElementType F_INTERSECTION = new AqlTokenType("F_INTERSECTION");
+  IElementType F_IN_RANGE = new AqlTokenType("F_IN_RANGE");
   IElementType F_IS_ARRAY = new AqlTokenType("F_IS_ARRAY");
   IElementType F_IS_BOOL = new AqlTokenType("F_IS_BOOL");
   IElementType F_IS_DATESTRING = new AqlTokenType("F_IS_DATESTRING");
@@ -817,6 +819,9 @@ public interface AqlTypes {
       }
       else if (type == FUN_INTER_SECTION) {
         return new AqlFunInterSectionImpl(node);
+      }
+      else if (type == FUN_IN_RANGE) {
+        return new AqlFunInRangeImpl(node);
       }
       else if (type == FUN_IS_ARRAY) {
         return new AqlFunIsArrayImpl(node);

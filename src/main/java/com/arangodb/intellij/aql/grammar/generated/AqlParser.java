@@ -2184,6 +2184,29 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // F_IN_RANGE "(" AnyType "," number_argument "," number_argument  "," BooleanType  "," BooleanType ")"
+  public static boolean FunInRange(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunInRange")) return false;
+    if (!nextTokenIs(b, F_IN_RANGE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_IN_RANGE, null);
+    r = consumeTokens(b, 2, F_IN_RANGE, T_OPEN);
+    p = r; // pin = 2
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, number_argument(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, number_argument(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, BooleanType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, BooleanType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // F_INTERSECTION  "(" (number_argument_array)+ ")"
   public static boolean FunInterSection(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunInterSection")) return false;
@@ -5178,6 +5201,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | FunStddevPopulation
   //               | FunVariancePopulation
   //               | FunRadians
+  //               | FunInRange
   //               | FunRange
   //               | FunRound
   //               | FunVariance
@@ -5372,6 +5396,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = FunStddevPopulation(b, l + 1);
     if (!r) r = FunVariancePopulation(b, l + 1);
     if (!r) r = FunRadians(b, l + 1);
+    if (!r) r = FunInRange(b, l + 1);
     if (!r) r = FunRange(b, l + 1);
     if (!r) r = FunRound(b, l + 1);
     if (!r) r = FunVariance(b, l + 1);
@@ -6076,6 +6101,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                                 | F_LTRIM
   //                                 | F_REVERSE
   //                                 | F_RANGE
+  //                                 | F_IN_RANGE
   //                                 | F_FIRST
   //                                 | F_LENGTH
   //                                 | F_UNSET_RECURSIVE
@@ -6272,6 +6298,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, F_LTRIM);
     if (!r) r = consumeToken(b, F_REVERSE);
     if (!r) r = consumeToken(b, F_RANGE);
+    if (!r) r = consumeToken(b, F_IN_RANGE);
     if (!r) r = consumeToken(b, F_FIRST);
     if (!r) r = consumeToken(b, F_LENGTH);
     if (!r) r = consumeToken(b, F_UNSET_RECURSIVE);
