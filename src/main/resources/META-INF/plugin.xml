@@ -18,9 +18,9 @@
         <li>Execute queries</li>
       </ul>
     ]]></description>
-
+  <!--  TODO: release notes-->
   <change-notes><![CDATA[
-  
+     <p>1.0.6  </p>
      <p>1.0.5 bug fixes, add new analyzers, keywords and functions(grammar/autocompletee), add function parameter hints (CTRL+P), add live template support</p>
      <p>1.0.4 Add 2019.2+ support, use password manager to store passwords</p>
      <p>1.0.3 bug fixes, create SpringData Repository interface intention</p>
