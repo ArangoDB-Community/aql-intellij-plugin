@@ -1,9 +1,24 @@
 package com.arangodb.intellij.aql.actions;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.tree.DefaultTreeModel;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.ArangoCursor;
 import com.arangodb.ArangoDBException;
 import com.arangodb.ArangoDatabase;
-import com.arangodb.entity.*;
+import com.arangodb.entity.AqlExecutionExplainEntity;
+import com.arangodb.entity.CollectionEntity;
+import com.arangodb.entity.CollectionType;
+import com.arangodb.entity.GraphEntity;
+import com.arangodb.entity.ViewEntity;
 import com.arangodb.intellij.aql.db.AqlDatabaseService;
 import com.arangodb.intellij.aql.exc.AqlDataSourceException;
 import com.arangodb.intellij.aql.model.AqlQuery;
@@ -22,11 +37,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.ui.CheckedTreeNode;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.Topic;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.tree.DefaultTreeModel;
-import java.util.*;
 
 /**
  * Wrapper for all components data exchange/services.
@@ -277,6 +287,43 @@ public final class AqlDataService {
             }
             databaseNode.setUserObject(databaseObject);
             root.add(databaseNode);
+            // own classes:
+            final Collection<CollectionEntity> collections = database.getCollections();
+            for (CollectionEntity entity : collections) {
+                final CollectionType type = entity.getType();
+                if (type == CollectionType.EDGES) {
+                    continue;
+                }
+                if (entity.getName() != null && entity.getName().startsWith("_")) {
+                    // skip system classes
+                    continue;
+                }
+                final CheckedTreeNode entityNode = new CheckedTreeNode();
+                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.COLLECTION));
+                databaseNode.add(entityNode);
+            }
+
+            // own edges:
+            for (CollectionEntity entity : collections) {
+                final CollectionType type = entity.getType();
+                if (type != CollectionType.EDGES) {
+                    continue;
+                }
+                if (entity.getName() != null && entity.getName().startsWith("_")) {
+                    // skip system classes
+                    continue;
+                }
+                final CheckedTreeNode entityNode = new CheckedTreeNode();
+                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.COLLECTION));
+                databaseNode.add(entityNode);
+            }
+            // graphs:
+            final Collection<GraphEntity> graphs = database.getGraphs();
+            for (GraphEntity entity : graphs) {
+                final CheckedTreeNode entityNode = new CheckedTreeNode();
+                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.GRAPH));
+                databaseNode.add(entityNode);
+            }
             //  views:
             final Collection<ViewEntity> views = database.getViews();
             for (ViewEntity entity : views) {
@@ -284,19 +331,21 @@ public final class AqlDataService {
                 entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.VIEW));
                 databaseNode.add(entityNode);
             }
-            final Collection<CollectionEntity> collections = database.getCollections();
+
+            // system:
             for (CollectionEntity entity : collections) {
+                final CollectionType type = entity.getType();
+
+                if (entity.getName() != null && !entity.getName().startsWith("_")) {
+                    // skip system classes
+                    continue;
+                }
                 final CheckedTreeNode entityNode = new CheckedTreeNode();
                 final AqlNodeModel.Type collection = entity.getType() == CollectionType.EDGES ? AqlNodeModel.Type.EDGE : AqlNodeModel.Type.COLLECTION;
                 entityNode.setUserObject(new AqlNodeModel("", entity.getName(), collection));
                 databaseNode.add(entityNode);
             }
-            final Collection<GraphEntity> graphs = database.getGraphs();
-            for (GraphEntity entity : graphs) {
-                final CheckedTreeNode entityNode = new CheckedTreeNode();
-                entityNode.setUserObject(new AqlNodeModel("", entity.getName(), AqlNodeModel.Type.GRAPH));
-                databaseNode.add(entityNode);
-            }
+
 
 
         }
