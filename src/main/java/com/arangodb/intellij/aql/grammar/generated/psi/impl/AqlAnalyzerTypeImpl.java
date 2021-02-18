@@ -1,17 +1,19 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnalyzerType;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
 
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 
 public class AqlAnalyzerTypeImpl extends ASTWrapperPsiElement implements AqlAnalyzerType {
 
@@ -23,6 +25,7 @@ public class AqlAnalyzerTypeImpl extends ASTWrapperPsiElement implements AqlAnal
     visitor.visitAnalyzerType(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
     else super.accept(visitor);

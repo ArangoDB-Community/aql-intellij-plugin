@@ -2,21 +2,27 @@
 
 package com.arangodb.intellij.aql.editor;
 
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
-import com.arangodb.intellij.aql.grammar.generated.psi.impl.AqlParameterVariableImpl;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlExpressionType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunctionExpression;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlNamedFunctions;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
+
+
 import com.arangodb.intellij.aql.util.JSON;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
-import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.ReadOnlyASTNode;
-import com.intellij.lang.parameterInfo.*;
-import com.intellij.openapi.util.TextRange;
+import com.intellij.lang.Language;
+import com.intellij.lang.parameterInfo.CreateParameterInfoContext;
+import com.intellij.lang.parameterInfo.ParameterInfoHandlerWithTabActionSupport;
+import com.intellij.lang.parameterInfo.ParameterInfoUIContext;
+import com.intellij.lang.parameterInfo.UpdateParameterInfoContext;
 import com.intellij.psi.JavaTokenType;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.testFramework.ReadOnlyLightVirtualFile;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.text.CharArrayUtil;
 import org.jetbrains.annotations.NotNull;
@@ -38,8 +44,7 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
     @SuppressWarnings("rawtypes")
     private static final Set<Class> CLASS_SET = Collections.singleton(AqlNamedFunctions.class);
 
-    @SuppressWarnings("rawtypes")
-    private static final Set<Class> ALLOWED_PARENT_CLASSES = ContainerUtil.newHashSet(
+    private static final Set<Class<?>> ALLOWED_PARENT_CLASSES = ContainerUtil.newHashSet(
             AqlNamedFunctions.class, AqlExpressionType.class);
 
     @Nullable
@@ -141,15 +146,16 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
 
     @NotNull
     @Override
-    public AqlParameterVariable[] getActualParameters(@NotNull final AqlNamedFunctions o) {
+    public AqlParameterVariable @NotNull [] getActualParameters(@NotNull final AqlNamedFunctions o) {
 
         final List<String> parameters = getParameters(o.getFunctionName());
         final List<AqlParameterVariable> variables = new ArrayList<>();
-        for (String parameter : parameters) {
-            final AqlParameterVariableImpl variable = new AqlParameterVariableImpl(new VariableNode(null, 0));
+        // TODO upgrade check
+       /* for (String parameter : parameters) {
+            final AqlParameterVariableImpl variable = new AqlParameterVariableImpl(new VariableNode(parameter,Language.ANY, parameter));
             variable.setName(parameter);
             variables.add(variable);
-        }
+        }*/
         return variables.toArray(EMPTY);
     }
 
@@ -165,27 +171,33 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
         return JavaTokenType.RBRACE;
     }
 
-    @SuppressWarnings("rawtypes")
     @NotNull
     @Override
-    public Set<Class> getArgumentListAllowedParentClasses() {
+    public Set<Class<?>> getArgumentListAllowedParentClasses() {
+        return ALLOWED_PARENT_CLASSES;
+    }
+
+    // TODO upgrade check
+    @Override
+    public @NotNull Set<? extends Class<?>> getArgListStopSearchClasses() {
         return ALLOWED_PARENT_CLASSES;
     }
 
 
+/*
     @SuppressWarnings("rawtypes")
     @NotNull
     @Override
     public Set<? extends Class> getArgListStopSearchClasses() {
         return CLASS_SET;
     }
+*/
 
     @NotNull
     @Override
     public Class<AqlNamedFunctions> getArgumentListClass() {
         return AqlNamedFunctions.class;
     }
-
 
 
     private List<String> getParameters(final String functionName) {
@@ -195,7 +207,7 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
                     if (stream == null) {
                         return Collections.emptyList();
                     }
-                    @SuppressWarnings("UnstableApiUsage") final String string = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8));
+                    final String string = CharStreams.toString(new InputStreamReader(stream, Charsets.UTF_8));
                     params = JSON.fromJson(string, AqlParams.class);
                 } catch (IOException e) {
                     log.error("Error reading arguments list", e);
@@ -207,17 +219,6 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
             return params.forName(functionName);
         }
         return Collections.emptyList();
-    }
-
-    @Override
-    public boolean couldShowInLookup() {
-        return true;
-    }
-
-    @Nullable
-    @Override
-    public Object[] getParametersForLookup(LookupElement item, ParameterInfoContext context) {
-        return null;
     }
 
     private static class AqlParams {
@@ -242,37 +243,11 @@ public class AqlParameterInfoHandler implements ParameterInfoHandlerWithTabActio
         }
     }
 
-    private static class VariableNode extends ReadOnlyASTNode {
+    private static class VariableNode extends ReadOnlyLightVirtualFile {
 
-        public VariableNode(@Nullable final ReadOnlyASTNode parent, final int index) {
-            super(parent, index);
-        }
 
-        @Override
-        protected ASTNode[] getChildArray() {
-            return AST_NODES;
-        }
-
-        @NotNull
-        @Override
-        public IElementType getElementType() {
-            return AqlTypes.VARIABLE_PLACE_HOLDER;
-        }
-
-        @NotNull
-        @Override
-        public CharSequence getChars() {
-            return "";
-        }
-
-        @Override
-        public TextRange getTextRange() {
-            return null;
-        }
-
-        @Override
-        public PsiElement getPsi() {
-            return null;
+        public VariableNode(@NotNull final String name, @NotNull final Language language, @NotNull final CharSequence text) {
+            super(name, language, text);
         }
     }
 }

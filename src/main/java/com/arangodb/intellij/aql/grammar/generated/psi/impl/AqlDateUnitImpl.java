@@ -1,30 +1,19 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlDateUnit;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
+import com.intellij.psi.util.PsiTreeUtil;
 
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_DAY_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_DAY_S;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_HOUR_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_HOUR_S;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_MILLISECOND_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_MILLISECOND_S;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_MINUTE_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_MINUTE_S;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_MONTH_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_MONTH_S;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_SECOND_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_SECOND_S;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_YEAR_D;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.D_YEAR_S;
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 
 public class AqlDateUnitImpl extends ASTWrapperPsiElement implements AqlDateUnit {
 
@@ -36,10 +25,11 @@ public class AqlDateUnitImpl extends ASTWrapperPsiElement implements AqlDateUnit
     visitor.visitDateUnit(this);
   }
 
-  public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
-    else super.accept(visitor);
-  }
+    @Override
+    public void accept(@NotNull PsiElementVisitor visitor) {
+        if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+        else super.accept(visitor);
+    }
 
   @Override
   @Nullable

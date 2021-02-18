@@ -1,20 +1,18 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
-import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlKeywordStatements;
-import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
-import com.intellij.navigation.ItemPresentation;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-
+import com.intellij.psi.util.PsiTreeUtil;
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlKeywordMixin;
+import com.arangodb.intellij.aql.grammar.generated.psi.*;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
+import com.intellij.navigation.ItemPresentation;
 
 public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeywordStatements {
 
@@ -26,6 +24,7 @@ public class AqlKeywordStatementsImpl extends AqlKeywordMixin implements AqlKeyw
     visitor.visitKeywordStatements(this);
   }
 
+  @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
     else super.accept(visitor);

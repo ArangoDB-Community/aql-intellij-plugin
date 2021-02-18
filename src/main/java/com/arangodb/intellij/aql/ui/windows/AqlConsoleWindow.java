@@ -107,7 +107,8 @@ public class AqlConsoleWindow implements Disposable {
     private void createUIComponents() {
         tabPanel = new JBTabsPaneImpl(null, SwingConstants.TOP, this);
         consoleTabs = (JBTabsImpl) tabPanel.getTabs();
-        Disposer.register(this, consoleTabs);
+        // TODO upgrade check
+        //Disposer.register(this, consoleTabs);
     }
 
     public JComponent getContent() {

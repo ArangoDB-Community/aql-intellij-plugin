@@ -1,8 +1,8 @@
 
 plugins {
     id 'java'
-    id "org.jetbrains.intellij" version "0.4.15"
-    id "org.jetbrains.grammarkit" version "2020.1"
+    id "org.jetbrains.intellij" version "0.6.5"
+    id "org.jetbrains.grammarkit" version "2020.3.2"
     id 'net.researchgate.release' version '2.8.1'
 }
 
@@ -28,7 +28,7 @@ println "artifactVersion: ${artifactVersion}"
 
 group 'com.arangodb'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 
 
@@ -58,6 +58,7 @@ intellij {
     sandboxDirectory = "${rootProject.projectDir}/idea-sandbox/idea-${ideaVersion}"
 
     plugins 'java'
+    intellij.plugins 'java'
 }
 /*
 * Works like maven release plugin, see:

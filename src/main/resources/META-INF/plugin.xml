@@ -41,7 +41,7 @@
 
 
   <depends optional="true" config-file="aql-language.xml">org.intellij.intelliLang</depends>
-  <depends optional="true">com.intellij.modules.java</depends>
+  <depends>com.intellij.modules.java</depends>
 
   <extensions defaultExtensionNs="com.intellij">
     <!--
@@ -56,7 +56,7 @@
     <defaultLiveTemplatesProvider implementation="com.arangodb.intellij.aql.templates.AqlTemplateProvider" />
     <liveTemplateContext implementation="com.arangodb.intellij.aql.templates.AqlTemplateContext"/>
     <lang.parserDefinition language="AQL" implementationClass="com.arangodb.intellij.aql.lang.AqlParserDefinition"/>
-    <internalFileTemplate name="templates.AQL Template"/>
+    <internalFileTemplate name="AQL Template.aql"/>
     <colorSettingsPage implementation="com.arangodb.intellij.aql.settings.AqlColorSettingsPage"/>
     <additionalTextAttributes scheme="Default" file="colors/AQLDefault.xml"/>
     <psi.referenceContributor implementation="com.arangodb.intellij.aql.lang.AqlPsiReferenceContributor"/>

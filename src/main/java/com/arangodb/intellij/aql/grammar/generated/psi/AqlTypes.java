@@ -1,12 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
+import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.PsiElement;
+import com.intellij.lang.ASTNode;
 import com.arangodb.intellij.aql.grammar.custom.AqlElementType;
 import com.arangodb.intellij.aql.grammar.custom.AqlTokenType;
 import com.arangodb.intellij.aql.grammar.generated.psi.impl.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
 
 public interface AqlTypes {
 

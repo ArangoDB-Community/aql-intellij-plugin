@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import com.intellij.lang.PsiParser;
-import com.intellij.psi.tree.IElementType;
-
-import static com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil.*;
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+import static com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil.*;
+import com.intellij.psi.tree.IElementType;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.tree.TokenSet;
+import com.intellij.lang.PsiParser;
+import com.intellij.lang.LightPsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class AqlParser implements PsiParser, LightPsiParser {
@@ -5666,7 +5666,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = QueryItem_0(b, l + 1);
     p = r; // pin = 1
     r = r && Statement(b, l + 1);
-    exit_section_(b, l, m, r, p, statement_recover_parser_);
+    exit_section_(b, l, m, r, p, AqlParser::statement_recover);
     return r || p;
   }
 
@@ -5869,7 +5869,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = ExpressionArray(b, l + 1);
     p = r; // pin = 1
     r = r && array_element_1(b, l + 1);
-    exit_section_(b, l, m, r, p, not_bracket_or_next_value_parser_);
+    exit_section_(b, l, m, r, p, AqlParser::not_bracket_or_next_value);
     return r || p;
   }
 
@@ -6478,10 +6478,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
   private static boolean not_brace_or_next_value_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "not_brace_or_next_value_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = consumeToken(b, T_OBJECT_CLOSE);
     if (!r) r = ComplexJsonValue(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -6500,10 +6498,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
   private static boolean not_bracket_or_next_value_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "not_bracket_or_next_value_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = consumeToken(b, T_ARRAY_CLOSE);
     if (!r) r = ExpressionArray(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -6574,7 +6570,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = property(b, l + 1);
     p = r; // pin = 1
     r = r && object_element_1(b, l + 1);
-    exit_section_(b, l, m, r, p, not_brace_or_next_value_parser_);
+    exit_section_(b, l, m, r, p, AqlParser::not_brace_or_next_value);
     return r || p;
   }
 
@@ -7021,19 +7017,4 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  static final Parser not_brace_or_next_value_parser_ = new Parser() {
-    public boolean parse(PsiBuilder b, int l) {
-      return not_brace_or_next_value(b, l + 1);
-    }
-  };
-  static final Parser not_bracket_or_next_value_parser_ = new Parser() {
-    public boolean parse(PsiBuilder b, int l) {
-      return not_bracket_or_next_value(b, l + 1);
-    }
-  };
-  static final Parser statement_recover_parser_ = new Parser() {
-    public boolean parse(PsiBuilder b, int l) {
-      return statement_recover(b, l + 1);
-    }
-  };
 }
