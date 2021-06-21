@@ -25,9 +25,6 @@ public interface AqlFunDateISO8601 extends PsiElement {
   @Nullable
   AqlPropertyName getPropertyName();
 
-  @Nullable
-  AqlTupleType getTupleType();
-
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 

@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface AqlFunHas extends PsiElement {
 
   @Nullable
-  AqlExpressionType getExpressionType();
-
-  @Nullable
   AqlJsonType getJsonType();
 
   @Nullable
@@ -18,6 +15,9 @@ public interface AqlFunHas extends PsiElement {
 
   @Nullable
   AqlParameterVariable getParameterVariable();
+
+  @Nullable
+  AqlStringType getStringType();
 
   @Nullable
   AqlVariablePlaceHolder getVariablePlaceHolder();

@@ -53,15 +53,15 @@ public class AqlFunReverseImpl extends ASTWrapperPsiElement implements AqlFunRev
   }
 
   @Override
-  @Nullable
-  public AqlStringType getStringType() {
-    return findChildByClass(AqlStringType.class);
+  @NotNull
+  public List<AqlQueryItem> getQueryItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlTupleType> getTupleTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
   }
 
   @Override

@@ -10,26 +10,26 @@ public interface AqlFunPercentile extends PsiElement {
   @Nullable
   AqlIntegerType getIntegerType();
 
-  @NotNull
-  List<AqlNumberType> getNumberTypeList();
+  @Nullable
+  AqlNumberType getNumberType();
+
+  @Nullable
+  AqlObjectExpression getObjectExpression();
+
+  @Nullable
+  AqlParameterVariable getParameterVariable();
+
+  @Nullable
+  AqlPropertyName getPropertyName();
 
   @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
-
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
-
-  @NotNull
-  List<AqlPropertyName> getPropertyNameList();
+  List<AqlQueryItem> getQueryItemList();
 
   @Nullable
   AqlStringType getStringType();
 
-  @NotNull
-  List<AqlTupleType> getTupleTypeList();
-
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @NotNull
   PsiElement getFPercentile();

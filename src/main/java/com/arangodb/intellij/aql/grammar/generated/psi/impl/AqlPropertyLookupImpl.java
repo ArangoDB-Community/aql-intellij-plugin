@@ -38,12 +38,6 @@ public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements Aql
 
   @Override
   @Nullable
-  public AqlParameterVariable getParameterVariable() {
-    return findChildByClass(AqlParameterVariable.class);
-  }
-
-  @Override
-  @Nullable
   public AqlPropertyName getPropertyName() {
     return findChildByClass(AqlPropertyName.class);
   }
@@ -52,12 +46,6 @@ public class AqlPropertyLookupImpl extends AqlPropertyLookupMixin implements Aql
   @Nullable
   public AqlSystemProperty getSystemProperty() {
     return findChildByClass(AqlSystemProperty.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override

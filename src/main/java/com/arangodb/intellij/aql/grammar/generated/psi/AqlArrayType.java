@@ -10,7 +10,4 @@ public interface AqlArrayType extends PsiElement {
   @NotNull
   List<AqlExpressionType> getExpressionTypeList();
 
-  @NotNull
-  List<AqlFilterType> getFilterTypeList();
-
 }

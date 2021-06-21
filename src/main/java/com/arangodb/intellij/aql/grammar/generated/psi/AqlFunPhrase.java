@@ -7,14 +7,14 @@ import com.intellij.psi.PsiElement;
 
 public interface AqlFunPhrase extends PsiElement {
 
-  @NotNull
-  List<AqlNumberType> getNumberTypeList();
+  @Nullable
+  AqlNumberType getNumberType();
 
-  @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
   @Nullable
   AqlPropertyLookup getPropertyLookup();
@@ -23,13 +23,13 @@ public interface AqlFunPhrase extends PsiElement {
   List<AqlPropertyName> getPropertyNameList();
 
   @NotNull
+  List<AqlQueryItem> getQueryItemList();
+
+  @NotNull
   List<AqlStringType> getStringTypeList();
 
-  @NotNull
-  List<AqlTupleType> getTupleTypeList();
-
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @Nullable
   PsiElement getFPhrase();

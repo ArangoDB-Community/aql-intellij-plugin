@@ -54,8 +54,8 @@ public class AqlFunUnionDistinctImpl extends ASTWrapperPsiElement implements Aql
 
   @Override
   @NotNull
-  public List<AqlTupleType> getTupleTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
+  public List<AqlQueryItem> getQueryItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
   }
 
   @Override

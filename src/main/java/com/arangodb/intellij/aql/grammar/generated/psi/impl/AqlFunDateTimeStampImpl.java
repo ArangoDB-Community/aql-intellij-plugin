@@ -65,12 +65,6 @@ public class AqlFunDateTimeStampImpl extends ASTWrapperPsiElement implements Aql
   }
 
   @Override
-  @Nullable
-  public AqlTupleType getTupleType() {
-    return findChildByClass(AqlTupleType.class);
-  }
-
-  @Override
   @NotNull
   public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);

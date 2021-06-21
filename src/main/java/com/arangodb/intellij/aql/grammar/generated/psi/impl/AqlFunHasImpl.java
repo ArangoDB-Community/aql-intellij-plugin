@@ -30,12 +30,6 @@ public class AqlFunHasImpl extends ASTWrapperPsiElement implements AqlFunHas {
 
   @Override
   @Nullable
-  public AqlExpressionType getExpressionType() {
-    return findChildByClass(AqlExpressionType.class);
-  }
-
-  @Override
-  @Nullable
   public AqlJsonType getJsonType() {
     return findChildByClass(AqlJsonType.class);
   }
@@ -50,6 +44,12 @@ public class AqlFunHasImpl extends ASTWrapperPsiElement implements AqlFunHas {
   @Nullable
   public AqlParameterVariable getParameterVariable() {
     return findChildByClass(AqlParameterVariable.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
   }
 
   @Override

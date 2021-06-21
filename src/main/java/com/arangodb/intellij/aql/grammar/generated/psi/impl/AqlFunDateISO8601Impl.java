@@ -65,12 +65,6 @@ public class AqlFunDateISO8601Impl extends ASTWrapperPsiElement implements AqlFu
   }
 
   @Override
-  @Nullable
-  public AqlTupleType getTupleType() {
-    return findChildByClass(AqlTupleType.class);
-  }
-
-  @Override
   @NotNull
   public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);

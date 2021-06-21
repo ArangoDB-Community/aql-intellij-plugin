@@ -18,10 +18,10 @@ public interface AqlTypes {
   IElementType BLOCK_COMMENT = new AqlElementType("BLOCK_COMMENT");
   IElementType BOOLEAN_TYPE = new AqlElementType("BOOLEAN_TYPE");
   IElementType COMMENT = new AqlElementType("COMMENT");
+  IElementType COMPLEX_JSON_VALUE = new AqlElementType("COMPLEX_JSON_VALUE");
   IElementType DATE_UNIT = new AqlElementType("DATE_UNIT");
   IElementType EXPRESSION_TYPE = new AqlElementType("EXPRESSION_TYPE");
-  IElementType FILTER_TYPE = new AqlElementType("FILTER_TYPE");
-  IElementType FOR_TYPE = new AqlElementType("FOR_TYPE");
+  IElementType FUNCTION_EXPRESSION = new AqlElementType("FUNCTION_EXPRESSION");
   IElementType FUN_ABS = new AqlElementType("FUN_ABS");
   IElementType FUN_ACOS = new AqlElementType("FUN_ACOS");
   IElementType FUN_ANALYZER = new AqlElementType("FUN_ANALYZER");
@@ -101,6 +101,7 @@ public interface AqlTypes {
   IElementType FUN_HAS = new AqlElementType("FUN_HAS");
   IElementType FUN_HASH = new AqlElementType("FUN_HASH");
   IElementType FUN_INTER_SECTION = new AqlElementType("FUN_INTER_SECTION");
+  IElementType FUN_IN_RANGE = new AqlElementType("FUN_IN_RANGE");
   IElementType FUN_IS_ARRAY = new AqlElementType("FUN_IS_ARRAY");
   IElementType FUN_IS_BOOL = new AqlElementType("FUN_IS_BOOL");
   IElementType FUN_IS_DATE_STRING = new AqlElementType("FUN_IS_DATE_STRING");
@@ -214,7 +215,7 @@ public interface AqlTypes {
   IElementType FUN_ZIP = new AqlElementType("FUN_ZIP");
   IElementType INTEGER_TYPE = new AqlElementType("INTEGER_TYPE");
   IElementType JSON_TYPE = new AqlElementType("JSON_TYPE");
-  IElementType LET_TYPE = new AqlElementType("LET_TYPE");
+  IElementType KEYWORD_STATEMENTS = new AqlElementType("KEYWORD_STATEMENTS");
   IElementType LINE_COMMENT = new AqlElementType("LINE_COMMENT");
   IElementType NAMED_FUNCTIONS = new AqlElementType("NAMED_FUNCTIONS");
   IElementType NAMED_KEYWORD_STATEMENTS = new AqlElementType("NAMED_KEYWORD_STATEMENTS");
@@ -226,16 +227,18 @@ public interface AqlTypes {
   IElementType PROPERTY_NAME = new AqlElementType("PROPERTY_NAME");
   IElementType QUERY_ITEM = new AqlElementType("QUERY_ITEM");
   IElementType RESERVED_WORDS = new AqlElementType("RESERVED_WORDS");
-  IElementType RETURN_TYPE = new AqlElementType("RETURN_TYPE");
   IElementType SEQUENCE = new AqlElementType("SEQUENCE");
   IElementType SIGNED_INTEGER = new AqlElementType("SIGNED_INTEGER");
   IElementType STATEMENT = new AqlElementType("STATEMENT");
   IElementType STRING_TYPE = new AqlElementType("STRING_TYPE");
   IElementType SYSTEM_PROPERTY = new AqlElementType("SYSTEM_PROPERTY");
-  IElementType TUPLE_TYPE = new AqlElementType("TUPLE_TYPE");
   IElementType VARIABLE_PLACE_HOLDER = new AqlElementType("VARIABLE_PLACE_HOLDER");
 
+  IElementType A_DELIMITER = new AqlTokenType("A_DELIMITER");
   IElementType A_IDENTITY = new AqlTokenType("A_IDENTITY");
+  IElementType A_NGRAM = new AqlTokenType("A_NGRAM");
+  IElementType A_NORM = new AqlTokenType("A_NORM");
+  IElementType A_STEM = new AqlTokenType("A_STEM");
   IElementType A_TEXT_DE = new AqlTokenType("A_TEXT_DE");
   IElementType A_TEXT_EN = new AqlTokenType("A_TEXT_EN");
   IElementType A_TEXT_ES = new AqlTokenType("A_TEXT_ES");
@@ -346,6 +349,7 @@ public interface AqlTypes {
   IElementType F_HAS = new AqlTokenType("F_HAS");
   IElementType F_HASH = new AqlTokenType("F_HASH");
   IElementType F_INTERSECTION = new AqlTokenType("F_INTERSECTION");
+  IElementType F_IN_RANGE = new AqlTokenType("F_IN_RANGE");
   IElementType F_IS_ARRAY = new AqlTokenType("F_IS_ARRAY");
   IElementType F_IS_BOOL = new AqlTokenType("F_IS_BOOL");
   IElementType F_IS_DATESTRING = new AqlTokenType("F_IS_DATESTRING");
@@ -518,6 +522,7 @@ public interface AqlTypes {
   IElementType T_OUTBOUND = new AqlTokenType("T_OUTBOUND");
   IElementType T_PLACHOLDER_START = new AqlTokenType("${");
   IElementType T_PLUS = new AqlTokenType("+");
+  IElementType T_PRUNE = new AqlTokenType("T_PRUNE");
   IElementType T_QUESTION = new AqlTokenType("?");
   IElementType T_RANGE = new AqlTokenType("..");
   IElementType T_REGEX_MATCH = new AqlTokenType("~=");
@@ -566,17 +571,17 @@ public interface AqlTypes {
       else if (type == COMMENT) {
         return new AqlCommentImpl(node);
       }
+      else if (type == COMPLEX_JSON_VALUE) {
+        return new AqlComplexJsonValueImpl(node);
+      }
       else if (type == DATE_UNIT) {
         return new AqlDateUnitImpl(node);
       }
       else if (type == EXPRESSION_TYPE) {
         return new AqlExpressionTypeImpl(node);
       }
-      else if (type == FILTER_TYPE) {
-        return new AqlFilterTypeImpl(node);
-      }
-      else if (type == FOR_TYPE) {
-        return new AqlForTypeImpl(node);
+      else if (type == FUNCTION_EXPRESSION) {
+        return new AqlFunctionExpressionImpl(node);
       }
       else if (type == FUN_ABS) {
         return new AqlFunAbsImpl(node);
@@ -814,6 +819,9 @@ public interface AqlTypes {
       }
       else if (type == FUN_INTER_SECTION) {
         return new AqlFunInterSectionImpl(node);
+      }
+      else if (type == FUN_IN_RANGE) {
+        return new AqlFunInRangeImpl(node);
       }
       else if (type == FUN_IS_ARRAY) {
         return new AqlFunIsArrayImpl(node);
@@ -1154,8 +1162,8 @@ public interface AqlTypes {
       else if (type == JSON_TYPE) {
         return new AqlJsonTypeImpl(node);
       }
-      else if (type == LET_TYPE) {
-        return new AqlLetTypeImpl(node);
+      else if (type == KEYWORD_STATEMENTS) {
+        return new AqlKeywordStatementsImpl(node);
       }
       else if (type == LINE_COMMENT) {
         return new AqlLineCommentImpl(node);
@@ -1190,9 +1198,6 @@ public interface AqlTypes {
       else if (type == RESERVED_WORDS) {
         return new AqlReservedWordsImpl(node);
       }
-      else if (type == RETURN_TYPE) {
-        return new AqlReturnTypeImpl(node);
-      }
       else if (type == SEQUENCE) {
         return new AqlSequenceImpl(node);
       }
@@ -1207,9 +1212,6 @@ public interface AqlTypes {
       }
       else if (type == SYSTEM_PROPERTY) {
         return new AqlSystemPropertyImpl(node);
-      }
-      else if (type == TUPLE_TYPE) {
-        return new AqlTupleTypeImpl(node);
       }
       else if (type == VARIABLE_PLACE_HOLDER) {
         return new AqlVariablePlaceHolderImpl(node);

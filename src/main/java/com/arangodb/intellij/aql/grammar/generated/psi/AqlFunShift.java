@@ -7,23 +7,23 @@ import com.intellij.psi.PsiElement;
 
 public interface AqlFunShift extends PsiElement {
 
-  @NotNull
-  List<AqlNumberType> getNumberTypeList();
+  @Nullable
+  AqlNumberType getNumberType();
+
+  @Nullable
+  AqlObjectExpression getObjectExpression();
+
+  @Nullable
+  AqlParameterVariable getParameterVariable();
+
+  @Nullable
+  AqlPropertyName getPropertyName();
 
   @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
+  List<AqlQueryItem> getQueryItemList();
 
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
-
-  @NotNull
-  List<AqlPropertyName> getPropertyNameList();
-
-  @NotNull
-  List<AqlTupleType> getTupleTypeList();
-
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @NotNull
   PsiElement getFShift();

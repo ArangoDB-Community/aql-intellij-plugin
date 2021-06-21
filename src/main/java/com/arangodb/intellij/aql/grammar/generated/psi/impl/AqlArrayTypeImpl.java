@@ -34,10 +34,4 @@ public class AqlArrayTypeImpl extends ASTWrapperPsiElement implements AqlArrayTy
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlExpressionType.class);
   }
 
-  @Override
-  @NotNull
-  public List<AqlFilterType> getFilterTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlFilterType.class);
-  }
-
 }

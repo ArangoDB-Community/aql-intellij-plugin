@@ -8,7 +8,19 @@ import com.intellij.psi.PsiElement;
 public interface AqlAnalyzerType extends PsiElement {
 
   @Nullable
+  PsiElement getADelimiter();
+
+  @Nullable
   PsiElement getAIdentity();
+
+  @Nullable
+  PsiElement getANgram();
+
+  @Nullable
+  PsiElement getANorm();
+
+  @Nullable
+  PsiElement getAStem();
 
   @Nullable
   PsiElement getATextDe();

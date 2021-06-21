@@ -39,6 +39,7 @@ T_UPDATE=([Uu])([Pp])([Dd])([Aa])([Tt])([Ee])
 T_SORT=([Ss])([Oo])([Rr])([Tt])
 T_GRAPH=([Gg])([Rr])([Aa])([Pp])([Hh])
 T_FOR=([Ff])([Oo])([Rr])
+T_PRUNE=([Pp])([Rr])([Uu])([Nn])([Ee])
 T_LET=([Ll])([Ee])([Tt])
 T_COLLECT=([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])
 T_CURRENT=([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])
@@ -223,6 +224,7 @@ F_RAND=([Rr])([Aa])([Nn])([Dd])
 F_PERCENTILE=([Pp])([Ee])([Rr])([Cc])([Ee])([Nn])([Tt])([Ii])([Ll])([Ee])
 F_BM25=([Bb])([Mm])([2])([5])
 F_RANGE=([Rr])([Aa])([Nn])([Gg])([Ee])
+F_IN_RANGE=([Ii])([Nn])([_])([Rr])([Aa])([Nn])([Gg])([Ee])
 F_SLEEP=([Ss])([Ll])([Ee])([Ee])([Pp])
 F_UNION_DISTINCT=([Uu])([Nn])([Ii])([Oo])([Nn])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 F_STDDEV=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])
@@ -245,6 +247,10 @@ F_IS_OBJECT=([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])
 F_STDDEV_SAMPLE=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])
 F_COUNT_DISTINCT=([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
 A_IDENTITY=('identity')|(\"identity\")
+A_DELIMITER=('delimiter')|(\"delimiter\")
+A_STEM=('stem')|(\"stem\")
+A_NORM=('stem')|(\"norm\")
+A_NGRAM=('stem')|(\"ngram\")
 A_TEXT_DE=('text_de')|(\"text_de\")
 A_TEXT_EN=('text_en')|(\"text_en\")
 A_TEXT_ES=('text_es')|(\"text_es\")
@@ -327,13 +333,13 @@ SPACE=[ \t\n\x0B\f\r]+
   "\""                          { return DOUBLE_QUOTE; }
   "$"                           { return DOLLAR; }
   "${"                          { return T_PLACHOLDER_START; }
-  "function_names"              { return FUNCTION_NAMES; }
-  "A_TEXT_FR"                   { return A_TEXT_FR; }
   "F_NEAR"                      { return F_NEAR; }
   "F_IS_IN_POLYGON"             { return F_IS_IN_POLYGON; }
   "F_WITHIN"                    { return F_WITHIN; }
   "F_WITHIN_RECTANGLE"          { return F_WITHIN_RECTANGLE; }
   "T_NIN"                       { return T_NIN; }
+  "A_TEXT_FR"                   { return A_TEXT_FR; }
+  "function_names"              { return FUNCTION_NAMES; }
 
   {T_SEARCH}                    { return T_SEARCH; }
   {T_SHORTEST_PATH}             { return T_SHORTEST_PATH; }
@@ -349,6 +355,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {T_SORT}                      { return T_SORT; }
   {T_GRAPH}                     { return T_GRAPH; }
   {T_FOR}                       { return T_FOR; }
+  {T_PRUNE}                     { return T_PRUNE; }
   {T_LET}                       { return T_LET; }
   {T_COLLECT}                   { return T_COLLECT; }
   {T_CURRENT}                   { return T_CURRENT; }
@@ -533,6 +540,7 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_PERCENTILE}                { return F_PERCENTILE; }
   {F_BM25}                      { return F_BM25; }
   {F_RANGE}                     { return F_RANGE; }
+  {F_IN_RANGE}                  { return F_IN_RANGE; }
   {F_SLEEP}                     { return F_SLEEP; }
   {F_UNION_DISTINCT}            { return F_UNION_DISTINCT; }
   {F_STDDEV}                    { return F_STDDEV; }
@@ -555,6 +563,10 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_STDDEV_SAMPLE}             { return F_STDDEV_SAMPLE; }
   {F_COUNT_DISTINCT}            { return F_COUNT_DISTINCT; }
   {A_IDENTITY}                  { return A_IDENTITY; }
+  {A_DELIMITER}                 { return A_DELIMITER; }
+  {A_STEM}                      { return A_STEM; }
+  {A_NORM}                      { return A_NORM; }
+  {A_NGRAM}                     { return A_NGRAM; }
   {A_TEXT_DE}                   { return A_TEXT_DE; }
   {A_TEXT_EN}                   { return A_TEXT_EN; }
   {A_TEXT_ES}                   { return A_TEXT_ES; }

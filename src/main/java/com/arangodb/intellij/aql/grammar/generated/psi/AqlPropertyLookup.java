@@ -13,16 +13,10 @@ public interface AqlPropertyLookup extends PsiElement {
   AqlExpressionType getExpressionType();
 
   @Nullable
-  AqlParameterVariable getParameterVariable();
-
-  @Nullable
   AqlPropertyName getPropertyName();
 
   @Nullable
   AqlSystemProperty getSystemProperty();
-
-  @Nullable
-  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   String getName();
 

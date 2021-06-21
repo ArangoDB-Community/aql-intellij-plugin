@@ -16,8 +16,8 @@ public interface AqlFunAppend extends PsiElement {
   @Nullable
   AqlJsonType getJsonType();
 
-  @NotNull
-  List<AqlNumberType> getNumberTypeList();
+  @Nullable
+  AqlNumberType getNumberType();
 
   @NotNull
   List<AqlObjectExpression> getObjectExpressionList();
@@ -25,11 +25,11 @@ public interface AqlFunAppend extends PsiElement {
   @NotNull
   List<AqlParameterVariable> getParameterVariableList();
 
-  @NotNull
-  List<AqlPropertyName> getPropertyNameList();
+  @Nullable
+  AqlPropertyName getPropertyName();
 
   @NotNull
-  List<AqlTupleType> getTupleTypeList();
+  List<AqlQueryItem> getQueryItemList();
 
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();

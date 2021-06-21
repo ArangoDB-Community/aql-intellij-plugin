@@ -20,7 +20,7 @@ public interface AqlFunOuterSection extends PsiElement {
   List<AqlPropertyName> getPropertyNameList();
 
   @NotNull
-  List<AqlTupleType> getTupleTypeList();
+  List<AqlQueryItem> getQueryItemList();
 
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();

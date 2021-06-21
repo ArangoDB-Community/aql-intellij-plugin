@@ -39,19 +39,15 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitComplexJsonValue(@NotNull AqlComplexJsonValue o) {
+    visitPsiElement(o);
+  }
+
   public void visitDateUnit(@NotNull AqlDateUnit o) {
     visitPsiElement(o);
   }
 
   public void visitExpressionType(@NotNull AqlExpressionType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitFilterType(@NotNull AqlFilterType o) {
-    visitPsiElement(o);
-  }
-
-  public void visitForType(@NotNull AqlForType o) {
     visitPsiElement(o);
   }
 
@@ -364,6 +360,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitFunHash(@NotNull AqlFunHash o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunInRange(@NotNull AqlFunInRange o) {
     visitPsiElement(o);
   }
 
@@ -815,6 +815,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunctionExpression(@NotNull AqlFunctionExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitIntegerType(@NotNull AqlIntegerType o) {
     visitPsiElement(o);
   }
@@ -823,7 +827,7 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitLetType(@NotNull AqlLetType o) {
+  public void visitKeywordStatements(@NotNull AqlKeywordStatements o) {
     visitPsiElement(o);
   }
 
@@ -871,10 +875,6 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitReturnType(@NotNull AqlReturnType o) {
-    visitPsiElement(o);
-  }
-
   public void visitSequence(@NotNull AqlSequence o) {
     visitPsiElement(o);
   }
@@ -892,10 +892,6 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitSystemProperty(@NotNull AqlSystemProperty o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTupleType(@NotNull AqlTupleType o) {
     visitPsiElement(o);
   }
 

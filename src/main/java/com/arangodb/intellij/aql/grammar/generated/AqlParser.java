@@ -37,6 +37,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // A_IDENTITY
+  //                 |A_DELIMITER
+  //                 |A_STEM
+  //                 |A_NORM
+  //                 |A_NGRAM
+  // //|A_TEXT
   //                  |A_TEXT_DE
   //                  |A_TEXT_EN
   //                  |A_TEXT_ES
@@ -54,6 +59,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ANALYZER_TYPE, "<analyzer type>");
     r = consumeToken(b, A_IDENTITY);
+    if (!r) r = consumeToken(b, A_DELIMITER);
+    if (!r) r = consumeToken(b, A_STEM);
+    if (!r) r = consumeToken(b, A_NORM);
+    if (!r) r = consumeToken(b, A_NGRAM);
     if (!r) r = consumeToken(b, A_TEXT_DE);
     if (!r) r = consumeToken(b, A_TEXT_EN);
     if (!r) r = consumeToken(b, A_TEXT_ES);
@@ -193,6 +202,42 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // NumberType |ArrayRef
+  // | ObjectExpression
+  // | ParameterVariable
+  // | VariablePlaceHolder
+  // | ExpressionArray
+  // | ArrayType
+  // | AnalyzerType
+  // | StringType
+  // | NamedKeywordStatements
+  // | NamedFunctions
+  // | BooleanType
+  // | ExpressionType
+  // | JsonType
+  public static boolean ComplexJsonValue(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ComplexJsonValue")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, COMPLEX_JSON_VALUE, "<complex json value>");
+    r = NumberType(b, l + 1);
+    if (!r) r = ArrayRef(b, l + 1);
+    if (!r) r = ObjectExpression(b, l + 1);
+    if (!r) r = ParameterVariable(b, l + 1);
+    if (!r) r = VariablePlaceHolder(b, l + 1);
+    if (!r) r = ExpressionArray(b, l + 1);
+    if (!r) r = ArrayType(b, l + 1);
+    if (!r) r = AnalyzerType(b, l + 1);
+    if (!r) r = StringType(b, l + 1);
+    if (!r) r = NamedKeywordStatements(b, l + 1);
+    if (!r) r = NamedFunctions(b, l + 1);
+    if (!r) r = BooleanType(b, l + 1);
+    if (!r) r = ExpressionType(b, l + 1);
+    if (!r) r = JsonType(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // D_YEAR_S
   //                        |D_YEAR_D
   //                        |D_MONTH_S
@@ -264,112 +309,44 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Comment
-  //                 | FilterType
-  //                 | ReturnType
-  //                 | VariablePlaceHolder
-  //                 | ParameterVariable
-  //                 | ArrayRef
-  //                 | ObjectExpression
+  // ArrayRef
   //                 | SystemProperty
-  //                 | StringType
-  //                 | IntegerType
+  //                 | ObjectExpression
   //                 | NumberType
-  //                 | Sequence
-  //                 | JsonType
   //                 | ArrayType
   //                 | AnalyzerType
+  //                 | StringType
   //                 | BooleanType
+  //                 | VariablePlaceHolder
+  //                 | FunctionExpression
+  //                 | ParameterVariable
   //                 | arithmetic_operators
   //                 | ReservedWords
   //                 | PropertyName
   //                 | NamedFunctions
-  //                 | NamedKeywordStatements
   //                 | keyword_functions
-  //                 | reserved_keywords
-  //                 | expression_operators
-  //                 | OperatorStatements
   public static boolean ExpressionType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ExpressionType")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, EXPRESSION_TYPE, "<expression type>");
-    r = Comment(b, l + 1);
-    if (!r) r = FilterType(b, l + 1);
-    if (!r) r = ReturnType(b, l + 1);
-    if (!r) r = VariablePlaceHolder(b, l + 1);
-    if (!r) r = ParameterVariable(b, l + 1);
-    if (!r) r = ArrayRef(b, l + 1);
-    if (!r) r = ObjectExpression(b, l + 1);
+    r = ArrayRef(b, l + 1);
     if (!r) r = SystemProperty(b, l + 1);
-    if (!r) r = StringType(b, l + 1);
-    if (!r) r = IntegerType(b, l + 1);
+    if (!r) r = ObjectExpression(b, l + 1);
     if (!r) r = NumberType(b, l + 1);
-    if (!r) r = Sequence(b, l + 1);
-    if (!r) r = JsonType(b, l + 1);
     if (!r) r = ArrayType(b, l + 1);
     if (!r) r = AnalyzerType(b, l + 1);
+    if (!r) r = StringType(b, l + 1);
     if (!r) r = BooleanType(b, l + 1);
+    if (!r) r = VariablePlaceHolder(b, l + 1);
+    if (!r) r = FunctionExpression(b, l + 1);
+    if (!r) r = ParameterVariable(b, l + 1);
     if (!r) r = arithmetic_operators(b, l + 1);
     if (!r) r = ReservedWords(b, l + 1);
     if (!r) r = PropertyName(b, l + 1);
     if (!r) r = NamedFunctions(b, l + 1);
-    if (!r) r = NamedKeywordStatements(b, l + 1);
     if (!r) r = keyword_functions(b, l + 1);
-    if (!r) r = reserved_keywords(b, l + 1);
-    if (!r) r = expression_operators(b, l + 1);
-    if (!r) r = OperatorStatements(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
-  }
-
-  /* ********************************************************** */
-  // T_FILTER ExpressionType *
-  public static boolean FilterType(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FilterType")) return false;
-    if (!nextTokenIs(b, T_FILTER)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, FILTER_TYPE, null);
-    r = consumeToken(b, T_FILTER);
-    p = r; // pin = 1
-    r = r && FilterType_1(b, l + 1);
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // ExpressionType *
-  private static boolean FilterType_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FilterType_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!ExpressionType(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "FilterType_1", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // T_FOR ExpressionType*
-  public static boolean ForType(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ForType")) return false;
-    if (!nextTokenIs(b, T_FOR)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, FOR_TYPE, null);
-    r = consumeToken(b, T_FOR);
-    p = r; // pin = 1
-    r = r && ForType_1(b, l + 1);
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // ExpressionType*
-  private static boolean ForType_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ForType_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!ExpressionType(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ForType_1", c)) break;
-    }
-    return true;
   }
 
   /* ********************************************************** */
@@ -2158,7 +2135,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_HAS  "(" document_argument ("," ExpressionType)? ")"
+  // F_HAS  "(" document_argument ("," StringType)? ")"
   public static boolean FunHas(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunHas")) return false;
     if (!nextTokenIs(b, F_HAS)) return false;
@@ -2173,20 +2150,20 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // ("," ExpressionType)?
+  // ("," StringType)?
   private static boolean FunHas_3(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunHas_3")) return false;
     FunHas_3_0(b, l + 1);
     return true;
   }
 
-  // "," ExpressionType
+  // "," StringType
   private static boolean FunHas_3_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunHas_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_COMMA);
-    r = r && ExpressionType(b, l + 1);
+    r = r && StringType(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -2201,6 +2178,29 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, F_HASH, T_OPEN);
     p = r; // pin = 2
     r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_IN_RANGE "(" AnyType "," number_argument "," number_argument  "," BooleanType  "," BooleanType ")"
+  public static boolean FunInRange(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunInRange")) return false;
+    if (!nextTokenIs(b, F_IN_RANGE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_IN_RANGE, null);
+    r = consumeTokens(b, 2, F_IN_RANGE, T_OPEN);
+    p = r; // pin = 2
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, number_argument(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, number_argument(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, BooleanType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, BooleanType(b, l + 1)) && r;
     r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
@@ -3874,15 +3874,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_SLICE  "(" ExpressionType "," IntegerType ("," IntegerType)? ")"
+  // F_SLICE  "(" number_argument_array "," IntegerType ("," IntegerType)? ")"
   public static boolean FunSlice(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunSlice")) return false;
     if (!nextTokenIs(b, F_SLICE)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, FUN_SLICE, null);
-    r = consumeTokens(b, 1, F_SLICE, T_OPEN);
-    p = r; // pin = 1
-    r = r && report_error_(b, ExpressionType(b, l + 1));
+    r = consumeTokens(b, 2, F_SLICE, T_OPEN);
+    p = r; // pin = 2
+    r = r && report_error_(b, number_argument_array(b, l + 1));
     r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
     r = p && report_error_(b, IntegerType(b, l + 1)) && r;
     r = p && report_error_(b, FunSlice_5(b, l + 1)) && r;
@@ -4918,6 +4918,42 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // NamedFunctions  T_OPEN ExpressionArray* T_CLOSE  | NamedFunctions
+  public static boolean FunctionExpression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunctionExpression")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, FUNCTION_EXPRESSION, "<function expression>");
+    r = FunctionExpression_0(b, l + 1);
+    if (!r) r = NamedFunctions(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // NamedFunctions  T_OPEN ExpressionArray* T_CLOSE
+  private static boolean FunctionExpression_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunctionExpression_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = NamedFunctions(b, l + 1);
+    r = r && consumeToken(b, T_OPEN);
+    r = r && FunctionExpression_0_2(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ExpressionArray*
+  private static boolean FunctionExpression_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunctionExpression_0_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!ExpressionArray(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "FunctionExpression_0_2", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
   // NUMBER_INTEGER
   public static boolean IntegerType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "IntegerType")) return false;
@@ -4956,30 +4992,14 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // T_LET ObjectExpression '=' ExpressionType*
-  public static boolean LetType(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "LetType")) return false;
-    if (!nextTokenIs(b, T_LET)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, LET_TYPE, null);
-    r = consumeToken(b, T_LET);
-    r = r && ObjectExpression(b, l + 1);
-    p = r; // pin = 2
-    r = r && report_error_(b, consumeToken(b, T_IS));
-    r = p && LetType_3(b, l + 1) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
-  }
-
-  // ExpressionType*
-  private static boolean LetType_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "LetType_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!ExpressionType(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "LetType_3", c)) break;
-    }
-    return true;
+  // reserved_keywords
+  public static boolean KeywordStatements(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "KeywordStatements")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, KEYWORD_STATEMENTS, "<keyword statements>");
+    r = reserved_keywords(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
   /* ********************************************************** */
@@ -5181,6 +5201,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | FunStddevPopulation
   //               | FunVariancePopulation
   //               | FunRadians
+  //               | FunInRange
   //               | FunRange
   //               | FunRound
   //               | FunVariance
@@ -5375,6 +5396,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = FunStddevPopulation(b, l + 1);
     if (!r) r = FunVariancePopulation(b, l + 1);
     if (!r) r = FunRadians(b, l + 1);
+    if (!r) r = FunInRange(b, l + 1);
     if (!r) r = FunRange(b, l + 1);
     if (!r) r = FunRound(b, l + 1);
     if (!r) r = FunVariance(b, l + 1);
@@ -5384,48 +5406,47 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // reserved_keywords
+  // KeywordStatements
   public static boolean NamedKeywordStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedKeywordStatements")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NAMED_KEYWORD_STATEMENTS, "<named keyword statements>");
-    r = reserved_keywords(b, l + 1);
+    r = KeywordStatements(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // IntegerType | AnyNumber | SignedInteger
+  // AnyNumber | SignedInteger | IntegerType
   public static boolean NumberType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NumberType")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, NUMBER_TYPE, "<number type>");
-    r = IntegerType(b, l + 1);
-    if (!r) r = AnyNumber(b, l + 1);
+    r = AnyNumber(b, l + 1);
     if (!r) r = SignedInteger(b, l + 1);
+    if (!r) r = IntegerType(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // (extra_property (property_lookup)*) | (PropertyName (property_lookup)*) | (PropertyName (ParameterVariable)*)
+  // (PropertyName (property_lookup)*) | (PropertyName (ParameterVariable)*)
   public static boolean ObjectExpression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, OBJECT_EXPRESSION, "<object expression>");
     r = ObjectExpression_0(b, l + 1);
     if (!r) r = ObjectExpression_1(b, l + 1);
-    if (!r) r = ObjectExpression_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // extra_property (property_lookup)*
+  // PropertyName (property_lookup)*
   private static boolean ObjectExpression_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = extra_property(b, l + 1);
+    r = PropertyName(b, l + 1);
     r = r && ObjectExpression_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -5452,7 +5473,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // PropertyName (property_lookup)*
+  // PropertyName (ParameterVariable)*
   private static boolean ObjectExpression_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression_1")) return false;
     boolean r;
@@ -5463,7 +5484,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (property_lookup)*
+  // (ParameterVariable)*
   private static boolean ObjectExpression_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression_1_1")) return false;
     while (true) {
@@ -5474,41 +5495,9 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // (property_lookup)
+  // (ParameterVariable)
   private static boolean ObjectExpression_1_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ObjectExpression_1_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = property_lookup(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // PropertyName (ParameterVariable)*
-  private static boolean ObjectExpression_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectExpression_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = PropertyName(b, l + 1);
-    r = r && ObjectExpression_2_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (ParameterVariable)*
-  private static boolean ObjectExpression_2_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectExpression_2_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!ObjectExpression_2_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ObjectExpression_2_1", c)) break;
-    }
-    return true;
-  }
-
-  // (ParameterVariable)
-  private static boolean ObjectExpression_2_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ObjectExpression_2_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = ParameterVariable(b, l + 1);
@@ -5540,10 +5529,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                       | T_OPEN
   //                       | T_CLOSE
   //                       | T_TIMES
+  //                       | T_OBJECT_OPEN
   //                       | T_ARRAY_OPEN
   //                       | T_ARRAY_CLOSE
-  //                       //| T_OBJECT_OPEN
-  //                       //| T_OBJECT_CLOSE
+  //                       | T_OBJECT_CLOSE
   //                       | DOT
   public static boolean OperatorStatements(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "OperatorStatements")) return false;
@@ -5572,8 +5561,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_OPEN);
     if (!r) r = consumeToken(b, T_CLOSE);
     if (!r) r = consumeToken(b, T_TIMES);
+    if (!r) r = consumeToken(b, T_OBJECT_OPEN);
     if (!r) r = consumeToken(b, T_ARRAY_OPEN);
     if (!r) r = consumeToken(b, T_ARRAY_CLOSE);
+    if (!r) r = consumeToken(b, T_OBJECT_CLOSE);
     if (!r) r = consumeToken(b, DOT);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -5614,7 +5605,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (PropertyName | SystemProperty | ParameterVariable | VariablePlaceHolder) ("[" ExpressionType "]")?
+  // (PropertyName | SystemProperty) ("[" ExpressionType "]")?
   public static boolean PropertyLookup(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PropertyLookup")) return false;
     boolean r;
@@ -5625,14 +5616,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // PropertyName | SystemProperty | ParameterVariable | VariablePlaceHolder
+  // PropertyName | SystemProperty
   private static boolean PropertyLookup_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "PropertyLookup_0")) return false;
     boolean r;
     r = PropertyName(b, l + 1);
     if (!r) r = SystemProperty(b, l + 1);
-    if (!r) r = ParameterVariable(b, l + 1);
-    if (!r) r = VariablePlaceHolder(b, l + 1);
     return r;
   }
 
@@ -5704,54 +5693,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (T_RETURN JsonType)
-  // //                | (T_RETURN '(' ExpressionType* ')')
-  //                 | (T_RETURN ExpressionType*)
-  public static boolean ReturnType(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ReturnType")) return false;
-    if (!nextTokenIs(b, T_RETURN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = ReturnType_0(b, l + 1);
-    if (!r) r = ReturnType_1(b, l + 1);
-    exit_section_(b, m, RETURN_TYPE, r);
-    return r;
-  }
-
-  // T_RETURN JsonType
-  private static boolean ReturnType_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ReturnType_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_RETURN);
-    r = r && JsonType(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // T_RETURN ExpressionType*
-  private static boolean ReturnType_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ReturnType_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_RETURN);
-    r = r && ReturnType_1_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // ExpressionType*
-  private static boolean ReturnType_1_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "ReturnType_1_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!ExpressionType(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "ReturnType_1_1", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
   // (IntegerType | ParameterVariable) T_RANGE (IntegerType | ParameterVariable)
   public static boolean Sequence(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Sequence")) return false;
@@ -5805,22 +5746,42 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // Comment
-  //               | ForType
-  //               | LetType
+  // NamedKeywordStatements
+  //               | ArrayType
+  //               | SystemProperty
+  //               | ObjectExpression
+  //               | OperatorStatements
+  //               | tuple
+  //               | Sequence
+  //               | AnalyzerType
+  //               | StringType
   //               | JsonType
-  //               | ArrayRef
-  //               | ReturnType
+  //               | NumberType
+  //               | BooleanType
+  //               | VariablePlaceHolder
+  //               | ExpressionType
+  //               | FunctionExpression
+  //               | Comment
   public static boolean Statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "Statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = Comment(b, l + 1);
-    if (!r) r = ForType(b, l + 1);
-    if (!r) r = LetType(b, l + 1);
+    r = NamedKeywordStatements(b, l + 1);
+    if (!r) r = ArrayType(b, l + 1);
+    if (!r) r = SystemProperty(b, l + 1);
+    if (!r) r = ObjectExpression(b, l + 1);
+    if (!r) r = OperatorStatements(b, l + 1);
+    if (!r) r = tuple(b, l + 1);
+    if (!r) r = Sequence(b, l + 1);
+    if (!r) r = AnalyzerType(b, l + 1);
+    if (!r) r = StringType(b, l + 1);
     if (!r) r = JsonType(b, l + 1);
-    if (!r) r = ArrayRef(b, l + 1);
-    if (!r) r = ReturnType(b, l + 1);
+    if (!r) r = NumberType(b, l + 1);
+    if (!r) r = BooleanType(b, l + 1);
+    if (!r) r = VariablePlaceHolder(b, l + 1);
+    if (!r) r = ExpressionType(b, l + 1);
+    if (!r) r = FunctionExpression(b, l + 1);
+    if (!r) r = Comment(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -5856,52 +5817,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // single_tuple (',' single_tuple )*
-  // {
-  //   //consumeTokenMethod = 'consumeTokenFast'
-  // }
-  public static boolean TupleType(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TupleType")) return false;
-    if (!nextTokenIs(b, T_OPEN)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = single_tuple(b, l + 1);
-    r = r && TupleType_1(b, l + 1);
-    r = r && TupleType_2(b, l + 1);
-    exit_section_(b, m, TUPLE_TYPE, r);
-    return r;
-  }
-
-  // (',' single_tuple )*
-  private static boolean TupleType_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TupleType_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!TupleType_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "TupleType_1", c)) break;
-    }
-    return true;
-  }
-
-  // ',' single_tuple
-  private static boolean TupleType_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "TupleType_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_COMMA);
-    r = r && single_tuple(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // {
-  //   //consumeTokenMethod = 'consumeTokenFast'
-  // }
-  private static boolean TupleType_2(PsiBuilder b, int l) {
-    return true;
-  }
-
-  /* ********************************************************** */
   // T_PLACHOLDER_START ObjectExpression T_OBJECT_CLOSE
   public static boolean VariablePlaceHolder(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "VariablePlaceHolder")) return false;
@@ -5934,8 +5849,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                     | T_TIMES
   //                     | T_DIV
   //                     | T_MOD
-  //                     | T_EQ
-  //                     | T_IS
   static boolean arithmetic_operators(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "arithmetic_operators")) return false;
     boolean r;
@@ -5944,34 +5857,23 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_TIMES);
     if (!r) r = consumeToken(b, T_DIV);
     if (!r) r = consumeToken(b, T_MOD);
-    if (!r) r = consumeToken(b, T_EQ);
-    if (!r) r = consumeToken(b, T_IS);
     return r;
   }
 
   /* ********************************************************** */
-  // (expression_operators | ExpressionArray) (',' |& ']')
+  // ExpressionArray (','|&']')
   static boolean array_element(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "array_element")) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
-    r = array_element_0(b, l + 1);
+    r = ExpressionArray(b, l + 1);
     p = r; // pin = 1
     r = r && array_element_1(b, l + 1);
     exit_section_(b, l, m, r, p, AqlParser::not_bracket_or_next_value);
     return r || p;
   }
 
-  // expression_operators | ExpressionArray
-  private static boolean array_element_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "array_element_0")) return false;
-    boolean r;
-    r = expression_operators(b, l + 1);
-    if (!r) r = ExpressionArray(b, l + 1);
-    return r;
-  }
-
-  // ',' |& ']'
+  // ','|&']'
   private static boolean array_element_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "array_element_1")) return false;
     boolean r;
@@ -5982,7 +5884,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // & ']'
+  // &']'
   private static boolean array_element_1_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "array_element_1_1")) return false;
     boolean r;
@@ -6084,40 +5986,6 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = ExpressionType(b, l + 1);
     if (!r) r = JsonType(b, l + 1);
     return r;
-  }
-
-  /* ********************************************************** */
-  // ('*') ? (reserved_keywords | FilterType)
-  static boolean expression_operators(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_operators")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = expression_operators_0(b, l + 1);
-    r = r && expression_operators_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // ('*') ?
-  private static boolean expression_operators_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_operators_0")) return false;
-    consumeToken(b, T_TIMES);
-    return true;
-  }
-
-  // reserved_keywords | FilterType
-  private static boolean expression_operators_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "expression_operators_1")) return false;
-    boolean r;
-    r = reserved_keywords(b, l + 1);
-    if (!r) r = FilterType(b, l + 1);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // T_CURRENT
-  static boolean extra_property(PsiBuilder b, int l) {
-    return consumeToken(b, T_CURRENT);
   }
 
   /* ********************************************************** */
@@ -6233,6 +6101,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                                 | F_LTRIM
   //                                 | F_REVERSE
   //                                 | F_RANGE
+  //                                 | F_IN_RANGE
   //                                 | F_FIRST
   //                                 | F_LENGTH
   //                                 | F_UNSET_RECURSIVE
@@ -6429,6 +6298,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, F_LTRIM);
     if (!r) r = consumeToken(b, F_REVERSE);
     if (!r) r = consumeToken(b, F_RANGE);
+    if (!r) r = consumeToken(b, F_IN_RANGE);
     if (!r) r = consumeToken(b, F_FIRST);
     if (!r) r = consumeToken(b, F_LENGTH);
     if (!r) r = consumeToken(b, F_UNSET_RECURSIVE);
@@ -6594,7 +6464,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // !('}'| (ExpressionType))
+  // !('}'|ComplexJsonValue)
   static boolean not_brace_or_next_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "not_brace_or_next_value")) return false;
     boolean r;
@@ -6604,24 +6474,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // '}'| (ExpressionType)
+  // '}'|ComplexJsonValue
   private static boolean not_brace_or_next_value_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "not_brace_or_next_value_0")) return false;
     boolean r;
-    Marker m = enter_section_(b);
     r = consumeToken(b, T_OBJECT_CLOSE);
-    if (!r) r = not_brace_or_next_value_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // (ExpressionType)
-  private static boolean not_brace_or_next_value_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "not_brace_or_next_value_0_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = ExpressionType(b, l + 1);
-    exit_section_(b, m, null, r);
+    if (!r) r = ComplexJsonValue(b, l + 1);
     return r;
   }
 
@@ -6656,77 +6514,45 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // possible_number_array ("," possible_number_array)* | "[" number_argument (',' number_argument)* "]"
+  // repeatable_tuple | possible_number_array | "[" number_argument (',' number_argument)* "]"
   static boolean number_argument_array(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "number_argument_array")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = number_argument_array_0(b, l + 1);
-    if (!r) r = number_argument_array_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // possible_number_array ("," possible_number_array)*
-  private static boolean number_argument_array_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = possible_number_array(b, l + 1);
-    r = r && number_argument_array_0_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // ("," possible_number_array)*
-  private static boolean number_argument_array_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_0_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!number_argument_array_0_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "number_argument_array_0_1", c)) break;
-    }
-    return true;
-  }
-
-  // "," possible_number_array
-  private static boolean number_argument_array_0_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_0_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, T_COMMA);
-    r = r && possible_number_array(b, l + 1);
+    r = repeatable_tuple(b, l + 1);
+    if (!r) r = possible_number_array(b, l + 1);
+    if (!r) r = number_argument_array_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // "[" number_argument (',' number_argument)* "]"
-  private static boolean number_argument_array_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_1")) return false;
+  private static boolean number_argument_array_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_argument_array_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_ARRAY_OPEN);
     r = r && number_argument(b, l + 1);
-    r = r && number_argument_array_1_2(b, l + 1);
+    r = r && number_argument_array_2_2(b, l + 1);
     r = r && consumeToken(b, T_ARRAY_CLOSE);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (',' number_argument)*
-  private static boolean number_argument_array_1_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_1_2")) return false;
+  private static boolean number_argument_array_2_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_argument_array_2_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!number_argument_array_1_2_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "number_argument_array_1_2", c)) break;
+      if (!number_argument_array_2_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "number_argument_array_2_2", c)) break;
     }
     return true;
   }
 
   // ',' number_argument
-  private static boolean number_argument_array_1_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "number_argument_array_1_2_0")) return false;
+  private static boolean number_argument_array_2_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number_argument_array_2_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, T_COMMA);
@@ -6793,12 +6619,11 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // TupleType | NumberType | ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder
+  // NumberType | ObjectExpression | PropertyName  | ParameterVariable | VariablePlaceHolder
   static boolean possible_number_array(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "possible_number_array")) return false;
     boolean r;
-    r = TupleType(b, l + 1);
-    if (!r) r = NumberType(b, l + 1);
+    r = NumberType(b, l + 1);
     if (!r) r = ObjectExpression(b, l + 1);
     if (!r) r = PropertyName(b, l + 1);
     if (!r) r = ParameterVariable(b, l + 1);
@@ -6807,7 +6632,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // property_name ":" AnyType+
+  // property_name ":" ComplexJsonValue+
   static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
     boolean r, p;
@@ -6820,15 +6645,15 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // AnyType+
+  // ComplexJsonValue+
   private static boolean property_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = AnyType(b, l + 1);
+    r = ComplexJsonValue(b, l + 1);
     while (r) {
       int c = current_position_(b);
-      if (!AnyType(b, l + 1)) break;
+      if (!ComplexJsonValue(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "property_2", c)) break;
     }
     exit_section_(b, m, null, r);
@@ -6860,6 +6685,41 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // single_tuple (',' single_tuple)*
+  static boolean repeatable_tuple(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "repeatable_tuple")) return false;
+    if (!nextTokenIs(b, T_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = single_tuple(b, l + 1);
+    r = r && repeatable_tuple_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (',' single_tuple)*
+  private static boolean repeatable_tuple_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "repeatable_tuple_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!repeatable_tuple_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "repeatable_tuple_1", c)) break;
+    }
+    return true;
+  }
+
+  // ',' single_tuple
+  private static boolean repeatable_tuple_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "repeatable_tuple_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && single_tuple(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // &(reserved_keywords '(')
   static boolean reserved_function_lookahead(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "reserved_function_lookahead")) return false;
@@ -6887,7 +6747,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                         | T_REPLACE
   //                         | T_ASC
   //                         | T_AGGREGATE
-  //                         //| T_FILTER
+  //                         | T_FILTER
   //                         | T_DESC
   //                         | T_IN
   //                         | T_INTO
@@ -6896,12 +6756,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                         | T_SORT
   //                         | T_GRAPH
   //                         | T_FOR
+  //                         | T_PRUNE
   //                         | T_LET
   //                         | T_COLLECT
   //                         | T_CURRENT
   //                         | T_WITH
   //                         | T_DISTINCT
-  //                         //| T_RETURN
+  //                         | T_RETURN
   //                         | T_UPSERT
   //                         | T_REMOVE
   //                         | T_INSERT
@@ -6918,6 +6779,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_REPLACE);
     if (!r) r = consumeToken(b, T_ASC);
     if (!r) r = consumeToken(b, T_AGGREGATE);
+    if (!r) r = consumeToken(b, T_FILTER);
     if (!r) r = consumeToken(b, T_DESC);
     if (!r) r = consumeToken(b, T_IN);
     if (!r) r = consumeToken(b, T_INTO);
@@ -6926,11 +6788,13 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_SORT);
     if (!r) r = consumeToken(b, T_GRAPH);
     if (!r) r = consumeToken(b, T_FOR);
+    if (!r) r = consumeToken(b, T_PRUNE);
     if (!r) r = consumeToken(b, T_LET);
     if (!r) r = consumeToken(b, T_COLLECT);
     if (!r) r = consumeToken(b, T_CURRENT);
     if (!r) r = consumeToken(b, T_WITH);
     if (!r) r = consumeToken(b, T_DISTINCT);
+    if (!r) r = consumeToken(b, T_RETURN);
     if (!r) r = consumeToken(b, T_UPSERT);
     if (!r) r = consumeToken(b, T_REMOVE);
     if (!r) r = consumeToken(b, T_INSERT);
@@ -6943,33 +6807,18 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '(' AnyType+ ')'
+  // '(' QueryItem ')'
   static boolean single_tuple(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "single_tuple")) return false;
     if (!nextTokenIs(b, T_OPEN)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_);
     r = consumeToken(b, T_OPEN);
-    r = r && single_tuple_1(b, l + 1);
-    p = r; // pin = 2
-    r = r && consumeToken(b, T_CLOSE);
+    p = r; // pin = 1
+    r = r && report_error_(b, QueryItem(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
-  }
-
-  // AnyType+
-  private static boolean single_tuple_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "single_tuple_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = AnyType(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!AnyType(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "single_tuple_1", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
   }
 
   /* ********************************************************** */
@@ -7085,6 +6934,54 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = r && StringType(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // '(' single_tuple (',' single_tuple )* ')'
+  // {
+  //   //consumeTokenMethod = 'consumeTokenFast'
+  // }
+  static boolean tuple(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple")) return false;
+    if (!nextTokenIs(b, T_OPEN)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_OPEN);
+    r = r && single_tuple(b, l + 1);
+    r = r && tuple_2(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    r = r && tuple_4(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (',' single_tuple )*
+  private static boolean tuple_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!tuple_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "tuple_2", c)) break;
+    }
+    return true;
+  }
+
+  // ',' single_tuple
+  private static boolean tuple_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && single_tuple(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // {
+  //   //consumeTokenMethod = 'consumeTokenFast'
+  // }
+  private static boolean tuple_4(PsiBuilder b, int l) {
+    return true;
   }
 
   /* ********************************************************** */

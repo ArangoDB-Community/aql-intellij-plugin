@@ -47,9 +47,9 @@ public class AqlFunPushImpl extends ASTWrapperPsiElement implements AqlFunPush {
   }
 
   @Override
-  @NotNull
-  public List<AqlNumberType> getNumberTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
+  @Nullable
+  public AqlNumberType getNumberType() {
+    return findChildByClass(AqlNumberType.class);
   }
 
   @Override
@@ -65,15 +65,15 @@ public class AqlFunPushImpl extends ASTWrapperPsiElement implements AqlFunPush {
   }
 
   @Override
-  @NotNull
-  public List<AqlPropertyName> getPropertyNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
+  @Nullable
+  public AqlPropertyName getPropertyName() {
+    return findChildByClass(AqlPropertyName.class);
   }
 
   @Override
   @NotNull
-  public List<AqlTupleType> getTupleTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
+  public List<AqlQueryItem> getQueryItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
   }
 
   @Override

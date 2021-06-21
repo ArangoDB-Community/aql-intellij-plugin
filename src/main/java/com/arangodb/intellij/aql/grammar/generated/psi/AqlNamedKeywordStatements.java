@@ -9,80 +9,8 @@ import com.intellij.navigation.ItemPresentation;
 
 public interface AqlNamedKeywordStatements extends PsiElement {
 
-  @Nullable
-  PsiElement getTAggregate();
-
-  @Nullable
-  PsiElement getTAll();
-
-  @Nullable
-  PsiElement getTAny();
-
-  @Nullable
-  PsiElement getTAsc();
-
-  @Nullable
-  PsiElement getTCollect();
-
-  @Nullable
-  PsiElement getTCurrent();
-
-  @Nullable
-  PsiElement getTDesc();
-
-  @Nullable
-  PsiElement getTDistinct();
-
-  @Nullable
-  PsiElement getTFor();
-
-  @Nullable
-  PsiElement getTGraph();
-
-  @Nullable
-  PsiElement getTIn();
-
-  @Nullable
-  PsiElement getTInbound();
-
-  @Nullable
-  PsiElement getTInsert();
-
-  @Nullable
-  PsiElement getTInto();
-
-  @Nullable
-  PsiElement getTLet();
-
-  @Nullable
-  PsiElement getTLimit();
-
-  @Nullable
-  PsiElement getTOutbound();
-
-  @Nullable
-  PsiElement getTRemove();
-
-  @Nullable
-  PsiElement getTReplace();
-
-  @Nullable
-  PsiElement getTSearch();
-
-  @Nullable
-  PsiElement getTShortestPath();
-
-  @Nullable
-  PsiElement getTSort();
-
-  @Nullable
-  PsiElement getTUpdate();
-
-  @Nullable
-  PsiElement getTUpsert();
-
-  @Nullable
-  PsiElement getTWith();
+  @NotNull
+  AqlKeywordStatements getKeywordStatements();
 
   String getName();
 

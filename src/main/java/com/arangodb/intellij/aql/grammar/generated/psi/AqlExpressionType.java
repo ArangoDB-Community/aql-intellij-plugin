@@ -20,31 +20,16 @@ public interface AqlExpressionType extends PsiElement {
   AqlBooleanType getBooleanType();
 
   @Nullable
-  AqlComment getComment();
-
-  @Nullable
-  AqlFilterType getFilterType();
-
-  @Nullable
-  AqlIntegerType getIntegerType();
-
-  @Nullable
-  AqlJsonType getJsonType();
+  AqlFunctionExpression getFunctionExpression();
 
   @Nullable
   AqlNamedFunctions getNamedFunctions();
-
-  @Nullable
-  AqlNamedKeywordStatements getNamedKeywordStatements();
 
   @Nullable
   AqlNumberType getNumberType();
 
   @Nullable
   AqlObjectExpression getObjectExpression();
-
-  @Nullable
-  AqlOperatorStatements getOperatorStatements();
 
   @Nullable
   AqlParameterVariable getParameterVariable();
@@ -54,12 +39,6 @@ public interface AqlExpressionType extends PsiElement {
 
   @Nullable
   AqlReservedWords getReservedWords();
-
-  @Nullable
-  AqlReturnType getReturnType();
-
-  @Nullable
-  AqlSequence getSequence();
 
   @Nullable
   AqlStringType getStringType();
@@ -306,6 +285,9 @@ public interface AqlExpressionType extends PsiElement {
 
   @Nullable
   PsiElement getFIntersection();
+
+  @Nullable
+  PsiElement getFInRange();
 
   @Nullable
   PsiElement getFIsArray();
@@ -636,80 +618,5 @@ public interface AqlExpressionType extends PsiElement {
 
   @Nullable
   PsiElement getFZip();
-
-  @Nullable
-  PsiElement getTAggregate();
-
-  @Nullable
-  PsiElement getTAll();
-
-  @Nullable
-  PsiElement getTAny();
-
-  @Nullable
-  PsiElement getTAsc();
-
-  @Nullable
-  PsiElement getTCollect();
-
-  @Nullable
-  PsiElement getTCurrent();
-
-  @Nullable
-  PsiElement getTDesc();
-
-  @Nullable
-  PsiElement getTDistinct();
-
-  @Nullable
-  PsiElement getTFor();
-
-  @Nullable
-  PsiElement getTGraph();
-
-  @Nullable
-  PsiElement getTIn();
-
-  @Nullable
-  PsiElement getTInbound();
-
-  @Nullable
-  PsiElement getTInsert();
-
-  @Nullable
-  PsiElement getTInto();
-
-  @Nullable
-  PsiElement getTLet();
-
-  @Nullable
-  PsiElement getTLimit();
-
-  @Nullable
-  PsiElement getTOutbound();
-
-  @Nullable
-  PsiElement getTRemove();
-
-  @Nullable
-  PsiElement getTReplace();
-
-  @Nullable
-  PsiElement getTSearch();
-
-  @Nullable
-  PsiElement getTShortestPath();
-
-  @Nullable
-  PsiElement getTSort();
-
-  @Nullable
-  PsiElement getTUpdate();
-
-  @Nullable
-  PsiElement getTUpsert();
-
-  @Nullable
-  PsiElement getTWith();
 
 }

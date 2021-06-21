@@ -7,11 +7,26 @@ import com.intellij.psi.PsiElement;
 
 public interface AqlFunSlice extends PsiElement {
 
-  @Nullable
-  AqlExpressionType getExpressionType();
-
   @NotNull
   List<AqlIntegerType> getIntegerTypeList();
+
+  @Nullable
+  AqlNumberType getNumberType();
+
+  @Nullable
+  AqlObjectExpression getObjectExpression();
+
+  @Nullable
+  AqlParameterVariable getParameterVariable();
+
+  @Nullable
+  AqlPropertyName getPropertyName();
+
+  @NotNull
+  List<AqlQueryItem> getQueryItemList();
+
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
   @NotNull
   PsiElement getFSlice();
