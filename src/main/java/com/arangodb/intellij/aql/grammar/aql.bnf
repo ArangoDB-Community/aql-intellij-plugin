@@ -264,17 +264,32 @@ A_STEM="regexp:('stem')|(\"stem\")"
 A_NORM="regexp:('stem')|(\"norm\")"
 A_NGRAM="regexp:('stem')|(\"ngram\")"
 //A_TEXT="regexp:('text')|(\"text\")"
+A_TEXT_AR="regexp:('text_ar')|(\"text_ar\")"
+A_TEXT_CA="regexp:('text_ca')|(\"text_ca\")"
+A_TEXT_DA="regexp:('text_da')|(\"text_da\")"
 A_TEXT_DE="regexp:('text_de')|(\"text_de\")"
+A_TEXT_BA="regexp:('text_eu')|(\"text_eu\")"
 A_TEXT_EN="regexp:('text_en')|(\"text_en\")"
 A_TEXT_ES="regexp:('text_es')|(\"text_es\")"
+A_TEXT_EL="regexp:('text_el')|(\"text_el\")"
 A_TEXT_FI="regexp:('text_fi')|(\"text_fi\")"
-TEXT_FR="regexp:('text_fr')|(\"text_fr\")"
+A_TEXT_FR="regexp:('text_fr')|(\"text_fr\")"
+A_TEXT_HI="regexp:('text_hi')|(\"text_hi\")"
+A_TEXT_HU="regexp:('text_hu')|(\"text_hu\")"
+A_TEXT_ID="regexp:('text_id')|(\"text_id\")"
+A_TEXT_GA="regexp:('text_ga')|(\"text_ga\")"
 A_TEXT_IT="regexp:('text_it')|(\"text_it\")"
+A_TEXT_LT="regexp:('text_lt')|(\"text_lt\")"
+A_TEXT_NE="regexp:('text_ne')|(\"text_ne\")"
 A_TEXT_NL="regexp:('text_nl')|(\"text_nl\")"
 A_TEXT_NO="regexp:('text_no')|(\"text_no\")"
 A_TEXT_PT="regexp:('text_pt')|(\"text_pt\")"
+A_TEXT_RO="regexp:('text_ro')|(\"text_ro\")"
 A_TEXT_RU="regexp:('text_ru')|(\"text_ru\")"
 A_TEXT_SV="regexp:('text_sv')|(\"text_sv\")"
+A_TEXT_SR="regexp:('text_sr')|(\"text_sr\")"
+A_TEXT_TA="regexp:('text_ta')|(\"text_ta\")"
+A_TEXT_TR="regexp:('text_tr')|(\"text_tr\")"
 A_TEXT_ZH="regexp:('text_zh')|(\"text_zh\")"
 
 D_YEAR_S="regexp:(['])([Yy])([Ea])([Aa])([Rr])(['])|(['])([Yy])([Ea])([Aa])([Rr])([Ss])(['])|(['])([Yy])(['])"
@@ -873,19 +888,34 @@ AnalyzerType ::= A_IDENTITY
                 |A_STEM
                 |A_NORM
                 |A_NGRAM
-//|A_TEXT
-                 |A_TEXT_DE
-                 |A_TEXT_EN
-                 |A_TEXT_ES
-                 |A_TEXT_FI
-                 |A_TEXT_FR
-                 |A_TEXT_IT
-                 |A_TEXT_NL
-                 |A_TEXT_NO
-                 |A_TEXT_PT
-                 |A_TEXT_RU
-                 |A_TEXT_SV
-                 |A_TEXT_ZH
+                //|A_TEXT
+                |A_TEXT_AR
+                |A_TEXT_CA
+                |A_TEXT_DA
+                |A_TEXT_BA
+                |A_TEXT_DE
+                |A_TEXT_EN
+                |A_TEXT_ES
+                |A_TEXT_EL
+                |A_TEXT_FI
+                |A_TEXT_FR
+                |A_TEXT_HI
+                |A_TEXT_HU
+                |A_TEXT_ID
+                |A_TEXT_GA
+                |A_TEXT_IT
+                |A_TEXT_LT
+                |A_TEXT_NE
+                |A_TEXT_NL
+                |A_TEXT_NO
+                |A_TEXT_PT
+                |A_TEXT_RO
+                |A_TEXT_RU
+                |A_TEXT_SV
+                |A_TEXT_SR
+                |A_TEXT_TA
+                |A_TEXT_TR
+                |A_TEXT_ZH
 
 DateUnit ::=  D_YEAR_S
                        |D_YEAR_D
