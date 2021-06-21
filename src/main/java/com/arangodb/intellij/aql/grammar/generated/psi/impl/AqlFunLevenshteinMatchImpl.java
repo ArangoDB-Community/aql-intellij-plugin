@@ -12,14 +12,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 
-public class AqlFunInRangeImpl extends ASTWrapperPsiElement implements AqlFunInRange {
+public class AqlFunLevenshteinMatchImpl extends ASTWrapperPsiElement implements AqlFunLevenshteinMatch {
 
-  public AqlFunInRangeImpl(@NotNull ASTNode node) {
+  public AqlFunLevenshteinMatchImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AqlVisitor visitor) {
-    visitor.visitFunInRange(this);
+    visitor.visitFunLevenshteinMatch(this);
   }
 
   @Override
@@ -30,14 +30,20 @@ public class AqlFunInRangeImpl extends ASTWrapperPsiElement implements AqlFunInR
 
   @Override
   @NotNull
-  public List<AqlAnyType> getAnyTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
+  public AqlAnyType getAnyType() {
+    return findNotNullChildByClass(AqlAnyType.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlBooleanType getBooleanType() {
+    return findChildByClass(AqlBooleanType.class);
   }
 
   @Override
   @NotNull
-  public List<AqlBooleanType> getBooleanTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlBooleanType.class);
+  public List<AqlNumberType> getNumberTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
   }
 
   @Override
@@ -53,6 +59,12 @@ public class AqlFunInRangeImpl extends ASTWrapperPsiElement implements AqlFunInR
   }
 
   @Override
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
+  }
+
+  @Override
   @NotNull
   public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
@@ -60,8 +72,8 @@ public class AqlFunInRangeImpl extends ASTWrapperPsiElement implements AqlFunInR
 
   @Override
   @NotNull
-  public PsiElement getFInRange() {
-    return findNotNullChildByType(F_IN_RANGE);
+  public PsiElement getFLevenshteinMatch() {
+    return findNotNullChildByType(F_LEVENSHTEIN_MATCH);
   }
 
 }

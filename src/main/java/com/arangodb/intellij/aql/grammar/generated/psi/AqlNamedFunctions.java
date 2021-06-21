@@ -250,6 +250,9 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunInterSection getFunInterSection();
 
   @Nullable
+  AqlFunIpToNumber getFunIpToNumber();
+
+  @Nullable
   AqlFunIsArray getFunIsArray();
 
   @Nullable
@@ -260,6 +263,9 @@ public interface AqlNamedFunctions extends PsiElement {
 
   @Nullable
   AqlFunIsDocument getFunIsDocument();
+
+  @Nullable
+  AqlFunIsIpv getFunIsIpv();
 
   @Nullable
   AqlFunIsKey getFunIsKey();
@@ -281,6 +287,9 @@ public interface AqlNamedFunctions extends PsiElement {
 
   @Nullable
   AqlFunIsString getFunIsString();
+
+  @Nullable
+  AqlFunJaccard getFunJaccard();
 
   @Nullable
   AqlFunJsonParse getFunJsonParse();
@@ -305,6 +314,9 @@ public interface AqlNamedFunctions extends PsiElement {
 
   @Nullable
   AqlFunLevenshteinDistance getFunLevenshteinDistance();
+
+  @Nullable
+  AqlFunLevenshteinMatch getFunLevenshteinMatch();
 
   @Nullable
   AqlFunLike getFunLike();

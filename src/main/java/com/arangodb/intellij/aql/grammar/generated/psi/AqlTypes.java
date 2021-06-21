@@ -102,10 +102,12 @@ public interface AqlTypes {
   IElementType FUN_HASH = new AqlElementType("FUN_HASH");
   IElementType FUN_INTER_SECTION = new AqlElementType("FUN_INTER_SECTION");
   IElementType FUN_IN_RANGE = new AqlElementType("FUN_IN_RANGE");
+  IElementType FUN_IP_TO_NUMBER = new AqlElementType("FUN_IP_TO_NUMBER");
   IElementType FUN_IS_ARRAY = new AqlElementType("FUN_IS_ARRAY");
   IElementType FUN_IS_BOOL = new AqlElementType("FUN_IS_BOOL");
   IElementType FUN_IS_DATE_STRING = new AqlElementType("FUN_IS_DATE_STRING");
   IElementType FUN_IS_DOCUMENT = new AqlElementType("FUN_IS_DOCUMENT");
+  IElementType FUN_IS_IPV = new AqlElementType("FUN_IS_IPV");
   IElementType FUN_IS_KEY = new AqlElementType("FUN_IS_KEY");
   IElementType FUN_IS_LIST = new AqlElementType("FUN_IS_LIST");
   IElementType FUN_IS_NULL = new AqlElementType("FUN_IS_NULL");
@@ -113,6 +115,7 @@ public interface AqlTypes {
   IElementType FUN_IS_OBJECT = new AqlElementType("FUN_IS_OBJECT");
   IElementType FUN_IS_SAME_COLLECTION = new AqlElementType("FUN_IS_SAME_COLLECTION");
   IElementType FUN_IS_STRING = new AqlElementType("FUN_IS_STRING");
+  IElementType FUN_JACCARD = new AqlElementType("FUN_JACCARD");
   IElementType FUN_JSON_PARSE = new AqlElementType("FUN_JSON_PARSE");
   IElementType FUN_JSON_STRINGIFY = new AqlElementType("FUN_JSON_STRINGIFY");
   IElementType FUN_KEEP = new AqlElementType("FUN_KEEP");
@@ -121,6 +124,7 @@ public interface AqlTypes {
   IElementType FUN_LEFT = new AqlElementType("FUN_LEFT");
   IElementType FUN_LENGTH = new AqlElementType("FUN_LENGTH");
   IElementType FUN_LEVENSHTEIN_DISTANCE = new AqlElementType("FUN_LEVENSHTEIN_DISTANCE");
+  IElementType FUN_LEVENSHTEIN_MATCH = new AqlElementType("FUN_LEVENSHTEIN_MATCH");
   IElementType FUN_LIKE = new AqlElementType("FUN_LIKE");
   IElementType FUN_LOG = new AqlElementType("FUN_LOG");
   IElementType FUN_LOG_10 = new AqlElementType("FUN_LOG_10");
@@ -239,17 +243,32 @@ public interface AqlTypes {
   IElementType A_NGRAM = new AqlTokenType("A_NGRAM");
   IElementType A_NORM = new AqlTokenType("A_NORM");
   IElementType A_STEM = new AqlTokenType("A_STEM");
+  IElementType A_TEXT_AR = new AqlTokenType("A_TEXT_AR");
+  IElementType A_TEXT_BA = new AqlTokenType("A_TEXT_BA");
+  IElementType A_TEXT_CA = new AqlTokenType("A_TEXT_CA");
+  IElementType A_TEXT_DA = new AqlTokenType("A_TEXT_DA");
   IElementType A_TEXT_DE = new AqlTokenType("A_TEXT_DE");
+  IElementType A_TEXT_EL = new AqlTokenType("A_TEXT_EL");
   IElementType A_TEXT_EN = new AqlTokenType("A_TEXT_EN");
   IElementType A_TEXT_ES = new AqlTokenType("A_TEXT_ES");
   IElementType A_TEXT_FI = new AqlTokenType("A_TEXT_FI");
   IElementType A_TEXT_FR = new AqlTokenType("A_TEXT_FR");
+  IElementType A_TEXT_GA = new AqlTokenType("A_TEXT_GA");
+  IElementType A_TEXT_HI = new AqlTokenType("A_TEXT_HI");
+  IElementType A_TEXT_HU = new AqlTokenType("A_TEXT_HU");
+  IElementType A_TEXT_ID = new AqlTokenType("A_TEXT_ID");
   IElementType A_TEXT_IT = new AqlTokenType("A_TEXT_IT");
+  IElementType A_TEXT_LT = new AqlTokenType("A_TEXT_LT");
+  IElementType A_TEXT_NE = new AqlTokenType("A_TEXT_NE");
   IElementType A_TEXT_NL = new AqlTokenType("A_TEXT_NL");
   IElementType A_TEXT_NO = new AqlTokenType("A_TEXT_NO");
   IElementType A_TEXT_PT = new AqlTokenType("A_TEXT_PT");
+  IElementType A_TEXT_RO = new AqlTokenType("A_TEXT_RO");
   IElementType A_TEXT_RU = new AqlTokenType("A_TEXT_RU");
+  IElementType A_TEXT_SR = new AqlTokenType("A_TEXT_SR");
   IElementType A_TEXT_SV = new AqlTokenType("A_TEXT_SV");
+  IElementType A_TEXT_TA = new AqlTokenType("A_TEXT_TA");
+  IElementType A_TEXT_TR = new AqlTokenType("A_TEXT_TR");
   IElementType A_TEXT_ZH = new AqlTokenType("A_TEXT_ZH");
   IElementType B_COMMENT = new AqlTokenType("B_COMMENT");
   IElementType DOLLAR = new AqlTokenType("$");
@@ -350,11 +369,13 @@ public interface AqlTypes {
   IElementType F_HASH = new AqlTokenType("F_HASH");
   IElementType F_INTERSECTION = new AqlTokenType("F_INTERSECTION");
   IElementType F_IN_RANGE = new AqlTokenType("F_IN_RANGE");
+  IElementType F_IPV4_TO_NUMBER = new AqlTokenType("F_IPV4_TO_NUMBER");
   IElementType F_IS_ARRAY = new AqlTokenType("F_IS_ARRAY");
   IElementType F_IS_BOOL = new AqlTokenType("F_IS_BOOL");
   IElementType F_IS_DATESTRING = new AqlTokenType("F_IS_DATESTRING");
   IElementType F_IS_DOCUMENT = new AqlTokenType("F_IS_DOCUMENT");
   IElementType F_IS_IN_POLYGON = new AqlTokenType("F_IS_IN_POLYGON");
+  IElementType F_IS_IPV4 = new AqlTokenType("F_IS_IPV4");
   IElementType F_IS_KEY = new AqlTokenType("F_IS_KEY");
   IElementType F_IS_LIST = new AqlTokenType("F_IS_LIST");
   IElementType F_IS_NULL = new AqlTokenType("F_IS_NULL");
@@ -362,6 +383,7 @@ public interface AqlTypes {
   IElementType F_IS_OBJECT = new AqlTokenType("F_IS_OBJECT");
   IElementType F_IS_SAME_COLLECTION = new AqlTokenType("F_IS_SAME_COLLECTION");
   IElementType F_IS_STRING = new AqlTokenType("F_IS_STRING");
+  IElementType F_JACCARD = new AqlTokenType("F_JACCARD");
   IElementType F_JSON_PARSE = new AqlTokenType("F_JSON_PARSE");
   IElementType F_JSON_STRINGIFY = new AqlTokenType("F_JSON_STRINGIFY");
   IElementType F_KEEP = new AqlTokenType("F_KEEP");
@@ -370,6 +392,7 @@ public interface AqlTypes {
   IElementType F_LEFT = new AqlTokenType("F_LEFT");
   IElementType F_LENGTH = new AqlTokenType("F_LENGTH");
   IElementType F_LEVENSHTEIN_DISTANCE = new AqlTokenType("F_LEVENSHTEIN_DISTANCE");
+  IElementType F_LEVENSHTEIN_MATCH = new AqlTokenType("F_LEVENSHTEIN_MATCH");
   IElementType F_LIKE = new AqlTokenType("F_LIKE");
   IElementType F_LOG = new AqlTokenType("F_LOG");
   IElementType F_LOG10 = new AqlTokenType("F_LOG10");
@@ -471,7 +494,6 @@ public interface AqlTypes {
   IElementType NUMBER_INTEGER = new AqlTokenType("NUMBER_INTEGER");
   IElementType SINGLE_QUOTE = new AqlTokenType("'");
   IElementType TEXT_DOUBLE = new AqlTokenType("TEXT_DOUBLE");
-  IElementType TEXT_FR = new AqlTokenType("TEXT_FR");
   IElementType TEXT_SINGLE = new AqlTokenType("TEXT_SINGLE");
   IElementType T_AGGREGATE = new AqlTokenType("T_AGGREGATE");
   IElementType T_ALL = new AqlTokenType("T_ALL");
@@ -823,6 +845,9 @@ public interface AqlTypes {
       else if (type == FUN_IN_RANGE) {
         return new AqlFunInRangeImpl(node);
       }
+      else if (type == FUN_IP_TO_NUMBER) {
+        return new AqlFunIpToNumberImpl(node);
+      }
       else if (type == FUN_IS_ARRAY) {
         return new AqlFunIsArrayImpl(node);
       }
@@ -834,6 +859,9 @@ public interface AqlTypes {
       }
       else if (type == FUN_IS_DOCUMENT) {
         return new AqlFunIsDocumentImpl(node);
+      }
+      else if (type == FUN_IS_IPV) {
+        return new AqlFunIsIpvImpl(node);
       }
       else if (type == FUN_IS_KEY) {
         return new AqlFunIsKeyImpl(node);
@@ -855,6 +883,9 @@ public interface AqlTypes {
       }
       else if (type == FUN_IS_STRING) {
         return new AqlFunIsStringImpl(node);
+      }
+      else if (type == FUN_JACCARD) {
+        return new AqlFunJaccardImpl(node);
       }
       else if (type == FUN_JSON_PARSE) {
         return new AqlFunJsonParseImpl(node);
@@ -879,6 +910,9 @@ public interface AqlTypes {
       }
       else if (type == FUN_LEVENSHTEIN_DISTANCE) {
         return new AqlFunLevenshteinDistanceImpl(node);
+      }
+      else if (type == FUN_LEVENSHTEIN_MATCH) {
+        return new AqlFunLevenshteinMatchImpl(node);
       }
       else if (type == FUN_LIKE) {
         return new AqlFunLikeImpl(node);

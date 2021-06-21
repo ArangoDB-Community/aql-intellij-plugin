@@ -60,8 +60,38 @@ public class AqlAnalyzerTypeImpl extends ASTWrapperPsiElement implements AqlAnal
 
   @Override
   @Nullable
+  public PsiElement getATextAr() {
+    return findChildByType(A_TEXT_AR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextBa() {
+    return findChildByType(A_TEXT_BA);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextCa() {
+    return findChildByType(A_TEXT_CA);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextDa() {
+    return findChildByType(A_TEXT_DA);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getATextDe() {
     return findChildByType(A_TEXT_DE);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextEl() {
+    return findChildByType(A_TEXT_EL);
   }
 
   @Override
@@ -84,8 +114,50 @@ public class AqlAnalyzerTypeImpl extends ASTWrapperPsiElement implements AqlAnal
 
   @Override
   @Nullable
+  public PsiElement getATextFr() {
+    return findChildByType(A_TEXT_FR);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextGa() {
+    return findChildByType(A_TEXT_GA);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextHi() {
+    return findChildByType(A_TEXT_HI);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextHu() {
+    return findChildByType(A_TEXT_HU);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextId() {
+    return findChildByType(A_TEXT_ID);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getATextIt() {
     return findChildByType(A_TEXT_IT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextLt() {
+    return findChildByType(A_TEXT_LT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextNe() {
+    return findChildByType(A_TEXT_NE);
   }
 
   @Override
@@ -108,14 +180,38 @@ public class AqlAnalyzerTypeImpl extends ASTWrapperPsiElement implements AqlAnal
 
   @Override
   @Nullable
+  public PsiElement getATextRo() {
+    return findChildByType(A_TEXT_RO);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getATextRu() {
     return findChildByType(A_TEXT_RU);
   }
 
   @Override
   @Nullable
+  public PsiElement getATextSr() {
+    return findChildByType(A_TEXT_SR);
+  }
+
+  @Override
+  @Nullable
   public PsiElement getATextSv() {
     return findChildByType(A_TEXT_SV);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextTa() {
+    return findChildByType(A_TEXT_TA);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getATextTr() {
+    return findChildByType(A_TEXT_TR);
   }
 
   @Override

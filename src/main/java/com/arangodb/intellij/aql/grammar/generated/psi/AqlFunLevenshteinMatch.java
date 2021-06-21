@@ -5,13 +5,16 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AqlFunInRange extends PsiElement {
+public interface AqlFunLevenshteinMatch extends PsiElement {
 
   @NotNull
-  List<AqlAnyType> getAnyTypeList();
+  AqlAnyType getAnyType();
+
+  @Nullable
+  AqlBooleanType getBooleanType();
 
   @NotNull
-  List<AqlBooleanType> getBooleanTypeList();
+  List<AqlNumberType> getNumberTypeList();
 
   @NotNull
   List<AqlObjectExpression> getObjectExpressionList();
@@ -19,10 +22,13 @@ public interface AqlFunInRange extends PsiElement {
   @NotNull
   List<AqlParameterVariable> getParameterVariableList();
 
+  @Nullable
+  AqlStringType getStringType();
+
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
   @NotNull
-  PsiElement getFInRange();
+  PsiElement getFLevenshteinMatch();
 
 }

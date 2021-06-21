@@ -512,6 +512,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunIpToNumber getFunIpToNumber() {
+    return findChildByClass(AqlFunIpToNumber.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunIsArray getFunIsArray() {
     return findChildByClass(AqlFunIsArray.class);
   }
@@ -532,6 +538,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   @Nullable
   public AqlFunIsDocument getFunIsDocument() {
     return findChildByClass(AqlFunIsDocument.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunIsIpv getFunIsIpv() {
+    return findChildByClass(AqlFunIsIpv.class);
   }
 
   @Override
@@ -574,6 +586,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   @Nullable
   public AqlFunIsString getFunIsString() {
     return findChildByClass(AqlFunIsString.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunJaccard getFunJaccard() {
+    return findChildByClass(AqlFunJaccard.class);
   }
 
   @Override
@@ -622,6 +640,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   @Nullable
   public AqlFunLevenshteinDistance getFunLevenshteinDistance() {
     return findChildByClass(AqlFunLevenshteinDistance.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunLevenshteinMatch getFunLevenshteinMatch() {
+    return findChildByClass(AqlFunLevenshteinMatch.class);
   }
 
   @Override

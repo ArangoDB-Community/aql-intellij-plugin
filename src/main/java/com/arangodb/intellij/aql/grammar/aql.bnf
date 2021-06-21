@@ -242,6 +242,11 @@ F_DATE_TRUNC = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Rr])([Uu])([Nn])([Cc
 F_IS_OBJECT = "regexp:([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])"
 F_STDDEV_SAMPLE = "regexp:([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])"
 F_COUNT_DISTINCT = "regexp:([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
+// 3.7
+F_JACCARD = "regexp:([Jj])([Aa])([Cc])([Cc])([Aa])([Rr])([Dd])"
+F_IS_IPV4 = "regexp:([Ii])([Ss])([_])([Ii])([Pp])([Vv])([4])"
+F_IPV4_TO_NUMBER = "regexp:([Ii])([Pp])([Vv])([4])([_])([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
+F_LEVENSHTEIN_MATCH = "regexp:([Ll])([Ee])([Vv])([Ee])([Nn])([Ss])([Hh])([Tt])([Ee])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])"
 
 
 DOT = "."
@@ -765,11 +770,16 @@ NamedFunctions::= FunAbs
               | FunStddevPopulation
               | FunVariancePopulation
               | FunRadians
-              | FunInRange
               | FunRange
               | FunRound
               | FunVariance
               | FunConcatSeparator
+              // 3.7
+              | FunInRange
+              | FunIpToNumber
+              | FunIsIpv
+              | FunLevenshteinMatch
+              | FunJaccard
 
 {
      methods=[
@@ -1059,6 +1069,43 @@ private expression_argument::= objects_argument | ExpressionType | JsonType
  FunDateCompare ::=  (F_DATE_COMPARE "("  date_argument "," date_argument "," DateUnit ("," DateUnit)? ")"){pin=2}
 
 //############################################
+// 3.7
+//############################################
+FunInRange ::=  (F_IN_RANGE "(" AnyType  "," AnyType "," AnyType  "," boolean_argument  "," boolean_argument ")"){pin=3}
+FunIpToNumber ::=  (F_IPV4_TO_NUMBER "(" string_argument ")"){pin=3}
+FunIsIpv ::=  (F_IS_IPV4 "(" AnyType ")"){pin=3}
+FunJaccard ::=  (F_JACCARD "(" ArrayType  "," ArrayType ")"){pin=3}
+FunLevenshteinMatch ::=  (F_LEVENSHTEIN_MATCH "(" AnyType  "," string_argument "," number_argument ("," boolean_argument ("," number_argument)? )?  ")"){pin=3}
+// INTERLEAVE
+// IPV4_FROM_NUMBER
+// REPLACE_NTH
+// PRODUCT
+// NGRAM_MATCH
+//NGRAM_SIMILARITY
+//NGRAM_POSITIONAL_SIMILARITY
+//############################################
+// 3.8
+//############################################
+/*
+BIT_AND(): and-combine two or more numbers
+BIT_OR(): or-combine two or more numbers
+BIT_XOR(): xor-combine two or more numbers
+BIT_NEGATE(): bitwise negation
+BIT_TEST(): test if bit is set at position
+BIT_POPCOUNT(): number of bits set
+BIT_SHIFT_LEFT(): bitwise shift-left
+BIT_SHIFT_RIGHT(): bitwise shift-right
+BIT_CONSTRUCT(): construct a number with bits set at given positions
+BIT_DECONSTRUCT(): deconstruct a number into an array with the positions of its set bits
+BIT_TO_STRING(): create a bitstring representation from a numeric value
+BIT_FROM_STRING(): parse a bitstring representation into a number
+GEO_IN_RANGE()
+
+*/
+
+
+
+//############################################
 // TYPE CAST
 //############################################
 
@@ -1191,7 +1238,7 @@ FunRand  ::=  (F_RAND "(" ")")
 FunPow  ::=  (F_POW "(" number_argument "," number_argument ")"){pin=2}
 FunRadians  ::=  (F_RADIANS "(" number_argument ")"){pin=2}
 FunRange  ::=  (F_RANGE "(" number_argument "," number_argument ("," number_argument)? ")"){pin=2}
-FunInRange  ::=  (F_IN_RANGE "(" AnyType "," number_argument "," number_argument  "," BooleanType  "," BooleanType ")"){pin=2}
+
 FunRound  ::=  (F_ROUND "(" number_argument ")"){pin=2}
 FunSQRT  ::=  (F_SQRT "(" number_argument ")"){pin=2}
 FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){pin=2}

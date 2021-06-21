@@ -371,6 +371,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunIpToNumber(@NotNull AqlFunIpToNumber o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunIsArray(@NotNull AqlFunIsArray o) {
     visitPsiElement(o);
   }
@@ -384,6 +388,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitFunIsDocument(@NotNull AqlFunIsDocument o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunIsIpv(@NotNull AqlFunIsIpv o) {
     visitPsiElement(o);
   }
 
@@ -412,6 +420,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitFunIsString(@NotNull AqlFunIsString o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunJaccard(@NotNull AqlFunJaccard o) {
     visitPsiElement(o);
   }
 
@@ -444,6 +456,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitFunLevenshteinDistance(@NotNull AqlFunLevenshteinDistance o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunLevenshteinMatch(@NotNull AqlFunLevenshteinMatch o) {
     visitPsiElement(o);
   }
 

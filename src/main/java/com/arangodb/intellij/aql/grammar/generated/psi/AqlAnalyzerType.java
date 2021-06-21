@@ -23,7 +23,22 @@ public interface AqlAnalyzerType extends PsiElement {
   PsiElement getAStem();
 
   @Nullable
+  PsiElement getATextAr();
+
+  @Nullable
+  PsiElement getATextBa();
+
+  @Nullable
+  PsiElement getATextCa();
+
+  @Nullable
+  PsiElement getATextDa();
+
+  @Nullable
   PsiElement getATextDe();
+
+  @Nullable
+  PsiElement getATextEl();
 
   @Nullable
   PsiElement getATextEn();
@@ -35,7 +50,28 @@ public interface AqlAnalyzerType extends PsiElement {
   PsiElement getATextFi();
 
   @Nullable
+  PsiElement getATextFr();
+
+  @Nullable
+  PsiElement getATextGa();
+
+  @Nullable
+  PsiElement getATextHi();
+
+  @Nullable
+  PsiElement getATextHu();
+
+  @Nullable
+  PsiElement getATextId();
+
+  @Nullable
   PsiElement getATextIt();
+
+  @Nullable
+  PsiElement getATextLt();
+
+  @Nullable
+  PsiElement getATextNe();
 
   @Nullable
   PsiElement getATextNl();
@@ -47,10 +83,22 @@ public interface AqlAnalyzerType extends PsiElement {
   PsiElement getATextPt();
 
   @Nullable
+  PsiElement getATextRo();
+
+  @Nullable
   PsiElement getATextRu();
 
   @Nullable
+  PsiElement getATextSr();
+
+  @Nullable
   PsiElement getATextSv();
+
+  @Nullable
+  PsiElement getATextTa();
+
+  @Nullable
+  PsiElement getATextTr();
 
   @Nullable
   PsiElement getATextZh();

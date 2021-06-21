@@ -246,22 +246,41 @@ F_DATE_TRUNC=([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Rr])([Uu])([Nn])([Cc])
 F_IS_OBJECT=([Ii])([Ss])([_])([Oo])([Bb])([Jj])([Ee])([Cc])([Tt])
 F_STDDEV_SAMPLE=([Ss])([Tt])([Dd])([Dd])([Ee])([Vv])([_])([Ss])([Aa])([Mm])([Pp])([Ll])([Ee])
 F_COUNT_DISTINCT=([Cc])([Oo])([Uu])([Nn])([Tt])([_])([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])
+F_JACCARD=([Jj])([Aa])([Cc])([Cc])([Aa])([Rr])([Dd])
+F_IS_IPV4=([Ii])([Ss])([_])([Ii])([Pp])([Vv])([4])
+F_IPV4_TO_NUMBER=([Ii])([Pp])([Vv])([4])([_])([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])
+F_LEVENSHTEIN_MATCH=([Ll])([Ee])([Vv])([Ee])([Nn])([Ss])([Hh])([Tt])([Ee])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])
 A_IDENTITY=('identity')|(\"identity\")
 A_DELIMITER=('delimiter')|(\"delimiter\")
 A_STEM=('stem')|(\"stem\")
 A_NORM=('stem')|(\"norm\")
 A_NGRAM=('stem')|(\"ngram\")
+A_TEXT_AR=('text_ar')|(\"text_ar\")
+A_TEXT_CA=('text_ca')|(\"text_ca\")
+A_TEXT_DA=('text_da')|(\"text_da\")
 A_TEXT_DE=('text_de')|(\"text_de\")
+A_TEXT_BA=('text_eu')|(\"text_eu\")
 A_TEXT_EN=('text_en')|(\"text_en\")
 A_TEXT_ES=('text_es')|(\"text_es\")
+A_TEXT_EL=('text_el')|(\"text_el\")
 A_TEXT_FI=('text_fi')|(\"text_fi\")
-TEXT_FR=('text_fr')|(\"text_fr\")
+A_TEXT_FR=('text_fr')|(\"text_fr\")
+A_TEXT_HI=('text_hi')|(\"text_hi\")
+A_TEXT_HU=('text_hu')|(\"text_hu\")
+A_TEXT_ID=('text_id')|(\"text_id\")
+A_TEXT_GA=('text_ga')|(\"text_ga\")
 A_TEXT_IT=('text_it')|(\"text_it\")
+A_TEXT_LT=('text_lt')|(\"text_lt\")
+A_TEXT_NE=('text_ne')|(\"text_ne\")
 A_TEXT_NL=('text_nl')|(\"text_nl\")
 A_TEXT_NO=('text_no')|(\"text_no\")
 A_TEXT_PT=('text_pt')|(\"text_pt\")
+A_TEXT_RO=('text_ro')|(\"text_ro\")
 A_TEXT_RU=('text_ru')|(\"text_ru\")
 A_TEXT_SV=('text_sv')|(\"text_sv\")
+A_TEXT_SR=('text_sr')|(\"text_sr\")
+A_TEXT_TA=('text_ta')|(\"text_ta\")
+A_TEXT_TR=('text_tr')|(\"text_tr\")
 A_TEXT_ZH=('text_zh')|(\"text_zh\")
 D_YEAR_S=(['])([Yy])([Ea])([Aa])([Rr])(['])|(['])([Yy])([Ea])([Aa])([Rr])([Ss])(['])|(['])([Yy])(['])
 D_YEAR_D=([\"])([Yy])([Ea])([Aa])([Rr])([\"])|([\"])([Yy])([Ea])([Aa])([Rr])([Ss])([\"])|([\"])([Yy])([\"])
@@ -338,7 +357,6 @@ SPACE=[ \t\n\x0B\f\r]+
   "F_WITHIN"                    { return F_WITHIN; }
   "F_WITHIN_RECTANGLE"          { return F_WITHIN_RECTANGLE; }
   "T_NIN"                       { return T_NIN; }
-  "A_TEXT_FR"                   { return A_TEXT_FR; }
   "function_names"              { return FUNCTION_NAMES; }
 
   {T_SEARCH}                    { return T_SEARCH; }
@@ -562,22 +580,41 @@ SPACE=[ \t\n\x0B\f\r]+
   {F_IS_OBJECT}                 { return F_IS_OBJECT; }
   {F_STDDEV_SAMPLE}             { return F_STDDEV_SAMPLE; }
   {F_COUNT_DISTINCT}            { return F_COUNT_DISTINCT; }
+  {F_JACCARD}                   { return F_JACCARD; }
+  {F_IS_IPV4}                   { return F_IS_IPV4; }
+  {F_IPV4_TO_NUMBER}            { return F_IPV4_TO_NUMBER; }
+  {F_LEVENSHTEIN_MATCH}         { return F_LEVENSHTEIN_MATCH; }
   {A_IDENTITY}                  { return A_IDENTITY; }
   {A_DELIMITER}                 { return A_DELIMITER; }
   {A_STEM}                      { return A_STEM; }
   {A_NORM}                      { return A_NORM; }
   {A_NGRAM}                     { return A_NGRAM; }
+  {A_TEXT_AR}                   { return A_TEXT_AR; }
+  {A_TEXT_CA}                   { return A_TEXT_CA; }
+  {A_TEXT_DA}                   { return A_TEXT_DA; }
   {A_TEXT_DE}                   { return A_TEXT_DE; }
+  {A_TEXT_BA}                   { return A_TEXT_BA; }
   {A_TEXT_EN}                   { return A_TEXT_EN; }
   {A_TEXT_ES}                   { return A_TEXT_ES; }
+  {A_TEXT_EL}                   { return A_TEXT_EL; }
   {A_TEXT_FI}                   { return A_TEXT_FI; }
-  {TEXT_FR}                     { return TEXT_FR; }
+  {A_TEXT_FR}                   { return A_TEXT_FR; }
+  {A_TEXT_HI}                   { return A_TEXT_HI; }
+  {A_TEXT_HU}                   { return A_TEXT_HU; }
+  {A_TEXT_ID}                   { return A_TEXT_ID; }
+  {A_TEXT_GA}                   { return A_TEXT_GA; }
   {A_TEXT_IT}                   { return A_TEXT_IT; }
+  {A_TEXT_LT}                   { return A_TEXT_LT; }
+  {A_TEXT_NE}                   { return A_TEXT_NE; }
   {A_TEXT_NL}                   { return A_TEXT_NL; }
   {A_TEXT_NO}                   { return A_TEXT_NO; }
   {A_TEXT_PT}                   { return A_TEXT_PT; }
+  {A_TEXT_RO}                   { return A_TEXT_RO; }
   {A_TEXT_RU}                   { return A_TEXT_RU; }
   {A_TEXT_SV}                   { return A_TEXT_SV; }
+  {A_TEXT_SR}                   { return A_TEXT_SR; }
+  {A_TEXT_TA}                   { return A_TEXT_TA; }
+  {A_TEXT_TR}                   { return A_TEXT_TR; }
   {A_TEXT_ZH}                   { return A_TEXT_ZH; }
   {D_YEAR_S}                    { return D_YEAR_S; }
   {D_YEAR_D}                    { return D_YEAR_D; }
