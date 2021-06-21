@@ -2,15 +2,12 @@
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
 import java.util.List;
-
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
-
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
@@ -25,11 +22,11 @@ public class AqlFunAppendImpl extends ASTWrapperPsiElement implements AqlFunAppe
     visitor.visitFunAppend(this);
   }
 
-    @Override
-    public void accept(@NotNull PsiElementVisitor visitor) {
-        if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
-        else super.accept(visitor);
-    }
+  @Override
+  public void accept(@NotNull PsiElementVisitor visitor) {
+    if (visitor instanceof AqlVisitor) accept((AqlVisitor)visitor);
+    else super.accept(visitor);
+  }
 
   @Override
   @Nullable
@@ -50,9 +47,9 @@ public class AqlFunAppendImpl extends ASTWrapperPsiElement implements AqlFunAppe
   }
 
   @Override
-  @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
+  @NotNull
+  public List<AqlNumberType> getNumberTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
   }
 
   @Override
@@ -68,15 +65,15 @@ public class AqlFunAppendImpl extends ASTWrapperPsiElement implements AqlFunAppe
   }
 
   @Override
-  @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
+  @NotNull
+  public List<AqlPropertyName> getPropertyNameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
   }
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  public List<AqlTupleType> getTupleTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
   }
 
   @Override

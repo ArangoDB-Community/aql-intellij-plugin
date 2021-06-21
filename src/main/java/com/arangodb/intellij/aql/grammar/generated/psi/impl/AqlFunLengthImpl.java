@@ -35,33 +35,27 @@ public class AqlFunLengthImpl extends ASTWrapperPsiElement implements AqlFunLeng
   }
 
   @Override
-  @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlParameterVariable getParameterVariable() {
-    return findChildByClass(AqlParameterVariable.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
+  @NotNull
+  public List<AqlNumberType> getNumberTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
   }
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  public List<AqlObjectExpression> getObjectExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AqlParameterVariable> getParameterVariableList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AqlPropertyName> getPropertyNameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
   }
 
   @Override
@@ -71,9 +65,15 @@ public class AqlFunLengthImpl extends ASTWrapperPsiElement implements AqlFunLeng
   }
 
   @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
+  @NotNull
+  public List<AqlTupleType> getTupleTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
+  }
+
+  @Override
+  @NotNull
+  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
   }
 
   @Override

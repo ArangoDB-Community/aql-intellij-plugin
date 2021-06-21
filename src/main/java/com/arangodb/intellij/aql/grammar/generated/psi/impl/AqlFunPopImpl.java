@@ -54,8 +54,8 @@ public class AqlFunPopImpl extends ASTWrapperPsiElement implements AqlFunPop {
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  public List<AqlTupleType> getTupleTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
   }
 
   @Override

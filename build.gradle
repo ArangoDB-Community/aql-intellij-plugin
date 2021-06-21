@@ -1,15 +1,14 @@
-
 plugins {
-    id 'java'
-    id "org.jetbrains.intellij" version "0.6.5"
-    id "org.jetbrains.grammarkit" version "2020.3.2"
-    id 'net.researchgate.release' version '2.8.1'
+  id 'java'
+  id "org.jetbrains.intellij" version "0.7.3"
+  id "org.jetbrains.grammarkit" version "2021.1.3"
+  id 'net.researchgate.release' version '2.8.1'
 }
 
 repositories {
-    jcenter()
-    mavenCentral()
-    maven { url "https://www.jitpack.io" }
+  jcenter()
+  mavenCentral()
+  maven { url "https://www.jitpack.io" }
 }
 
 
@@ -31,60 +30,60 @@ group 'com.arangodb'
 sourceCompatibility = 11
 
 
-
 dependencies {
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile('com.arangodb:arangodb-java-driver:6.3.0')  {
-        exclude group: 'org.slf4j', module: 'slf4j-api'
-    }
+  testRuntimeOnly group: 'junit', name: 'junit', version: '4.13.2'
+  implementation('com.arangodb:arangodb-java-driver:6.12.2') {
+    exclude group: 'org.slf4j', module: 'slf4j-api'
+  }
 
 
-    compile "com.fasterxml.jackson.core:jackson-core:2.10.0"
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.10.0'
+  implementation "com.fasterxml.jackson.core:jackson-core:2.12.3"
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 }
 patchPluginXml {
-    version artifactVersion
-    if (isEAP || (ideaVersion == lastReleaseVersion)) {
-        untilBuild ""
-    }
+  version artifactVersion
+  if (isEAP || (ideaVersion == lastReleaseVersion)) {
+    untilBuild ""
+  }
 }
 intellij {
-    version ideaVersion
-    println "Intellij version: ${version}"
-    pluginName pluginName
-    updateSinceUntilBuild true
-    sameSinceUntilBuild false
-    sandboxDirectory = "${rootProject.projectDir}/idea-sandbox/idea-${ideaVersion}"
+  version ideaVersion
+  println "Intellij version: ${version}"
+  pluginName pluginName
+  updateSinceUntilBuild true
+  sameSinceUntilBuild false
+  sandboxDirectory = "${rootProject.projectDir}/idea-sandbox/idea-${ideaVersion}"
 
-    plugins 'java'
-    intellij.plugins 'java'
+  plugins 'java'
+  intellij.plugins 'java'
 }
 /*
 * Works like maven release plugin, see:
 * https://github.com/researchgate/gradle-release
 *
 * */
+
 release {
-    revertOnFail = true
-    failOnCommitNeeded = true
-    failOnPublishNeeded = true
-    failOnUpdateNeeded = true
-    failOnSnapshotDependencies = true
-    failOnUnversionedFiles = true
-   /* pushReleaseVersionBranch = false*/
-    failOnUnversionedFiles = true
+  revertOnFail = true
+  failOnCommitNeeded = true
+  failOnPublishNeeded = true
+  failOnUpdateNeeded = true
+  failOnSnapshotDependencies = true
+  failOnUnversionedFiles = true
+  /* pushReleaseVersionBranch = false*/
+  failOnUnversionedFiles = true
 
-    buildTasks = ['build']
+  buildTasks = ['build']
 
-    tagTemplate = '$name-$version'
-    preCommitText = '[Gradle release]'
-    preTagCommitMessage = 'Gradle Pre tag commit: '
-    tagCommitMessage = 'Gradle Creating tag: '
-    newVersionCommitMessage = ' New version commit: '
+  tagTemplate = '$name-$version'
+  preCommitText = '[Gradle release]'
+  preTagCommitMessage = 'Gradle Pre tag commit: '
+  tagCommitMessage = 'Gradle Creating tag: '
+  newVersionCommitMessage = ' New version commit: '
 
-    git {
-        requireBranch = 'master'
-        pushToRemote = 'origin'
-    }
+  git {
+    requireBranch = 'master'
+    pushToRemote = 'origin'
+  }
 }

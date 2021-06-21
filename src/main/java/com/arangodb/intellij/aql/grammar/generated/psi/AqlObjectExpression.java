@@ -15,8 +15,11 @@ public interface AqlObjectExpression extends PsiElement {
   @NotNull
   List<AqlPropertyLookup> getPropertyLookupList();
 
-  @NotNull
+  @Nullable
   AqlPropertyName getPropertyName();
+
+  @Nullable
+  PsiElement getTCurrent();
 
   String getName();
 

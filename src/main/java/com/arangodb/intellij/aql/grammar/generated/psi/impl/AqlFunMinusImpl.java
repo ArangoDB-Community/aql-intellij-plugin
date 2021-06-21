@@ -54,8 +54,8 @@ public class AqlFunMinusImpl extends ASTWrapperPsiElement implements AqlFunMinus
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  public List<AqlTupleType> getTupleTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
   }
 
   @Override

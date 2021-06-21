@@ -500,12 +500,6 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
-  public AqlFunInRange getFunInRange() {
-    return findChildByClass(AqlFunInRange.class);
-  }
-
-  @Override
-  @Nullable
   public AqlFunInterSection getFunInterSection() {
     return findChildByClass(AqlFunInterSection.class);
   }

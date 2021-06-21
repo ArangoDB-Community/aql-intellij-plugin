@@ -20,7 +20,7 @@ public interface AqlFunMinus extends PsiElement {
   List<AqlPropertyName> getPropertyNameList();
 
   @NotNull
-  List<AqlQueryItem> getQueryItemList();
+  List<AqlTupleType> getTupleTypeList();
 
   @NotNull
   List<AqlVariablePlaceHolder> getVariablePlaceHolderList();

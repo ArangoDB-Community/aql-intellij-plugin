@@ -244,9 +244,6 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunHash getFunHash();
 
   @Nullable
-  AqlFunInRange getFunInRange();
-
-  @Nullable
   AqlFunInterSection getFunInterSection();
 
   @Nullable

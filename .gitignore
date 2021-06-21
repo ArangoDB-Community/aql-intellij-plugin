@@ -9,3 +9,5 @@ ref/
 out/
 *.ipr
 *.iws
+idea-flex.skeleton
+jflex-*.jar

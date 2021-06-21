@@ -8,51 +8,21 @@ import com.intellij.psi.PsiElement;
 public interface AqlStatement extends PsiElement {
 
   @Nullable
-  AqlAnalyzerType getAnalyzerType();
-
-  @Nullable
-  AqlArrayType getArrayType();
-
-  @Nullable
-  AqlBooleanType getBooleanType();
+  AqlArrayRef getArrayRef();
 
   @Nullable
   AqlComment getComment();
 
   @Nullable
-  AqlExpressionType getExpressionType();
-
-  @Nullable
-  AqlFunctionExpression getFunctionExpression();
+  AqlForType getForType();
 
   @Nullable
   AqlJsonType getJsonType();
 
   @Nullable
-  AqlNamedKeywordStatements getNamedKeywordStatements();
+  AqlLetType getLetType();
 
   @Nullable
-  AqlNumberType getNumberType();
-
-  @Nullable
-  AqlObjectExpression getObjectExpression();
-
-  @Nullable
-  AqlOperatorStatements getOperatorStatements();
-
-  @NotNull
-  List<AqlQueryItem> getQueryItemList();
-
-  @Nullable
-  AqlSequence getSequence();
-
-  @Nullable
-  AqlStringType getStringType();
-
-  @Nullable
-  AqlSystemProperty getSystemProperty();
-
-  @Nullable
-  AqlVariablePlaceHolder getVariablePlaceHolder();
+  AqlReturnType getReturnType();
 
 }

@@ -47,9 +47,9 @@ public class AqlFunRemoveValueImpl extends ASTWrapperPsiElement implements AqlFu
   }
 
   @Override
-  @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
+  @NotNull
+  public List<AqlNumberType> getNumberTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlNumberType.class);
   }
 
   @Override
@@ -65,15 +65,15 @@ public class AqlFunRemoveValueImpl extends ASTWrapperPsiElement implements AqlFu
   }
 
   @Override
-  @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
+  @NotNull
+  public List<AqlPropertyName> getPropertyNameList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlPropertyName.class);
   }
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  public List<AqlTupleType> getTupleTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
   }
 
   @Override

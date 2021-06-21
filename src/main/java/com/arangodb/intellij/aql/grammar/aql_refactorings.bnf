@@ -13,7 +13,7 @@
     psiImplUtilClass="com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil"
     psiPackage="com.arangodb.intellij.aql.grammar.generated.psi"
     psiImplPackage="com.arangodb.intellij.aql.grammar.generated.psi.impl"
-    
+
 tokens = [
     // system:
 T_SEARCH = "regexp:([Ss])([Ee])([Aa])([Rr])([Cc])([Hh])"
@@ -342,7 +342,7 @@ T_NONE = "none"
     ID = 'regexp:[a-zA-Z_]([[a-zA-Z_0-9]]\w*)?'
     SPACE='regexp:\s+'
 ]
-    
+
 }
 
 
@@ -467,7 +467,7 @@ private integer_argument_array ::= (possible_number_array | "[" integer_argument
 private expression_argument::= objects_argument | ExpressionType | JsonType
 
 //*************************************************************************************
-// FUNCTIONS 
+// FUNCTIONS
 //*************************************************************************************
 //############################################
 
@@ -570,7 +570,7 @@ private string_list ::= StringType ("," StringType)*
 private string_argument_array ::= (possible_array | string_array)
 
 FunAttributes  ::=  (F_ATTRIBUTES "(" document_argument ("," boolean_argument)? ("," boolean_argument)? ")"){pin=2}
-FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
+FunHas  ::=  (F_HAS  "(" document_argument ("," ExpressionType)? ")"){pin=2}
 FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
 FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
 FunMatches  ::=  (F_MATCHES  "(" document_argument "," (expression_argument | JsonType) ("," boolean_argument)?")"){pin=2}
@@ -724,7 +724,7 @@ FunKeys ::=  (F_KEYS "(" AnyType ")"){pin=2}
  FunGeoPoint ::=  (F_GEO_POINT "(" NumberType "," NumberType ")"){pin=2}
  FunGeoPolygon ::=  (F_GEO_POLYGON "(" ArrayType ("," ArrayType)* ")"){pin=2}
 
-                                
+
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER

@@ -54,8 +54,8 @@ public class AqlFunOuterSectionImpl extends ASTWrapperPsiElement implements AqlF
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
+  public List<AqlTupleType> getTupleTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlTupleType.class);
   }
 
   @Override

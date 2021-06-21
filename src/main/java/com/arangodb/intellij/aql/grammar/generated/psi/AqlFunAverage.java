@@ -7,23 +7,23 @@ import com.intellij.psi.PsiElement;
 
 public interface AqlFunAverage extends PsiElement {
 
-  @Nullable
-  AqlNumberType getNumberType();
-
-  @Nullable
-  AqlObjectExpression getObjectExpression();
-
-  @Nullable
-  AqlParameterVariable getParameterVariable();
-
-  @Nullable
-  AqlPropertyName getPropertyName();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
   @NotNull
-  List<AqlQueryItem> getQueryItemList();
+  List<AqlObjectExpression> getObjectExpressionList();
 
-  @Nullable
-  AqlVariablePlaceHolder getVariablePlaceHolder();
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
+
+  @NotNull
+  List<AqlPropertyName> getPropertyNameList();
+
+  @NotNull
+  List<AqlTupleType> getTupleTypeList();
+
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
   @NotNull
   PsiElement getFAverage();

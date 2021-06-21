@@ -43,9 +43,15 @@ public class AqlObjectExpressionImpl extends AqlObjectExpressionMixin implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public AqlPropertyName getPropertyName() {
-    return findNotNullChildByClass(AqlPropertyName.class);
+    return findChildByClass(AqlPropertyName.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getTCurrent() {
+    return findChildByType(T_CURRENT);
   }
 
   @Override

@@ -29,45 +29,15 @@ public class AqlFunSliceImpl extends ASTWrapperPsiElement implements AqlFunSlice
   }
 
   @Override
-  @NotNull
-  public List<AqlIntegerType> getIntegerTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
-  }
-
-  @Override
   @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlParameterVariable getParameterVariable() {
-    return findChildByClass(AqlParameterVariable.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
+  public AqlExpressionType getExpressionType() {
+    return findChildByClass(AqlExpressionType.class);
   }
 
   @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
+  public List<AqlIntegerType> getIntegerTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlIntegerType.class);
   }
 
   @Override

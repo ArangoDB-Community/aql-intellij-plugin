@@ -30,14 +30,14 @@ public class AqlJsonTypeImpl extends ASTWrapperPsiElement implements AqlJsonType
 
   @Override
   @NotNull
-  public List<AqlArrayRef> getArrayRefList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayRef.class);
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
   }
 
   @Override
   @NotNull
-  public List<AqlComplexJsonValue> getComplexJsonValueList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlComplexJsonValue.class);
+  public List<AqlArrayRef> getArrayRefList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayRef.class);
   }
 
   @Override

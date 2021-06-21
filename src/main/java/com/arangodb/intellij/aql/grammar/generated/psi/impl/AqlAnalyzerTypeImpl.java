@@ -2,15 +2,12 @@
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
 import java.util.List;
-
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
-
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.*;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
@@ -33,32 +30,8 @@ public class AqlAnalyzerTypeImpl extends ASTWrapperPsiElement implements AqlAnal
 
   @Override
   @Nullable
-  public PsiElement getADelimiter() {
-    return findChildByType(A_DELIMITER);
-  }
-
-  @Override
-  @Nullable
   public PsiElement getAIdentity() {
     return findChildByType(A_IDENTITY);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getANgram() {
-    return findChildByType(A_NGRAM);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getANorm() {
-    return findChildByType(A_NORM);
-  }
-
-  @Override
-  @Nullable
-  public PsiElement getAStem() {
-    return findChildByType(A_STEM);
   }
 
   @Override

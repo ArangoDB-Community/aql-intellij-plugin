@@ -30,20 +30,8 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
   @Override
   @Nullable
-  public AqlAnalyzerType getAnalyzerType() {
-    return findChildByClass(AqlAnalyzerType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlArrayType getArrayType() {
-    return findChildByClass(AqlArrayType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlBooleanType getBooleanType() {
-    return findChildByClass(AqlBooleanType.class);
+  public AqlArrayRef getArrayRef() {
+    return findChildByClass(AqlArrayRef.class);
   }
 
   @Override
@@ -54,14 +42,8 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
   @Override
   @Nullable
-  public AqlExpressionType getExpressionType() {
-    return findChildByClass(AqlExpressionType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlFunctionExpression getFunctionExpression() {
-    return findChildByClass(AqlFunctionExpression.class);
+  public AqlForType getForType() {
+    return findChildByClass(AqlForType.class);
   }
 
   @Override
@@ -72,56 +54,14 @@ public class AqlStatementImpl extends ASTWrapperPsiElement implements AqlStateme
 
   @Override
   @Nullable
-  public AqlNamedKeywordStatements getNamedKeywordStatements() {
-    return findChildByClass(AqlNamedKeywordStatements.class);
+  public AqlLetType getLetType() {
+    return findChildByClass(AqlLetType.class);
   }
 
   @Override
   @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlOperatorStatements getOperatorStatements() {
-    return findChildByClass(AqlOperatorStatements.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlSequence getSequence() {
-    return findChildByClass(AqlSequence.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlStringType getStringType() {
-    return findChildByClass(AqlStringType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlSystemProperty getSystemProperty() {
-    return findChildByClass(AqlSystemProperty.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
+  public AqlReturnType getReturnType() {
+    return findChildByClass(AqlReturnType.class);
   }
 
 }

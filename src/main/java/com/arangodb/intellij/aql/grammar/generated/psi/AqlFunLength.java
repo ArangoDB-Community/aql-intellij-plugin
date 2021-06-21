@@ -10,26 +10,26 @@ public interface AqlFunLength extends PsiElement {
   @Nullable
   AqlJsonType getJsonType();
 
-  @Nullable
-  AqlNumberType getNumberType();
-
-  @Nullable
-  AqlObjectExpression getObjectExpression();
-
-  @Nullable
-  AqlParameterVariable getParameterVariable();
-
-  @Nullable
-  AqlPropertyName getPropertyName();
+  @NotNull
+  List<AqlNumberType> getNumberTypeList();
 
   @NotNull
-  List<AqlQueryItem> getQueryItemList();
+  List<AqlObjectExpression> getObjectExpressionList();
+
+  @NotNull
+  List<AqlParameterVariable> getParameterVariableList();
+
+  @NotNull
+  List<AqlPropertyName> getPropertyNameList();
 
   @Nullable
   AqlStringType getStringType();
 
-  @Nullable
-  AqlVariablePlaceHolder getVariablePlaceHolder();
+  @NotNull
+  List<AqlTupleType> getTupleTypeList();
+
+  @NotNull
+  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
 
   @Nullable
   PsiElement getFLength();

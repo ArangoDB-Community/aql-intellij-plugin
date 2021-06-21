@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface AqlJsonType extends PsiElement {
 
   @NotNull
-  List<AqlArrayRef> getArrayRefList();
+  List<AqlAnyType> getAnyTypeList();
 
   @NotNull
-  List<AqlComplexJsonValue> getComplexJsonValueList();
+  List<AqlArrayRef> getArrayRefList();
 
   @NotNull
   List<AqlObjectExpression> getObjectExpressionList();
