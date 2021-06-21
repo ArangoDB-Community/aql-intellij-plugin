@@ -11,6 +11,9 @@ public interface AqlJsonType extends PsiElement {
   List<AqlArrayRef> getArrayRefList();
 
   @NotNull
+  List<AqlArrayType> getArrayTypeList();
+
+  @NotNull
   List<AqlComplexJsonValue> getComplexJsonValueList();
 
   @NotNull

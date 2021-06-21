@@ -202,7 +202,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // NumberType |ArrayRef
+  // NumberType | ArrayRef
   // | ObjectExpression
   // | ParameterVariable
   // | VariablePlaceHolder
@@ -6632,7 +6632,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // property_name ":" ComplexJsonValue+
+  // property_name ":"  (StringType  | ArrayRef | ArrayType | ComplexJsonValue+)
   static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
     boolean r, p;
@@ -6645,16 +6645,29 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // ComplexJsonValue+
+  // StringType  | ArrayRef | ArrayType | ComplexJsonValue+
   private static boolean property_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_2")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = StringType(b, l + 1);
+    if (!r) r = ArrayRef(b, l + 1);
+    if (!r) r = ArrayType(b, l + 1);
+    if (!r) r = property_2_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ComplexJsonValue+
+  private static boolean property_2_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_2_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = ComplexJsonValue(b, l + 1);
     while (r) {
       int c = current_position_(b);
       if (!ComplexJsonValue(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "property_2", c)) break;
+      if (!empty_element_parsed_guard_(b, "property_2_3", c)) break;
     }
     exit_section_(b, m, null, r);
     return r;

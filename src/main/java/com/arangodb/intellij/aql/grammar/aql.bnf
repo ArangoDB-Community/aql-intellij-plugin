@@ -13,7 +13,7 @@
     psiImplUtilClass="com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil"
     psiPackage="com.arangodb.intellij.aql.grammar.generated.psi"
     psiImplPackage="com.arangodb.intellij.aql.grammar.generated.psi.impl"
-    
+
 tokens = [
     // system:
 T_SEARCH = "regexp:([Ss])([Ee])([Aa])([Rr])([Cc])([Hh])"
@@ -349,7 +349,7 @@ T_NONE = "none"
     ID = 'regexp:[a-zA-Z_]([[a-zA-Z_0-9]]\w*)?'
     SPACE='regexp:\s+'
 ]
-    
+
 }
 
 
@@ -808,7 +808,7 @@ private reserved_keywords ::=    T_SHORTEST_PATH
 
 
 
-OperatorStatements ::= 
+OperatorStatements ::=
                         T_IS
                        | T_NOT
                        | T_AND
@@ -925,7 +925,7 @@ ExpressionType ::= ArrayRef
 //ExpressionArray ::= ExpressionType (',' ExpressionType)*
 
 // object notation...{foo:bar}
-ComplexJsonValue ::= NumberType |ArrayRef
+ComplexJsonValue ::= NumberType | ArrayRef
 | ObjectExpression
 | ParameterVariable
 | VariablePlaceHolder
@@ -946,7 +946,7 @@ private object_element ::= property (','|&'}') {
   pin = 1
 }
 private property_name::= objects_argument | StringType  | ArrayRef
-private property ::= property_name ":" ComplexJsonValue+ {pin(".*")=1}
+private property ::= property_name ":"  (StringType  | ArrayRef | ArrayType | ComplexJsonValue+) {pin(".*")=1}
 private not_brace_or_next_value ::= !('}'|ComplexJsonValue)
 
 AnyType::= ExpressionType | JsonType
@@ -997,7 +997,7 @@ private integer_argument_array ::= (possible_number_array | "[" integer_argument
 private expression_argument::= objects_argument | ExpressionType | JsonType
 
 //*************************************************************************************
-// FUNCTIONS 
+// FUNCTIONS
 //*************************************************************************************
 //############################################
 
@@ -1255,7 +1255,7 @@ FunKeys ::=  (F_KEYS "(" AnyType ")"){pin=2}
  FunGeoPoint ::=  (F_GEO_POINT "(" NumberType "," NumberType ")"){pin=2}
  FunGeoPolygon ::=  (F_GEO_POLYGON "(" ArrayType ("," ArrayType)* ")"){pin=2}
 
-                                
+
 
 StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
 IntegerType ::= NUMBER_INTEGER
