@@ -19,8 +19,8 @@ public interface AqlFunDocument extends PsiElement {
   @Nullable
   AqlParameterVariable getParameterVariable();
 
-  @NotNull
-  List<AqlStringType> getStringTypeList();
+  @Nullable
+  AqlStringType getStringType();
 
   @Nullable
   AqlVariablePlaceHolder getVariablePlaceHolder();

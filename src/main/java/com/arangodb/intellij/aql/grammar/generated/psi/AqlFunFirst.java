@@ -8,7 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface AqlFunFirst extends PsiElement {
 
   @Nullable
-  AqlNumberType getNumberType();
+  AqlExpressionType getExpressionType();
+
+  @Nullable
+  AqlJsonType getJsonType();
 
   @Nullable
   AqlObjectExpression getObjectExpression();
@@ -17,15 +20,9 @@ public interface AqlFunFirst extends PsiElement {
   AqlParameterVariable getParameterVariable();
 
   @Nullable
-  AqlPropertyName getPropertyName();
-
-  @NotNull
-  List<AqlQueryItem> getQueryItemList();
-
-  @Nullable
   AqlVariablePlaceHolder getVariablePlaceHolder();
 
-  @NotNull
+  @Nullable
   PsiElement getFFirst();
 
 }

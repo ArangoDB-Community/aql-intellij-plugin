@@ -30,8 +30,14 @@ public class AqlFunFirstImpl extends ASTWrapperPsiElement implements AqlFunFirst
 
   @Override
   @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
+  public AqlExpressionType getExpressionType() {
+    return findChildByClass(AqlExpressionType.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlJsonType getJsonType() {
+    return findChildByClass(AqlJsonType.class);
   }
 
   @Override
@@ -48,26 +54,14 @@ public class AqlFunFirstImpl extends ASTWrapperPsiElement implements AqlFunFirst
 
   @Override
   @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
-  }
-
-  @Override
-  @Nullable
   public AqlVariablePlaceHolder getVariablePlaceHolder() {
     return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
   @Override
-  @NotNull
+  @Nullable
   public PsiElement getFFirst() {
-    return findNotNullChildByType(F_FIRST);
+    return findChildByType(F_FIRST);
   }
 
 }

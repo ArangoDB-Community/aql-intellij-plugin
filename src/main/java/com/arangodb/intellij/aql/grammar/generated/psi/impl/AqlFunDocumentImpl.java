@@ -53,9 +53,9 @@ public class AqlFunDocumentImpl extends ASTWrapperPsiElement implements AqlFunDo
   }
 
   @Override
-  @NotNull
-  public List<AqlStringType> getStringTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStringType.class);
+  @Nullable
+  public AqlStringType getStringType() {
+    return findChildByClass(AqlStringType.class);
   }
 
   @Override

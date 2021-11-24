@@ -960,6 +960,7 @@ ExpressionType ::= ArrayRef
                 | PropertyName
                 | NamedFunctions
                 | keyword_functions
+                | reserved_keywords
 
 // foo, bar, 'test'
 //ExpressionArray ::= ExpressionType (',' ExpressionType)*
@@ -1034,7 +1035,7 @@ private number_argument::= NumberType | objects_argument
 private date_argument::= (AnyType | ('*' IntegerType)+)
 private number_argument_array ::= (repeatable_tuple | possible_number_array | "[" number_argument (',' number_argument)* "]")
 private integer_argument_array ::= (possible_number_array | "[" integer_argument (',' integer_argument)* "]")
-private expression_argument::= objects_argument | ExpressionType | JsonType
+private expression_argument::= objects_argument | ParameterVariable | ExpressionType | JsonType
 
 //*************************************************************************************
 // FUNCTIONS
@@ -1212,7 +1213,7 @@ FunSorted  ::=  (F_SORTED  "(" number_argument_array ")"){pin=2}
 FunSortedUnique  ::=  (F_SORTED_UNIQUE  "(" number_argument_array ")"){pin=2}
 FunCountDistinct  ::=  (F_COUNT_DISTINCT  "(" number_argument_array ")"){pin=2}
 FunCountUnique  ::=  (F_COUNT_UNIQUE  "(" number_argument_array ")"){pin=2}
-FunFirst  ::=  (F_FIRST  "(" number_argument_array ")"){pin=2}
+FunFirst  ::=  (F_FIRST  "(" expression_argument | document_argument ")"){pin=2}
 FunLast  ::=  (F_LAST  "(" number_argument_array ")"){pin=2}
 FunUnique  ::=  (F_UNIQUE  "(" number_argument_array ")"){pin=2}
 FunFlatten  ::=  (F_FLATTEN  "(" number_argument_array ("," IntegerType)? ")"){pin=2}
@@ -1301,7 +1302,7 @@ FunFirstDocument ::=  (F_FIRST_DOCUMENT "(" AnyType ("," AnyType)* ")"){pin=2}
 FunCollectionCount ::=  (F_COLLECTION_COUNT "(" number_argument_array ")"){pin=2}
 FunCollections ::=  (F_COLLECTIONS "(" ")"){pin=2}
 FunCurrentUser ::=  (F_CURRENT_USER "(" ")"){pin=2}
-FunDocument ::=  (F_DOCUMENT "(" property_name "," StringType | ArrayType ")"){pin=2}
+FunDocument ::=  (F_DOCUMENT "(" property_name | ParameterVariable "," StringType | ArrayType ")"){pin=2}
 FunHash ::=  (F_HASH "(" AnyType ")"){pin=2}
 FunApply ::=  (F_APPLY "(" StringType ("," ArrayType)? ")"){pin=2}
 FunAssert ::=  (F_ASSERT "(" AnyType "," StringType  ")"){pin=2}

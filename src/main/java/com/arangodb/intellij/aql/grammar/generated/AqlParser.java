@@ -355,6 +355,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                 | PropertyName
   //                 | NamedFunctions
   //                 | keyword_functions
+  //                 | reserved_keywords
   public static boolean ExpressionType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ExpressionType")) return false;
     boolean r;
@@ -375,6 +376,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = PropertyName(b, l + 1);
     if (!r) r = NamedFunctions(b, l + 1);
     if (!r) r = keyword_functions(b, l + 1);
+    if (!r) r = reserved_keywords(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -1536,25 +1538,35 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_DOCUMENT "(" property_name "," StringType | ArrayType ")"
+  // F_DOCUMENT "(" property_name | ParameterVariable "," StringType | ArrayType ")"
   public static boolean FunDocument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDocument")) return false;
-    if (!nextTokenIs(b, "<fun document>", F_DOCUMENT, T_ARRAY_OPEN)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, FUN_DOCUMENT, "<fun document>");
     r = FunDocument_0(b, l + 1);
     if (!r) r = FunDocument_1(b, l + 1);
+    if (!r) r = FunDocument_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // F_DOCUMENT "(" property_name "," StringType
+  // F_DOCUMENT "(" property_name
   private static boolean FunDocument_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDocument_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, F_DOCUMENT, T_OPEN);
     r = r && property_name(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ParameterVariable "," StringType
+  private static boolean FunDocument_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDocument_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = ParameterVariable(b, l + 1);
     r = r && consumeToken(b, T_COMMA);
     r = r && StringType(b, l + 1);
     exit_section_(b, m, null, r);
@@ -1562,8 +1574,8 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   // ArrayType ")"
-  private static boolean FunDocument_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FunDocument_1")) return false;
+  private static boolean FunDocument_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDocument_2")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = ArrayType(b, l + 1);
@@ -1750,18 +1762,37 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_FIRST  "(" number_argument_array ")"
+  // F_FIRST  "(" expression_argument | document_argument ")"
   public static boolean FunFirst(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunFirst")) return false;
-    if (!nextTokenIs(b, F_FIRST)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, FUN_FIRST, null);
-    r = consumeTokens(b, 2, F_FIRST, T_OPEN);
-    p = r; // pin = 2
-    r = r && report_error_(b, number_argument_array(b, l + 1));
-    r = p && consumeToken(b, T_CLOSE) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, FUN_FIRST, "<fun first>");
+    r = FunFirst_0(b, l + 1);
+    if (!r) r = FunFirst_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // F_FIRST  "(" expression_argument
+  private static boolean FunFirst_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunFirst_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, F_FIRST, T_OPEN);
+    r = r && expression_argument(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // document_argument ")"
+  private static boolean FunFirst_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunFirst_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = document_argument(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -6121,11 +6152,12 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // objects_argument | ExpressionType | JsonType
+  // objects_argument | ParameterVariable | ExpressionType | JsonType
   static boolean expression_argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expression_argument")) return false;
     boolean r;
     r = objects_argument(b, l + 1);
+    if (!r) r = ParameterVariable(b, l + 1);
     if (!r) r = ExpressionType(b, l + 1);
     if (!r) r = JsonType(b, l + 1);
     return r;

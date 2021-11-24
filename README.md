@@ -1,7 +1,7 @@
 
 ![ArangoDB](img/arangodb.png)
 
-#  AQL (ArangoDB) language support plugin for Intellij IDEA 2019.2+ IDE
+#  AQL (ArangoDB) language support plugin for Intellij *IDEA* 2021.x IDE
 
 
 ## Build
