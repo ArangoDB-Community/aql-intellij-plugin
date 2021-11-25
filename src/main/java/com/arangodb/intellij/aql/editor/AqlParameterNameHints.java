@@ -13,12 +13,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 // TODO implement
 public class AqlParameterNameHints implements InlayParameterHintsProvider {
 
     private static final String HINTS_NON_LITERALS = "aql.paramHints.nonLiterals";
-    private static final Option OPTION_HINTS_NON_LITERALS = new Option(HINTS_NON_LITERALS, AqlLanguageBundle.message(HINTS_NON_LITERALS), false);
+    private static final Option OPTION_HINTS_NON_LITERALS = new Option(HINTS_NON_LITERALS, () -> AqlLanguageBundle.message(HINTS_NON_LITERALS), false);
 
     @NotNull
     @Override

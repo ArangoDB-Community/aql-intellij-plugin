@@ -117,9 +117,9 @@ public class AqlConsoleWindow implements Disposable {
 
     @Override
     public void dispose() {
-        if (consoleTabs != null) {
+        /*if (consoleTabs != null) {
             consoleTabs.dispose();
-        }
+        }*/
 
         if (jsonPanel != null) {
             jsonPanel.dispose();

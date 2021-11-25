@@ -1,5 +1,9 @@
 package com.arangodb.intellij.aql.syntax;
 
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlMixinType;
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.arangodb.intellij.aql.grammar.generated.psi.AqlBlockComment;
@@ -7,15 +11,12 @@ import com.arangodb.intellij.aql.grammar.generated.psi.AqlLineComment;
 import com.arangodb.intellij.aql.lang.AqlSyntaxColors;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiWhiteSpace;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AqlSyntaxHighlighterAnnotator implements Annotator {
     private static final Logger log = LoggerFactory.getLogger(AqlSyntaxHighlighterAnnotator.class);
@@ -59,9 +60,13 @@ public class AqlSyntaxHighlighterAnnotator implements Annotator {
                 if (idx != -1) {
                     final TextRange textRange = whiteSpace.getTextRange();
                     if (textRange != null) {
-                        final String description = ApplicationManager.getApplication().isUnitTestMode() ? AqlSyntaxColors.ESCAPE_CHARACTERS.getExternalName() : null;
-                        holder.createInfoAnnotation(textRange, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
-                        holder.createInfoAnnotation(textRange, description).setTextAttributes(AqlSyntaxColors.ESCAPE_CHARACTERS);
+                        final String description = AqlSyntaxColors.ESCAPE_CHARACTERS.getExternalName();
+                        holder.newAnnotation(HighlightSeverity.WARNING, description)
+                              .range(textRange)
+                              .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+                              .textAttributes(AqlSyntaxColors.ESCAPE_CHARACTERS)
+                              .create();
+
                     }
 
                 }
@@ -93,9 +98,12 @@ public class AqlSyntaxHighlighterAnnotator implements Annotator {
 
 
     private static void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder, @NotNull TextAttributesKey key) {
-        final String description = ApplicationManager.getApplication().isUnitTestMode() ? key.getExternalName() : null;
-        holder.createInfoAnnotation(element, null).setEnforcedTextAttributes(TextAttributes.ERASE_MARKER);
-        holder.createInfoAnnotation(element, description).setTextAttributes(key);
+        holder.newAnnotation(HighlightSeverity.WARNING, key.getExternalName())
+              .range(element)
+              .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+              .textAttributes(key)
+              .create();
+
     }
 
 }

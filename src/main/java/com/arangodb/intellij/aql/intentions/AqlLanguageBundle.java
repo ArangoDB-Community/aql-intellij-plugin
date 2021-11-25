@@ -16,6 +16,8 @@
 
 package com.arangodb.intellij.aql.intentions;
 
+import com.intellij.AbstractBundle;
+import com.intellij.BundleBase;
 import com.intellij.CommonBundle;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +34,7 @@ public final class AqlLanguageBundle {
     }
 
     public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE) String key, @NotNull Object... params) {
-        return CommonBundle.message(getBundle(), key, params);
+        return AbstractBundle.message(getBundle(), key, params);
     }
 
     private static Reference<ResourceBundle> ourBundle;

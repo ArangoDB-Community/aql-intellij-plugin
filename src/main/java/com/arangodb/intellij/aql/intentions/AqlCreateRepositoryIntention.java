@@ -1,10 +1,13 @@
 package com.arangodb.intellij.aql.intentions;
 
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.util.AqlUtils;
 import com.intellij.codeInsight.daemon.impl.quickfix.CreateClassKind;
 import com.intellij.codeInsight.intention.impl.CreateClassDialog;
 import com.intellij.codeInsight.intention.impl.CreateSubclassAction;
-import com.intellij.ide.scratch.ScratchFileType;
 import com.intellij.lang.java.JavaLanguage;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Editor;
@@ -14,12 +17,17 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectFileIndex;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaDirectoryService;
+import com.intellij.psi.PsiAnnotation;
+import com.intellij.psi.PsiAnonymousClass;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiModifierList;
+import com.intellij.psi.PsiPackage;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.PsiUtilCore;
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class AqlCreateRepositoryIntention extends CreateSubclassAction {
 
@@ -36,7 +44,7 @@ public class AqlCreateRepositoryIntention extends CreateSubclassAction {
                 return false;
             }
             final VirtualFile virtualFile = PsiUtilCore.getVirtualFile(psiClass);
-            if (virtualFile == null || virtualFile.getFileType() == ScratchFileType.INSTANCE) {
+            if (virtualFile == null) {
                 return false;
             }
 
