@@ -1,5 +1,14 @@
 package com.arangodb.intellij.aql.db;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDBException;
 import com.arangodb.ArangoDatabase;
@@ -22,13 +31,6 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.concurrent.TimeUnit;
 
 /**
  * TODO implement
@@ -167,7 +169,7 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
 
             }
 
-        } catch (AqlDataSourceException e) {
+        } catch (Exception | AqlDataSourceException e) {
             service.sendResponse(ActionResponse.error(e.getMessage()));
         }
         return server;
@@ -198,6 +200,7 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
                     .user(user)
                     .useProtocol(Protocol.HTTP_JSON)
                     .password(settings.getPassword())
+                    .useSsl(settings.isUseSsl())
                     .build().db();
             db.getPermissions(user);
 
@@ -242,6 +245,7 @@ public class AqlDatabaseServiceImpl implements AqlDatabaseService {
                 .Builder()
                 .host(settings.getHost(), settings.getPort())
                 .user(settings.getUser())
+                .useSsl(settings.isUseSsl())
                 // TODO...make configurable?
                 .useProtocol(Protocol.HTTP_JSON)
                 .password(settings.getPassword())

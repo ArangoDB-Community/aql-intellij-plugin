@@ -1,19 +1,21 @@
 package com.arangodb.intellij.aql.model;
 
-import com.arangodb.intellij.aql.ui.PasswordManager;
-import com.intellij.util.xmlb.annotations.Transient;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.arangodb.intellij.aql.ui.PasswordManager;
+import com.intellij.util.xmlb.annotations.Transient;
 
 public class ArangoDbServer {
 
     public static final int DEFAULT_PORT = 8529;
     private int port = DEFAULT_PORT;
     private boolean excludeSystemCollections = true;
+    private boolean useSsl = false;
     private String host = "127.0.0.1";
     @Transient
     private String password;
@@ -157,6 +159,16 @@ public class ArangoDbServer {
 
     public void setQueries(final Map<String, AqlQuery> queries) {
         this.queries = queries;
+    }
+
+
+
+    public boolean isUseSsl() {
+        return useSsl;
+    }
+
+    public void setUseSsl(final boolean useSsl) {
+        this.useSsl = useSsl;
     }
 }
 

@@ -1,5 +1,16 @@
 package com.arangodb.intellij.aql.ui.dialogs;
 
+import java.awt.Dimension;
+import java.awt.Point;
+
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.actions.ActionResponse;
 import com.arangodb.intellij.aql.actions.AqlDataService;
 import com.arangodb.intellij.aql.model.ArangoDbServer;
@@ -18,10 +29,6 @@ import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBPasswordField;
 import com.intellij.ui.components.JBTabbedPane;
 import com.intellij.ui.components.JBTextField;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class AqlServerDialog extends DialogWrapper {
 
@@ -36,6 +43,7 @@ public class AqlServerDialog extends DialogWrapper {
     private JBIntSpinner portSpinner;
     private JBTabbedPane tabbedPane;
     private JBCheckBox excludeSystemCheckbox;
+    private JBCheckBox useSslCheckbox;
 
 
     public AqlServerDialog(final Project project) {
@@ -96,6 +104,7 @@ public class AqlServerDialog extends DialogWrapper {
         state.setHost(hostText.getText());
         state.setPort(portSpinner.getNumber());
         state.setExcludeSystemCollections(excludeSystemCheckbox.isSelected());
+        state.setUseSsl(useSslCheckbox.isSelected());
         return state;
     }
 
@@ -110,6 +119,7 @@ public class AqlServerDialog extends DialogWrapper {
         hostText.setText(server.getHost());
         portSpinner.setNumber(server.getPort());
         excludeSystemCheckbox.setSelected(server.isExcludeSystemCollections());
+        useSslCheckbox.setSelected(server.isUseSsl());
 
     }
 }
