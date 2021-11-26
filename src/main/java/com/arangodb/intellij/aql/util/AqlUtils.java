@@ -1,5 +1,18 @@
 package com.arangodb.intellij.aql.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+
 import com.arangodb.entity.AqlExecutionExplainEntity;
 import com.arangodb.intellij.aql.file.AqlFile;
 import com.arangodb.intellij.aql.file.AqlFileType;
@@ -21,18 +34,17 @@ import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
+import com.intellij.psi.PsiDirectory;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
+import com.intellij.psi.PsiManager;
+import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.indexing.FileBasedIndex;
-import com.intellij.util.indexing.ID;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-
-import static com.arangodb.intellij.aql.util.log.*;
+import static com.arangodb.intellij.aql.util.log.errorAction;
 
 
 public final class AqlUtils {
@@ -44,7 +56,7 @@ public final class AqlUtils {
     @NonNls
     static final String NAME_TEMPLATE_PROPERTY = "NAME";
     static final String LOW_CASE_NAME_TEMPLATE_PROPERTY = "lowCaseName";
-    
+
     public static PsiFile createFromTemplate(@NotNull final PsiDirectory directory,
                                              @NotNull final String name,
                                              @NotNull String fileName,
@@ -96,9 +108,9 @@ public final class AqlUtils {
     }
 
     public static String createFileName(final String name, final Map<String, AqlQuery> existing) {
-         AqlQuery aqlQueryModel = existing.get(name);
+        AqlQuery aqlQueryModel = existing.get(name);
         if (aqlQueryModel != null) {
-            // check if 
+            // check if
             int idx = 1;
             String newName = name + idx;
             aqlQueryModel = existing.get(newName);
@@ -157,10 +169,7 @@ public final class AqlUtils {
     }
 
     public static List<AqlNamedElement> findNamedElements(final Project project) {
-        final Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance()
-                .getContainingFiles(ID.create("filetypes"),
-                        AqlFileType.INSTANCE,
-                        GlobalSearchScope.allScope(project));
+        final Collection<VirtualFile> virtualFiles = FileTypeIndex.getFiles(AqlFileType.INSTANCE, GlobalSearchScope.allScope(project));
         final List<AqlNamedElement> result = new ArrayList<>();
         for (final VirtualFile virtualFile : virtualFiles) {
             final AqlFile aqlFile = (AqlFile) PsiManager.getInstance(project).findFile(virtualFile);
@@ -176,10 +185,7 @@ public final class AqlUtils {
     }
 
     public static List<AqlNamedElement> findNamedElements(final Project project, final String name) {
-        final Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance()
-                .getContainingFiles(ID.create("filetypes"),
-                        AqlFileType.INSTANCE,
-                        GlobalSearchScope.allScope(project));
+        final Collection<VirtualFile> virtualFiles = FileTypeIndex.getFiles(AqlFileType.INSTANCE, GlobalSearchScope.allScope(project));
         final List<AqlNamedElement> result = new ArrayList<>();
         for (final VirtualFile virtualFile : virtualFiles) {
             final AqlFile aqlFile = (AqlFile) PsiManager.getInstance(project).findFile(virtualFile);
