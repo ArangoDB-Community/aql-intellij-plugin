@@ -35,6 +35,7 @@ T_LET = "regexp:([Ll])([Ee])([Tt])"
 T_COLLECT = "regexp:([Cc])([Oo])([Ll])([Ll])([Ee])([Cc])([Tt])"
 T_CURRENT = "regexp:([Cc])([Uu])([Rr])([Rr])([Ee])([Nn])([Tt])"
 T_WITH = "regexp:([Ww])([Ii])([Tt])([Hh])"
+T_WINDOW = "regexp:([Ww])([Ii])([Nn])([Dd])([Oo])([Ww])"
 T_DISTINCT = "regexp:([Dd])([Ii])([Ss])([Tt])([Ii])([Nn])([Cc])([Tt])"
 T_RETURN = "regexp:([Rr])([Ee])([Tt])([Uu])([Rr])([Nn])"
 T_UPSERT = "regexp:([Uu])([Pp])([Ss])([Ee])([Rr])([Tt])"
@@ -247,6 +248,31 @@ F_JACCARD = "regexp:([Jj])([Aa])([Cc])([Cc])([Aa])([Rr])([Dd])"
 F_IS_IPV4 = "regexp:([Ii])([Ss])([_])([Ii])([Pp])([Vv])([4])"
 F_IPV4_TO_NUMBER = "regexp:([Ii])([Pp])([Vv])([4])([_])([Tt])([Oo])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
 F_LEVENSHTEIN_MATCH = "regexp:([Ll])([Ee])([Vv])([Ee])([Nn])([Ss])([Hh])([Tt])([Ee])([Ii])([Nn])([_])([Mm])([Aa])([Tt])([Cc])([Hh])"
+F_INTERLEAVE = "regexp:([Ii])([Nn])([Tt])([Ee])([Rr])([Ll])([Ee])([Aa])([Vv])([Ee])"
+F_PRODUCT = "regexp:([Pp])([Rr])([Oo])([Dd])([Uu])([Cc])([Tt])"
+// bit
+F_IPV4_FROM_NUMBER = "regexp:([Ii])([Pp])([Vv])([4])([_])([Ff])([Rr])([Oo])([Mm])([_])([Nn])([Uu])([Mm])([Bb])([Ee])([Rr])"
+F_REPLACE_NTH = "regexp:([Rr])([Ee])([Pp])([Ll])([Aa])([Cc])([Ee])([_])([Nn])([Tt])([Hh])"
+F_NGRAM_MATCH = "regexp:([Nn])([Gg])([Rr])([Aa])([Mm])([_])([Mm])([Aa])([Tt])([Cc])([Hh])"
+F_NGRAM_SIMILARITY = "regexp:([Nn])([Gg])([Rr])([Aa])([Mm])([_])([Ss])([Ii])([Mm])([Ii])([Ll])([Aa])([Rr])([Ii])([Tt])([Yy])"
+F_NGRAM_POSITIONAL_SIMILARITY = "regexp:([Nn])([Gg])([Rr])([Aa])([Mm])([_])([Pp])([Oo])([Ss])([Ii])([Tt])([Ii])([Oo])([Nn])([Aa])([Ll])([_])([Ss])([Ii])([Mm])([Ii])([Ll])([Aa])([Rr])([Ii])([Tt])([Yy])"
+F_DATE_UTCTOLOCAL = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Uu])([Tt])([Cc])([Tt])([Oo])([Ll])([Oo])([Cc])([Aa])([Ll])"
+F_DATE_LOCALTOUTC = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Ll])([Oo])([Cc])([Aa])([Ll])([Tt])([Oo])([Uu])([Tt])([Cc])"
+F_BIT_AND = "regexp:([Bb])([Ii])([Tt])([_])([Aa])([Nn])([Dd])"
+F_BIT_OR = "regexp:([Bb])([Ii])([Tt])([_])([Oo])([Rr])"
+F_BIT_XOR = "regexp:([Bb])([Ii])([Tt])([_])([Xx])([Oo])([Rr])"
+F_BIT_NEGATE = "regexp:([Bb])([Ii])([Tt])([_])([Nn])([Ee])([Gg])([Aa])([Tt])([Ee])"
+F_BIT_TEST = "regexp:([Bb])([Ii])([Tt])([_])([Tt])([Ee])([Ss])([Tt])"
+F_BIT_POPCOUNT = "regexp:([Bb])([Ii])([Tt])([_])([Pp])([Oo])([Pp])([Cc])([Oo])([Uu])([Nn])([Tt])"
+F_BIT_SHIFT_LEFT = "regexp:([Bb])([Ii])([Tt])([_])([Ss])([Hh])([Ii])([Ff])([Tt])([_])([Ll])([Ee])([Ff])([Tt])"
+F_BIT_SHIFT_RIGHT = "regexp:([Bb])([Ii])([Tt])([_])([Ss])([Hh])([Ii])([Ff])([Tt])([_])([Rr])([Ii])([Gg])([Hh])([Tt])"
+F_BIT_CONSTRUCT = "regexp:([Bb])([Ii])([Tt])([_])([Cc])([Oo])([Nn])([Ss])([Tt])([Rr])([Uu])([Cc])([Tt])"
+F_BIT_DECONSTRUCT = "regexp:([Bb])([Ii])([Tt])([_])([Dd])([Ee])([Cc])([Oo])([Nn])([Ss])([Tt])([Rr])([Uu])([Cc])([Tt])"
+F_BIT_TO_STRING = "regexp:([Bb])([Ii])([Tt])([_])([Tt])([Oo])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_BIT_FROM_STRING = "regexp:([Bb])([Ii])([Tt])([_])([Ff])([Rr])([Oo])([Mm])([_])([Ss])([Tt])([Rr])([Ii])([Nn])([Gg])"
+F_GEO_IN_RANGE = "regexp:([Gg])([Ee])([Oo])([_])([Ii])([Nn])([_])([Rr])([Aa])([Nn])([Gg])([Ee])"
+F_DATE_TIMEZONE = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Ii])([Mm])([Ee])([Zz])([Oo])([Nn])([Ee])"
+F_DATE_TIMEZONES = "regexp:([Dd])([Aa])([Tt])([Ee])([_])([Tt])([Ii])([Mm])([Ee])([Zz])([Oo])([Nn])([Ee])([Ss])"
 
 
 DOT = "."
@@ -311,6 +337,7 @@ D_SECOND_S="regexp:(['])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Ss])([E
 D_SECOND_D="regexp:([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ss])([\"])"
 D_MILLISECOND_S="regexp:(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])(['])|(['])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])(['])|(['])([Ff])(['])"
 D_MILLISECOND_D="regexp:([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([\"])|([\"])([Mm])([Ii])([Ll])([Ll])([Ii])([Ss])([Ee])([Cc])([Oo])([Nn])([Dd])([Ss])([\"])|([\"])([Ff])([\"])"
+
 //############################################
 // NONE_TOKENS
 //############################################
@@ -318,11 +345,11 @@ T_TRUE = "true"
 T_FALSE = "false"
 T_NOT = "not"
 
-T_LOGICAL_AND = "&&"
-T_OR = "||"
+T_LOGICAL_AND = "regexp:[&][&]"
+T_OR = "regexp:[|][|]"
 T_REGEX_MATCH = "~="
 T_REGEX_NON_MATCH = "~!"
-T_EQ = "=="
+T_EQ = "regexp:[=][=]"
 T_IS = "="
 T_NE = "!="
 T_LT = "<"
@@ -362,7 +389,7 @@ T_NONE = "none"
     L_COMMENT='regexp://.*'
     TEXT_SINGLE ="regexp:'(''|[^']*)'"
     //TEXT_DOUBLE ="regexp:\"([^\"\\]|\\.)*\")"
-    TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\"?"
+    TEXT_DOUBLE="regexp:\"([^\\\"\r\n]|\\[^\r\n])*\""
     // identifier
     NUMBER='regexp:-?(0|[1-9]\d*)(\.\d+)?([eE][+-]?\d*)?'
     //NUMBER_RANGE='regexp:[1-9][0-9]?|100'
@@ -780,6 +807,32 @@ NamedFunctions::= FunAbs
               | FunIsIpv
               | FunLevenshteinMatch
               | FunJaccard
+              | FunInterleave
+              | FunProduct
+              // 3.8
+              | FunIpv4FromNumber
+              | FunReplaceNth
+              | FunNgramMatch
+              | FunNgramSimilarity
+              | FunNgramPositionalSimilarity
+              | FunDateUtctolocal
+              | FunDateLocaltoutc
+              | FunBitAnd
+              | FunBitOr
+              | FunBitXor
+              | FunBitNegate
+              | FunBitTest
+              | FunBitPopcount
+              | FunBitShiftLeft
+              | FunBitShiftRight
+              | FunBitConstruct
+              | FunBitDeconstruct
+              | FunBitToString
+              | FunBitFromString
+              | FunGeoInRange
+              | FunDateTimezone
+              | FunDateTimezones
+
 
 {
      methods=[
@@ -820,6 +873,7 @@ private reserved_keywords ::=    T_SHORTEST_PATH
                         | T_COLLECT
                         | T_CURRENT
                         | T_WITH
+                        | T_WINDOW
                         | T_DISTINCT
                         | T_RETURN
                         | T_UPSERT
@@ -944,6 +998,7 @@ DateUnit ::=  D_YEAR_S
 
 
 
+
 ExpressionType ::= ArrayRef
                 | SystemProperty
                 | ObjectExpression
@@ -980,7 +1035,7 @@ ComplexJsonValue ::= NumberType | ArrayRef
 | ExpressionType
 | JsonType
 
-JsonType ::= '{' object_element* '}' {pin=1}
+JsonType ::= '{' object_element? '}' {pin=1}
 
 private object_element ::= property (','|&'}') {
   recoverWhile = not_brace_or_next_value
@@ -1037,6 +1092,7 @@ private number_argument_array ::= (repeatable_tuple | possible_number_array | "[
 private integer_argument_array ::= (possible_number_array | "[" integer_argument (',' integer_argument)* "]")
 private expression_argument::= objects_argument | ParameterVariable | ExpressionType | JsonType
 
+
 //*************************************************************************************
 // FUNCTIONS
 //*************************************************************************************
@@ -1064,7 +1120,7 @@ private expression_argument::= objects_argument | ParameterVariable | Expression
  FunDateDaysInMonth ::=  (F_DATE_DAYS_IN_MONTH "("  date_argument ")"){pin=2}
  FunDateTrunc ::=  (F_DATE_TRUNC "("  date_argument "," DateUnit ")"){pin=2}
  FunDateFormat ::=  (F_DATE_FORMAT "("  date_argument "," string_argument ")"){pin=2}
- FunDateAdd ::=  (F_DATE_ADD "("  date_argument "," integer_argument | string_argument "," DateUnit")"){pin=2}
+ FunDateAdd ::=  (F_DATE_ADD "("  AnyType "," AnyType "," AnyType | DateUnit  ")"){pin=2}
  FunDateSubtract ::=  (F_DATE_SUBTRACT "("  date_argument "," integer_argument | string_argument "," DateUnit")"){pin=2}
  FunDateDiff ::=  (F_DATE_DIFF "("  date_argument "," date_argument "," DateUnit ("," boolean_argument)? ")"){pin=2}
  FunDateCompare ::=  (F_DATE_COMPARE "("  date_argument "," date_argument "," DateUnit ("," DateUnit)? ")"){pin=2}
@@ -1077,10 +1133,33 @@ FunIpToNumber ::=  (F_IPV4_TO_NUMBER "(" string_argument ")"){pin=3}
 FunIsIpv ::=  (F_IS_IPV4 "(" AnyType ")"){pin=3}
 FunJaccard ::=  (F_JACCARD "(" ArrayType  "," ArrayType ")"){pin=3}
 FunLevenshteinMatch ::=  (F_LEVENSHTEIN_MATCH "(" AnyType  "," string_argument "," number_argument ("," boolean_argument ("," number_argument)? )?  ")"){pin=3}
-// INTERLEAVE
+FunInterleave ::=  (F_INTERLEAVE  "(" ArrayType  "," ArrayType ")"){pin=3}
+FunProduct ::=  (F_PRODUCT  "(" ArrayType   ")"){pin=2}
+FunIpv4FromNumber ::= (F_IPV4_FROM_NUMBER "(" ExpressionType ")"){pin=1}
+FunReplaceNth ::= (F_REPLACE_NTH "(" AnyType "," AnyType "," AnyType ("," AnyType)? ")"){pin=1}
+FunNgramMatch ::= (F_NGRAM_MATCH  "(" AnyType "," AnyType ("," AnyType)? ("," AnyType)? ")"){pin=1}
+FunNgramSimilarity ::= (F_NGRAM_SIMILARITY "(" AnyType "," AnyType "," AnyType ")"){pin=1}
+FunNgramPositionalSimilarity ::= (F_NGRAM_POSITIONAL_SIMILARITY "(" AnyType "," AnyType "," AnyType ")"){pin=1}
+FunDateUtctolocal ::= (F_DATE_UTCTOLOCAL  "(" AnyType "," AnyType ("," AnyType)? ")"){pin=1}
+FunDateLocaltoutc ::= (F_DATE_LOCALTOUTC  "(" AnyType "," AnyType ("," AnyType)? ")"){pin=1}
+FunBitAnd ::= (F_BIT_AND "(" AnyType  ("," AnyType)? ")"){pin=1}
+FunBitOr ::= (F_BIT_OR "(" AnyType  ("," AnyType)? ")"){pin=1}
+FunBitXor ::= (F_BIT_XOR "(" AnyType  ("," AnyType)? ")"){pin=1}
+FunBitNegate ::= (F_BIT_NEGATE "(" AnyType "," AnyType ")"){pin=1}
+FunBitTest ::= (F_BIT_TEST "(" AnyType "," AnyType ")"){pin=1}
+FunBitPopcount ::= (F_BIT_POPCOUNT "(" AnyType ")"){pin=1}
+FunBitShiftLeft ::= (F_BIT_SHIFT_LEFT "(" AnyType "," AnyType "," AnyType  ")"){pin=1}
+FunBitShiftRight ::= (F_BIT_SHIFT_RIGHT "(" AnyType "," AnyType  "," AnyType ")"){pin=1}
+FunBitConstruct ::= (F_BIT_CONSTRUCT "(" AnyType ")"){pin=1}
+FunBitDeconstruct ::= (F_BIT_DECONSTRUCT "(" AnyType ")"){pin=1}
+FunBitToString ::= (F_BIT_TO_STRING "(" AnyType "," AnyType ")"){pin=1}
+FunBitFromString ::= (F_BIT_FROM_STRING "(" AnyType ")"){pin=1}
+FunGeoInRange ::= (F_GEO_IN_RANGE "(" AnyType "," AnyType "," AnyType "," AnyType "," AnyType ")"){pin=1}
+FunDateTimezone ::= (F_DATE_TIMEZONE "(" ")"){pin=2}
+FunDateTimezones ::= (F_DATE_TIMEZONES "("  ")"){pin=2}
+
 // IPV4_FROM_NUMBER
 // REPLACE_NTH
-// PRODUCT
 // NGRAM_MATCH
 //NGRAM_SIMILARITY
 //NGRAM_POSITIONAL_SIMILARITY
@@ -1088,6 +1167,9 @@ FunLevenshteinMatch ::=  (F_LEVENSHTEIN_MATCH "(" AnyType  "," string_argument "
 // 3.8
 //############################################
 /*
+DATE_UTCTOLOCAL()
+DATE_LOCALTOUTC()
+
 BIT_AND(): and-combine two or more numbers
 BIT_OR(): or-combine two or more numbers
 BIT_XOR(): xor-combine two or more numbers
@@ -1101,6 +1183,8 @@ BIT_DECONSTRUCT(): deconstruct a number into an array with the positions of its 
 BIT_TO_STRING(): create a bitstring representation from a numeric value
 BIT_FROM_STRING(): parse a bitstring representation into a number
 GEO_IN_RANGE()
+DATE_TIMEZONE()
+DATE_TIMEZONES()
 
 */
 
@@ -1182,8 +1266,8 @@ FunHas  ::=  (F_HAS  "(" document_argument ("," StringType)? ")"){pin=2}
 FunIsSameCollection  ::=  (F_IS_SAME_COLLECTION  "(" StringType ("," document_argument )? ")"){pin=2}
 FunKeep  ::=  (F_KEEP  "(" document_argument "," (string_list | string_argument_array | possible_array )  ")"){pin=2}
 FunMatches  ::=  (F_MATCHES  "(" document_argument "," (expression_argument | JsonType) ("," boolean_argument)?")"){pin=2}
-FunMerge  ::=  (F_MERGE  "(" document_argument "," (document_argument)* ")"){pin=2}
-FunMergeRecursive  ::=  (F_MERGE_RECURSIVE  "(" document_argument "," (document_argument)* ")"){pin=2}
+FunMerge  ::=  (F_MERGE  "(" AnyType ("," AnyType | Statement)* ")"){pin=5}
+FunMergeRecursive  ::=  (F_MERGE_RECURSIVE  "(" AnyType ("," AnyType (OperatorStatements AnyType)?)* ")"){pin=5}
 FunParseIdentifier  ::=  (F_PARSE_IDENTIFIER  "(" StringType | document_argument  ")"){pin=2}
 FunTranslate  ::=  (F_TRANSLATE  "(" string_argument "," objects_argument ("," AnyType)? ")"){pin=2}
 FunUnset  ::=  (F_UNSET "(" objects_argument ("," StringType)* | ArrayType ")"){pin=2}
@@ -1215,7 +1299,7 @@ FunCountDistinct  ::=  (F_COUNT_DISTINCT  "(" number_argument_array ")"){pin=2}
 FunCountUnique  ::=  (F_COUNT_UNIQUE  "(" number_argument_array ")"){pin=2}
 FunFirst  ::=  (F_FIRST  "(" expression_argument | document_argument ")"){pin=2}
 FunLast  ::=  (F_LAST  "(" number_argument_array ")"){pin=2}
-FunUnique  ::=  (F_UNIQUE  "(" number_argument_array ")"){pin=2}
+FunUnique  ::=  (F_UNIQUE  "(" AnyType ")"){pin=4}
 FunFlatten  ::=  (F_FLATTEN  "(" number_argument_array ("," IntegerType)? ")"){pin=2}
 
 FunInterSection  ::=  (F_INTERSECTION  "(" (number_argument_array)+ ")"){pin=2}
@@ -1244,7 +1328,7 @@ FunRound  ::=  (F_ROUND "(" number_argument ")"){pin=2}
 FunSQRT  ::=  (F_SQRT "(" number_argument ")"){pin=2}
 FunStddevPopulation  ::=  (F_STDDEV_POPULATION "(" number_argument_array ")"){pin=2}
 FunStddev  ::=  (F_STDDEV "(" number_argument_array ")"){pin=2}
-FunSum  ::=  (F_SUM "(" number_argument_array ")"){pin=2}
+FunSum  ::=  (F_SUM "(" AnyType (arithmetic_operators AnyType)? ")"){pin=2}
 FunVariancePopulation  ::=  (F_VARIANCE_POPULATION "(" number_argument_array ")"){pin=2}
 FunVarianceSample  ::=  (F_VARIANCE_SAMPLE "(" number_argument_array ")"){pin=2}
 FunVariance  ::=  (F_VARIANCE "(" number_argument_array ")"){pin=2}
@@ -1335,8 +1419,10 @@ FunKeys ::=  (F_KEYS "(" AnyType ")"){pin=2}
 
 
 
-StringType ::=  (TEXT_SINGLE) | (TEXT_DOUBLE)
+StringType ::=  (TEXT_SINGLE | TEXT_DOUBLE)
+
 IntegerType ::= NUMBER_INTEGER
+
 SignedInteger ::= ((T_PLUS | T_MINUS) IntegerType)
 
 AnyNumber ::= NUMBER | (T_PLUS | T_MINUS) NUMBER

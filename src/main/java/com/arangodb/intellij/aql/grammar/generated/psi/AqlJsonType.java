@@ -2,7 +2,10 @@
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.psi.PsiElement;
 
 public interface AqlJsonType extends PsiElement {
@@ -10,22 +13,22 @@ public interface AqlJsonType extends PsiElement {
   @NotNull
   List<AqlArrayRef> getArrayRefList();
 
-  @NotNull
-  List<AqlArrayType> getArrayTypeList();
+  @Nullable
+  AqlArrayType getArrayType();
 
   @NotNull
   List<AqlComplexJsonValue> getComplexJsonValueList();
 
-  @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
+  @Nullable
+  AqlObjectExpression getObjectExpression();
 
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
+  @Nullable
+  AqlParameterVariable getParameterVariable();
 
   @NotNull
   List<AqlStringType> getStringTypeList();
 
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  @Nullable
+  AqlVariablePlaceHolder getVariablePlaceHolder();
 
 }

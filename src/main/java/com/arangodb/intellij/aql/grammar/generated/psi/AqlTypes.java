@@ -1,12 +1,12 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
-import com.intellij.lang.ASTNode;
 import com.arangodb.intellij.aql.grammar.custom.AqlElementType;
 import com.arangodb.intellij.aql.grammar.custom.AqlTokenType;
 import com.arangodb.intellij.aql.grammar.generated.psi.impl.*;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 
 public interface AqlTypes {
 
@@ -34,6 +34,18 @@ public interface AqlTypes {
   IElementType FUN_ATTRIBUTES = new AqlElementType("FUN_ATTRIBUTES");
   IElementType FUN_AVERAGE = new AqlElementType("FUN_AVERAGE");
   IElementType FUN_AVG = new AqlElementType("FUN_AVG");
+  IElementType FUN_BIT_AND = new AqlElementType("FUN_BIT_AND");
+  IElementType FUN_BIT_CONSTRUCT = new AqlElementType("FUN_BIT_CONSTRUCT");
+  IElementType FUN_BIT_DECONSTRUCT = new AqlElementType("FUN_BIT_DECONSTRUCT");
+  IElementType FUN_BIT_FROM_STRING = new AqlElementType("FUN_BIT_FROM_STRING");
+  IElementType FUN_BIT_NEGATE = new AqlElementType("FUN_BIT_NEGATE");
+  IElementType FUN_BIT_OR = new AqlElementType("FUN_BIT_OR");
+  IElementType FUN_BIT_POPCOUNT = new AqlElementType("FUN_BIT_POPCOUNT");
+  IElementType FUN_BIT_SHIFT_LEFT = new AqlElementType("FUN_BIT_SHIFT_LEFT");
+  IElementType FUN_BIT_SHIFT_RIGHT = new AqlElementType("FUN_BIT_SHIFT_RIGHT");
+  IElementType FUN_BIT_TEST = new AqlElementType("FUN_BIT_TEST");
+  IElementType FUN_BIT_TO_STRING = new AqlElementType("FUN_BIT_TO_STRING");
+  IElementType FUN_BIT_XOR = new AqlElementType("FUN_BIT_XOR");
   IElementType FUN_BM_25 = new AqlElementType("FUN_BM_25");
   IElementType FUN_BOOST = new AqlElementType("FUN_BOOST");
   IElementType FUN_CALL = new AqlElementType("FUN_CALL");
@@ -62,6 +74,7 @@ public interface AqlTypes {
   IElementType FUN_DATE_ISO_8601 = new AqlElementType("FUN_DATE_ISO_8601");
   IElementType FUN_DATE_ISO_WEEK = new AqlElementType("FUN_DATE_ISO_WEEK");
   IElementType FUN_DATE_LEAP_YEAR = new AqlElementType("FUN_DATE_LEAP_YEAR");
+  IElementType FUN_DATE_LOCALTOUTC = new AqlElementType("FUN_DATE_LOCALTOUTC");
   IElementType FUN_DATE_MILLISECOND = new AqlElementType("FUN_DATE_MILLISECOND");
   IElementType FUN_DATE_MINUTE = new AqlElementType("FUN_DATE_MINUTE");
   IElementType FUN_DATE_MONTH = new AqlElementType("FUN_DATE_MONTH");
@@ -70,8 +83,11 @@ public interface AqlTypes {
   IElementType FUN_DATE_QUARTER = new AqlElementType("FUN_DATE_QUARTER");
   IElementType FUN_DATE_SECOND = new AqlElementType("FUN_DATE_SECOND");
   IElementType FUN_DATE_SUBTRACT = new AqlElementType("FUN_DATE_SUBTRACT");
+  IElementType FUN_DATE_TIMEZONE = new AqlElementType("FUN_DATE_TIMEZONE");
+  IElementType FUN_DATE_TIMEZONES = new AqlElementType("FUN_DATE_TIMEZONES");
   IElementType FUN_DATE_TIME_STAMP = new AqlElementType("FUN_DATE_TIME_STAMP");
   IElementType FUN_DATE_TRUNC = new AqlElementType("FUN_DATE_TRUNC");
+  IElementType FUN_DATE_UTCTOLOCAL = new AqlElementType("FUN_DATE_UTCTOLOCAL");
   IElementType FUN_DATE_YEAR = new AqlElementType("FUN_DATE_YEAR");
   IElementType FUN_DEGREES = new AqlElementType("FUN_DEGREES");
   IElementType FUN_DISTANCE = new AqlElementType("FUN_DISTANCE");
@@ -93,6 +109,7 @@ public interface AqlTypes {
   IElementType FUN_GEO_DISTANCE = new AqlElementType("FUN_GEO_DISTANCE");
   IElementType FUN_GEO_EQUALS = new AqlElementType("FUN_GEO_EQUALS");
   IElementType FUN_GEO_INTERSECTS = new AqlElementType("FUN_GEO_INTERSECTS");
+  IElementType FUN_GEO_IN_RANGE = new AqlElementType("FUN_GEO_IN_RANGE");
   IElementType FUN_GEO_LINE_STRING = new AqlElementType("FUN_GEO_LINE_STRING");
   IElementType FUN_GEO_MULTI_LINE_STRING = new AqlElementType("FUN_GEO_MULTI_LINE_STRING");
   IElementType FUN_GEO_MULTI_POINT = new AqlElementType("FUN_GEO_MULTI_POINT");
@@ -100,8 +117,10 @@ public interface AqlTypes {
   IElementType FUN_GEO_POLYGON = new AqlElementType("FUN_GEO_POLYGON");
   IElementType FUN_HAS = new AqlElementType("FUN_HAS");
   IElementType FUN_HASH = new AqlElementType("FUN_HASH");
+  IElementType FUN_INTERLEAVE = new AqlElementType("FUN_INTERLEAVE");
   IElementType FUN_INTER_SECTION = new AqlElementType("FUN_INTER_SECTION");
   IElementType FUN_IN_RANGE = new AqlElementType("FUN_IN_RANGE");
+  IElementType FUN_IPV_4_FROM_NUMBER = new AqlElementType("FUN_IPV_4_FROM_NUMBER");
   IElementType FUN_IP_TO_NUMBER = new AqlElementType("FUN_IP_TO_NUMBER");
   IElementType FUN_IS_ARRAY = new AqlElementType("FUN_IS_ARRAY");
   IElementType FUN_IS_BOOL = new AqlElementType("FUN_IS_BOOL");
@@ -140,6 +159,9 @@ public interface AqlTypes {
   IElementType FUN_MIN = new AqlElementType("FUN_MIN");
   IElementType FUN_MINUS = new AqlElementType("FUN_MINUS");
   IElementType FUN_MIN_MATCH = new AqlElementType("FUN_MIN_MATCH");
+  IElementType FUN_NGRAM_MATCH = new AqlElementType("FUN_NGRAM_MATCH");
+  IElementType FUN_NGRAM_POSITIONAL_SIMILARITY = new AqlElementType("FUN_NGRAM_POSITIONAL_SIMILARITY");
+  IElementType FUN_NGRAM_SIMILARITY = new AqlElementType("FUN_NGRAM_SIMILARITY");
   IElementType FUN_NOOPT = new AqlElementType("FUN_NOOPT");
   IElementType FUN_NOT_NULL = new AqlElementType("FUN_NOT_NULL");
   IElementType FUN_NTH = new AqlElementType("FUN_NTH");
@@ -153,6 +175,7 @@ public interface AqlTypes {
   IElementType FUN_POSITION = new AqlElementType("FUN_POSITION");
   IElementType FUN_POW = new AqlElementType("FUN_POW");
   IElementType FUN_PREGEL_RESULT = new AqlElementType("FUN_PREGEL_RESULT");
+  IElementType FUN_PRODUCT = new AqlElementType("FUN_PRODUCT");
   IElementType FUN_PUSH = new AqlElementType("FUN_PUSH");
   IElementType FUN_RADIANS = new AqlElementType("FUN_RADIANS");
   IElementType FUN_RAND = new AqlElementType("FUN_RAND");
@@ -165,6 +188,7 @@ public interface AqlTypes {
   IElementType FUN_REMOVE_NTH = new AqlElementType("FUN_REMOVE_NTH");
   IElementType FUN_REMOVE_VALUE = new AqlElementType("FUN_REMOVE_VALUE");
   IElementType FUN_REMOVE_VALUES = new AqlElementType("FUN_REMOVE_VALUES");
+  IElementType FUN_REPLACE_NTH = new AqlElementType("FUN_REPLACE_NTH");
   IElementType FUN_REVERSE = new AqlElementType("FUN_REVERSE");
   IElementType FUN_RIGHT = new AqlElementType("FUN_RIGHT");
   IElementType FUN_ROUND = new AqlElementType("FUN_ROUND");
@@ -301,6 +325,18 @@ public interface AqlTypes {
   IElementType F_ATTRIBUTES = new AqlTokenType("F_ATTRIBUTES");
   IElementType F_AVERAGE = new AqlTokenType("F_AVERAGE");
   IElementType F_AVG = new AqlTokenType("F_AVG");
+  IElementType F_BIT_AND = new AqlTokenType("F_BIT_AND");
+  IElementType F_BIT_CONSTRUCT = new AqlTokenType("F_BIT_CONSTRUCT");
+  IElementType F_BIT_DECONSTRUCT = new AqlTokenType("F_BIT_DECONSTRUCT");
+  IElementType F_BIT_FROM_STRING = new AqlTokenType("F_BIT_FROM_STRING");
+  IElementType F_BIT_NEGATE = new AqlTokenType("F_BIT_NEGATE");
+  IElementType F_BIT_OR = new AqlTokenType("F_BIT_OR");
+  IElementType F_BIT_POPCOUNT = new AqlTokenType("F_BIT_POPCOUNT");
+  IElementType F_BIT_SHIFT_LEFT = new AqlTokenType("F_BIT_SHIFT_LEFT");
+  IElementType F_BIT_SHIFT_RIGHT = new AqlTokenType("F_BIT_SHIFT_RIGHT");
+  IElementType F_BIT_TEST = new AqlTokenType("F_BIT_TEST");
+  IElementType F_BIT_TO_STRING = new AqlTokenType("F_BIT_TO_STRING");
+  IElementType F_BIT_XOR = new AqlTokenType("F_BIT_XOR");
   IElementType F_BM25 = new AqlTokenType("F_BM25");
   IElementType F_BOOST = new AqlTokenType("F_BOOST");
   IElementType F_CALL = new AqlTokenType("F_CALL");
@@ -330,6 +366,7 @@ public interface AqlTypes {
   IElementType F_DATE_ISO8601 = new AqlTokenType("F_DATE_ISO8601");
   IElementType F_DATE_ISOWEEK = new AqlTokenType("F_DATE_ISOWEEK");
   IElementType F_DATE_LEAPYEAR = new AqlTokenType("F_DATE_LEAPYEAR");
+  IElementType F_DATE_LOCALTOUTC = new AqlTokenType("F_DATE_LOCALTOUTC");
   IElementType F_DATE_MILLISECOND = new AqlTokenType("F_DATE_MILLISECOND");
   IElementType F_DATE_MINUTE = new AqlTokenType("F_DATE_MINUTE");
   IElementType F_DATE_MONTH = new AqlTokenType("F_DATE_MONTH");
@@ -338,7 +375,10 @@ public interface AqlTypes {
   IElementType F_DATE_SECOND = new AqlTokenType("F_DATE_SECOND");
   IElementType F_DATE_SUBTRACT = new AqlTokenType("F_DATE_SUBTRACT");
   IElementType F_DATE_TIMESTAMP = new AqlTokenType("F_DATE_TIMESTAMP");
+  IElementType F_DATE_TIMEZONE = new AqlTokenType("F_DATE_TIMEZONE");
+  IElementType F_DATE_TIMEZONES = new AqlTokenType("F_DATE_TIMEZONES");
   IElementType F_DATE_TRUNC = new AqlTokenType("F_DATE_TRUNC");
+  IElementType F_DATE_UTCTOLOCAL = new AqlTokenType("F_DATE_UTCTOLOCAL");
   IElementType F_DATE_YEAR = new AqlTokenType("F_DATE_YEAR");
   IElementType F_DEGREES = new AqlTokenType("F_DEGREES");
   IElementType F_DISTANCE = new AqlTokenType("F_DISTANCE");
@@ -360,6 +400,7 @@ public interface AqlTypes {
   IElementType F_GEO_DISTANCE = new AqlTokenType("F_GEO_DISTANCE");
   IElementType F_GEO_EQUALS = new AqlTokenType("F_GEO_EQUALS");
   IElementType F_GEO_INTERSECTS = new AqlTokenType("F_GEO_INTERSECTS");
+  IElementType F_GEO_IN_RANGE = new AqlTokenType("F_GEO_IN_RANGE");
   IElementType F_GEO_LINESTRING = new AqlTokenType("F_GEO_LINESTRING");
   IElementType F_GEO_MULTILINESTRING = new AqlTokenType("F_GEO_MULTILINESTRING");
   IElementType F_GEO_MULTIPOINT = new AqlTokenType("F_GEO_MULTIPOINT");
@@ -367,8 +408,10 @@ public interface AqlTypes {
   IElementType F_GEO_POLYGON = new AqlTokenType("F_GEO_POLYGON");
   IElementType F_HAS = new AqlTokenType("F_HAS");
   IElementType F_HASH = new AqlTokenType("F_HASH");
+  IElementType F_INTERLEAVE = new AqlTokenType("F_INTERLEAVE");
   IElementType F_INTERSECTION = new AqlTokenType("F_INTERSECTION");
   IElementType F_IN_RANGE = new AqlTokenType("F_IN_RANGE");
+  IElementType F_IPV4_FROM_NUMBER = new AqlTokenType("F_IPV4_FROM_NUMBER");
   IElementType F_IPV4_TO_NUMBER = new AqlTokenType("F_IPV4_TO_NUMBER");
   IElementType F_IS_ARRAY = new AqlTokenType("F_IS_ARRAY");
   IElementType F_IS_BOOL = new AqlTokenType("F_IS_BOOL");
@@ -409,6 +452,9 @@ public interface AqlTypes {
   IElementType F_MINUS = new AqlTokenType("F_MINUS");
   IElementType F_MIN_MATCH = new AqlTokenType("F_MIN_MATCH");
   IElementType F_NEAR = new AqlTokenType("F_NEAR");
+  IElementType F_NGRAM_MATCH = new AqlTokenType("F_NGRAM_MATCH");
+  IElementType F_NGRAM_POSITIONAL_SIMILARITY = new AqlTokenType("F_NGRAM_POSITIONAL_SIMILARITY");
+  IElementType F_NGRAM_SIMILARITY = new AqlTokenType("F_NGRAM_SIMILARITY");
   IElementType F_NOOPT = new AqlTokenType("F_NOOPT");
   IElementType F_NOT_NULL = new AqlTokenType("F_NOT_NULL");
   IElementType F_NTH = new AqlTokenType("F_NTH");
@@ -422,6 +468,7 @@ public interface AqlTypes {
   IElementType F_POSITION = new AqlTokenType("F_POSITION");
   IElementType F_POW = new AqlTokenType("F_POW");
   IElementType F_PREGEL_RESULT = new AqlTokenType("F_PREGEL_RESULT");
+  IElementType F_PRODUCT = new AqlTokenType("F_PRODUCT");
   IElementType F_PUSH = new AqlTokenType("F_PUSH");
   IElementType F_RADIANS = new AqlTokenType("F_RADIANS");
   IElementType F_RAND = new AqlTokenType("F_RAND");
@@ -434,6 +481,7 @@ public interface AqlTypes {
   IElementType F_REMOVE_NTH = new AqlTokenType("F_REMOVE_NTH");
   IElementType F_REMOVE_VALUE = new AqlTokenType("F_REMOVE_VALUE");
   IElementType F_REMOVE_VALUES = new AqlTokenType("F_REMOVE_VALUES");
+  IElementType F_REPLACE_NTH = new AqlTokenType("F_REPLACE_NTH");
   IElementType F_REVERSE = new AqlTokenType("F_REVERSE");
   IElementType F_RIGHT = new AqlTokenType("F_RIGHT");
   IElementType F_ROUND = new AqlTokenType("F_ROUND");
@@ -510,7 +558,7 @@ public interface AqlTypes {
   IElementType T_DESC = new AqlTokenType("T_DESC");
   IElementType T_DISTINCT = new AqlTokenType("T_DISTINCT");
   IElementType T_DIV = new AqlTokenType("/");
-  IElementType T_EQ = new AqlTokenType("==");
+  IElementType T_EQ = new AqlTokenType("T_EQ");
   IElementType T_FALSE = new AqlTokenType("false");
   IElementType T_FILTER = new AqlTokenType("T_FILTER");
   IElementType T_FOR = new AqlTokenType("T_FOR");
@@ -528,7 +576,7 @@ public interface AqlTypes {
   IElementType T_LET = new AqlTokenType("T_LET");
   IElementType T_LIKE = new AqlTokenType("like");
   IElementType T_LIMIT = new AqlTokenType("T_LIMIT");
-  IElementType T_LOGICAL_AND = new AqlTokenType("&&");
+  IElementType T_LOGICAL_AND = new AqlTokenType("T_LOGICAL_AND");
   IElementType T_LT = new AqlTokenType("<");
   IElementType T_MINUS = new AqlTokenType("-");
   IElementType T_MOD = new AqlTokenType("%");
@@ -540,7 +588,7 @@ public interface AqlTypes {
   IElementType T_OBJECT_CLOSE = new AqlTokenType("}");
   IElementType T_OBJECT_OPEN = new AqlTokenType("{");
   IElementType T_OPEN = new AqlTokenType("(");
-  IElementType T_OR = new AqlTokenType("||");
+  IElementType T_OR = new AqlTokenType("T_OR");
   IElementType T_OUTBOUND = new AqlTokenType("T_OUTBOUND");
   IElementType T_PLACHOLDER_START = new AqlTokenType("${");
   IElementType T_PLUS = new AqlTokenType("+");
@@ -564,6 +612,7 @@ public interface AqlTypes {
   IElementType T_TRUE = new AqlTokenType("true");
   IElementType T_UPDATE = new AqlTokenType("T_UPDATE");
   IElementType T_UPSERT = new AqlTokenType("T_UPSERT");
+  IElementType T_WINDOW = new AqlTokenType("T_WINDOW");
   IElementType T_WITH = new AqlTokenType("T_WITH");
 
   class Factory {
@@ -640,6 +689,42 @@ public interface AqlTypes {
       }
       else if (type == FUN_AVG) {
         return new AqlFunAvgImpl(node);
+      }
+      else if (type == FUN_BIT_AND) {
+        return new AqlFunBitAndImpl(node);
+      }
+      else if (type == FUN_BIT_CONSTRUCT) {
+        return new AqlFunBitConstructImpl(node);
+      }
+      else if (type == FUN_BIT_DECONSTRUCT) {
+        return new AqlFunBitDeconstructImpl(node);
+      }
+      else if (type == FUN_BIT_FROM_STRING) {
+        return new AqlFunBitFromStringImpl(node);
+      }
+      else if (type == FUN_BIT_NEGATE) {
+        return new AqlFunBitNegateImpl(node);
+      }
+      else if (type == FUN_BIT_OR) {
+        return new AqlFunBitOrImpl(node);
+      }
+      else if (type == FUN_BIT_POPCOUNT) {
+        return new AqlFunBitPopcountImpl(node);
+      }
+      else if (type == FUN_BIT_SHIFT_LEFT) {
+        return new AqlFunBitShiftLeftImpl(node);
+      }
+      else if (type == FUN_BIT_SHIFT_RIGHT) {
+        return new AqlFunBitShiftRightImpl(node);
+      }
+      else if (type == FUN_BIT_TEST) {
+        return new AqlFunBitTestImpl(node);
+      }
+      else if (type == FUN_BIT_TO_STRING) {
+        return new AqlFunBitToStringImpl(node);
+      }
+      else if (type == FUN_BIT_XOR) {
+        return new AqlFunBitXorImpl(node);
       }
       else if (type == FUN_BM_25) {
         return new AqlFunBm25Impl(node);
@@ -725,6 +810,9 @@ public interface AqlTypes {
       else if (type == FUN_DATE_LEAP_YEAR) {
         return new AqlFunDateLeapYearImpl(node);
       }
+      else if (type == FUN_DATE_LOCALTOUTC) {
+        return new AqlFunDateLocaltoutcImpl(node);
+      }
       else if (type == FUN_DATE_MILLISECOND) {
         return new AqlFunDateMillisecondImpl(node);
       }
@@ -749,11 +837,20 @@ public interface AqlTypes {
       else if (type == FUN_DATE_SUBTRACT) {
         return new AqlFunDateSubtractImpl(node);
       }
+      else if (type == FUN_DATE_TIMEZONE) {
+        return new AqlFunDateTimezoneImpl(node);
+      }
+      else if (type == FUN_DATE_TIMEZONES) {
+        return new AqlFunDateTimezonesImpl(node);
+      }
       else if (type == FUN_DATE_TIME_STAMP) {
         return new AqlFunDateTimeStampImpl(node);
       }
       else if (type == FUN_DATE_TRUNC) {
         return new AqlFunDateTruncImpl(node);
+      }
+      else if (type == FUN_DATE_UTCTOLOCAL) {
+        return new AqlFunDateUtctolocalImpl(node);
       }
       else if (type == FUN_DATE_YEAR) {
         return new AqlFunDateYearImpl(node);
@@ -818,6 +915,9 @@ public interface AqlTypes {
       else if (type == FUN_GEO_INTERSECTS) {
         return new AqlFunGeoIntersectsImpl(node);
       }
+      else if (type == FUN_GEO_IN_RANGE) {
+        return new AqlFunGeoInRangeImpl(node);
+      }
       else if (type == FUN_GEO_LINE_STRING) {
         return new AqlFunGeoLineStringImpl(node);
       }
@@ -839,11 +939,17 @@ public interface AqlTypes {
       else if (type == FUN_HASH) {
         return new AqlFunHashImpl(node);
       }
+      else if (type == FUN_INTERLEAVE) {
+        return new AqlFunInterleaveImpl(node);
+      }
       else if (type == FUN_INTER_SECTION) {
         return new AqlFunInterSectionImpl(node);
       }
       else if (type == FUN_IN_RANGE) {
         return new AqlFunInRangeImpl(node);
+      }
+      else if (type == FUN_IPV_4_FROM_NUMBER) {
+        return new AqlFunIpv4FromNumberImpl(node);
       }
       else if (type == FUN_IP_TO_NUMBER) {
         return new AqlFunIpToNumberImpl(node);
@@ -959,6 +1065,15 @@ public interface AqlTypes {
       else if (type == FUN_MIN_MATCH) {
         return new AqlFunMinMatchImpl(node);
       }
+      else if (type == FUN_NGRAM_MATCH) {
+        return new AqlFunNgramMatchImpl(node);
+      }
+      else if (type == FUN_NGRAM_POSITIONAL_SIMILARITY) {
+        return new AqlFunNgramPositionalSimilarityImpl(node);
+      }
+      else if (type == FUN_NGRAM_SIMILARITY) {
+        return new AqlFunNgramSimilarityImpl(node);
+      }
       else if (type == FUN_NOOPT) {
         return new AqlFunNooptImpl(node);
       }
@@ -998,6 +1113,9 @@ public interface AqlTypes {
       else if (type == FUN_PREGEL_RESULT) {
         return new AqlFunPregelResultImpl(node);
       }
+      else if (type == FUN_PRODUCT) {
+        return new AqlFunProductImpl(node);
+      }
       else if (type == FUN_PUSH) {
         return new AqlFunPushImpl(node);
       }
@@ -1033,6 +1151,9 @@ public interface AqlTypes {
       }
       else if (type == FUN_REMOVE_VALUES) {
         return new AqlFunRemoveValuesImpl(node);
+      }
+      else if (type == FUN_REPLACE_NTH) {
+        return new AqlFunReplaceNthImpl(node);
       }
       else if (type == FUN_REVERSE) {
         return new AqlFunReverseImpl(node);

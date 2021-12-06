@@ -20,6 +20,17 @@
     ]]></description>
   <!--  TODO: release notes-->
   <change-notes><![CDATA[
+     <ul>
+     <li><strong>1.0.8</strong></li>
+     <li>add WINDOW keyword</li>
+     <li>add remaining v3.7 and v3.8 functions:</li>
+     <li>IPV4_FROM_NUMBER, REPLACE_NTH, NGRAM_MATCH, NGRAM_SIMILARITY</li>
+     <li>NGRAM_POSITIONAL_SIMILARITY, DATE_UTCTOLOCAL, DATE_LOCALTOUTC</li>
+     <li>BIT_AND, BIT_OR, BIT_XOR,BIT_NEGATE, BIT_TEST, BIT_POPCOUNT, BIT_SHIFT_LEFT</li>
+     <li>BIT_SHIFT_RIGHT, BIT_CONSTRUCT, BIT_DECONSTRUCT, BIT_TO_STRING, BIT_FROM_STRING</li>
+     <li>GEO_IN_RANGE, DATE_TIMEZONE, DATE_TIMEZONES</li>
+     <li>fix syntax highlighting (+ function type "relaxing")</li>
+     <ul>
      <p>1.0.7  SSL connection support, 3.8.x database support, bugfixes</p>
      <p>1.0.6  </p>
      <p>1.0.5 bug fixes, add new analyzers, keywords and functions(grammar/autocompletee), add function parameter hints (CTRL+P), add live template support</p>

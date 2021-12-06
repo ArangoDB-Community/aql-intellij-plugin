@@ -1,9 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElementVisitor;
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiElementVisitor;
 
 public class AqlVisitor extends PsiElementVisitor {
 
@@ -96,6 +97,54 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitFunAvg(@NotNull AqlFunAvg o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitAnd(@NotNull AqlFunBitAnd o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitConstruct(@NotNull AqlFunBitConstruct o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitDeconstruct(@NotNull AqlFunBitDeconstruct o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitFromString(@NotNull AqlFunBitFromString o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitNegate(@NotNull AqlFunBitNegate o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitOr(@NotNull AqlFunBitOr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitPopcount(@NotNull AqlFunBitPopcount o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitShiftLeft(@NotNull AqlFunBitShiftLeft o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitShiftRight(@NotNull AqlFunBitShiftRight o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitTest(@NotNull AqlFunBitTest o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitToString(@NotNull AqlFunBitToString o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunBitXor(@NotNull AqlFunBitXor o) {
     visitPsiElement(o);
   }
 
@@ -211,6 +260,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunDateLocaltoutc(@NotNull AqlFunDateLocaltoutc o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunDateMillisecond(@NotNull AqlFunDateMillisecond o) {
     visitPsiElement(o);
   }
@@ -247,7 +300,19 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunDateTimezone(@NotNull AqlFunDateTimezone o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunDateTimezones(@NotNull AqlFunDateTimezones o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunDateTrunc(@NotNull AqlFunDateTrunc o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunDateUtctolocal(@NotNull AqlFunDateUtctolocal o) {
     visitPsiElement(o);
   }
 
@@ -331,6 +396,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunGeoInRange(@NotNull AqlFunGeoInRange o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunGeoIntersects(@NotNull AqlFunGeoIntersects o) {
     visitPsiElement(o);
   }
@@ -371,7 +440,15 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunInterleave(@NotNull AqlFunInterleave o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunIpToNumber(@NotNull AqlFunIpToNumber o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunIpv4FromNumber(@NotNull AqlFunIpv4FromNumber o) {
     visitPsiElement(o);
   }
 
@@ -527,6 +604,18 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunNgramMatch(@NotNull AqlFunNgramMatch o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunNgramPositionalSimilarity(@NotNull AqlFunNgramPositionalSimilarity o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunNgramSimilarity(@NotNull AqlFunNgramSimilarity o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunNoopt(@NotNull AqlFunNoopt o) {
     visitPsiElement(o);
   }
@@ -575,6 +664,10 @@ public class AqlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFunProduct(@NotNull AqlFunProduct o) {
+    visitPsiElement(o);
+  }
+
   public void visitFunPush(@NotNull AqlFunPush o) {
     visitPsiElement(o);
   }
@@ -620,6 +713,10 @@ public class AqlVisitor extends PsiElementVisitor {
   }
 
   public void visitFunRemoveValues(@NotNull AqlFunRemoveValues o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFunReplaceNth(@NotNull AqlFunReplaceNth o) {
     visitPsiElement(o);
   }
 

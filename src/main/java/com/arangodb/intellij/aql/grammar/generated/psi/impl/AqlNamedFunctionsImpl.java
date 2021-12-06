@@ -1,18 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.util.PsiTreeUtil;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
+import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 import com.arangodb.intellij.aql.grammar.custom.psi.impl.AqlNamedFunctionMixin;
 import com.arangodb.intellij.aql.grammar.generated.psi.*;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
+import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElementVisitor;
 
 public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlNamedFunctions {
 
@@ -100,6 +98,78 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   @Nullable
   public AqlFunAvg getFunAvg() {
     return findChildByClass(AqlFunAvg.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitAnd getFunBitAnd() {
+    return findChildByClass(AqlFunBitAnd.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitConstruct getFunBitConstruct() {
+    return findChildByClass(AqlFunBitConstruct.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitDeconstruct getFunBitDeconstruct() {
+    return findChildByClass(AqlFunBitDeconstruct.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitFromString getFunBitFromString() {
+    return findChildByClass(AqlFunBitFromString.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitNegate getFunBitNegate() {
+    return findChildByClass(AqlFunBitNegate.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitOr getFunBitOr() {
+    return findChildByClass(AqlFunBitOr.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitPopcount getFunBitPopcount() {
+    return findChildByClass(AqlFunBitPopcount.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitShiftLeft getFunBitShiftLeft() {
+    return findChildByClass(AqlFunBitShiftLeft.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitShiftRight getFunBitShiftRight() {
+    return findChildByClass(AqlFunBitShiftRight.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitTest getFunBitTest() {
+    return findChildByClass(AqlFunBitTest.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitToString getFunBitToString() {
+    return findChildByClass(AqlFunBitToString.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunBitXor getFunBitXor() {
+    return findChildByClass(AqlFunBitXor.class);
   }
 
   @Override
@@ -272,6 +342,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunDateLocaltoutc getFunDateLocaltoutc() {
+    return findChildByClass(AqlFunDateLocaltoutc.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunDateMillisecond getFunDateMillisecond() {
     return findChildByClass(AqlFunDateMillisecond.class);
   }
@@ -326,8 +402,26 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunDateTimezone getFunDateTimezone() {
+    return findChildByClass(AqlFunDateTimezone.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunDateTimezones getFunDateTimezones() {
+    return findChildByClass(AqlFunDateTimezones.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunDateTrunc getFunDateTrunc() {
     return findChildByClass(AqlFunDateTrunc.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunDateUtctolocal getFunDateUtctolocal() {
+    return findChildByClass(AqlFunDateUtctolocal.class);
   }
 
   @Override
@@ -452,6 +546,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunGeoInRange getFunGeoInRange() {
+    return findChildByClass(AqlFunGeoInRange.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunGeoIntersects getFunGeoIntersects() {
     return findChildByClass(AqlFunGeoIntersects.class);
   }
@@ -512,8 +612,20 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunInterleave getFunInterleave() {
+    return findChildByClass(AqlFunInterleave.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunIpToNumber getFunIpToNumber() {
     return findChildByClass(AqlFunIpToNumber.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunIpv4FromNumber getFunIpv4FromNumber() {
+    return findChildByClass(AqlFunIpv4FromNumber.class);
   }
 
   @Override
@@ -746,6 +858,24 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunNgramMatch getFunNgramMatch() {
+    return findChildByClass(AqlFunNgramMatch.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunNgramPositionalSimilarity getFunNgramPositionalSimilarity() {
+    return findChildByClass(AqlFunNgramPositionalSimilarity.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunNgramSimilarity getFunNgramSimilarity() {
+    return findChildByClass(AqlFunNgramSimilarity.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunNoopt getFunNoopt() {
     return findChildByClass(AqlFunNoopt.class);
   }
@@ -818,6 +948,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
 
   @Override
   @Nullable
+  public AqlFunProduct getFunProduct() {
+    return findChildByClass(AqlFunProduct.class);
+  }
+
+  @Override
+  @Nullable
   public AqlFunPush getFunPush() {
     return findChildByClass(AqlFunPush.class);
   }
@@ -886,6 +1022,12 @@ public class AqlNamedFunctionsImpl extends AqlNamedFunctionMixin implements AqlN
   @Nullable
   public AqlFunRemoveValues getFunRemoveValues() {
     return findChildByClass(AqlFunRemoveValues.class);
+  }
+
+  @Override
+  @Nullable
+  public AqlFunReplaceNth getFunReplaceNth() {
+    return findChildByClass(AqlFunReplaceNth.class);
   }
 
   @Override

@@ -1,14 +1,6 @@
 package com.arangodb.intellij.aql.grammar.generated;
 
-import com.arangodb.intellij.aql.TestHelper;
-import com.arangodb.intellij.aql.lang.AqlLanguage;
-import com.arangodb.intellij.aql.lang.AqlParserDefinition;
-import com.arangodb.intellij.aql.lang.psi.AqlASTFactory;
-import com.arangodb.intellij.aql.util.AqlConst;
-import com.intellij.lang.LanguageASTFactory;
-import com.intellij.testFramework.ParsingTestCase;
-
-public class AqlParserTest extends ParsingTestCase {
+/*public class AqlParserTest extends ParsingTestCase {
 
     public AqlParserTest() {
         super("", AqlConst.AQL_FILE_EXTENSION, new AqlParserDefinition());
@@ -30,4 +22,4 @@ public class AqlParserTest extends ParsingTestCase {
 
     }
 
-}
+}*/

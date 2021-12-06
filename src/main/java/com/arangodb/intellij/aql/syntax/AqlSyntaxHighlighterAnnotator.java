@@ -98,11 +98,11 @@ public class AqlSyntaxHighlighterAnnotator implements Annotator {
 
 
     private static void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder, @NotNull TextAttributesKey key) {
-        holder.newAnnotation(HighlightSeverity.WARNING, key.getExternalName())
+      /*  holder.newAnnotation(HighlightSeverity.WARNING, key.getExternalName())
               .range(element)
               .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
               .textAttributes(key)
-              .create();
+              .create();*/
 
     }
 

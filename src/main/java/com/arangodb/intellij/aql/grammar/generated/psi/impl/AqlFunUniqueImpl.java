@@ -1,16 +1,17 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
+
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnyType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunUnique;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.util.PsiTreeUtil;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
+
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.F_UNIQUE;
 
 public class AqlFunUniqueImpl extends ASTWrapperPsiElement implements AqlFunUnique {
 
@@ -29,39 +30,9 @@ public class AqlFunUniqueImpl extends ASTWrapperPsiElement implements AqlFunUniq
   }
 
   @Override
-  @Nullable
-  public AqlNumberType getNumberType() {
-    return findChildByClass(AqlNumberType.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlObjectExpression getObjectExpression() {
-    return findChildByClass(AqlObjectExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlParameterVariable getParameterVariable() {
-    return findChildByClass(AqlParameterVariable.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlPropertyName getPropertyName() {
-    return findChildByClass(AqlPropertyName.class);
-  }
-
-  @Override
   @NotNull
-  public List<AqlQueryItem> getQueryItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlQueryItem.class);
-  }
-
-  @Override
-  @Nullable
-  public AqlVariablePlaceHolder getVariablePlaceHolder() {
-    return findChildByClass(AqlVariablePlaceHolder.class);
+  public AqlAnyType getAnyType() {
+    return findNotNullChildByClass(AqlAnyType.class);
   }
 
   @Override

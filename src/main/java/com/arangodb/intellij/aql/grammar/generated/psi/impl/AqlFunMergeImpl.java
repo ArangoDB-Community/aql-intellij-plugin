@@ -2,15 +2,20 @@
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlAnyType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlFunMerge;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlStatement;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
+
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.F_MERGE;
 
 public class AqlFunMergeImpl extends ASTWrapperPsiElement implements AqlFunMerge {
 
@@ -30,26 +35,14 @@ public class AqlFunMergeImpl extends ASTWrapperPsiElement implements AqlFunMerge
 
   @Override
   @NotNull
-  public List<AqlJsonType> getJsonTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlJsonType.class);
+  public List<AqlAnyType> getAnyTypeList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlAnyType.class);
   }
 
   @Override
   @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
-  }
-
-  @Override
-  @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  public List<AqlStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlStatement.class);
   }
 
   @Override

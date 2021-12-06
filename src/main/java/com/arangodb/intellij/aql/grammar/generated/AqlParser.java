@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated;
 
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
-import static com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil.*;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.lang.PsiParser;
-import com.intellij.lang.LightPsiParser;
+import com.intellij.psi.tree.IElementType;
+
+import static com.arangodb.intellij.aql.grammar.custom.psi.AqlParserUtil.*;
+import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class AqlParser implements PsiParser, LightPsiParser {
@@ -644,6 +644,257 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // F_BIT_AND "(" AnyType  ("," AnyType)? ")"
+  public static boolean FunBitAnd(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitAnd")) return false;
+    if (!nextTokenIs(b, F_BIT_AND)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_AND, null);
+    r = consumeTokens(b, 1, F_BIT_AND, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, FunBitAnd_3(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunBitAnd_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitAnd_3")) return false;
+    FunBitAnd_3_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunBitAnd_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitAnd_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_CONSTRUCT "(" AnyType ")"
+  public static boolean FunBitConstruct(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitConstruct")) return false;
+    if (!nextTokenIs(b, F_BIT_CONSTRUCT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_CONSTRUCT, null);
+    r = consumeTokens(b, 1, F_BIT_CONSTRUCT, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_DECONSTRUCT "(" AnyType ")"
+  public static boolean FunBitDeconstruct(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitDeconstruct")) return false;
+    if (!nextTokenIs(b, F_BIT_DECONSTRUCT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_DECONSTRUCT, null);
+    r = consumeTokens(b, 1, F_BIT_DECONSTRUCT, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_FROM_STRING "(" AnyType ")"
+  public static boolean FunBitFromString(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitFromString")) return false;
+    if (!nextTokenIs(b, F_BIT_FROM_STRING)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_FROM_STRING, null);
+    r = consumeTokens(b, 1, F_BIT_FROM_STRING, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_NEGATE "(" AnyType "," AnyType ")"
+  public static boolean FunBitNegate(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitNegate")) return false;
+    if (!nextTokenIs(b, F_BIT_NEGATE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_NEGATE, null);
+    r = consumeTokens(b, 1, F_BIT_NEGATE, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_OR "(" AnyType  ("," AnyType)? ")"
+  public static boolean FunBitOr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitOr")) return false;
+    if (!nextTokenIs(b, F_BIT_OR)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_OR, null);
+    r = consumeTokens(b, 1, F_BIT_OR, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, FunBitOr_3(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunBitOr_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitOr_3")) return false;
+    FunBitOr_3_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunBitOr_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitOr_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_POPCOUNT "(" AnyType ")"
+  public static boolean FunBitPopcount(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitPopcount")) return false;
+    if (!nextTokenIs(b, F_BIT_POPCOUNT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_POPCOUNT, null);
+    r = consumeTokens(b, 1, F_BIT_POPCOUNT, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_SHIFT_LEFT "(" AnyType "," AnyType "," AnyType  ")"
+  public static boolean FunBitShiftLeft(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitShiftLeft")) return false;
+    if (!nextTokenIs(b, F_BIT_SHIFT_LEFT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_SHIFT_LEFT, null);
+    r = consumeTokens(b, 1, F_BIT_SHIFT_LEFT, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_SHIFT_RIGHT "(" AnyType "," AnyType  "," AnyType ")"
+  public static boolean FunBitShiftRight(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitShiftRight")) return false;
+    if (!nextTokenIs(b, F_BIT_SHIFT_RIGHT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_SHIFT_RIGHT, null);
+    r = consumeTokens(b, 1, F_BIT_SHIFT_RIGHT, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_TEST "(" AnyType "," AnyType ")"
+  public static boolean FunBitTest(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitTest")) return false;
+    if (!nextTokenIs(b, F_BIT_TEST)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_TEST, null);
+    r = consumeTokens(b, 1, F_BIT_TEST, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_TO_STRING "(" AnyType "," AnyType ")"
+  public static boolean FunBitToString(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitToString")) return false;
+    if (!nextTokenIs(b, F_BIT_TO_STRING)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_TO_STRING, null);
+    r = consumeTokens(b, 1, F_BIT_TO_STRING, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_BIT_XOR "(" AnyType  ("," AnyType)? ")"
+  public static boolean FunBitXor(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitXor")) return false;
+    if (!nextTokenIs(b, F_BIT_XOR)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_BIT_XOR, null);
+    r = consumeTokens(b, 1, F_BIT_XOR, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, FunBitXor_3(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunBitXor_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitXor_3")) return false;
+    FunBitXor_3_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunBitXor_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunBitXor_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // F_BM25 "(" document_argument  ("," number_argument)? ("," boolean_argument) ")"
   public static boolean FunBm25(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunBm25")) return false;
@@ -1040,7 +1291,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_DATE_ADD "("  date_argument "," integer_argument | string_argument "," DateUnit")"
+  // F_DATE_ADD "("  AnyType "," AnyType "," AnyType | DateUnit  ")"
   public static boolean FunDateAdd(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateAdd")) return false;
     boolean r;
@@ -1051,27 +1302,27 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // F_DATE_ADD "("  date_argument "," integer_argument
+  // F_DATE_ADD "("  AnyType "," AnyType "," AnyType
   private static boolean FunDateAdd_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateAdd_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, F_DATE_ADD, T_OPEN);
-    r = r && date_argument(b, l + 1);
+    r = r && AnyType(b, l + 1);
     r = r && consumeToken(b, T_COMMA);
-    r = r && integer_argument(b, l + 1);
+    r = r && AnyType(b, l + 1);
+    r = r && consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // string_argument "," DateUnit")"
+  // DateUnit  ")"
   private static boolean FunDateAdd_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateAdd_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = string_argument(b, l + 1);
-    r = r && consumeToken(b, T_COMMA);
-    r = r && DateUnit(b, l + 1);
+    r = DateUnit(b, l + 1);
     r = r && consumeToken(b, T_CLOSE);
     exit_section_(b, m, null, r);
     return r;
@@ -1295,6 +1546,42 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // F_DATE_LOCALTOUTC  "(" AnyType "," AnyType ("," AnyType)? ")"
+  public static boolean FunDateLocaltoutc(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateLocaltoutc")) return false;
+    if (!nextTokenIs(b, F_DATE_LOCALTOUTC)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_DATE_LOCALTOUTC, null);
+    r = consumeTokens(b, 1, F_DATE_LOCALTOUTC, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, FunDateLocaltoutc_5(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunDateLocaltoutc_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateLocaltoutc_5")) return false;
+    FunDateLocaltoutc_5_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunDateLocaltoutc_5_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateLocaltoutc_5_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // F_DATE_MILLISECOND "("  date_argument ")"
   public static boolean FunDateMillisecond(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateMillisecond")) return false;
@@ -1470,6 +1757,32 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // F_DATE_TIMEZONE "(" ")"
+  public static boolean FunDateTimezone(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateTimezone")) return false;
+    if (!nextTokenIs(b, F_DATE_TIMEZONE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_DATE_TIMEZONE, null);
+    r = consumeTokens(b, 2, F_DATE_TIMEZONE, T_OPEN, T_CLOSE);
+    p = r; // pin = 2
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_DATE_TIMEZONES "("  ")"
+  public static boolean FunDateTimezones(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateTimezones")) return false;
+    if (!nextTokenIs(b, F_DATE_TIMEZONES)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_DATE_TIMEZONES, null);
+    r = consumeTokens(b, 2, F_DATE_TIMEZONES, T_OPEN, T_CLOSE);
+    p = r; // pin = 2
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // F_DATE_TRUNC "("  date_argument "," DateUnit ")"
   public static boolean FunDateTrunc(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunDateTrunc")) return false;
@@ -1484,6 +1797,42 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_DATE_UTCTOLOCAL  "(" AnyType "," AnyType ("," AnyType)? ")"
+  public static boolean FunDateUtctolocal(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateUtctolocal")) return false;
+    if (!nextTokenIs(b, F_DATE_UTCTOLOCAL)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_DATE_UTCTOLOCAL, null);
+    r = consumeTokens(b, 1, F_DATE_UTCTOLOCAL, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, FunDateUtctolocal_5(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunDateUtctolocal_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateUtctolocal_5")) return false;
+    FunDateUtctolocal_5_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunDateUtctolocal_5_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunDateUtctolocal_5_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -2010,6 +2359,29 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // F_GEO_IN_RANGE "(" AnyType "," AnyType "," AnyType "," AnyType "," AnyType ")"
+  public static boolean FunGeoInRange(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunGeoInRange")) return false;
+    if (!nextTokenIs(b, F_GEO_IN_RANGE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_GEO_IN_RANGE, null);
+    r = consumeTokens(b, 1, F_GEO_IN_RANGE, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // F_GEO_INTERSECTS"(" JsonType "," JsonType ")"
   public static boolean FunGeoIntersects(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunGeoIntersects")) return false;
@@ -2308,6 +2680,23 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // F_INTERLEAVE  "(" ArrayType  "," ArrayType ")"
+  public static boolean FunInterleave(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunInterleave")) return false;
+    if (!nextTokenIs(b, F_INTERLEAVE)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_INTERLEAVE, null);
+    r = consumeTokens(b, 0, F_INTERLEAVE, T_OPEN);
+    r = r && ArrayType(b, l + 1);
+    p = r; // pin = 3
+    r = r && report_error_(b, consumeToken(b, T_COMMA));
+    r = p && report_error_(b, ArrayType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
   // F_IPV4_TO_NUMBER "(" string_argument ")"
   public static boolean FunIpToNumber(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunIpToNumber")) return false;
@@ -2318,6 +2707,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = r && string_argument(b, l + 1);
     p = r; // pin = 3
     r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_IPV4_FROM_NUMBER "(" ExpressionType ")"
+  public static boolean FunIpv4FromNumber(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunIpv4FromNumber")) return false;
+    if (!nextTokenIs(b, F_IPV4_FROM_NUMBER)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_IPV_4_FROM_NUMBER, null);
+    r = consumeTokens(b, 1, F_IPV4_FROM_NUMBER, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, ExpressionType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
@@ -2972,77 +3376,105 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_MERGE  "(" document_argument "," (document_argument)* ")"
+  // F_MERGE  "(" AnyType ("," AnyType | Statement)* ")"
   public static boolean FunMerge(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunMerge")) return false;
     if (!nextTokenIs(b, F_MERGE)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, FUN_MERGE, null);
-    r = consumeTokens(b, 2, F_MERGE, T_OPEN);
-    p = r; // pin = 2
-    r = r && report_error_(b, document_argument(b, l + 1));
-    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
-    r = p && report_error_(b, FunMerge_4(b, l + 1)) && r;
-    r = p && consumeToken(b, T_CLOSE) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, F_MERGE, T_OPEN);
+    r = r && AnyType(b, l + 1);
+    r = r && FunMerge_3(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, m, FUN_MERGE, r);
+    return r;
   }
 
-  // (document_argument)*
-  private static boolean FunMerge_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FunMerge_4")) return false;
+  // ("," AnyType | Statement)*
+  private static boolean FunMerge_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMerge_3")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!FunMerge_4_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "FunMerge_4", c)) break;
+      if (!FunMerge_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "FunMerge_3", c)) break;
     }
     return true;
   }
 
-  // (document_argument)
-  private static boolean FunMerge_4_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FunMerge_4_0")) return false;
+  // "," AnyType | Statement
+  private static boolean FunMerge_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMerge_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = document_argument(b, l + 1);
+    r = FunMerge_3_0_0(b, l + 1);
+    if (!r) r = Statement(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // "," AnyType
+  private static boolean FunMerge_3_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMerge_3_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
-  // F_MERGE_RECURSIVE  "(" document_argument "," (document_argument)* ")"
+  // F_MERGE_RECURSIVE  "(" AnyType ("," AnyType (OperatorStatements AnyType)?)* ")"
   public static boolean FunMergeRecursive(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunMergeRecursive")) return false;
     if (!nextTokenIs(b, F_MERGE_RECURSIVE)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, FUN_MERGE_RECURSIVE, null);
-    r = consumeTokens(b, 2, F_MERGE_RECURSIVE, T_OPEN);
-    p = r; // pin = 2
-    r = r && report_error_(b, document_argument(b, l + 1));
-    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
-    r = p && report_error_(b, FunMergeRecursive_4(b, l + 1)) && r;
-    r = p && consumeToken(b, T_CLOSE) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, F_MERGE_RECURSIVE, T_OPEN);
+    r = r && AnyType(b, l + 1);
+    r = r && FunMergeRecursive_3(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, m, FUN_MERGE_RECURSIVE, r);
+    return r;
   }
 
-  // (document_argument)*
-  private static boolean FunMergeRecursive_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FunMergeRecursive_4")) return false;
+  // ("," AnyType (OperatorStatements AnyType)?)*
+  private static boolean FunMergeRecursive_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMergeRecursive_3")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!FunMergeRecursive_4_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "FunMergeRecursive_4", c)) break;
+      if (!FunMergeRecursive_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "FunMergeRecursive_3", c)) break;
     }
     return true;
   }
 
-  // (document_argument)
-  private static boolean FunMergeRecursive_4_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "FunMergeRecursive_4_0")) return false;
+  // "," AnyType (OperatorStatements AnyType)?
+  private static boolean FunMergeRecursive_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMergeRecursive_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = document_argument(b, l + 1);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    r = r && FunMergeRecursive_3_0_2(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (OperatorStatements AnyType)?
+  private static boolean FunMergeRecursive_3_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMergeRecursive_3_0_2")) return false;
+    FunMergeRecursive_3_0_2_0(b, l + 1);
+    return true;
+  }
+
+  // OperatorStatements AnyType
+  private static boolean FunMergeRecursive_3_0_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunMergeRecursive_3_0_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = OperatorStatements(b, l + 1);
+    r = r && AnyType(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -3144,6 +3576,99 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = number_argument_array(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  // F_NGRAM_MATCH  "(" AnyType "," AnyType ("," AnyType)? ("," AnyType)? ")"
+  public static boolean FunNgramMatch(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramMatch")) return false;
+    if (!nextTokenIs(b, F_NGRAM_MATCH)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_NGRAM_MATCH, null);
+    r = consumeTokens(b, 1, F_NGRAM_MATCH, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, FunNgramMatch_5(b, l + 1)) && r;
+    r = p && report_error_(b, FunNgramMatch_6(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunNgramMatch_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramMatch_5")) return false;
+    FunNgramMatch_5_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunNgramMatch_5_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramMatch_5_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunNgramMatch_6(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramMatch_6")) return false;
+    FunNgramMatch_6_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunNgramMatch_6_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramMatch_6_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // F_NGRAM_POSITIONAL_SIMILARITY "(" AnyType "," AnyType "," AnyType ")"
+  public static boolean FunNgramPositionalSimilarity(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramPositionalSimilarity")) return false;
+    if (!nextTokenIs(b, F_NGRAM_POSITIONAL_SIMILARITY)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_NGRAM_POSITIONAL_SIMILARITY, null);
+    r = consumeTokens(b, 1, F_NGRAM_POSITIONAL_SIMILARITY, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_NGRAM_SIMILARITY "(" AnyType "," AnyType "," AnyType ")"
+  public static boolean FunNgramSimilarity(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunNgramSimilarity")) return false;
+    if (!nextTokenIs(b, F_NGRAM_SIMILARITY)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_NGRAM_SIMILARITY, null);
+    r = consumeTokens(b, 1, F_NGRAM_SIMILARITY, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
   }
 
   /* ********************************************************** */
@@ -3476,6 +4001,21 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 2, F_PREGEL_RESULT, T_OPEN);
     p = r; // pin = 2
     r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_PRODUCT  "(" ArrayType   ")"
+  public static boolean FunProduct(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunProduct")) return false;
+    if (!nextTokenIs(b, F_PRODUCT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_PRODUCT, null);
+    r = consumeTokens(b, 2, F_PRODUCT, T_OPEN);
+    p = r; // pin = 2
+    r = r && report_error_(b, ArrayType(b, l + 1));
     r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
@@ -3821,6 +4361,44 @@ public class AqlParser implements PsiParser, LightPsiParser {
     r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  /* ********************************************************** */
+  // F_REPLACE_NTH "(" AnyType "," AnyType "," AnyType ("," AnyType)? ")"
+  public static boolean FunReplaceNth(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunReplaceNth")) return false;
+    if (!nextTokenIs(b, F_REPLACE_NTH)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, FUN_REPLACE_NTH, null);
+    r = consumeTokens(b, 1, F_REPLACE_NTH, T_OPEN);
+    p = r; // pin = 1
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, consumeToken(b, T_COMMA)) && r;
+    r = p && report_error_(b, AnyType(b, l + 1)) && r;
+    r = p && report_error_(b, FunReplaceNth_7(b, l + 1)) && r;
+    r = p && consumeToken(b, T_CLOSE) && r;
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // ("," AnyType)?
+  private static boolean FunReplaceNth_7(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunReplaceNth_7")) return false;
+    FunReplaceNth_7_0(b, l + 1);
+    return true;
+  }
+
+  // "," AnyType
+  private static boolean FunReplaceNth_7_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunReplaceNth_7_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, T_COMMA);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -4342,7 +4920,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_SUM "(" number_argument_array ")"
+  // F_SUM "(" AnyType (arithmetic_operators AnyType)? ")"
   public static boolean FunSum(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunSum")) return false;
     if (!nextTokenIs(b, F_SUM)) return false;
@@ -4350,10 +4928,29 @@ public class AqlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, FUN_SUM, null);
     r = consumeTokens(b, 2, F_SUM, T_OPEN);
     p = r; // pin = 2
-    r = r && report_error_(b, number_argument_array(b, l + 1));
+    r = r && report_error_(b, AnyType(b, l + 1));
+    r = p && report_error_(b, FunSum_3(b, l + 1)) && r;
     r = p && consumeToken(b, T_CLOSE) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  // (arithmetic_operators AnyType)?
+  private static boolean FunSum_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunSum_3")) return false;
+    FunSum_3_0(b, l + 1);
+    return true;
+  }
+
+  // arithmetic_operators AnyType
+  private static boolean FunSum_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "FunSum_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = arithmetic_operators(b, l + 1);
+    r = r && AnyType(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -4759,18 +5356,17 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // F_UNIQUE  "(" number_argument_array ")"
+  // F_UNIQUE  "(" AnyType ")"
   public static boolean FunUnique(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "FunUnique")) return false;
     if (!nextTokenIs(b, F_UNIQUE)) return false;
-    boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, FUN_UNIQUE, null);
-    r = consumeTokens(b, 2, F_UNIQUE, T_OPEN);
-    p = r; // pin = 2
-    r = r && report_error_(b, number_argument_array(b, l + 1));
-    r = p && consumeToken(b, T_CLOSE) && r;
-    exit_section_(b, l, m, r, p, null);
-    return r || p;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, F_UNIQUE, T_OPEN);
+    r = r && AnyType(b, l + 1);
+    r = r && consumeToken(b, T_CLOSE);
+    exit_section_(b, m, FUN_UNIQUE, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -5131,7 +5727,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{' object_element* '}'
+  // '{' object_element? '}'
   public static boolean JsonType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "JsonType")) return false;
     if (!nextTokenIs(b, T_OBJECT_OPEN)) return false;
@@ -5145,14 +5741,10 @@ public class AqlParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // object_element*
+  // object_element?
   private static boolean JsonType_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "JsonType_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!object_element(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "JsonType_1", c)) break;
-    }
+    object_element(b, l + 1);
     return true;
   }
 
@@ -5376,6 +5968,31 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //               | FunIsIpv
   //               | FunLevenshteinMatch
   //               | FunJaccard
+  //               | FunInterleave
+  //               | FunProduct
+  //               // 3.8
+  //               | FunIpv4FromNumber
+  //               | FunReplaceNth
+  //               | FunNgramMatch
+  //               | FunNgramSimilarity
+  //               | FunNgramPositionalSimilarity
+  //               | FunDateUtctolocal
+  //               | FunDateLocaltoutc
+  //               | FunBitAnd
+  //               | FunBitOr
+  //               | FunBitXor
+  //               | FunBitNegate
+  //               | FunBitTest
+  //               | FunBitPopcount
+  //               | FunBitShiftLeft
+  //               | FunBitShiftRight
+  //               | FunBitConstruct
+  //               | FunBitDeconstruct
+  //               | FunBitToString
+  //               | FunBitFromString
+  //               | FunGeoInRange
+  //               | FunDateTimezone
+  //               | FunDateTimezones
   public static boolean NamedFunctions(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "NamedFunctions")) return false;
     boolean r;
@@ -5575,6 +6192,30 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = FunIsIpv(b, l + 1);
     if (!r) r = FunLevenshteinMatch(b, l + 1);
     if (!r) r = FunJaccard(b, l + 1);
+    if (!r) r = FunInterleave(b, l + 1);
+    if (!r) r = FunProduct(b, l + 1);
+    if (!r) r = FunIpv4FromNumber(b, l + 1);
+    if (!r) r = FunReplaceNth(b, l + 1);
+    if (!r) r = FunNgramMatch(b, l + 1);
+    if (!r) r = FunNgramSimilarity(b, l + 1);
+    if (!r) r = FunNgramPositionalSimilarity(b, l + 1);
+    if (!r) r = FunDateUtctolocal(b, l + 1);
+    if (!r) r = FunDateLocaltoutc(b, l + 1);
+    if (!r) r = FunBitAnd(b, l + 1);
+    if (!r) r = FunBitOr(b, l + 1);
+    if (!r) r = FunBitXor(b, l + 1);
+    if (!r) r = FunBitNegate(b, l + 1);
+    if (!r) r = FunBitTest(b, l + 1);
+    if (!r) r = FunBitPopcount(b, l + 1);
+    if (!r) r = FunBitShiftLeft(b, l + 1);
+    if (!r) r = FunBitShiftRight(b, l + 1);
+    if (!r) r = FunBitConstruct(b, l + 1);
+    if (!r) r = FunBitDeconstruct(b, l + 1);
+    if (!r) r = FunBitToString(b, l + 1);
+    if (!r) r = FunBitFromString(b, l + 1);
+    if (!r) r = FunGeoInRange(b, l + 1);
+    if (!r) r = FunDateTimezone(b, l + 1);
+    if (!r) r = FunDateTimezones(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -5961,7 +6602,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (TEXT_SINGLE) | (TEXT_DOUBLE)
+  // TEXT_SINGLE | TEXT_DOUBLE
   public static boolean StringType(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "StringType")) return false;
     if (!nextTokenIs(b, "<string type>", TEXT_DOUBLE, TEXT_SINGLE)) return false;
@@ -6949,6 +7590,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
   //                         | T_COLLECT
   //                         | T_CURRENT
   //                         | T_WITH
+  //                         | T_WINDOW
   //                         | T_DISTINCT
   //                         | T_RETURN
   //                         | T_UPSERT
@@ -6981,6 +7623,7 @@ public class AqlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, T_COLLECT);
     if (!r) r = consumeToken(b, T_CURRENT);
     if (!r) r = consumeToken(b, T_WITH);
+    if (!r) r = consumeToken(b, T_WINDOW);
     if (!r) r = consumeToken(b, T_DISTINCT);
     if (!r) r = consumeToken(b, T_RETURN);
     if (!r) r = consumeToken(b, T_UPSERT);

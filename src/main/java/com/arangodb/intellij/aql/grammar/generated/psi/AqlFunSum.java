@@ -2,28 +2,15 @@
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.psi.PsiElement;
 
 public interface AqlFunSum extends PsiElement {
 
-  @Nullable
-  AqlNumberType getNumberType();
-
-  @Nullable
-  AqlObjectExpression getObjectExpression();
-
-  @Nullable
-  AqlParameterVariable getParameterVariable();
-
-  @Nullable
-  AqlPropertyName getPropertyName();
-
   @NotNull
-  List<AqlQueryItem> getQueryItemList();
-
-  @Nullable
-  AqlVariablePlaceHolder getVariablePlaceHolder();
+  List<AqlAnyType> getAnyTypeList();
 
   @NotNull
   PsiElement getFSum();

@@ -1,11 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 
 public interface AqlNamedFunctions extends PsiElement {
 
@@ -44,6 +44,42 @@ public interface AqlNamedFunctions extends PsiElement {
 
   @Nullable
   AqlFunAvg getFunAvg();
+
+  @Nullable
+  AqlFunBitAnd getFunBitAnd();
+
+  @Nullable
+  AqlFunBitConstruct getFunBitConstruct();
+
+  @Nullable
+  AqlFunBitDeconstruct getFunBitDeconstruct();
+
+  @Nullable
+  AqlFunBitFromString getFunBitFromString();
+
+  @Nullable
+  AqlFunBitNegate getFunBitNegate();
+
+  @Nullable
+  AqlFunBitOr getFunBitOr();
+
+  @Nullable
+  AqlFunBitPopcount getFunBitPopcount();
+
+  @Nullable
+  AqlFunBitShiftLeft getFunBitShiftLeft();
+
+  @Nullable
+  AqlFunBitShiftRight getFunBitShiftRight();
+
+  @Nullable
+  AqlFunBitTest getFunBitTest();
+
+  @Nullable
+  AqlFunBitToString getFunBitToString();
+
+  @Nullable
+  AqlFunBitXor getFunBitXor();
 
   @Nullable
   AqlFunBm25 getFunBm25();
@@ -130,6 +166,9 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunDateLeapYear getFunDateLeapYear();
 
   @Nullable
+  AqlFunDateLocaltoutc getFunDateLocaltoutc();
+
+  @Nullable
   AqlFunDateMillisecond getFunDateMillisecond();
 
   @Nullable
@@ -157,7 +196,16 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunDateTimeStamp getFunDateTimeStamp();
 
   @Nullable
+  AqlFunDateTimezone getFunDateTimezone();
+
+  @Nullable
+  AqlFunDateTimezones getFunDateTimezones();
+
+  @Nullable
   AqlFunDateTrunc getFunDateTrunc();
+
+  @Nullable
+  AqlFunDateUtctolocal getFunDateUtctolocal();
 
   @Nullable
   AqlFunDateYear getFunDateYear();
@@ -220,6 +268,9 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunGeoEquals getFunGeoEquals();
 
   @Nullable
+  AqlFunGeoInRange getFunGeoInRange();
+
+  @Nullable
   AqlFunGeoIntersects getFunGeoIntersects();
 
   @Nullable
@@ -250,7 +301,13 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunInterSection getFunInterSection();
 
   @Nullable
+  AqlFunInterleave getFunInterleave();
+
+  @Nullable
   AqlFunIpToNumber getFunIpToNumber();
+
+  @Nullable
+  AqlFunIpv4FromNumber getFunIpv4FromNumber();
 
   @Nullable
   AqlFunIsArray getFunIsArray();
@@ -367,6 +424,15 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunNTH getFunNTH();
 
   @Nullable
+  AqlFunNgramMatch getFunNgramMatch();
+
+  @Nullable
+  AqlFunNgramPositionalSimilarity getFunNgramPositionalSimilarity();
+
+  @Nullable
+  AqlFunNgramSimilarity getFunNgramSimilarity();
+
+  @Nullable
   AqlFunNoopt getFunNoopt();
 
   @Nullable
@@ -403,6 +469,9 @@ public interface AqlNamedFunctions extends PsiElement {
   AqlFunPregelResult getFunPregelResult();
 
   @Nullable
+  AqlFunProduct getFunProduct();
+
+  @Nullable
   AqlFunPush getFunPush();
 
   @Nullable
@@ -437,6 +506,9 @@ public interface AqlNamedFunctions extends PsiElement {
 
   @Nullable
   AqlFunRemoveValues getFunRemoveValues();
+
+  @Nullable
+  AqlFunReplaceNth getFunReplaceNth();
 
   @Nullable
   AqlFunReverse getFunReverse();

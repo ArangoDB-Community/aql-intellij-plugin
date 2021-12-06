@@ -1,11 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.Nullable;
+
 import com.arangodb.intellij.aql.grammar.custom.psi.AqlNamedElement;
 import com.intellij.navigation.ItemPresentation;
+import com.intellij.psi.PsiElement;
 
 public interface AqlKeywordStatements extends PsiElement {
 
@@ -89,6 +89,9 @@ public interface AqlKeywordStatements extends PsiElement {
 
   @Nullable
   PsiElement getTUpsert();
+
+  @Nullable
+  PsiElement getTWindow();
 
   @Nullable
   PsiElement getTWith();

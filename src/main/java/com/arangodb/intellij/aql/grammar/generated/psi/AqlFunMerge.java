@@ -2,22 +2,18 @@
 package com.arangodb.intellij.aql.grammar.generated.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.psi.PsiElement;
 
 public interface AqlFunMerge extends PsiElement {
 
   @NotNull
-  List<AqlJsonType> getJsonTypeList();
+  List<AqlAnyType> getAnyTypeList();
 
   @NotNull
-  List<AqlObjectExpression> getObjectExpressionList();
-
-  @NotNull
-  List<AqlParameterVariable> getParameterVariableList();
-
-  @NotNull
-  List<AqlVariablePlaceHolder> getVariablePlaceHolderList();
+  List<AqlStatement> getStatementList();
 
   @NotNull
   PsiElement getFMerge();

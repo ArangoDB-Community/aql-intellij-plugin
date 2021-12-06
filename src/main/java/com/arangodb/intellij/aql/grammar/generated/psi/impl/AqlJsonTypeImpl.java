@@ -2,15 +2,23 @@
 package com.arangodb.intellij.aql.grammar.generated.psi.impl;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlArrayRef;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlArrayType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlComplexJsonValue;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlJsonType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlObjectExpression;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlParameterVariable;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlStringType;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVariablePlaceHolder;
+import com.arangodb.intellij.aql.grammar.generated.psi.AqlVisitor;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.arangodb.intellij.aql.grammar.generated.psi.AqlTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.arangodb.intellij.aql.grammar.generated.psi.*;
-import com.arangodb.intellij.aql.grammar.custom.psi.AqlPsiUtil;
 
 public class AqlJsonTypeImpl extends ASTWrapperPsiElement implements AqlJsonType {
 
@@ -35,9 +43,9 @@ public class AqlJsonTypeImpl extends ASTWrapperPsiElement implements AqlJsonType
   }
 
   @Override
-  @NotNull
-  public List<AqlArrayType> getArrayTypeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlArrayType.class);
+  @Nullable
+  public AqlArrayType getArrayType() {
+    return findChildByClass(AqlArrayType.class);
   }
 
   @Override
@@ -47,15 +55,15 @@ public class AqlJsonTypeImpl extends ASTWrapperPsiElement implements AqlJsonType
   }
 
   @Override
-  @NotNull
-  public List<AqlObjectExpression> getObjectExpressionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlObjectExpression.class);
+  @Nullable
+  public AqlObjectExpression getObjectExpression() {
+    return findChildByClass(AqlObjectExpression.class);
   }
 
   @Override
-  @NotNull
-  public List<AqlParameterVariable> getParameterVariableList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlParameterVariable.class);
+  @Nullable
+  public AqlParameterVariable getParameterVariable() {
+    return findChildByClass(AqlParameterVariable.class);
   }
 
   @Override
@@ -65,9 +73,9 @@ public class AqlJsonTypeImpl extends ASTWrapperPsiElement implements AqlJsonType
   }
 
   @Override
-  @NotNull
-  public List<AqlVariablePlaceHolder> getVariablePlaceHolderList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, AqlVariablePlaceHolder.class);
+  @Nullable
+  public AqlVariablePlaceHolder getVariablePlaceHolder() {
+    return findChildByClass(AqlVariablePlaceHolder.class);
   }
 
 }

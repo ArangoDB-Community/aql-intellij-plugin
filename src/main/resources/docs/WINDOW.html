@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WINDOW</title>
+</head>
+<body>
+<div class="page-inner">
+    <section class="normal markdown-section">
+        <h1 id="window">WINDOW</h1>
+
+        <p class="lead">Aggregate adjacent documents or value ranges with a sliding window to calculate running totals, rolling averages, and other statistical properties</p>
+
+        <p>The
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> operation can be used for aggregations over adjacent documents, or
+            preceding and / or following rows in other words. It can also aggregate based
+            on a value or duration range relative to a document attribute.</p>
+
+        <p>The operation performs a
+            <code class="language-plaintext highlighter-rouge">COLLECT AGGREGATE</code>-like operation on a set
+            of query rows. However, whereas a
+            <code class="language-plaintext highlighter-rouge">COLLECT</code> operation groups multiple query
+            rows into a single result group, a
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> operation produces a result for
+            each query row:</p>
+
+        <ul>
+            <li>The row for which function evaluation occurs is called the current row.</li>
+            <li>The query rows related to the current row over which function evaluation
+                occurs, comprise the window frame for the current row.
+            </li>
+        </ul>
+
+        <p>Window frames are determined with respect to the current row:</p>
+
+        <ul>
+            <li>By defining a window frame to be all rows from the query start to the current
+                row, you can compute running totals for each row.
+            </li>
+            <li>By defining a frame as extending <em>N</em> rows on either side of the current row,
+                you can compute rolling averages.
+            </li>
+        </ul>
+
+        <h2 id="syntax">Syntax<a class="anchor-link" href="#syntax" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+        </h2>
+
+        <p>There are two syntax variants for
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> operations.</p>
+
+        <p><strong>Row-based</strong> (adjacent documents):</p>
+
+        <pre><code>WINDOW { preceding: <em>numPrecedingRows</em>, following: <em>numFollowingRows</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
+
+        <p><strong>Range-based</strong> (value or duration range):</p>
+
+        <pre><code>WINDOW <em>rangeValue</em> WITH { preceding: <em>offsetPreceding</em>, following: <em>offsetFollowing</em> } AGGREGATE <em>variableName</em> = <em>aggregateExpression</em></code></pre>
+
+        <p>Calls to the following functions are supported in aggregation expressions:</p>
+        <ul>
+            <li><code class="language-plaintext highlighter-rouge">LENGTH()</code> /
+                <code class="language-plaintext highlighter-rouge">COUNT()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">MIN()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">MAX()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">SUM()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">AVERAGE()</code> /
+                <code class="language-plaintext highlighter-rouge">AVG()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">STDDEV_POPULATION()</code> /
+                <code class="language-plaintext highlighter-rouge">STDDEV()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">STDDEV_SAMPLE()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">VARIANCE_POPULATION()</code> /
+                <code class="language-plaintext highlighter-rouge">VARIANCE()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">VARIANCE_SAMPLE()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">UNIQUE()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">SORTED_UNIQUE()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">COUNT_DISTINCT()</code> /
+                <code class="language-plaintext highlighter-rouge">COUNT_UNIQUE()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">BIT_AND()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">BIT_OR()</code></li>
+            <li><code class="language-plaintext highlighter-rouge">BIT_XOR()</code></li>
+        </ul>
+
+        <h2 id="row-based-aggregation">Row-based Aggregation<a class="anchor-link" href="#row-based-aggregation" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+        </h2>
+
+        <p>The first syntax form of
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> allows aggregating over a fixed number of
+            rows, following or preceding the current row. It is also possible to define
+            that
+            <strong>all</strong> preceding or following rows should be aggregated (<code class="language-plaintext highlighter-rouge">"unbounded"</code>).
+            The number of rows has to be determined at query compile time.</p>
+
+        <p>Below query demonstrates the use of window frames to compute <strong>running totals</strong>
+            as well as <strong>rolling averages</strong> computed from the current row and the rows that
+            immediately precede and follow it:</p>
+
+        <div id="aql-windowAggregationRow" class="example-container hide-result">
+            <a class="anchor-link" href="#aql-windowAggregationRow" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+            <div>
+        <pre>FOR t IN observations
+    SORT t.time
+    WINDOW { <span class="hljs-attr">preceding</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">1</span> }
+    AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
+    WINDOW { <span class="hljs-attr">preceding</span>: <span class="hljs-string">"unbounded"</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">0</span>}
+    AGGREGATE cumulativeSum = SUM(t.val)
+    RETURN {
+      <span class="hljs-attr">time</span>: t.time,
+      <span class="hljs-attr">subject</span>: t.subject,
+      <span class="hljs-attr">val</span>: t.val,
+      rollingAverage, <span class="hljs-comment">// average of the window's values</span>
+      rollingSum,     <span class="hljs-comment">// sum of the window's values</span>
+      cumulativeSum   <span class="hljs-comment">// running total</span>
+    }</pre>
+            </div>
+            <div class="show-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRow').className = document.querySelector('#aql-windowAggregationRow').className.replace('hide-result', 'show-result')">Show query results</div>
+            </div>
+            <div class="hide-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRow').className = document.querySelector('#aql-windowAggregationRow').className.replace('show-result', 'hide-result')">Hide query results</div>
+            </div>
+            <div class="example-result">
+        <pre>[
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">6.333333333333333</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">19</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">6.333333333333333</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">19</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">19</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">14.666666666666666</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">44</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">29</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">13.333333333333334</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">40</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">54</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">16.666666666666668</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">59</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">18.333333333333332</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">55</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">79</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">75</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">109</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 08:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">27.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">55</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">134</span>
+  }
+]</pre>
+            </div>
+        </div>
+
+        <p>The row order is controlled by the
+            <code class="language-plaintext highlighter-rouge">SORT</code> operation on the
+            <code class="language-plaintext highlighter-rouge">time</code> attribute.</p>
+
+        <p>The first
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> operation aggregates the previous, current, and next row
+            (preceding and following is set to 1) and calculates the average and sum of
+            these three values. In case of the first row, there is no preceding row but a
+            following row, hence the values <code class="language-plaintext highlighter-rouge">10</code> and
+            <code class="language-plaintext highlighter-rouge">0</code> are added up to calculate the sum,
+            which is divided by 2 to compute the average. For the second row, the values
+            <code class="language-plaintext highlighter-rouge">10</code>,
+            <code class="language-plaintext highlighter-rouge">0</code> and
+            <code class="language-plaintext highlighter-rouge">9</code> are summed up and divided by 3, and so on.</p>
+
+        <p>The second
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> operation aggregates all previous values (unbounded) to
+            calculate a running sum. For the first row, that is just
+            <code class="language-plaintext highlighter-rouge">10</code>, for the second
+            row it is <code class="language-plaintext highlighter-rouge">10</code> +
+            <code class="language-plaintext highlighter-rouge">0</code>, for the third
+            <code class="language-plaintext highlighter-rouge">10</code> +
+            <code class="language-plaintext highlighter-rouge">0</code> +
+            <code class="language-plaintext highlighter-rouge">9</code>, and so on.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>time</th>
+                <th>subject</th>
+                <th style="text-align: right">val</th>
+                <th style="text-align: right">rollingAverage</th>
+                <th style="text-align: right">rollingSum</th>
+                <th style="text-align: right">cumulativeSum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>st113</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">10</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">0</td>
+                <td style="text-align: right">6.333…</td>
+                <td style="text-align: right">19</td>
+                <td style="text-align: right">10</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>st113</td>
+                <td style="text-align: right">9</td>
+                <td style="text-align: right">6.333…</td>
+                <td style="text-align: right">19</td>
+                <td style="text-align: right">19</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">14.666…</td>
+                <td style="text-align: right">44</td>
+                <td style="text-align: right">29</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>st113</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">13.333…</td>
+                <td style="text-align: right">40</td>
+                <td style="text-align: right">54</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">16.666…</td>
+                <td style="text-align: right">50</td>
+                <td style="text-align: right">59</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>st113</td>
+                <td style="text-align: right">20</td>
+                <td style="text-align: right">18.333…</td>
+                <td style="text-align: right">55</td>
+                <td style="text-align: right">79</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">30</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">75</td>
+                <td style="text-align: right">109</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 08:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">27.5</td>
+                <td style="text-align: right">55</td>
+                <td style="text-align: right">134</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>The below query demonstrates the use of window frames to compute running totals
+            within each <code class="language-plaintext highlighter-rouge">subject</code> group of
+            <code class="language-plaintext highlighter-rouge">time</code>-ordered query rows, as well as rolling
+            sums and averages computed from the current row and the rows that immediately
+            precede and follow it, also per
+            <code class="language-plaintext highlighter-rouge">subject</code> group and sorted by
+            <code class="language-plaintext highlighter-rouge">time</code>:</p>
+
+        <div id="aql-windowAggregationRowGrouped" class="example-container hide-result">
+            <a class="anchor-link" href="#aql-windowAggregationRowGrouped" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+            <div>
+        <pre>FOR t IN observations
+    COLLECT subject = t.subject INTO group = t
+    LET subquery = (FOR t2 IN group
+      SORT t2.time
+      WINDOW { <span class="hljs-attr">preceding</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">1</span> }
+      AGGREGATE rollingAverage = AVG(t2.val), rollingSum = SUM(t2.val)
+      WINDOW { <span class="hljs-attr">preceding</span>: <span class="hljs-string">"unbounded"</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">0</span> }
+      AGGREGATE cumulativeSum = SUM(t2.val)
+      RETURN {
+        <span class="hljs-attr">time</span>: t2.time,
+        <span class="hljs-attr">subject</span>: t2.subject,
+        <span class="hljs-attr">val</span>: t2.val,
+        rollingAverage,
+        rollingSum,
+        cumulativeSum
+      }
+    )
+    <span class="hljs-comment">// flatten subquery result</span>
+    FOR t2 IN subquery
+      RETURN t2</pre>
+            </div>
+            <div class="show-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRowGrouped').className = document.querySelector('#aql-windowAggregationRowGrouped').className.replace('hide-result', 'show-result')">Show query results</div>
+            </div>
+            <div class="hide-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRowGrouped').className = document.querySelector('#aql-windowAggregationRowGrouped').className.replace('show-result', 'hide-result')">Hide query results</div>
+            </div>
+            <div class="example-result">
+        <pre>[
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">9.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">19</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">14.666666666666666</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">44</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">19</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">18</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">54</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">44</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">22.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">45</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">64</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">0</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">15</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">15</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">45</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">15</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">60</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">45</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 08:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">27.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">55</span>,
+    <span class="hljs-string">"cumulativeSum"</span>: <span class="hljs-number">70</span>
+  }
+]</pre>
+            </div>
+        </div>
+
+        <p>If you look at the first row with the subject
+            <code class="language-plaintext highlighter-rouge">xh458</code>, then you can see the
+            cumulative sum reset and that the rolling average and sum does not take the
+            previous row into account that belongs to subject
+            <code class="language-plaintext highlighter-rouge">st113</code>.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>time</th>
+                <th>subject</th>
+                <th style="text-align: right">val</th>
+                <th style="text-align: right">rollingAverage</th>
+                <th style="text-align: right">rollingSum</th>
+                <th style="text-align: right">cumulativeSum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>st113</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">9.5</td>
+                <td style="text-align: right">19</td>
+                <td style="text-align: right">10</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>st113</td>
+                <td style="text-align: right">9</td>
+                <td style="text-align: right">14.666…</td>
+                <td style="text-align: right">44</td>
+                <td style="text-align: right">19</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>st113</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">18</td>
+                <td style="text-align: right">54</td>
+                <td style="text-align: right">44</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>st113</td>
+                <td style="text-align: right">20</td>
+                <td style="text-align: right">22.5</td>
+                <td style="text-align: right">45</td>
+                <td style="text-align: right">64</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">0</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">0</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">15</td>
+                <td style="text-align: right">10</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">15</td>
+                <td style="text-align: right">45</td>
+                <td style="text-align: right">15</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">30</td>
+                <td style="text-align: right">20</td>
+                <td style="text-align: right">60</td>
+                <td style="text-align: right">45</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 08:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">27.5</td>
+                <td style="text-align: right">55</td>
+                <td style="text-align: right">70</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2 id="range-based-aggregation">Range-based Aggregation<a class="anchor-link" href="#range-based-aggregation" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+        </h2>
+
+        <p>The second syntax form of
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> allows aggregating over a all documents
+            within a value range. Offsets are differences in attribute values from the
+            current document.</p>
+
+        <p>Attribute values have to be numeric. The offset calculations are performed by
+            adding or subtracting the numeric offsets specified in the
+            <code class="language-plaintext highlighter-rouge">following</code> and
+            <code class="language-plaintext highlighter-rouge">preceding</code> attribute. The offset numbers have to be positive and have to be
+            determined at query compile time. The default offset is
+            <code class="language-plaintext highlighter-rouge">0</code>.</p>
+
+        <p>The range based window syntax requires the input rows to be sorted by the row
+            value. To ensure correctness of the result, the AQL optimizer will
+            automatically insert a
+            <code class="language-plaintext highlighter-rouge">SORT</code> statement into the query in front of the
+            <code class="language-plaintext highlighter-rouge">WINDOW</code>
+            statement. The optimizer may be able to optimize away that
+            <code class="language-plaintext highlighter-rouge">SORT</code> statement
+            later if a sorted index is present on the group criteria.</p>
+
+        <p>The following query demonstrates the use of window frames to compute totals as
+            well as averages computed from the current document and the documents that have
+            attribute values in <code class="language-plaintext highlighter-rouge">t.val</code> in the range of
+            <code class="language-plaintext highlighter-rouge">[-10, +5]</code> (inclusive), preceding
+            and following:</p>
+
+        <div id="aql-windowAggregationRangeValue" class="example-container hide-result">
+            <a class="anchor-link" href="#aql-windowAggregationRangeValue" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+            <div>
+        <pre>FOR t IN observations
+    WINDOW t.val WITH { <span class="hljs-attr">preceding</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">following</span>: <span class="hljs-number">5</span> }
+    AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
+    RETURN {
+      <span class="hljs-attr">time</span>: t.time,
+      <span class="hljs-attr">subject</span>: t.subject,
+      <span class="hljs-attr">val</span>: t.val,
+      rollingAverage,
+      rollingSum
+    }</pre>
+            </div>
+            <div class="show-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRangeValue').className = document.querySelector('#aql-windowAggregationRangeValue').className.replace('hide-result', 'show-result')">Show query results</div>
+            </div>
+            <div class="hide-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRangeValue').className = document.querySelector('#aql-windowAggregationRangeValue').className.replace('show-result', 'hide-result')">Hide query results</div>
+            </div>
+            <div class="example-result">
+        <pre>[
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">2.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">5</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">6.8</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">34</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">6.8</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">34</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">6.8</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">34</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">6.8</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">34</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">18</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">90</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">100</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 08:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">100</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">100</span>
+  }
+]</pre>
+            </div>
+        </div>
+
+        <p>The value range of the first row is <code class="language-plaintext highlighter-rouge">[-10, 5]</code> since
+            <code class="language-plaintext highlighter-rouge">val</code> is
+            <code class="language-plaintext highlighter-rouge">0</code>, thus the
+            values from the first and second row are added up to
+            <code class="language-plaintext highlighter-rouge">5</code> with the average being
+            <code class="language-plaintext highlighter-rouge">2.5</code>. The value range of the last row is
+            <code class="language-plaintext highlighter-rouge">[20, 35]</code> as
+            <code class="language-plaintext highlighter-rouge">val</code> is
+            <code class="language-plaintext highlighter-rouge">30</code>, which
+            means that the last four rows get aggregated to a sum of
+            <code class="language-plaintext highlighter-rouge">100</code> and an average
+            of <code class="language-plaintext highlighter-rouge">25</code> (the range is inclusive, i.e.
+            <code class="language-plaintext highlighter-rouge">val</code> falls within the range with a value
+            of <code class="language-plaintext highlighter-rouge">20</code>).</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>time</th>
+                <th>subject</th>
+                <th style="text-align: right">val</th>
+                <th style="text-align: right">rollingAverage</th>
+                <th style="text-align: right">rollingSum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">0</td>
+                <td style="text-align: right">2.5</td>
+                <td style="text-align: right">5</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">6.8</td>
+                <td style="text-align: right">34</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>st113</td>
+                <td style="text-align: right">9</td>
+                <td style="text-align: right">6.8</td>
+                <td style="text-align: right">34</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>st113</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">6.8</td>
+                <td style="text-align: right">34</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">6.8</td>
+                <td style="text-align: right">34</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>st113</td>
+                <td style="text-align: right">20</td>
+                <td style="text-align: right">18</td>
+                <td style="text-align: right">90</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>st113</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">100</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 08:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">100</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">30</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">100</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h2 id="duration-based-aggregation">Duration-based Aggregation<a class="anchor-link" href="#duration-based-aggregation" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+        </h2>
+
+        <p>Aggregating by time intervals is a subtype of range-based aggregation that
+            uses the second syntax form of
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> but with ISO durations.</p>
+
+        <p>To support <code class="language-plaintext highlighter-rouge">WINDOW</code> frames over time-series data the
+            <code class="language-plaintext highlighter-rouge">WINDOW</code> operation may
+            calculate timestamp offsets using positive ISO 8601 duration strings, like
+            <code class="language-plaintext highlighter-rouge">P1Y6M</code> (1 year and 6 months) or
+            <code class="language-plaintext highlighter-rouge">PT12H30M</code> (12 hours and 30 minutes). Also see
+            <a href="functions-date.html#comparison-and-calculation">Date functions</a>.
+            In contrast to the ISO 8601 standard, week components may be freely combined
+            with other components. For example, <code class="language-plaintext highlighter-rouge">P1WT1H</code> and
+            <code class="language-plaintext highlighter-rouge">P1M1W</code> are both valid.
+            Fractional values are only supported for seconds, and only with up to three
+            decimals after the separator, i.e., millisecond precision. For example,
+            <code class="language-plaintext highlighter-rouge">PT0.123S</code> is a valid duration while
+            <code class="language-plaintext highlighter-rouge">PT0.5H</code> and
+            <code class="language-plaintext highlighter-rouge">PT0.1234S</code> are not.</p>
+
+        <p>Durations can be specified separately in
+            <code class="language-plaintext highlighter-rouge">following</code> and
+            <code class="language-plaintext highlighter-rouge">preceding</code>.
+            If such a duration is used, then the attribute value of the current document
+            must be a number and is treated as numeric <strong>timestamp in milliseconds</strong>.
+            The range is inclusive. If either bound is not specified, it is treated as an
+            empty duration (i.e., <code class="language-plaintext highlighter-rouge">P0D</code>).</p>
+
+        <p>The following query demonstrates the use of window frames to compute rolling
+            sums and averages over observations in the last 30 minutes (inclusive), based
+            on the document attribute
+            <code class="language-plaintext highlighter-rouge">time</code> that is converted from a datetime string to a
+            numeric timestamp:</p>
+
+        <div id="aql-windowAggregationRangeDuration" class="example-container hide-result">
+            <a class="anchor-link" href="#aql-windowAggregationRangeDuration" title="Permalink"><span class="sr-only">Permalink</span><i class="fa fa-link"></i></a>
+            <div>
+        <pre>FOR t IN observations
+    WINDOW DATE_TIMESTAMP(t.time) WITH { <span class="hljs-attr">preceding</span>: <span class="hljs-string">"PT30M"</span> }
+    AGGREGATE rollingAverage = AVG(t.val), rollingSum = SUM(t.val)
+    RETURN {
+      <span class="hljs-attr">time</span>: t.time,
+      <span class="hljs-attr">subject</span>: t.subject,
+      <span class="hljs-attr">val</span>: t.val,
+      rollingAverage,
+      rollingSum
+    }</pre>
+            </div>
+            <div class="show-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRangeDuration').className = document.querySelector('#aql-windowAggregationRangeDuration').className.replace('hide-result', 'show-result')">Show query results</div>
+            </div>
+            <div class="hide-button">
+                <div class="example_show_button" onclick="document.querySelector('#aql-windowAggregationRangeDuration').className = document.querySelector('#aql-windowAggregationRangeDuration').className.replace('show-result', 'hide-result')">Hide query results</div>
+            </div>
+            <div class="example-result">
+        <pre>[
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">10</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">7.25</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">29</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:15:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">7.25</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">29</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">9.833333333333334</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">59</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:30:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">9.833333333333334</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">59</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"st113"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">16.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">99</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 07:45:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">30</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">16.5</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">99</span>
+  },
+  {
+    <span class="hljs-string">"time"</span>: <span class="hljs-string">"2021-05-25 08:00:00"</span>,
+    <span class="hljs-string">"subject"</span>: <span class="hljs-string">"xh458"</span>,
+    <span class="hljs-string">"val"</span>: <span class="hljs-number">25</span>,
+    <span class="hljs-string">"rollingAverage"</span>: <span class="hljs-number">21</span>,
+    <span class="hljs-string">"rollingSum"</span>: <span class="hljs-number">105</span>
+  }
+]</pre>
+            </div>
+        </div>
+
+        <p>With a time of <code class="language-plaintext highlighter-rouge">07:30:00</code>, everything from
+            <code class="language-plaintext highlighter-rouge">07:00:00</code> to
+            <code class="language-plaintext highlighter-rouge">07:30:00</code> on the same
+            day falls within the duration range with
+            <code class="language-plaintext highlighter-rouge">preceding: "PT30M"</code>, thus aggregating
+            the top six rows to a sum of <code class="language-plaintext highlighter-rouge">59</code> and an average of
+            <code class="language-plaintext highlighter-rouge">9.8333…</code>.</p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>time</th>
+                <th>subject</th>
+                <th style="text-align: right">val</th>
+                <th style="text-align: right">rollingAverage</th>
+                <th style="text-align: right">rollingSum</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>st113</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">10</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">0</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">10</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>st113</td>
+                <td style="text-align: right">9</td>
+                <td style="text-align: right">7.25</td>
+                <td style="text-align: right">29</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:15:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">10</td>
+                <td style="text-align: right">7.25</td>
+                <td style="text-align: right">29</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>st113</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">9.8333…</td>
+                <td style="text-align: right">59</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:30:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">5</td>
+                <td style="text-align: right">9.8333…</td>
+                <td style="text-align: right">59</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>st113</td>
+                <td style="text-align: right">20</td>
+                <td style="text-align: right">16.5</td>
+                <td style="text-align: right">99</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 07:45:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">30</td>
+                <td style="text-align: right">16.5</td>
+                <td style="text-align: right">99</td>
+            </tr>
+            <tr>
+                <td>2021-05-25 08:00:00</td>
+                <td>xh458</td>
+                <td style="text-align: right">25</td>
+                <td style="text-align: right">21</td>
+                <td style="text-align: right">105</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+
+</div>
+</body>
+</html>
